@@ -1,0 +1,1226 @@
+[gd_scene load_steps=270 format=3 uid="uid://bejqc22buxrw1"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/Enemy 2.gd" id="1_0quuy"]
+[ext_resource type="Texture2D" uid="uid://djj1f4iwu5syc" path="res://Assets/Characters/Enemies/Zombie.png" id="2_eyuha"]
+[ext_resource type="Texture2D" uid="uid://b3qtbx6q1hs0" path="res://Assets/VFX/PixelSimulations/Explosion1/0001.png" id="3_ubtd3"]
+[ext_resource type="Texture2D" uid="uid://dgvu8l7xtvs41" path="res://Assets/VFX/PixelSimulations/Explosion1/0002.png" id="4_2fgm6"]
+[ext_resource type="Texture2D" uid="uid://c82h7jpwthuyc" path="res://Assets/VFX/PixelSimulations/Explosion1/0003.png" id="5_ro5c6"]
+[ext_resource type="Texture2D" uid="uid://b4q7vlv4ndel4" path="res://Assets/VFX/PixelSimulations/Explosion1/0004.png" id="6_7mtf4"]
+[ext_resource type="Texture2D" uid="uid://bq8rua0an0m30" path="res://Assets/VFX/PixelSimulations/Explosion1/0005.png" id="7_3jgiq"]
+[ext_resource type="Texture2D" uid="uid://dh1cpvinfd2e0" path="res://Assets/VFX/PixelSimulations/Explosion1/0006.png" id="8_22vah"]
+[ext_resource type="Texture2D" uid="uid://dd7dqo3gqo4nv" path="res://Assets/VFX/PixelSimulations/Explosion1/0007.png" id="9_766u5"]
+[ext_resource type="Texture2D" uid="uid://eei43jykp8aa" path="res://Assets/VFX/PixelSimulations/Explosion1/0008.png" id="10_gt7qx"]
+[ext_resource type="Texture2D" uid="uid://bgeonxekupte7" path="res://Assets/VFX/PixelSimulations/Explosion1/0009.png" id="11_yx56n"]
+[ext_resource type="Texture2D" uid="uid://ch5cu48m64i4s" path="res://Assets/VFX/PixelSimulations/Explosion1/0010.png" id="12_fiodx"]
+[ext_resource type="Texture2D" uid="uid://b85n4034uklcj" path="res://Assets/VFX/PixelSimulations/Explosion1/0011.png" id="13_ejktb"]
+[ext_resource type="Texture2D" uid="uid://u5n715xkiu68" path="res://Assets/VFX/PixelSimulations/Explosion1/0012.png" id="14_05j4r"]
+[ext_resource type="Texture2D" uid="uid://i7e2euu8x1kt" path="res://Assets/VFX/PixelSimulations/Explosion1/0013.png" id="15_j5blx"]
+[ext_resource type="Texture2D" uid="uid://d1dhtgrx1xay5" path="res://Assets/VFX/PixelSimulations/Explosion1/0014.png" id="16_5am3u"]
+[ext_resource type="Texture2D" uid="uid://daeybinkb2eyi" path="res://Assets/VFX/PixelSimulations/Explosion1/0015.png" id="17_oycyv"]
+[ext_resource type="Texture2D" uid="uid://ctbqf7jnefgw3" path="res://Assets/VFX/PixelSimulations/Explosion1/0016.png" id="18_15hub"]
+[ext_resource type="Texture2D" uid="uid://daevvr13dx4rd" path="res://Assets/VFX/PixelSimulations/Explosion1/0017.png" id="19_cv7bs"]
+[ext_resource type="Texture2D" uid="uid://cebxqp687rmr2" path="res://Assets/VFX/PixelSimulations/Explosion1/0018.png" id="20_jpkqm"]
+[ext_resource type="Texture2D" uid="uid://b0aw6akh6xo3b" path="res://Assets/VFX/PixelSimulations/Explosion1/0019.png" id="21_u25yd"]
+[ext_resource type="Texture2D" uid="uid://bbcle0whgagi5" path="res://Assets/VFX/PixelSimulations/Explosion1/0020.png" id="22_0k53x"]
+[ext_resource type="Texture2D" uid="uid://cvvfet8wf0vah" path="res://Assets/VFX/PixelSimulations/Explosion1/0021.png" id="23_r5dwv"]
+[ext_resource type="Texture2D" uid="uid://drn44q5x68k3p" path="res://Assets/VFX/PixelSimulations/Explosion1/0022.png" id="24_r1xnb"]
+[ext_resource type="Texture2D" uid="uid://ht7h3pbgbvay" path="res://Assets/VFX/PixelSimulations/Explosion1/0023.png" id="25_lm4hg"]
+[ext_resource type="Texture2D" uid="uid://bxibtr8k7hv6j" path="res://Assets/VFX/PixelSimulations/Explosion1/0024.png" id="26_18jrn"]
+[ext_resource type="Texture2D" uid="uid://c733okf54s8qn" path="res://Assets/VFX/PixelSimulations/Explosion1/0025.png" id="27_blt6n"]
+[ext_resource type="Texture2D" uid="uid://tufut5aapgk2" path="res://Assets/VFX/PixelSimulations/Explosion1/0026.png" id="28_fywbl"]
+[ext_resource type="Texture2D" uid="uid://bdap3ey0faeo4" path="res://Assets/VFX/PixelSimulations/Explosion1/0027.png" id="29_v5vu2"]
+[ext_resource type="Texture2D" uid="uid://b0hfgpv02143o" path="res://Assets/VFX/PixelSimulations/Explosion1/0028.png" id="30_hpc2j"]
+[ext_resource type="Texture2D" uid="uid://72er0syj7kk4" path="res://Assets/VFX/PixelSimulations/Explosion1/0029.png" id="31_hfcql"]
+[ext_resource type="Texture2D" uid="uid://dr8uhrcairhk" path="res://Assets/VFX/PixelSimulations/Explosion1/0030.png" id="32_pc0d8"]
+[ext_resource type="Texture2D" uid="uid://5h0npmt147c0" path="res://Assets/VFX/PixelSimulations/Explosion1/0031.png" id="33_m33kb"]
+[ext_resource type="Texture2D" uid="uid://bdd6r4a3dl3v0" path="res://Assets/VFX/PixelSimulations/Explosion1/0032.png" id="34_ujmrt"]
+[ext_resource type="Texture2D" uid="uid://sito8owsofv4" path="res://Assets/VFX/PixelSimulations/Explosion1/0033.png" id="35_210xy"]
+[ext_resource type="Texture2D" uid="uid://i0oqeij6l1bt" path="res://Assets/VFX/PixelSimulations/Explosion1/0034.png" id="36_wyhu4"]
+[ext_resource type="Texture2D" uid="uid://balbjjdf05fti" path="res://Assets/VFX/PixelSimulations/Explosion1/0035.png" id="37_4wryk"]
+[ext_resource type="Texture2D" uid="uid://dwdix1otn8c03" path="res://Assets/VFX/PixelSimulations/Explosion1/0036.png" id="38_0pluw"]
+[ext_resource type="Texture2D" uid="uid://dpq6ng7iijokg" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0001.png" id="39_tyv20"]
+[ext_resource type="Texture2D" uid="uid://b77f8bjfp4rdl" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0002.png" id="40_0u4p3"]
+[ext_resource type="Texture2D" uid="uid://ilsqiww8jfl1" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0003.png" id="41_7gf7f"]
+[ext_resource type="Texture2D" uid="uid://dd1bju776mu3c" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0004.png" id="42_d68ny"]
+[ext_resource type="Texture2D" uid="uid://re6m5cbkft2r" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0005.png" id="43_p4kfw"]
+[ext_resource type="Texture2D" uid="uid://c15cg4m4mjlhn" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0006.png" id="44_0h76b"]
+[ext_resource type="Texture2D" uid="uid://ch67lexc7eo2b" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0007.png" id="45_gwk2r"]
+[ext_resource type="Texture2D" uid="uid://u1x6yq4xyc6g" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0008.png" id="46_1nhwg"]
+[ext_resource type="Texture2D" uid="uid://c0g3acsb66oje" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0009.png" id="47_eh4nc"]
+[ext_resource type="Texture2D" uid="uid://olehfwaq4p8d" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0010.png" id="48_6rkao"]
+[ext_resource type="Texture2D" uid="uid://cji0l46r13m4n" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0011.png" id="49_pgwco"]
+[ext_resource type="Texture2D" uid="uid://dcse5qqg1xv67" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0012.png" id="50_6v1th"]
+[ext_resource type="Texture2D" uid="uid://bsqjb4f6klc3w" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0013.png" id="51_r7xit"]
+[ext_resource type="Texture2D" uid="uid://de8dhvj13yfrd" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0014.png" id="52_mgryf"]
+[ext_resource type="Texture2D" uid="uid://bkau03e7bghdw" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0015.png" id="53_wuj5l"]
+[ext_resource type="Texture2D" uid="uid://be3onp22rqic3" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0016.png" id="54_ntp5v"]
+[ext_resource type="Texture2D" uid="uid://dgwi2g4cmnxm0" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0017.png" id="55_b0mrm"]
+[ext_resource type="Texture2D" uid="uid://dj06wad5ykubw" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0018.png" id="56_3qg0c"]
+[ext_resource type="Texture2D" uid="uid://2pc0o8v3xwor" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0019.png" id="57_wk632"]
+[ext_resource type="Texture2D" uid="uid://7ghk8klehkc5" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0020.png" id="58_swpuq"]
+[ext_resource type="Texture2D" uid="uid://br6w6ndsqkoul" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0021.png" id="59_s2cig"]
+[ext_resource type="Texture2D" uid="uid://bu85gs5sh3dat" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0022.png" id="60_ly30l"]
+[ext_resource type="Texture2D" uid="uid://b6tjsij532u62" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0023.png" id="61_p7ipm"]
+[ext_resource type="Texture2D" uid="uid://bk6b7cnoqjglo" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0024.png" id="62_qyohu"]
+[ext_resource type="Texture2D" uid="uid://cjiq1clpqvoq1" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0025.png" id="63_8ynxr"]
+[ext_resource type="Texture2D" uid="uid://bpmod5xqxrvpr" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0026.png" id="64_28kqg"]
+[ext_resource type="Texture2D" uid="uid://dcmkeb8fk3pje" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0027.png" id="65_4eh35"]
+[ext_resource type="Texture2D" uid="uid://v5gcviihlsqb" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0028.png" id="66_atmld"]
+[ext_resource type="Texture2D" uid="uid://c7h5ftnkwtoit" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0029.png" id="67_8h0du"]
+[ext_resource type="Texture2D" uid="uid://dpm81kvk2a2nd" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0030.png" id="68_4guc6"]
+[ext_resource type="Texture2D" uid="uid://dw360yr45ttla" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0031.png" id="69_3mmqb"]
+[ext_resource type="Texture2D" uid="uid://bbf02draaa6xe" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0032.png" id="70_3hddw"]
+[ext_resource type="Texture2D" uid="uid://l6dsgkjvatfn" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0033.png" id="71_b2r8r"]
+[ext_resource type="Texture2D" uid="uid://cqgxdjaqs30w0" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0034.png" id="72_5wvp1"]
+[ext_resource type="Texture2D" uid="uid://bei4y3ivgdqkr" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0035.png" id="73_rw7by"]
+[ext_resource type="Texture2D" uid="uid://cyha30cfvjcxr" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0036.png" id="74_igo6u"]
+[ext_resource type="Texture2D" uid="uid://d1bg7oab382rf" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0037.png" id="75_jcvi7"]
+[ext_resource type="Texture2D" uid="uid://osfrnhxkvihb" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0038.png" id="76_b5yq7"]
+[ext_resource type="Texture2D" uid="uid://b0oq1o61omxog" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0039.png" id="77_pf1hh"]
+[ext_resource type="Texture2D" uid="uid://j6p75bj06ntm" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0040.png" id="78_xmp8d"]
+[ext_resource type="Texture2D" uid="uid://cebcfnj8g05xo" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0041.png" id="79_rbmjj"]
+[ext_resource type="Texture2D" uid="uid://bm415riasqyyh" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0042.png" id="80_4145a"]
+[ext_resource type="Texture2D" uid="uid://c5eo4kkfmj5g1" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0043.png" id="81_66vs7"]
+[ext_resource type="Texture2D" uid="uid://fcuqbdgd6dr1" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0044.png" id="82_p4w7d"]
+[ext_resource type="Texture2D" uid="uid://difk8r1hu0upa" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0045.png" id="83_wlftw"]
+[ext_resource type="Texture2D" uid="uid://nfptkrg77ro6" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0046.png" id="84_78bjf"]
+[ext_resource type="Texture2D" uid="uid://fns3ybxug0hr" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0047.png" id="85_cvymh"]
+[ext_resource type="Texture2D" uid="uid://t5uiosrus78b" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0048.png" id="86_4636u"]
+[ext_resource type="Texture2D" uid="uid://bno83kx2d505a" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0049.png" id="87_lnsr0"]
+[ext_resource type="Texture2D" uid="uid://6efrcxhv7x4j" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0050.png" id="88_o7deh"]
+[ext_resource type="Texture2D" uid="uid://by1j8qy0p7mv2" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0051.png" id="89_5ka7h"]
+[ext_resource type="Texture2D" uid="uid://dg2ksqlyptjde" path="res://Assets/VFX/PixelSimulations/GasExplosion1/0052.png" id="90_5iuuq"]
+[ext_resource type="Texture2D" uid="uid://b6ly1ates4rxy" path="res://Assets/VFX/PixelSimulations/GasLeak1/0001.png" id="91_a4bvy"]
+[ext_resource type="Texture2D" uid="uid://bnplas73n0j6c" path="res://Assets/VFX/PixelSimulations/GasLeak1/0002.png" id="92_aed0u"]
+[ext_resource type="Texture2D" uid="uid://5xvrok0tf2fc" path="res://Assets/VFX/PixelSimulations/GasLeak1/0003.png" id="93_4b0bg"]
+[ext_resource type="Texture2D" uid="uid://cdqjntby0nx1x" path="res://Assets/VFX/PixelSimulations/GasLeak1/0004.png" id="94_tga0t"]
+[ext_resource type="Texture2D" uid="uid://colohkmpk7cta" path="res://Assets/VFX/PixelSimulations/GasLeak1/0005.png" id="95_4iscm"]
+[ext_resource type="Texture2D" uid="uid://bk34woggingjt" path="res://Assets/VFX/PixelSimulations/GasLeak1/0006.png" id="96_8lx08"]
+[ext_resource type="Texture2D" uid="uid://hecb30clq8j" path="res://Assets/VFX/PixelSimulations/GasLeak1/0007.png" id="97_u4wir"]
+[ext_resource type="Texture2D" uid="uid://2ahylilr3364" path="res://Assets/VFX/PixelSimulations/GasLeak1/0008.png" id="98_qytny"]
+[ext_resource type="Texture2D" uid="uid://bwvt0lmgih4a5" path="res://Assets/VFX/PixelSimulations/GasLeak1/0009.png" id="99_c5xg3"]
+[ext_resource type="Texture2D" uid="uid://btleopsdnxmdk" path="res://Assets/VFX/PixelSimulations/GasLeak1/0010.png" id="100_gm3hn"]
+[ext_resource type="Texture2D" uid="uid://qt8a0p48ow5w" path="res://Assets/VFX/PixelSimulations/GasLeak1/0011.png" id="101_xu7ul"]
+[ext_resource type="Texture2D" uid="uid://cjvmvjcy18rrb" path="res://Assets/VFX/PixelSimulations/GasLeak1/0012.png" id="102_uo22m"]
+[ext_resource type="Texture2D" uid="uid://bjw41al8l64h1" path="res://Assets/VFX/PixelSimulations/GasLeak1/0013.png" id="103_3onnm"]
+[ext_resource type="Texture2D" uid="uid://bhoxb6yaprpcv" path="res://Assets/VFX/PixelSimulations/GasLeak1/0014.png" id="104_1hsyb"]
+[ext_resource type="Texture2D" uid="uid://eqlfteknd38s" path="res://Assets/VFX/PixelSimulations/GasLeak1/0015.png" id="105_ata75"]
+[ext_resource type="Texture2D" uid="uid://b2cydqg5hvq7o" path="res://Assets/VFX/PixelSimulations/GasLeak1/0016.png" id="106_niftr"]
+[ext_resource type="Texture2D" uid="uid://dc8w1kds6j27u" path="res://Assets/VFX/PixelSimulations/GasLeak1/0017.png" id="107_bm1r6"]
+[ext_resource type="Texture2D" uid="uid://brmrr1j2gyjjy" path="res://Assets/VFX/PixelSimulations/GasLeak1/0018.png" id="108_28sdd"]
+[ext_resource type="Texture2D" uid="uid://b7mq53aok3vw5" path="res://Assets/VFX/PixelSimulations/GasLeak1/0019.png" id="109_4n6y8"]
+[ext_resource type="Texture2D" uid="uid://b2jhnqmwtgo4q" path="res://Assets/VFX/PixelSimulations/GasLeak1/0020.png" id="110_3jper"]
+[ext_resource type="Texture2D" uid="uid://debk7oxpdi7pb" path="res://Assets/VFX/PixelSimulations/GasLeak1/0021.png" id="111_8ep2f"]
+[ext_resource type="Texture2D" uid="uid://cyei3c8fvdxc2" path="res://Assets/VFX/PixelSimulations/GasLeak1/0022.png" id="112_4d1ap"]
+[ext_resource type="Texture2D" uid="uid://c8n4d43ovih4w" path="res://Assets/VFX/PixelSimulations/GasLeak1/0023.png" id="113_b5idl"]
+[ext_resource type="Texture2D" uid="uid://cf25b5pchgxak" path="res://Assets/VFX/PixelSimulations/GasLeak1/0024.png" id="114_jy6pc"]
+[ext_resource type="Texture2D" uid="uid://c2wp43bik67bk" path="res://Assets/VFX/PixelSimulations/GasLeak1/0025.png" id="115_73jsa"]
+[ext_resource type="Texture2D" uid="uid://b0jmnkb3onmte" path="res://Assets/VFX/PixelSimulations/GasLeak1/0026.png" id="116_64mww"]
+[ext_resource type="Texture2D" uid="uid://b5ihpjhjkrsy8" path="res://Assets/VFX/PixelSimulations/GasLeak1/0027.png" id="117_7jcke"]
+[ext_resource type="Texture2D" uid="uid://b2hwtl6gs8tnu" path="res://Assets/VFX/PixelSimulations/GasLeak1/0028.png" id="118_jcftg"]
+[ext_resource type="Texture2D" uid="uid://chbywyuhbhiy6" path="res://Assets/VFX/PixelSimulations/GasLeak1/0029.png" id="119_7h800"]
+[ext_resource type="Texture2D" uid="uid://bp5m13vm7m8eb" path="res://Assets/VFX/PixelSimulations/GasLeak1/0030.png" id="120_kvv8b"]
+[ext_resource type="Texture2D" uid="uid://bvxxpo55ium70" path="res://Assets/VFX/PixelSimulations/GasLeak1/0031.png" id="121_m5gxs"]
+[ext_resource type="Texture2D" uid="uid://bcjcpyjybb1a6" path="res://Assets/VFX/PixelSimulations/GasLeak1/0032.png" id="122_2upmm"]
+[ext_resource type="Texture2D" uid="uid://bmvv4dcbuyyw4" path="res://Assets/VFX/PixelSimulations/GasLeak1/0033.png" id="123_aew8q"]
+[ext_resource type="Texture2D" uid="uid://do7w7p1d712ph" path="res://Assets/VFX/PixelSimulations/GasLeak1/0034.png" id="124_dkiyc"]
+[ext_resource type="Texture2D" uid="uid://dbpxyax4orh6r" path="res://Assets/VFX/PixelSimulations/GasLeak1/0035.png" id="125_xk3vc"]
+[ext_resource type="Texture2D" uid="uid://c5alvq8kpjcff" path="res://Assets/VFX/PixelSimulations/GasLeak1/0036.png" id="126_u8nq7"]
+[ext_resource type="Texture2D" uid="uid://c7v1to2oq0gno" path="res://Assets/VFX/PixelSimulations/GasLeak1/0037.png" id="127_0dgl8"]
+[ext_resource type="Texture2D" uid="uid://uuwov7olylsp" path="res://Assets/VFX/PixelSimulations/GasLeak1/0038.png" id="128_jv4o6"]
+[ext_resource type="Texture2D" uid="uid://cx3551yb6ovqx" path="res://Assets/VFX/PixelSimulations/GasLeak1/0039.png" id="129_ikyfb"]
+[ext_resource type="Texture2D" uid="uid://dtja828ayyl1r" path="res://Assets/VFX/PixelSimulations/GasLeak1/0040.png" id="130_ik3xt"]
+[ext_resource type="Texture2D" uid="uid://b47k6yo6eieyc" path="res://Assets/VFX/PixelSimulations/GasLeak1/0041.png" id="131_ab0rj"]
+[ext_resource type="Texture2D" uid="uid://b200suloew6q2" path="res://Assets/VFX/PixelSimulations/GasLeak1/0042.png" id="132_v4r0j"]
+[ext_resource type="Texture2D" uid="uid://c258vvxw0wfts" path="res://Assets/VFX/PixelSimulations/GasLeak1/0043.png" id="133_eslhs"]
+[ext_resource type="Texture2D" uid="uid://bc565yhahc4rs" path="res://Assets/VFX/PixelSimulations/GasLeak1/0044.png" id="134_6g1j2"]
+[ext_resource type="Texture2D" uid="uid://snevvsicy800" path="res://Assets/VFX/PixelSimulations/GasLeak1/0045.png" id="135_jcmke"]
+[ext_resource type="Texture2D" uid="uid://c38djacwf1tsc" path="res://Assets/VFX/PixelSimulations/GasLeak1/0046.png" id="136_wn2ji"]
+[ext_resource type="Texture2D" uid="uid://dw44wd8s14kcy" path="res://Assets/VFX/PixelSimulations/GasLeak1/0047.png" id="137_bulbj"]
+[ext_resource type="Texture2D" uid="uid://biw28rfc054ia" path="res://Assets/VFX/PixelSimulations/GasLeak1/0048.png" id="138_e6hhs"]
+[ext_resource type="Texture2D" uid="uid://ce8v20hpstbvx" path="res://Assets/VFX/PixelSimulations/GasLeak1/0049.png" id="139_8qmh2"]
+[ext_resource type="Texture2D" uid="uid://basdhfuliuyou" path="res://Assets/VFX/PixelSimulations/GasLeak1/0050.png" id="140_ieefd"]
+[ext_resource type="Texture2D" uid="uid://n2nps3yj4wwn" path="res://Assets/VFX/PixelSimulations/GasLeak1/0051.png" id="141_mp85r"]
+[ext_resource type="Texture2D" uid="uid://csnd7sdv0ibx8" path="res://Assets/VFX/PixelSimulations/GasLeak1/0052.png" id="142_7m00f"]
+[ext_resource type="Texture2D" uid="uid://bsdtnso3qoxnb" path="res://Assets/VFX/PixelSimulations/GasLeak1/0053.png" id="143_cvuba"]
+[ext_resource type="Texture2D" uid="uid://damfn4gyainlf" path="res://Assets/VFX/PixelSimulations/GasLeak1/0054.png" id="144_h0sdu"]
+[ext_resource type="Texture2D" uid="uid://bleem3idbtrls" path="res://Assets/VFX/PixelSimulations/GasLeak1/0055.png" id="145_ll2ko"]
+[ext_resource type="Texture2D" uid="uid://cdse284t5dhts" path="res://Assets/VFX/PixelSimulations/GasLeak1/0056.png" id="146_kp6ow"]
+[ext_resource type="Texture2D" uid="uid://x1uqavj3nqi3" path="res://Assets/VFX/PixelSimulations/GasLeak1/0057.png" id="147_ak4v8"]
+[ext_resource type="Texture2D" uid="uid://tesiugbh3cgh" path="res://Assets/VFX/PixelSimulations/GasLeak1/0058.png" id="148_l8hy8"]
+[ext_resource type="Texture2D" uid="uid://cf485j2op7p6a" path="res://Assets/VFX/PixelSimulations/GasLeak1/0059.png" id="149_i1rje"]
+[ext_resource type="Texture2D" uid="uid://djdgnq1mny7p2" path="res://Assets/VFX/PixelSimulations/GasLeak1/0060.png" id="150_24ab5"]
+[ext_resource type="Texture2D" uid="uid://cq37fyjrwvckr" path="res://Assets/VFX/PixelSimulations/GasLeak1/0061.png" id="151_w7enc"]
+[ext_resource type="Texture2D" uid="uid://cpmcvvs12xqhs" path="res://Assets/VFX/PixelSimulations/GasLeak1/0062.png" id="152_4ncxm"]
+[ext_resource type="Texture2D" uid="uid://egue46vkfpix" path="res://Assets/VFX/PixelSimulations/GasLeak1/0063.png" id="153_w35r4"]
+[ext_resource type="Texture2D" uid="uid://bg62nvrqn4341" path="res://Assets/VFX/PixelSimulations/GasLeak1/0064.png" id="154_lsdne"]
+[ext_resource type="Texture2D" uid="uid://bfyq5dgmtxkp1" path="res://Assets/VFX/PixelSimulations/GasLeak1/0065.png" id="155_t6pjr"]
+[ext_resource type="Texture2D" uid="uid://ddk2adax0j8mc" path="res://Assets/VFX/PixelSimulations/GasLeak1/0066.png" id="156_t720j"]
+[ext_resource type="Texture2D" uid="uid://tm5wtfk5l1jn" path="res://Assets/VFX/PixelSimulations/GasLeak1/0067.png" id="157_jnxkm"]
+[ext_resource type="Texture2D" uid="uid://bfyro2j3smduy" path="res://Assets/VFX/PixelSimulations/GasLeak1/0068.png" id="158_swiwi"]
+[ext_resource type="Texture2D" uid="uid://7xnsujw1r8dd" path="res://Assets/VFX/PixelSimulations/GasLeak1/0069.png" id="159_l0ays"]
+[ext_resource type="Texture2D" uid="uid://bi6roinb4os47" path="res://Assets/VFX/PixelSimulations/GasLeak1/0070.png" id="160_jje2a"]
+[ext_resource type="Texture2D" uid="uid://blumnnuhio3bo" path="res://Assets/VFX/PixelSimulations/GasLeak1/0071.png" id="161_y4pp1"]
+[ext_resource type="Texture2D" uid="uid://b84v8hpld0aaa" path="res://Assets/VFX/PixelSimulations/GasLeak1/0072.png" id="162_30cqt"]
+[ext_resource type="Texture2D" uid="uid://cf8eia1bjfrve" path="res://Assets/VFX/PixelSimulations/GasLeak1/0073.png" id="163_ytpn2"]
+[ext_resource type="Texture2D" uid="uid://2jl2iludd1cf" path="res://Assets/VFX/PixelSimulations/GasLeak1/0074.png" id="164_hbti0"]
+[ext_resource type="Texture2D" uid="uid://l64uomwb337t" path="res://Assets/VFX/PixelSimulations/GasLeak1/0075.png" id="165_oirdo"]
+[ext_resource type="Texture2D" uid="uid://cu3ihetjm6p74" path="res://Assets/VFX/PixelSimulations/GasLeak1/0076.png" id="166_h7si1"]
+[ext_resource type="Texture2D" uid="uid://d3rkrobofty0m" path="res://Assets/VFX/PixelSimulations/GasLeak1/0077.png" id="167_vctk0"]
+[ext_resource type="Texture2D" uid="uid://bj57ttucrbae5" path="res://Assets/VFX/PixelSimulations/GasLeak1/0078.png" id="168_70dpc"]
+[ext_resource type="Texture2D" uid="uid://cooj28v47bp51" path="res://Assets/VFX/PixelSimulations/GasLeak1/0079.png" id="169_dnfqy"]
+[ext_resource type="Texture2D" uid="uid://bqh87k68ytmi2" path="res://Assets/VFX/PixelSimulations/GasLeak1/0080.png" id="170_cre4i"]
+[ext_resource type="Texture2D" uid="uid://bcsiojslcwv4a" path="res://Assets/VFX/PixelSimulations/GasLeak1/0081.png" id="171_148d2"]
+[ext_resource type="Texture2D" uid="uid://bhllyyyqonkoq" path="res://Assets/VFX/PixelSimulations/GasLeak1/0082.png" id="172_6qnwr"]
+[ext_resource type="Texture2D" uid="uid://ddrpqdxaoef1y" path="res://Assets/VFX/PixelSimulations/GasLeak1/0083.png" id="173_rjn0t"]
+[ext_resource type="Texture2D" uid="uid://dusf5e6ffpyq2" path="res://Assets/VFX/PixelSimulations/GasLeak1/0084.png" id="174_vxado"]
+[ext_resource type="Texture2D" uid="uid://b4tq7soc5381g" path="res://Assets/VFX/PixelSimulations/GasLeak1/0085.png" id="175_k455v"]
+[ext_resource type="Texture2D" uid="uid://ce4hf4wcwx8ww" path="res://Assets/VFX/PixelSimulations/GasLeak1/0086.png" id="176_6k2il"]
+[ext_resource type="Texture2D" uid="uid://ifl2xc2pxanj" path="res://Assets/VFX/PixelSimulations/GasLeak1/0087.png" id="177_d3ocy"]
+[ext_resource type="Texture2D" uid="uid://cvducq8w0byst" path="res://Assets/VFX/PixelSimulations/GasLeak1/0088.png" id="178_p4kqn"]
+[ext_resource type="Texture2D" uid="uid://cmr0ik0v2e545" path="res://Assets/VFX/PixelSimulations/GasLeak1/0089.png" id="179_2huss"]
+[ext_resource type="Texture2D" uid="uid://ch0v1ex6raxx1" path="res://Assets/VFX/PixelSimulations/GasLeak1/0090.png" id="180_w5stt"]
+[ext_resource type="Texture2D" uid="uid://nf8fs3xjvea2" path="res://Assets/VFX/PixelSimulations/GasLeak1/0091.png" id="181_5djig"]
+[ext_resource type="Texture2D" uid="uid://bg7h1xsghngu5" path="res://Assets/VFX/PixelSimulations/GasLeak1/0092.png" id="182_a0740"]
+[ext_resource type="Texture2D" uid="uid://cqfpv7xmg3rao" path="res://Assets/VFX/PixelSimulations/GasLeak1/0093.png" id="183_d8x4v"]
+[ext_resource type="Texture2D" uid="uid://dbuwhkl2g18hq" path="res://Assets/VFX/PixelSimulations/GasLeak1/0094.png" id="184_7lckw"]
+[ext_resource type="Texture2D" uid="uid://chsfpcjhhljx" path="res://Assets/VFX/PixelSimulations/GasLeak1/0095.png" id="185_ubf8l"]
+[ext_resource type="Texture2D" uid="uid://tpniidmsjmub" path="res://Assets/VFX/PixelSimulations/GasLeak1/0096.png" id="186_po68v"]
+[ext_resource type="Texture2D" uid="uid://cily2jji7iljr" path="res://Assets/VFX/PixelSimulations/GasLeak1/0097.png" id="187_0mqbi"]
+[ext_resource type="Texture2D" uid="uid://bfo2hkxe42cui" path="res://Assets/VFX/PixelSimulations/GasLeak1/0098.png" id="188_er2is"]
+[ext_resource type="Texture2D" uid="uid://bke0ccv2hio7i" path="res://Assets/VFX/PixelSimulations/GasLeak1/0099.png" id="189_eefvp"]
+[ext_resource type="Texture2D" uid="uid://djj38pnnnrx4d" path="res://Assets/VFX/PixelSimulations/GasLeak1/0100.png" id="190_7auc0"]
+[ext_resource type="Texture2D" uid="uid://ul5jobhh22qo" path="res://Assets/VFX/PixelSimulations/GasLeak1/0101.png" id="191_u2idl"]
+[ext_resource type="Texture2D" uid="uid://bv6xslf2cg3g7" path="res://Assets/VFX/PixelSimulations/GasLeak1/0102.png" id="192_qpmi3"]
+[ext_resource type="Texture2D" uid="uid://wr2vy7jq21yt" path="res://Assets/VFX/PixelSimulations/GasLeak1/0103.png" id="193_0llwq"]
+[ext_resource type="Texture2D" uid="uid://ba80w2jxay1o2" path="res://Assets/VFX/PixelSimulations/GasLeak1/0104.png" id="194_fpml7"]
+[ext_resource type="Texture2D" uid="uid://dqocajk7v385f" path="res://Assets/VFX/PixelSimulations/GasLeak1/0105.png" id="195_1o8sq"]
+[ext_resource type="Texture2D" uid="uid://tcgleuw5m0b1" path="res://Assets/VFX/PixelSimulations/GasLeak1/0106.png" id="196_d5axd"]
+[ext_resource type="Texture2D" uid="uid://dsqujbws3cqwh" path="res://Assets/VFX/PixelSimulations/GasLeak1/0107.png" id="197_ddx2t"]
+[ext_resource type="Texture2D" uid="uid://bkv1coap6ttx" path="res://Assets/VFX/PixelSimulations/GasLeak1/0108.png" id="198_c3uj6"]
+[ext_resource type="Texture2D" uid="uid://dhonneh4f1xep" path="res://Assets/VFX/PixelSimulations/GasLeak1/0109.png" id="199_8rvpx"]
+[ext_resource type="Texture2D" uid="uid://cu68x2ij5jpsp" path="res://Assets/VFX/PixelSimulations/GasLeak1/0110.png" id="200_pmbe6"]
+[ext_resource type="Texture2D" uid="uid://cn78lxxooa7nc" path="res://Assets/VFX/PixelSimulations/GasLeak1/0111.png" id="201_41qpk"]
+[ext_resource type="Texture2D" uid="uid://chg1ofs5f0sv3" path="res://Assets/VFX/PixelSimulations/GasLeak1/0112.png" id="202_atxuw"]
+[ext_resource type="Texture2D" uid="uid://c4qj4cmkbosfl" path="res://Assets/VFX/PixelSimulations/GasLeak1/0113.png" id="203_gcj6i"]
+[ext_resource type="Texture2D" uid="uid://dfg1kpv4hhuvb" path="res://Assets/VFX/PixelSimulations/GasLeak1/0114.png" id="204_byb3k"]
+[ext_resource type="Texture2D" uid="uid://caeqhubyoxdp5" path="res://Assets/VFX/PixelSimulations/GasLeak1/0115.png" id="205_6kak7"]
+[ext_resource type="Texture2D" uid="uid://rs7dpvtux4yu" path="res://Assets/VFX/PixelSimulations/GasLeak1/0116.png" id="206_s3oto"]
+[ext_resource type="Texture2D" uid="uid://datmlpoi1lgja" path="res://Assets/VFX/PixelSimulations/GasLeak1/0117.png" id="207_l0wkj"]
+[ext_resource type="Texture2D" uid="uid://cx5vpieqlpulv" path="res://Assets/VFX/PixelSimulations/GasLeak1/0118.png" id="208_qxonp"]
+[ext_resource type="Texture2D" uid="uid://dfjv166avvrcf" path="res://Assets/VFX/PixelSimulations/GasLeak1/0119.png" id="209_onpkj"]
+[ext_resource type="Texture2D" uid="uid://7lybcl0glp11" path="res://Assets/VFX/PixelSimulations/GasLeak1/0120.png" id="210_icj2v"]
+[ext_resource type="Texture2D" uid="uid://k3v1jmwbwu8r" path="res://Assets/VFX/PixelSimulations/GasLeak1/0121.png" id="211_51yy5"]
+[ext_resource type="Texture2D" uid="uid://xnkvtqs48j2n" path="res://Assets/VFX/PixelSimulations/GasLeak1/0122.png" id="212_uwd78"]
+[ext_resource type="Texture2D" uid="uid://28mjg2lrimyj" path="res://Assets/VFX/PixelSimulations/GasLeak1/0123.png" id="213_dg4a8"]
+[ext_resource type="Texture2D" uid="uid://dghv0xqsadceu" path="res://Assets/VFX/PixelSimulations/GasLeak1/0124.png" id="214_5mofs"]
+[ext_resource type="Texture2D" uid="uid://cteyqlsjt54ii" path="res://Assets/VFX/PixelSimulations/GasLeak1/0125.png" id="215_8fqb0"]
+[ext_resource type="Texture2D" uid="uid://cpyxnyi8svmns" path="res://Assets/VFX/PixelSimulations/GasLeak1/0126.png" id="216_ldw3x"]
+[ext_resource type="Texture2D" uid="uid://calk3tv4bgnr6" path="res://Assets/VFX/PixelSimulations/GasLeak1/0127.png" id="217_c3d57"]
+[ext_resource type="Texture2D" uid="uid://dlw2jkcw0qc71" path="res://Assets/VFX/PixelSimulations/GasLeak1/0128.png" id="218_ra06a"]
+[ext_resource type="Texture2D" uid="uid://x4jlct3da5fl" path="res://Assets/VFX/PixelSimulations/GasLeak1/0129.png" id="219_5gejc"]
+[ext_resource type="Texture2D" uid="uid://3xjyyh4als52" path="res://Assets/VFX/PixelSimulations/GasLeak1/0130.png" id="220_k8r0y"]
+[ext_resource type="Texture2D" uid="uid://dx56luoqfwh0t" path="res://Assets/VFX/PixelSimulations/GasLeak1/0131.png" id="221_pce3d"]
+[ext_resource type="Texture2D" uid="uid://dnkips4aqwe44" path="res://Assets/VFX/PixelSimulations/GasLeak1/0132.png" id="222_wpfsc"]
+[ext_resource type="Texture2D" uid="uid://cx5jtsouekfl4" path="res://Assets/VFX/PixelSimulations/GasLeak1/0133.png" id="223_lepge"]
+[ext_resource type="Texture2D" uid="uid://by53my7nsieem" path="res://Assets/VFX/PixelSimulations/GasLeak1/0134.png" id="224_jk4nl"]
+[ext_resource type="Texture2D" uid="uid://camryh40wa0sb" path="res://Assets/VFX/PixelSimulations/GasLeak1/0135.png" id="225_cbj21"]
+[ext_resource type="Texture2D" uid="uid://dskre0f4kq0we" path="res://Assets/VFX/PixelSimulations/GasLeak1/0136.png" id="226_a0nh7"]
+[ext_resource type="Texture2D" uid="uid://cbmof8ssg1fre" path="res://Assets/VFX/PixelSimulations/GasLeak1/0137.png" id="227_mncvq"]
+[ext_resource type="Texture2D" uid="uid://clgfiicweceor" path="res://Assets/VFX/PixelSimulations/GasLeak1/0138.png" id="228_g25wq"]
+[ext_resource type="Texture2D" uid="uid://l6qrkedy80fr" path="res://Assets/VFX/PixelSimulations/GasLeak1/0139.png" id="229_oer4x"]
+[ext_resource type="Texture2D" uid="uid://by8bbyvs4boya" path="res://Assets/VFX/PixelSimulations/GasLeak1/0140.png" id="230_jsl8f"]
+[ext_resource type="Texture2D" uid="uid://diukjq25pgfug" path="res://Assets/VFX/PixelSimulations/GasLeak1/0141.png" id="231_vc2tr"]
+[ext_resource type="Texture2D" uid="uid://bhsvfht85x7ra" path="res://Assets/VFX/PixelSimulations/GasLeak1/0142.png" id="232_sucew"]
+[ext_resource type="Texture2D" uid="uid://o1m58lglfqwp" path="res://Assets/VFX/PixelSimulations/GasLeak1/0143.png" id="233_45oh7"]
+[ext_resource type="Texture2D" uid="uid://c8fr56eue7uw2" path="res://Assets/VFX/PixelSimulations/GasLeak1/0144.png" id="234_bwkpg"]
+[ext_resource type="Texture2D" uid="uid://chjjm087d6xwy" path="res://Assets/VFX/PixelSimulations/GasLeak1/0145.png" id="235_btoyh"]
+[ext_resource type="Texture2D" uid="uid://bvs4f7es1t3gm" path="res://Assets/VFX/PixelSimulations/GasLeak1/0146.png" id="236_8suot"]
+[ext_resource type="Texture2D" uid="uid://pywhuf8elrqt" path="res://Assets/VFX/PixelSimulations/GasLeak1/0147.png" id="237_cx1sg"]
+[ext_resource type="Texture2D" uid="uid://blred1ft0rxk7" path="res://Assets/VFX/PixelSimulations/GasLeak1/0148.png" id="238_4r601"]
+[ext_resource type="Texture2D" uid="uid://bbrq40smphucw" path="res://Assets/VFX/PixelSimulations/GasLeak1/0149.png" id="239_32672"]
+[ext_resource type="Texture2D" uid="uid://dcxme0ter8awv" path="res://Assets/VFX/PixelSimulations/GasLeak1/0150.png" id="240_ljvj1"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(76, 104)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqqi3"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l2ii1"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(32, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2m3iy"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(64, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nipje"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(96, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62ewv"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(128, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3odny"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(160, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hgxe"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(192, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fv4jg"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(224, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7iip"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bve5e"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7jbd"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j381y"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmc45"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbivf"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1o0jb"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ltmy"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8t02q"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3ubv"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a862w"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sedet"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nf1jj"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(128, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glqxn"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlhw6"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(192, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qx5tv"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(224, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nlyia"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jqqi3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l2ii1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2m3iy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nipje")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62ewv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3odny")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hgxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fv4jg")
+}],
+"loop": false,
+"name": &"Die",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7iip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bve5e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7jbd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j381y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmc45")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbivf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1o0jb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ltmy")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8t02q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3ubv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a862w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sedet")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nf1jj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glqxn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlhw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qx5tv")
+}],
+"loop": true,
+"name": &"Running",
+"speed": 15.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4r3xt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ubtd3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2fgm6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ro5c6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_7mtf4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3jgiq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_22vah")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_766u5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_gt7qx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_yx56n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_fiodx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ejktb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_05j4r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_j5blx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_5am3u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_oycyv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_15hub")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_cv7bs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_jpkqm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_u25yd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_0k53x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_r5dwv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_r1xnb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_lm4hg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_18jrn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_blt6n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_fywbl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_v5vu2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_hpc2j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_hfcql")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_pc0d8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_m33kb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_ujmrt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_210xy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_wyhu4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_4wryk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_0pluw")
+}],
+"loop": false,
+"name": &"Explosionn1",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("39_tyv20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_0u4p3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_7gf7f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_d68ny")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_p4kfw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_0h76b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_gwk2r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_1nhwg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_eh4nc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_6rkao")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_pgwco")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_6v1th")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_r7xit")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_mgryf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_wuj5l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_ntp5v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_b0mrm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_3qg0c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_wk632")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_swpuq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_s2cig")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_ly30l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_p7ipm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_qyohu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_8ynxr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_28kqg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_4eh35")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_atmld")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_8h0du")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_4guc6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_3mmqb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_3hddw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_b2r8r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_5wvp1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_rw7by")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_igo6u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_jcvi7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_b5yq7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_pf1hh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_xmp8d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_rbmjj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_4145a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("81_66vs7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("82_p4w7d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("83_wlftw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("84_78bjf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("85_cvymh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("86_4636u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("87_lnsr0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("88_o7deh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("89_5ka7h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("90_5iuuq")
+}],
+"loop": false,
+"name": &"GasExplosion1",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("91_a4bvy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("92_aed0u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("93_4b0bg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("94_tga0t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("95_4iscm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("96_8lx08")
+}, {
+"duration": 1.0,
+"texture": ExtResource("97_u4wir")
+}, {
+"duration": 1.0,
+"texture": ExtResource("98_qytny")
+}, {
+"duration": 1.0,
+"texture": ExtResource("99_c5xg3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("100_gm3hn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("101_xu7ul")
+}, {
+"duration": 1.0,
+"texture": ExtResource("102_uo22m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("103_3onnm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("104_1hsyb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("105_ata75")
+}, {
+"duration": 1.0,
+"texture": ExtResource("106_niftr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("107_bm1r6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("108_28sdd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("109_4n6y8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("110_3jper")
+}, {
+"duration": 1.0,
+"texture": ExtResource("111_8ep2f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("112_4d1ap")
+}, {
+"duration": 1.0,
+"texture": ExtResource("113_b5idl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("114_jy6pc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("115_73jsa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("116_64mww")
+}, {
+"duration": 1.0,
+"texture": ExtResource("117_7jcke")
+}, {
+"duration": 1.0,
+"texture": ExtResource("118_jcftg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("119_7h800")
+}, {
+"duration": 1.0,
+"texture": ExtResource("120_kvv8b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("121_m5gxs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("122_2upmm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("123_aew8q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("124_dkiyc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("125_xk3vc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("126_u8nq7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("127_0dgl8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("128_jv4o6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("129_ikyfb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("130_ik3xt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("131_ab0rj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("132_v4r0j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("133_eslhs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("134_6g1j2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("135_jcmke")
+}, {
+"duration": 1.0,
+"texture": ExtResource("136_wn2ji")
+}, {
+"duration": 1.0,
+"texture": ExtResource("137_bulbj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("138_e6hhs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("139_8qmh2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("140_ieefd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("141_mp85r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("142_7m00f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("143_cvuba")
+}, {
+"duration": 1.0,
+"texture": ExtResource("144_h0sdu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("145_ll2ko")
+}, {
+"duration": 1.0,
+"texture": ExtResource("146_kp6ow")
+}, {
+"duration": 1.0,
+"texture": ExtResource("147_ak4v8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("148_l8hy8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("149_i1rje")
+}, {
+"duration": 1.0,
+"texture": ExtResource("150_24ab5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("151_w7enc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("152_4ncxm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("153_w35r4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("154_lsdne")
+}, {
+"duration": 1.0,
+"texture": ExtResource("155_t6pjr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("156_t720j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("157_jnxkm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("158_swiwi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("159_l0ays")
+}, {
+"duration": 1.0,
+"texture": ExtResource("160_jje2a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("161_y4pp1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("162_30cqt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("163_ytpn2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("164_hbti0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("165_oirdo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("166_h7si1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("167_vctk0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("168_70dpc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("169_dnfqy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("170_cre4i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("171_148d2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("172_6qnwr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("173_rjn0t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("174_vxado")
+}, {
+"duration": 1.0,
+"texture": ExtResource("175_k455v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("176_6k2il")
+}, {
+"duration": 1.0,
+"texture": ExtResource("177_d3ocy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("178_p4kqn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("179_2huss")
+}, {
+"duration": 1.0,
+"texture": ExtResource("180_w5stt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("181_5djig")
+}, {
+"duration": 1.0,
+"texture": ExtResource("182_a0740")
+}, {
+"duration": 1.0,
+"texture": ExtResource("183_d8x4v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("184_7lckw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("185_ubf8l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("186_po68v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("187_0mqbi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("188_er2is")
+}, {
+"duration": 1.0,
+"texture": ExtResource("189_eefvp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("190_7auc0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("191_u2idl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("192_qpmi3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("193_0llwq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("194_fpml7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("195_1o8sq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("196_d5axd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("197_ddx2t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("198_c3uj6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("199_8rvpx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("200_pmbe6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("201_41qpk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("202_atxuw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("203_gcj6i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("204_byb3k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("205_6kak7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("206_s3oto")
+}, {
+"duration": 1.0,
+"texture": ExtResource("207_l0wkj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("208_qxonp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("209_onpkj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("210_icj2v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("211_51yy5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("212_uwd78")
+}, {
+"duration": 1.0,
+"texture": ExtResource("213_dg4a8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("214_5mofs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("215_8fqb0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("216_ldw3x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("217_c3d57")
+}, {
+"duration": 1.0,
+"texture": ExtResource("218_ra06a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("219_5gejc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("220_k8r0y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("221_pce3d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("222_wpfsc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("223_lepge")
+}, {
+"duration": 1.0,
+"texture": ExtResource("224_jk4nl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("225_cbj21")
+}, {
+"duration": 1.0,
+"texture": ExtResource("226_a0nh7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("227_mncvq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("228_g25wq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("229_oer4x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("230_jsl8f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("231_vc2tr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("232_sucew")
+}, {
+"duration": 1.0,
+"texture": ExtResource("233_45oh7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("234_bwkpg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("235_btoyh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("236_8suot")
+}, {
+"duration": 1.0,
+"texture": ExtResource("237_cx1sg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("238_4r601")
+}, {
+"duration": 1.0,
+"texture": ExtResource("239_32672")
+}, {
+"duration": 1.0,
+"texture": ExtResource("240_ljvj1")
+}],
+"loop": false,
+"name": &"GasLeak1",
+"speed": 25.0
+}]
+
+[sub_resource type="Animation" id="Animation_4c0vk"]
+resource_name = "Death"
+length = 0.64
+step = 0.04
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Die"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16, 0.24, 0.32, 0.4, 0.48, 0.56),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4jby7"]
+_data = {
+"Death": SubResource("Animation_4c0vk")
+}
+
+[node name="Enemy 2" type="CharacterBody2D"]
+script = ExtResource("1_0quuy")
+canMove = false
+lifePoints = 2.0
+deadAnimation = "Death"
+group = "Enemies"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6, 12)
+shape = SubResource("1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_nlyia")
+animation = &"Die"
+autoplay = "Idle"
+flip_h = true
+
+[node name="VFX" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4r3xt")
+animation = &"Explosionn1"
+frame = 35
+frame_progress = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4jby7")
+}
