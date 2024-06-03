@@ -6,7 +6,7 @@ var motion = Vector2.ZERO
 @onready var spriteScaleX = $PlayerSprites.scale.x
 @onready var spriteScaleY = $PlayerSprites.scale.y
 var state_machine
-var x = true
+
 
 @export_group("Physics")
 @export var gravity = 98
