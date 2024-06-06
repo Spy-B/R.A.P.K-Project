@@ -8,7 +8,7 @@ var motion = Vector2(0, 0)
 var isMovingLeft = true
 
 @export var group: String
-@export var lifePoints: float = GlobalSave.enemiesLifePoints
+@export var lifePoints: float = Global.enemiesLifePoints
 
 var player
 

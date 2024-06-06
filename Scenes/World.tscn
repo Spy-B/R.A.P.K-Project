@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c8yxig8q4w1xx"]
+[gd_scene load_steps=20 format=3 uid="uid://c8yxig8q4w1xx"]
 
 [ext_resource type="PackedScene" uid="uid://cjtatbogu1g4q" path="res://Scenes/Player/Player.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://pmff0ghibkc0" path="res://Assets/Envirement/Prototype Textures/PNG/Dark/texture_01 - 128.png" id="2_3laq3"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://53gy0xbw606j" path="res://Scenes/Enemies/Enemy 3.tscn" id="7_mq60s"]
 [ext_resource type="PackedScene" uid="uid://cqpk3ol85m0sb" path="res://Scenes/Player/Magazines/Handgun Magazine.tscn" id="8_dxxrh"]
 [ext_resource type="Script" path="res://Scripts/LIMIT.gd" id="11_p2cpq"]
+[ext_resource type="PackedScene" uid="uid://curbbbjmorulr" path="res://Scenes/Player/Inventory Management System/inventory_item.tscn" id="12_yy2ra"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_si2ns"]
 texture = ExtResource("2_3laq3")
@@ -171,6 +172,12 @@ maxAmmo = 9
 [node name="Objects" type="Node2D" parent="."]
 
 [node name="Handgun Magazines" type="Node2D" parent="Objects"]
+
+[node name="Inventory_Item" parent="Objects/Handgun Magazines" instance=ExtResource("12_yy2ra")]
+position = Vector2(1305, 555)
+item_name = "Handgun Mag"
+item_texture_size = 0.3
+item_effect = "9"
 
 [node name="Handgun Magazine" parent="Objects/Handgun Magazines" instance=ExtResource("8_dxxrh")]
 position = Vector2(765, 664)

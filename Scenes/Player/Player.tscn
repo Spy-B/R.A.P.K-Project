@@ -1,4 +1,4 @@
-[gd_scene load_steps=850 format=3 uid="uid://cjtatbogu1g4q"]
+[gd_scene load_steps=852 format=3 uid="uid://cjtatbogu1g4q"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://cf6i6mocap5ie" path="res://Assets/Characters/Player/Scarlet Idle/Scarlet_Idle_Wait_B.png" id="2"]
@@ -644,6 +644,8 @@
 [ext_resource type="Texture2D" uid="uid://du02dwv20t5xw" path="res://Assets/VFX/PixelSimulations/Flame3[16x16]/0118.png" id="640_fxaxc"]
 [ext_resource type="Texture2D" uid="uid://rq0ovw6drcg" path="res://Assets/VFX/PixelSimulations/Flame3[16x16]/0119.png" id="641_4yd1j"]
 [ext_resource type="Texture2D" uid="uid://duh131ksvc8j2" path="res://Assets/VFX/PixelSimulations/Flame3[16x16]/0120.png" id="642_08fp8"]
+[ext_resource type="FontFile" uid="uid://bcnid3iximx4r" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.otf" id="645_7dkkb"]
+[ext_resource type="PackedScene" uid="uid://btqhpglnbwnll" path="res://Scenes/Player/Inventory Management System/inventory_ui.tscn" id="646_msosg"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(39, 105)
@@ -4156,6 +4158,7 @@ transitions = ["Idle", "Running", SubResource("AnimationNodeStateMachineTransiti
 graph_offset = Vector2(229, 343)
 
 [node name="Player" type="CharacterBody2D"]
+process_mode = 3
 script = ExtResource("1")
 gravity = 64
 idleAnimation = "Idle"
@@ -4178,9 +4181,12 @@ enemiesGroup = "Enemies"
 position = Vector2(0.5, 4.5)
 shape = SubResource("1")
 
-[node name="MoveParticles" type="GPUParticles2D" parent="."]
+[node name="Particles" type="Node2D" parent="."]
+position = Vector2(-1, -16)
+
+[node name="MoveParticles" type="GPUParticles2D" parent="Particles"]
 texture_filter = 1
-position = Vector2(6, 57)
+position = Vector2(7, 73)
 emitting = false
 amount = 20
 process_material = SubResource("ParticleProcessMaterial_c08rv")
@@ -4192,8 +4198,8 @@ randomness = 1.0
 fixed_fps = 60
 visibility_rect = Rect2(-25, -25, 50, 50)
 
-[node name="JumpParticles" type="GPUParticles2D" parent="."]
-position = Vector2(0, 57)
+[node name="JumpParticles" type="GPUParticles2D" parent="Particles"]
+position = Vector2(1, 73)
 emitting = false
 amount = 20
 process_material = SubResource("ParticleProcessMaterial_lur8k")
@@ -4246,23 +4252,85 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_4eh5m")
 anim_player = NodePath("../AnimationPlayer")
 
-[node name="CoyoteTimer" type="Timer" parent="."]
+[node name="Timers" type="Node" parent="."]
+
+[node name="CoyoteTimer" type="Timer" parent="Timers"]
 wait_time = 0.15
 one_shot = true
 
-[node name="JumpBufferTimer" type="Timer" parent="."]
+[node name="JumpBufferTimer" type="Timer" parent="Timers"]
 wait_time = 0.15
 one_shot = true
 
-[node name="MeleeComboTimer" type="Timer" parent="."]
+[node name="MeleeComboTimer" type="Timer" parent="Timers"]
 wait_time = 0.2
 
-[node name="ReloadTimer" type="Timer" parent="."]
+[node name="ReloadTimer" type="Timer" parent="Timers"]
 one_shot = true
 
-[node name="ComboTimer" type="Timer" parent="."]
+[node name="ComboTimer" type="Timer" parent="Timers"]
+
+[node name="interactUI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="interactUI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(0.160784, 0.321569, 0.666667, 0.705882)
+
+[node name="Label" type="Label" parent="interactUI/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("645_7dkkb")
+theme_override_font_sizes/font_size = 20
+text = "Press \"E\" to Pick Up"
+
+[node name="InventoryUI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="InventoryUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.160784, 0.321569, 0.666667, 0.705882)
+
+[node name="Label" type="Label" parent="InventoryUI/ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 50.0
+offset_right = 20.0
+offset_bottom = 73.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("645_7dkkb")
+theme_override_font_sizes/font_size = 50
+text = "Inventory"
+
+[node name="Inventory_UI" parent="InventoryUI/ColorRect" instance=ExtResource("646_msosg")]
+layout_mode = 1
 
 [connection signal="body_entered" from="PlayerSprites/MeleeAttack2" to="." method="_on_MeleeAttack2_body_entered"]
-[connection signal="timeout" from="MeleeComboTimer" to="." method="_on_MeleeComboTimer_timeout"]
-[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
-[connection signal="timeout" from="ComboTimer" to="." method="_on_ComboTimer_timeout"]
+[connection signal="timeout" from="Timers/MeleeComboTimer" to="." method="_on_MeleeComboTimer_timeout"]
+[connection signal="timeout" from="Timers/ReloadTimer" to="." method="_on_reload_timer_timeout"]
+[connection signal="timeout" from="Timers/ComboTimer" to="." method="_on_ComboTimer_timeout"]

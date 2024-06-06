@@ -47,9 +47,9 @@ var can_attack = true
 @export_placeholder("Animation") var shootingAnimation: String
 @export_placeholder("Animation") var PowerfulShootAnimation: String
 @export var bullet: PackedScene
-@export var ammoInMag: int = GlobalSave.ammo_in_mag
-@export var maxAmmo: int = GlobalSave.max_ammo
-@export var extraAmmo: int = GlobalSave.extra_ammo
+@export var ammoInMag: int = Global.ammo_in_mag
+@export var maxAmmo: int = Global.max_ammo
+@export var extraAmmo: int = Global.extra_ammo
 
 @export var InfiniteAmmo = false
 @export var fireRate = 0.5
@@ -58,14 +58,18 @@ var can_reload = true
 var can_fire = true
 var is_shooting = false
 @export var killComboCounter = true
-var killCombo = GlobalSave.killComboCounter
+var killCombo = Global.killComboCounter
 @export var killComboTime = 1
+
+@export_group("Inventory Management System")
+@onready var interact_ui = $interactUI
+@onready var inventory_ui = $InventoryUI
 
 @export_group("Other")
 @export_placeholder("Group") var playerGroup: String
 @export_placeholder("Group") var enemiesGroup: String
 
-@onready var reloadTimer = $ReloadTimer
+@onready var reloadTimer = $Timers/ReloadTimer
 
 # warning-ignore:export_hint_type_mistmatch
 #export(String,"Rebecca", "Mary", "Leah") var array = 1
@@ -97,6 +101,7 @@ func _ready():
 	#		print("fire")
 	
 	self.add_to_group(playerGroup)
+	Global.set_player_reference(self)
 
 # Update function: Everything here is updated 60 times per second
 @warning_ignore("unused_parameter")
@@ -136,12 +141,17 @@ func _physics_process(delta):
 	if InfiniteAmmo == true:
 		ammoInMag = !0
 
+func _input(event):
+	if event.is_action_pressed("ui_inventory"):
+		inventory_ui.visible = !inventory_ui.visible
+		get_tree().paused = !get_tree().paused
+
 #Gravity Function
 func Gravity():
 	if !is_on_floor():
 		motion.y += gravity
 		if have_coyote:
-			$CoyoteTimer.start()
+			$Timers/CoyoteTimer.start()
 			have_coyote = false
 	else:
 		extraDoubleJumps = 1
@@ -150,7 +160,7 @@ func Gravity():
 	
 	if isGrounded == false && is_on_floor() == true:
 		state_machine.travel(touchTheGroundAnimation)
-		$JumpParticles.restart()
+		$Particles/JumpParticles.restart()
 	
 	isGrounded = is_on_floor()
 
@@ -178,9 +188,9 @@ func State_Machine():
 	
 	if (motion.x == runningSpeed || motion.x == -runningSpeed) && is_on_floor():
 		state_machine.travel(runningAnimation)
-		$MoveParticles.emitting = true
+		$Particles/MoveParticles.emitting = true
 	else:
-		$MoveParticles.emitting = false
+		$Particles/MoveParticles.emitting = false
 
 #Walking Function
 func walking():
@@ -228,18 +238,18 @@ func running():
 #Jumping Functions
 func jumping():
 	if Input.is_action_just_pressed("jumping"):
-		$JumpBufferTimer.start()
+		$Timers/JumpBufferTimer.start()
 	
-	if (is_on_floor() || !$CoyoteTimer.is_stopped()) && (Input.is_action_just_pressed("jumping") || !$JumpBufferTimer.is_stopped()):
+	if (is_on_floor() || !$Timers/CoyoteTimer.is_stopped()) && (Input.is_action_just_pressed("jumping") || !$Timers/JumpBufferTimer.is_stopped()):
 		motion.y = -jumpPower
-		$JumpParticles.restart()
-		$CoyoteTimer.stop()
-		$JumpBufferTimer.stop()
+		$Particles/JumpParticles.restart()
+		$Timers/CoyoteTimer.stop()
+		$Timers/JumpBufferTimer.stop()
 
 func doubleJump():
-	if (Input.is_action_just_pressed("jumping") || !$JumpBufferTimer.is_stopped()) && !is_on_floor() && extraDoubleJumps > 0:
+	if (Input.is_action_just_pressed("jumping") || !$Timers/JumpBufferTimer.is_stopped()) && !is_on_floor() && extraDoubleJumps > 0:
 		motion.y = -jumpPower
-		$JumpBufferTimer.stop()
+		$Timers/JumpBufferTimer.stop()
 		extraDoubleJumps -= 1
 
 func tripleJump():
@@ -266,12 +276,12 @@ func MeleeCombo():
 	if Input.is_action_just_pressed("attack") && is_on_floor() && comboPoints == 3:
 		state_machine.travel(meleeAttackAnimation)
 		comboPoints = comboPoints - 1
-		$MeleeComboTimer.start()
+		$Timers/MeleeComboTimer.start()
 	
 	elif Input.is_action_just_pressed("attack") && is_on_floor() && comboPoints == 2:
 		$AnimationPlayer.play("Attack 2")
 		comboPoints = comboPoints - 1
-		$MeleeComboTimer.start()
+		$Timers/MeleeComboTimer.start()
 
 func _on_MeleeComboTimer_timeout():
 	comboPoints = 3
@@ -338,7 +348,7 @@ func _on_reload_timer_timeout():
 func KillCombo():
 	if killCombo != 0:
 		get_parent().get_node("GUI/ComboCounter").visible = true
-		$ComboTimer.start()
+		$Timers/ComboTimer.start()
 
 func _on_ComboTimer_timeout():
 	killCombo = 5
