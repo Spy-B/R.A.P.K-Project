@@ -352,3 +352,18 @@ func KillCombo():
 
 func _on_ComboTimer_timeout():
 	killCombo = 5
+
+# Apply the effect of the item (if possible)
+func apply_item_effect(item):
+	match item["effect"]:
+		"Stamina":
+			runningSpeed += 50
+			print("Speed increased to ", runningSpeed)
+		"Handgun Mag":
+			extraAmmo += 9
+		"Slot Boost":
+			Global.increase_inventory_size(5)
+			print("Slots increased to ", Global.inventory.size())
+		_:
+			print("There is no effect for this item")
+			

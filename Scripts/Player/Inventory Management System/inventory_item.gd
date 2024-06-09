@@ -1,12 +1,14 @@
 @tool
 extends Node2D
 
+
 @export_placeholder("Type") var item_type = ""
 @export_placeholder("Name") var item_name = ""
 @export var item_texture: Texture
 @export var item_texture_size: float
+@export var slot_texture_size: float = Global.inventory_slot_icon_size
 @export_placeholder("Effect") var item_effect = ""
-var scene_path: String = "res://Scenes/inventory_item.tscn"
+var scene_path: String = "res://Scenes/Player/Inventory Management System/inventory_item.tscn"
 
 @onready var icon_sprite = $Sprite2D
 
@@ -19,6 +21,7 @@ func _ready():
 		icon_sprite.scale.y = item_texture_size
 
 
+@warning_ignore("unused_parameter")
 func _physics_process(delta):
 	if Engine.is_editor_hint():
 		icon_sprite.texture = item_texture
@@ -34,6 +37,8 @@ func pickup_item():
 		"type": item_type,
 		"name": item_name,
 		"texture": item_texture,
+		"item_texture_size": item_texture_size,
+		"slot_texture_size": slot_texture_size,
 		"effect": item_effect,
 		"scene_path": scene_path
 	}
@@ -51,3 +56,20 @@ func _on_area_2d_body_exited(body):
 	if body.is_in_group("Player"):
 		player_in_range = false
 		body.interact_ui.visible = false
+
+# Sets the item's dictionary data
+func set_item_data(data):
+	item_type = data["type"]
+	item_name = data["name"]
+	item_effect = data["effect"]
+	item_texture = data["texture"]
+	item_texture_size = data["item_texture_size"]
+	slot_texture_size = data["slot_texture_size"]
+
+# Set the items values for spawning
+@warning_ignore("shadowed_variable_base_class")
+func initiate_items(type, name, effect, texture):
+	item_type = type
+	item_name = name
+	item_effect = effect
+	item_texture = texture

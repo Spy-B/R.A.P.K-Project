@@ -1,6 +1,8 @@
+@tool
 extends Control
 
 @onready var item_icon = $InnerBorder/ItemIcon
+@export var item_icon_size: float = Global.inventory_slot_icon_size
 @onready var item_quantity = $InnerBorder/ItemQuantity
 @onready var detailes_panel = $DetailesPanel
 @onready var item_name = $DetailesPanel/ItemName
@@ -10,8 +12,21 @@ extends Control
 
 var item = null
 
+func _ready():
+	if !Engine.is_editor_hint():
+		item_icon.scale.x = item_icon_size
+		item_icon.scale.y = item_icon_size
+
+@warning_ignore("unused_parameter")
+func _physics_process(delta):
+	if Engine.is_editor_hint():
+		item_icon.scale.x = item_icon_size
+		item_icon.scale.y = item_icon_size
+	
+	#if item
+
 func _on_item_button_pressed():
-	if item != null:
+	if item != null && item["effect"] != "Handgun Mag":
 		usage_panel.visible = !usage_panel.visible
 
 func _on_item_button_mouse_entered():
@@ -36,3 +51,23 @@ func set_item(new_item):
 		item_effect.text = str("+ ", item["effect"])
 	else:
 		item_effect.text = ""
+
+# Remove item from inventory and drop it back into the world        		
+func _on_drop_button_pressed():
+	if item != null:
+		var drop_position = Global.player_node.global_position
+		var drop_offset = Vector2(0, 50)
+		drop_offset = drop_offset.rotated(Global.player_node.rotation)
+		Global.drop_item(item, drop_position + drop_offset)
+		Global.remove_item(item["type"], item["effect"])
+		usage_panel.visible = false
+
+# Remove item from inventory, use it, and apply its effect (if possible)		
+func _on_use_button_pressed():
+	usage_panel.visible = false
+	if item != null && item["effect"] != "":
+		if Global.player_node:
+			Global.player_node.apply_item_effect(item)
+			Global.remove_item(item["type"], item["effect"])
+		else:
+			print("Player could not be found")

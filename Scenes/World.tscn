@@ -1,12 +1,14 @@
-[gd_scene load_steps=20 format=3 uid="uid://c8yxig8q4w1xx"]
+[gd_scene load_steps=22 format=3 uid="uid://c8yxig8q4w1xx"]
 
 [ext_resource type="PackedScene" uid="uid://cjtatbogu1g4q" path="res://Scenes/Player/Player.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://pmff0ghibkc0" path="res://Assets/Envirement/Prototype Textures/PNG/Dark/texture_01 - 128.png" id="2_3laq3"]
 [ext_resource type="Script" path="res://Scripts/GUI.gd" id="3"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="4"]
 [ext_resource type="Script" path="res://Scripts/World.gd" id="5"]
+[ext_resource type="Texture2D" uid="uid://clovadbkgwak5" path="res://Assets/Objects/Hand Gun ammo.png" id="5_2umh0"]
 [ext_resource type="PackedScene" uid="uid://bewfbcgswoa3o" path="res://Scenes/Enemies/Enemy 1.tscn" id="5_oks6d"]
 [ext_resource type="Script" path="res://Scripts/Pause.gd" id="6"]
+[ext_resource type="Texture2D" uid="uid://dowowi3f53rhl" path="res://Assets/Objects/key ss.png" id="6_4d4un"]
 [ext_resource type="PackedScene" uid="uid://bejqc22buxrw1" path="res://Scenes/Enemies/Enemy 2.tscn" id="7_2b8o7"]
 [ext_resource type="PackedScene" uid="uid://53gy0xbw606j" path="res://Scenes/Enemies/Enemy 3.tscn" id="7_mq60s"]
 [ext_resource type="PackedScene" uid="uid://cqpk3ol85m0sb" path="res://Scenes/Player/Magazines/Handgun Magazine.tscn" id="8_dxxrh"]
@@ -171,13 +173,47 @@ maxAmmo = 9
 
 [node name="Objects" type="Node2D" parent="."]
 
+[node name="Inventory_Item2" parent="Objects" instance=ExtResource("12_yy2ra")]
+position = Vector2(1578, 559)
+item_type = "wd"
+item_name = "Handgun sds"
+item_texture = ExtResource("6_4d4un")
+item_texture_size = 0.5
+item_effect = "Slot Boost"
+
+[node name="Inventory_Item3" parent="Objects" instance=ExtResource("12_yy2ra")]
+position = Vector2(1352, 560)
+item_type = "Use"
+item_name = "Key 1"
+item_texture = ExtResource("6_4d4un")
+item_texture_size = 0.5
+item_effect = "Stamina"
+
 [node name="Handgun Magazines" type="Node2D" parent="Objects"]
 
 [node name="Inventory_Item" parent="Objects/Handgun Magazines" instance=ExtResource("12_yy2ra")]
 position = Vector2(1305, 555)
+item_type = "Use"
 item_name = "Handgun Mag"
+item_texture = ExtResource("5_2umh0")
 item_texture_size = 0.3
-item_effect = "9"
+item_effect = "Handgun Mag"
+
+[node name="Inventory_Item2" parent="Objects/Handgun Magazines" instance=ExtResource("12_yy2ra")]
+position = Vector2(948, 657)
+item_type = "Use"
+item_name = "Handgun Mag"
+item_texture = ExtResource("5_2umh0")
+item_texture_size = 0.3
+item_effect = "Handgun Mag"
+
+[node name="Inventory_Item3" parent="Objects/Handgun Magazines" instance=ExtResource("12_yy2ra")]
+position = Vector2(1679, 555)
+item_type = "Use"
+item_name = "Handgun Mag"
+item_texture = ExtResource("5_2umh0")
+item_texture_size = 0.3
+item_effect = "Handgun Mag"
 
 [node name="Handgun Magazine" parent="Objects/Handgun Magazines" instance=ExtResource("8_dxxrh")]
 position = Vector2(765, 664)

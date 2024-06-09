@@ -4214,7 +4214,6 @@ fixed_fps = 60
 texture_filter = 1
 sprite_frames = SubResource("2")
 animation = &"Idle"
-frame = 15
 
 [node name="GunBarrel" type="Marker2D" parent="PlayerSprites"]
 position = Vector2(34, -19)
@@ -4226,6 +4225,7 @@ scale = Vector2(2, 2)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprites/MeleeAttack2"]
 position = Vector2(4.5, 3.75)
 shape = SubResource("3")
+disabled = true
 
 [node name="VFX" type="AnimatedSprite2D" parent="PlayerSprites"]
 visible = false

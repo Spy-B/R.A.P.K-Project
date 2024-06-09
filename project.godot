@@ -12,6 +12,7 @@ config_version=5
 
 config/name="R.A.P.K Project"
 run/main_scene="res://Scenes/World.tscn"
+config/use_custom_user_dir=true
 config/features=PackedStringArray("4.2")
 boot_splash/image="res://Default/RAFIA_LOGO.png"
 config/icon="res://Default/RAFIA_LOGO.png"

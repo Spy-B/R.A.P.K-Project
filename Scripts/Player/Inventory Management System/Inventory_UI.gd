@@ -6,6 +6,7 @@ func _ready():
 	Global.inventory_updated.connect(_on_inventory_updated)
 	_on_inventory_updated() 
 
+@warning_ignore("unused_parameter")
 func _physics_process(delta):
 	pass
 

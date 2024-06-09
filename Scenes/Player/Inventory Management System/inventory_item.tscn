@@ -1,15 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://curbbbjmorulr"]
+[gd_scene load_steps=3 format=3 uid="uid://curbbbjmorulr"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Inventory Management System/inventory_item.gd" id="1_05kdw"]
-[ext_resource type="Texture2D" uid="uid://clovadbkgwak5" path="res://Assets/Objects/Hand Gun ammo.png" id="2_8x7b1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v12h8"]
 radius = 8.0
 
 [node name="Inventory_Item" type="Node2D" groups=["Items"]]
 script = ExtResource("1_05kdw")
-item_texture = ExtResource("2_8x7b1")
 item_texture_size = 1.0
+slot_texture_size = 1.0
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -17,7 +16,6 @@ item_texture_size = 1.0
 shape = SubResource("CircleShape2D_v12h8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_8x7b1")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
