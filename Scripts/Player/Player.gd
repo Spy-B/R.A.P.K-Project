@@ -1,4 +1,5 @@
 extends CharacterBody2D
+#@export_category("Player Abilities")
 
 var motion = Vector2.ZERO
 
@@ -65,6 +66,11 @@ var killCombo = Global.killComboCounter
 @onready var interact_ui = $interactUI
 @onready var inventory_ui = $InventoryUI
 
+@export var handgunMagazineSize: int
+@export var IncreaseInventorySize_bag1: int
+
+@export var Test = []
+
 @export_group("Other")
 @export_placeholder("Group") var playerGroup: String
 @export_placeholder("Group") var enemiesGroup: String
@@ -86,6 +92,7 @@ var killCombo = Global.killComboCounter
 
 # Start function: Everything here starts at the first FRAME
 func _ready():
+	print(Test[0][0])
 	$PlayerSprites.scale.x = spriteScaleX
 	$PlayerSprites.scale.y = spriteScaleY
 	
@@ -158,7 +165,7 @@ func Gravity():
 		extraTripleJumps = 2
 		have_coyote = true
 	
-	if isGrounded == false && is_on_floor() == true:
+	if !isGrounded && is_on_floor():
 		state_machine.travel(touchTheGroundAnimation)
 		$Particles/JumpParticles.restart()
 	
@@ -357,12 +364,12 @@ func _on_ComboTimer_timeout():
 func apply_item_effect(item):
 	match item["effect"]:
 		"Stamina":
-			runningSpeed += 50
+			runningSpeed += Test[0][1]
 			print("Speed increased to ", runningSpeed)
 		"Handgun Mag":
-			extraAmmo += 9
+			extraAmmo += handgunMagazineSize
 		"Slot Boost":
-			Global.increase_inventory_size(5)
+			Global.increase_inventory_size(IncreaseInventorySize_bag1)
 			print("Slots increased to ", Global.inventory.size())
 		_:
 			print("There is no effect for this item")

@@ -9,10 +9,17 @@ extends Control
 @onready var item_type = $DetailesPanel/ItemType
 @onready var item_effect = $DetailesPanel/ItemEffect
 @onready var usage_panel = $UsagePanel
+@onready var discard_warning = $DiscardWarning
+@onready var ok_button = $DiscardWarning/OKButton
+@onready var cancel_button = $DiscardWarning/CancelButton
 
 var item = null
 
 func _ready():
+	detailes_panel.visible = false
+	usage_panel.visible = false
+	discard_warning.visible = false
+	
 	if !Engine.is_editor_hint():
 		item_icon.scale.x = item_icon_size
 		item_icon.scale.y = item_icon_size
@@ -23,7 +30,10 @@ func _physics_process(delta):
 		item_icon.scale.x = item_icon_size
 		item_icon.scale.y = item_icon_size
 	
-	#if item
+	if item != null && item["effect"] == "Handgun Mag":
+		if Global.player_node:
+			Global.player_node.apply_item_effect(item)
+			Global.remove_item(item["type"], item["effect"])
 
 func _on_item_button_pressed():
 	if item != null && item["effect"] != "Handgun Mag":
@@ -54,6 +64,21 @@ func set_item(new_item):
 
 # Remove item from inventory and drop it back into the world        		
 func _on_drop_button_pressed():
+	discard_warning.visible = true
+
+# Remove item from inventory, use it, and apply its effect (if possible)		
+func _on_use_button_pressed():
+	usage_panel.visible = false
+	discard_warning.visible = false
+	if item != null && item["effect"] != "":
+		if Global.player_node:
+			Global.player_node.apply_item_effect(item)
+			Global.remove_item(item["type"], item["effect"])
+		else:
+			print("Player could not be found")
+
+
+func _on_ok_button_pressed():
 	if item != null:
 		var drop_position = Global.player_node.global_position
 		var drop_offset = Vector2(0, 50)
@@ -62,12 +87,6 @@ func _on_drop_button_pressed():
 		Global.remove_item(item["type"], item["effect"])
 		usage_panel.visible = false
 
-# Remove item from inventory, use it, and apply its effect (if possible)		
-func _on_use_button_pressed():
-	usage_panel.visible = false
-	if item != null && item["effect"] != "":
-		if Global.player_node:
-			Global.player_node.apply_item_effect(item)
-			Global.remove_item(item["type"], item["effect"])
-		else:
-			print("Player could not be found")
+
+func _on_cancel_button_pressed():
+	discard_warning.visible = false

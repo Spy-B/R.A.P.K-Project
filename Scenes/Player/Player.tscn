@@ -4174,6 +4174,7 @@ shootingAnimation = "Shooting"
 PowerfulShootAnimation = "PowerfulShoot"
 bullet = ExtResource("3")
 fireRate = 0.4
+Test = [["Stamina", 50], ["HandGun Mag", 9]]
 playerGroup = "Player"
 enemiesGroup = "Enemies"
 
@@ -4237,11 +4238,13 @@ animation = &"Shooting Effect"
 frame = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(0, -100)
-zoom = Vector2(2, 2)
+offset = Vector2(0, -80)
+zoom = Vector2(1.5, 1.5)
 limit_smoothed = true
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
+drag_vertical_enabled = true
+drag_vertical_offset = -1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

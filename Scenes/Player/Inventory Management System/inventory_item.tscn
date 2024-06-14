@@ -9,6 +9,7 @@ radius = 8.0
 script = ExtResource("1_05kdw")
 item_texture_size = 1.0
 slot_texture_size = 1.0
+item_effect = null
 
 [node name="Area2D" type="Area2D" parent="."]
 

@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://cjtatbogu1g4q" path="res://Scenes/Player/Player.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://pmff0ghibkc0" path="res://Assets/Envirement/Prototype Textures/PNG/Dark/texture_01 - 128.png" id="2_3laq3"]
-[ext_resource type="Script" path="res://Scripts/GUI.gd" id="3"]
+[ext_resource type="Script" path="res://Scripts/UI/GUI.gd" id="3"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="4"]
 [ext_resource type="Script" path="res://Scripts/World.gd" id="5"]
 [ext_resource type="Texture2D" uid="uid://clovadbkgwak5" path="res://Assets/Objects/Hand Gun ammo.png" id="5_2umh0"]
 [ext_resource type="PackedScene" uid="uid://bewfbcgswoa3o" path="res://Scenes/Enemies/Enemy 1.tscn" id="5_oks6d"]
-[ext_resource type="Script" path="res://Scripts/Pause.gd" id="6"]
+[ext_resource type="Script" path="res://Scripts/UI/Pause.gd" id="6"]
 [ext_resource type="Texture2D" uid="uid://dowowi3f53rhl" path="res://Assets/Objects/key ss.png" id="6_4d4un"]
 [ext_resource type="PackedScene" uid="uid://bejqc22buxrw1" path="res://Scenes/Enemies/Enemy 2.tscn" id="7_2b8o7"]
 [ext_resource type="PackedScene" uid="uid://53gy0xbw606j" path="res://Scenes/Enemies/Enemy 3.tscn" id="7_mq60s"]
@@ -170,6 +170,8 @@ layer_0/tile_data = PackedInt32Array(851969, 0, 0, 851970, 0, 0, 851971, 0, 0, 8
 [node name="Player" parent="." instance=ExtResource("1")]
 position = Vector2(1172, 473)
 maxAmmo = 9
+handgunMagazineSize = 9
+IncreaseInventorySize_bag1 = 5
 
 [node name="Objects" type="Node2D" parent="."]
 
@@ -254,27 +256,34 @@ position = Vector2(9280, 201)
 [node name="Enemies2" type="Node2D" parent="."]
 
 [node name="Enemy 1" parent="Enemies2" instance=ExtResource("7_2b8o7")]
-position = Vector2(1436, 462)
+position = Vector2(1510, 467)
+gravity = 98
+isDie = false
 
 [node name="Enemy 2" parent="Enemies2" instance=ExtResource("7_2b8o7")]
 position = Vector2(2398, 545)
+gravity = 98
+isDie = false
 
 [node name="Enemy 3" parent="Enemies2" instance=ExtResource("7_2b8o7")]
 position = Vector2(4439, 351)
+gravity = 98
+isDie = false
 
 [node name="Enemy 4" parent="Enemies2" instance=ExtResource("7_2b8o7")]
 position = Vector2(5269, 168)
+gravity = 98
+isDie = false
 
-[node name="Enemies 3" type="Node2D" parent="."]
-position = Vector2(212, 10)
+[node name="Enemies3" type="Node2D" parent="."]
 
-[node name="Enemy 3" parent="Enemies 3" instance=ExtResource("7_mq60s")]
+[node name="Enemy 3" parent="Enemies3" instance=ExtResource("7_mq60s")]
 position = Vector2(5598, 262)
 
-[node name="Enemy 4" parent="Enemies 3" instance=ExtResource("7_mq60s")]
+[node name="Enemy 4" parent="Enemies3" instance=ExtResource("7_mq60s")]
 position = Vector2(203, 571)
 
-[node name="Enemy 5" parent="Enemies 3" instance=ExtResource("7_mq60s")]
+[node name="Enemy 5" parent="Enemies3" instance=ExtResource("7_mq60s")]
 position = Vector2(8225, 87)
 
 [node name="LIMIT" type="Area2D" parent="."]

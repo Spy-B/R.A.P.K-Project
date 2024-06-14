@@ -1,4 +1,4 @@
-[gd_scene load_steps=270 format=3 uid="uid://bejqc22buxrw1"]
+[gd_scene load_steps=277 format=3 uid="uid://bejqc22buxrw1"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/Enemy 2.gd" id="1_0quuy"]
 [ext_resource type="Texture2D" uid="uid://djj1f4iwu5syc" path="res://Assets/Characters/Enemies/Zombie.png" id="2_eyuha"]
@@ -244,6 +244,34 @@
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(76, 104)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8j1it"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15ilt"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gab6x"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlsob"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11o5a"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3r3pl"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kd0be"]
+atlas = ExtResource("2_eyuha")
+region = Rect2(192, 32, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_jqqi3"]
 atlas = ExtResource("2_eyuha")
 region = Rect2(0, 160, 32, 32)
@@ -344,6 +372,32 @@ region = Rect2(224, 64, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_8j1it")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15ilt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gab6x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xlsob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11o5a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3r3pl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kd0be")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_jqqi3")
 }, {
 "duration": 1.0,
@@ -427,7 +481,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Running",
-"speed": 15.0
+"speed": 10.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4r3xt"]
@@ -1169,7 +1223,7 @@ step = 0.04
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/path = NodePath("EnemySprites:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1181,7 +1235,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/path = NodePath("EnemySprites:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1198,21 +1252,27 @@ _data = {
 
 [node name="Enemy 2" type="CharacterBody2D"]
 script = ExtResource("1_0quuy")
-canMove = false
 lifePoints = 2.0
 deadAnimation = "Death"
 group = "Enemies"
+playerScene = "World"
+playerGroup = "Player"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-6, 12)
 shape = SubResource("1")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="EnemySprites" type="AnimatedSprite2D" parent="."]
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_nlyia")
 animation = &"Die"
 autoplay = "Idle"
 flip_h = true
+
+[node name="RayCast2D" type="RayCast2D" parent="EnemySprites"]
+rotation = 1.5708
+scale = Vector2(0.25, 0.25)
+target_position = Vector2(0, 400)
 
 [node name="VFX" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4r3xt")

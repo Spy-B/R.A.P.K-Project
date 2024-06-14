@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dayebqgpdqvoa"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Inventory Management System/Inventory_slot.gd" id="1_qnp8o"]
-[ext_resource type="FontFile" uid="uid://dtthxradiys5e" path="res://Assets/Fonts/ARCADECLASSIC.TTF" id="3_hvr34"]
+[ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="2_mhwhr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_li08j"]
 
@@ -47,7 +47,7 @@ offset_left = 5.0
 offset_right = 45.0
 offset_bottom = 51.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_hvr34")
+theme_override_fonts/font = ExtResource("2_mhwhr")
 theme_override_font_sizes/font_size = 50
 text = "1"
 
@@ -79,7 +79,7 @@ offset_left = 5.0
 offset_right = 73.0
 offset_bottom = 31.0
 theme_override_colors/font_color = Color(0.0745098, 0.0745098, 0.0745098, 1)
-theme_override_fonts/font = ExtResource("3_hvr34")
+theme_override_fonts/font = ExtResource("2_mhwhr")
 theme_override_font_sizes/font_size = 30
 text = "Name"
 
@@ -90,7 +90,7 @@ offset_top = 50.0
 offset_right = 73.0
 offset_bottom = 81.0
 theme_override_colors/font_color = Color(0.0745098, 0.0745098, 0.0745098, 0.784314)
-theme_override_fonts/font = ExtResource("3_hvr34")
+theme_override_fonts/font = ExtResource("2_mhwhr")
 theme_override_font_sizes/font_size = 30
 text = "Type"
 
@@ -104,7 +104,7 @@ offset_top = -31.0
 offset_right = 107.0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.0745098, 0.0745098, 0.0745098, 0.588235)
-theme_override_fonts/font = ExtResource("3_hvr34")
+theme_override_fonts/font = ExtResource("2_mhwhr")
 theme_override_font_sizes/font_size = 30
 text = "Effect"
 
@@ -126,7 +126,7 @@ offset_top = 10.0
 offset_right = 115.0
 offset_bottom = 53.0
 grow_horizontal = 2
-theme_override_fonts/font = ExtResource("3_hvr34")
+theme_override_fonts/font = ExtResource("2_mhwhr")
 theme_override_font_sizes/font_size = 40
 text = "Use
 "
@@ -144,12 +144,91 @@ offset_right = 115.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("3_hvr34")
+theme_override_fonts/font = ExtResource("2_mhwhr")
 theme_override_font_sizes/font_size = 40
 text = "discard"
+
+[node name="DiscardWarning" type="ColorRect" parent="."]
+visible = false
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -200.0
+offset_right = 400.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.996078, 0, 0.0862745, 0.705882)
+
+[node name="Label2" type="Label" parent="DiscardWarning"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -46.5
+offset_top = 10.0
+offset_right = 46.5
+offset_bottom = 33.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.784314, 0, 1)
+theme_override_fonts/font = ExtResource("2_mhwhr")
+theme_override_font_sizes/font_size = 50
+text = "WARNING"
+
+[node name="Label" type="Label" parent="DiscardWarning"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.5
+offset_top = 100.0
+offset_right = 300.5
+offset_bottom = 150.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_mhwhr")
+theme_override_font_sizes/font_size = 50
+text = "You can't get your item back"
+
+[node name="OKButton" type="Button" parent="DiscardWarning"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = -150.0
+offset_right = 300.0
+offset_bottom = -70.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_mhwhr")
+theme_override_font_sizes/font_size = 40
+text = "OK"
+
+[node name="CancelButton" type="Button" parent="DiscardWarning"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -150.0
+offset_right = -100.0
+offset_bottom = -70.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_mhwhr")
+theme_override_font_sizes/font_size = 40
+text = "Cancel"
 
 [connection signal="mouse_entered" from="ItemButton" to="." method="_on_item_button_mouse_entered"]
 [connection signal="mouse_exited" from="ItemButton" to="." method="_on_item_button_mouse_exited"]
 [connection signal="pressed" from="ItemButton" to="." method="_on_item_button_pressed"]
 [connection signal="pressed" from="UsagePanel/UseButton" to="." method="_on_use_button_pressed"]
 [connection signal="pressed" from="UsagePanel/DropButton" to="." method="_on_drop_button_pressed"]
+[connection signal="pressed" from="DiscardWarning/OKButton" to="." method="_on_ok_button_pressed"]
+[connection signal="pressed" from="DiscardWarning/CancelButton" to="." method="_on_cancel_button_pressed"]

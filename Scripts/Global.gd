@@ -17,6 +17,9 @@ var player_node: Node = null
 @onready var inventory_slot_scene = preload("res://Scenes/Player/Inventory Management System/Inventory_slot.tscn")
 var inventory_slot_icon_size = 1
 
+var loadingScreen = preload("res://Scenes/UI/loading.tscn")
+var nextScene = "res://Scenes/UI/main_menu.tscn"
+
 func _ready():
 	inventory.resize(30)
 
