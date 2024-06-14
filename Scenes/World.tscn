@@ -257,23 +257,15 @@ position = Vector2(9280, 201)
 
 [node name="Enemy 1" parent="Enemies2" instance=ExtResource("7_2b8o7")]
 position = Vector2(1510, 467)
-gravity = 98
-isDie = false
 
 [node name="Enemy 2" parent="Enemies2" instance=ExtResource("7_2b8o7")]
 position = Vector2(2398, 545)
-gravity = 98
-isDie = false
 
 [node name="Enemy 3" parent="Enemies2" instance=ExtResource("7_2b8o7")]
 position = Vector2(4439, 351)
-gravity = 98
-isDie = false
 
 [node name="Enemy 4" parent="Enemies2" instance=ExtResource("7_2b8o7")]
 position = Vector2(5269, 168)
-gravity = 98
-isDie = false
 
 [node name="Enemies3" type="Node2D" parent="."]
 

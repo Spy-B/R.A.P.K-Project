@@ -22,6 +22,11 @@ var nextScene = "res://Scenes/UI/main_menu.tscn"
 
 func _ready():
 	inventory.resize(30)
+	
+
+#func load_screen_to_scene(Target: String) -> void:
+	#var loadingScreen = preload("res://Scenes/UI/loading.tscn").instantiate()
+	#
 
 func add_item(item):
 	for i in range(inventory.size()):

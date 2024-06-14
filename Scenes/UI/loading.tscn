@@ -1,8 +1,9 @@
-[gd_scene load_steps=38 format=3 uid="uid://b5b5dfh0nfqbt"]
+[gd_scene load_steps=39 format=3 uid="uid://b5b5dfh0nfqbt"]
 
 [ext_resource type="Texture2D" uid="uid://cg44exrdvj6m2" path="res://Assets/UI/icons8-loading-ezgif.com-gif-to-sprite-converter.png" id="1_0udjo"]
 [ext_resource type="Script" path="res://Scripts/UI/loading.gd" id="1_7rsbu"]
 [ext_resource type="FontFile" uid="uid://bcnid3iximx4r" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.otf" id="3_bjyxr"]
+[ext_resource type="VideoStream" uid="uid://dgcth6kq5m1xn" path="res://Assets/Videos/Resilience _ Animated Short _ CalArts Film 2023.ogv" id="4_u573m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h3kpl"]
 atlas = ExtResource("1_0udjo")
@@ -319,17 +320,17 @@ theme_override_font_sizes/font_size = 40
 text = "Loading."
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+stream = ExtResource("4_u573m")
 autoplay = true
-loop = true
 
 [node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15

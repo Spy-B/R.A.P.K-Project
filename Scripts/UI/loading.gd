@@ -1,5 +1,7 @@
 extends Control
 
+@export_file("*.tscn") var next_scene: String = "res://Scenes/UI/main_menu.tscn"
+
 @onready var loading_icon = $LoadingIcon
 @onready var animation_player = $AnimationPlayer
 @onready var color_rect_2 = $ColorRect2
@@ -12,14 +14,12 @@ func _ready():
 	color_rect_2.visible = false
 
 @warning_ignore("unused_parameter")
-func _physics_process(delta):
+func _process(delta):
 	var progress = []
-	ResourceLoader.load_threaded_get_status(Global.nextScene, progress)
-	
-	if progress[0] == 1:
+	if ResourceLoader.load_threaded_get_status(Global.nextScene, progress) == ResourceLoader.THREAD_LOAD_LOADED:
+		set_process(false)
 		animation_player.play("Transation Effect")
-		await get_tree().create_timer(0.2).timeout
-		var packed_scene = ResourceLoader.load_threaded_get(Global.nextScene)
-		get_tree().change_scene_to_packed(packed_scene)
-		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		var new_scene: PackedScene = ResourceLoader.load_threaded_get(Global.nextScene)
+		get_tree().change_scene_to_packed(new_scene)
+	##Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	

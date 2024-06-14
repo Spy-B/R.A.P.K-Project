@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvplrh5krh46n"]
+[gd_scene load_steps=4 format=3 uid="uid://cvplrh5krh46n"]
 
 [ext_resource type="FontFile" uid="uid://dcp8gylagvxol" path="res://Assets/Fonts/Transyl-Bold.ttf" id="1_1mowi"]
 [ext_resource type="Script" path="res://Scripts/UI/main_menu.gd" id="1_cmyql"]
-[ext_resource type="PackedScene" uid="uid://c8yxig8q4w1xx" path="res://Scenes/World.tscn" id="2_q7drn"]
 [ext_resource type="FontFile" uid="uid://bcnid3iximx4r" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.otf" id="3_evi26"]
 
 [node name="MainMenu" type="Control"]
@@ -15,7 +14,7 @@ offset_right = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cmyql")
-next_scene = ExtResource("2_q7drn")
+next_scene = "res://Scenes/Lvl1.tscn"
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
