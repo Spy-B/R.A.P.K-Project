@@ -11,6 +11,7 @@ var state_machine
 
 @export_group("Physics")
 @export var gravity = 98
+@export_range(0, 10) var timeScale: float = 1
 
 @export_group("Movement")
 @export var canWalk = true
@@ -62,6 +63,8 @@ var is_shooting = false
 var killCombo = Global.killComboCounter
 @export var killComboTime = 1
 
+@export_range(0, 10) var bulletTimeScale: float = 1
+
 @export_group("Inventory Management System")
 @onready var interact_ui = $interactUI
 @onready var inventory_ui = $InventoryUI
@@ -92,7 +95,7 @@ var killCombo = Global.killComboCounter
 
 # Start function: Everything here starts at the first FRAME
 func _ready():
-	print(Test[0][0])
+	print(Global.ammo_in_mag)
 	$PlayerSprites.scale.x = spriteScaleX
 	$PlayerSprites.scale.y = spriteScaleY
 	
@@ -113,7 +116,7 @@ func _ready():
 # Update function: Everything here is updated 60 times per second
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
-	set_velocity(motion)
+	set_velocity(motion * timeScale)
 	set_up_direction(Vector2.UP)
 	move_and_slide()
 	motion = velocity
@@ -174,7 +177,7 @@ func Gravity():
 
 func State_Machine():
 	if is_on_floor():
-		if (motion.x == walkingSpeed || motion.x == -walkingSpeed):
+		if Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left"):
 			state_machine.travel(walkingAnimation)
 		
 		if motion.x == 0:
@@ -193,7 +196,7 @@ func State_Machine():
 	#if Input.is_action_pressed("shooting"):
 		#animation_tree.travel("Shooting")
 	
-	if (motion.x == runningSpeed || motion.x == -runningSpeed) && is_on_floor():
+	if  (Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left")) &&  Input.is_action_pressed("running") && is_on_floor():
 		state_machine.travel(runningAnimation)
 		$Particles/MoveParticles.emitting = true
 	else:
@@ -316,6 +319,7 @@ func shooting():
 			bulletInstance.global_position = $PlayerSprites/GunBarrel.global_position
 			bulletInstance.global_rotation = $PlayerSprites/GunBarrel.global_rotation
 			bulletInstance.shooter = self
+			#bulletInstance.timeScale = bulletTimeScale
 			get_parent().add_child(bulletInstance)
 			state_machine.travel(shootingAnimation)
 			can_fire = false

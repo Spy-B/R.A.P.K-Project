@@ -8,16 +8,20 @@ size = Vector2(48, 96)
 
 [node name="Enemy 3" type="CharacterBody2D"]
 script = ExtResource("1_3ef2w")
-group = "Enemies"
 lifePoints = 5.0
+group = "Enemies"
+lvlScene = "World"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("1")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="EnemySprites" type="Sprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_o7qj2")
 flip_h = true
+
+[node name="RayCast2D" type="RayCast2D" parent="EnemySprites"]
+enabled = false
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(-28, 0)
@@ -25,3 +29,5 @@ position = Vector2(-28, 0)
 [node name="RayCast2D2" type="RayCast2D" parent="."]
 rotation = 1.5708
 target_position = Vector2(0, 35)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

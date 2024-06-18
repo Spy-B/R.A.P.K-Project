@@ -1224,7 +1224,7 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("EnemySprites:animation")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
@@ -1236,7 +1236,7 @@ tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("EnemySprites:frame")
-tracks/1/interp = 1
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.08, 0.16, 0.24, 0.32, 0.4, 0.48, 0.56),
@@ -1255,7 +1255,6 @@ script = ExtResource("1_0quuy")
 lifePoints = 2.0
 deadAnimation = "Death"
 group = "Enemies"
-playerScene = "World"
 playerGroup = "Player"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

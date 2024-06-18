@@ -146,6 +146,11 @@ ui_add={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"echo":false,"script":null)
 ]
 }
+continue={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":32,"echo":false,"script":null)
+]
+}
 
 [physics]
 
@@ -157,6 +162,6 @@ textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
 textures/decals/filter=0
 textures/light_projectors/filter=0
+viewport/hdr_2d=true
 environment/defaults/default_environment="res://default_env.tres"
 vram_compression/import_etc=true
-quality/driver/driver_name="GLES3"

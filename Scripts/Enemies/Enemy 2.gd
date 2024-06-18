@@ -8,7 +8,10 @@ var motion = Vector2.ZERO
 @export var canMove = true
 @export var runningSpeed = 100
 var isMovingLeft = true
+@onready var animation_player = $AnimationPlayer
 var dir = 1
+
+@export_range(0, 10) var timeScale: float = 1
 
 @export_group("Attack")
 @export var canAttack = true
@@ -25,18 +28,23 @@ var isGrounded = true
 
 @export var group: String
 var player
-@export var playerScene: String
+@export var lvlScene: String
+@export var followLvlSceneTime = true
+
 @export var playerGroup: String
 
 func _ready():
 	if group != "":
 		self.add_to_group(group)
 	
-	player = get_node("/root/" + playerScene + "/Player")
+	player = get_node("/root/" + lvlScene + "/Player")
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
-	set_velocity(motion)
+	if followLvlSceneTime:
+		timeScale = Global.timeScale
+	
+	set_velocity(motion * timeScale)
 	set_up_direction(Vector2.UP)
 	move_and_slide()
 	motion = velocity
@@ -47,18 +55,20 @@ func _physics_process(delta):
 	if canAttack:
 		Attack()
 	Death()
+	
 	#if is_on_floor() && motion.x == 0:
 		#$AnimatedSprite2D.play("Idle")
 	
-	
 	#look_at(get_parent().get_node("Player").posation.x)
 	
-	if isDie:
-		ray_cast_2d.enabled = false
 
 func Gravity():
 	if !is_on_floor():
 		motion.y += gravity
+	else:
+		if isDie:
+			gravity = 0
+			$CollisionShape2D.disabled = true
 
 func Move():
 	var direction = (player.global_position - global_position).normalized()
@@ -71,12 +81,17 @@ func Move():
 		else:
 			dir = 1
 			enemy_sprites.scale.x = -spriteScaleX   # Flip sprite back if player is to the right
+	
+	animation_player.speed_scale = timeScale
 
 func Attack():
 	if ray_cast_2d.get_collider() == player && !isDie:
 		motion.x = runningSpeed * dir
 	else:
 		motion.x = 0
+	
+	if isDie:
+		ray_cast_2d.enabled = false
 
 func Death():
 	if lifePoints == 0 && !isDie:

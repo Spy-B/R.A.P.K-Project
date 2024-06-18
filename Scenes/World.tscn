@@ -169,6 +169,7 @@ layer_0/tile_data = PackedInt32Array(851969, 0, 0, 851970, 0, 0, 851971, 0, 0, 8
 
 [node name="Player" parent="." instance=ExtResource("1")]
 position = Vector2(1172, 473)
+ammoInMag = 9
 maxAmmo = 9
 handgunMagazineSize = 9
 IncreaseInventorySize_bag1 = 5
@@ -257,15 +258,19 @@ position = Vector2(9280, 201)
 
 [node name="Enemy 1" parent="Enemies2" instance=ExtResource("7_2b8o7")]
 position = Vector2(1510, 467)
+lvlScene = "World"
 
 [node name="Enemy 2" parent="Enemies2" instance=ExtResource("7_2b8o7")]
 position = Vector2(2398, 545)
+lvlScene = "World"
 
 [node name="Enemy 3" parent="Enemies2" instance=ExtResource("7_2b8o7")]
 position = Vector2(4439, 351)
+lvlScene = "World"
 
 [node name="Enemy 4" parent="Enemies2" instance=ExtResource("7_2b8o7")]
 position = Vector2(5269, 168)
+lvlScene = "World"
 
 [node name="Enemies3" type="Node2D" parent="."]
 

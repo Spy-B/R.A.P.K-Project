@@ -1,5 +1,7 @@
 extends Node
 
+@export_range(0, 10) var timeScale = 1
+
 @export var ammo_in_mag = 0
 @export var extra_ammo = 0
 @export var max_ammo = 0
