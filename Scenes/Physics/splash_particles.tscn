@@ -1,0 +1,58 @@
+[gd_scene load_steps=11 format=3 uid="uid://h5ydh27dqpuq"]
+
+[ext_resource type="Texture2D" uid="uid://du5scffh4g2tm" path="res://Assets/Water_particle_1.png" id="1"]
+[ext_resource type="Script" path="res://Scripts/Physics/splash_particles.gd" id="2"]
+
+[sub_resource type="Gradient" id="1"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="2"]
+gradient = SubResource("1")
+
+[sub_resource type="Curve" id="3"]
+_data = [Vector2(0, 0.636364), 0.0, 0.0767676, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="4"]
+curve = SubResource("3")
+
+[sub_resource type="ParticleProcessMaterial" id="5"]
+direction = Vector3(0, -1, 0)
+gravity = Vector3(0, 150, 0)
+scale_curve = SubResource("4")
+color_ramp = SubResource("2")
+
+[sub_resource type="Curve" id="6"]
+_data = [Vector2(0, 0.111364), 0.0, 0.0767676, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="7"]
+curve = SubResource("6")
+
+[sub_resource type="ParticleProcessMaterial" id="8"]
+direction = Vector3(0, -1, 0)
+gravity = Vector3(0, 90, 0)
+scale_curve = SubResource("7")
+color_ramp = SubResource("2")
+
+[node name="splash_particles" type="Node2D"]
+script = ExtResource("2")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 4
+process_material = SubResource("5")
+texture = ExtResource("1")
+lifetime = 0.75
+explosiveness = 1.0
+
+[node name="Particles2D2" type="GPUParticles2D" parent="."]
+amount = 6
+process_material = SubResource("8")
+texture = ExtResource("1")
+lifetime = 0.75
+explosiveness = 1.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

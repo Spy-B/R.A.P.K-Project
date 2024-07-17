@@ -14,7 +14,7 @@ offset_top = 10.0
 offset_right = 160.0
 offset_bottom = 160.0
 script = ExtResource("1_qnp8o")
-item_icon_size = 1.0
+item_icon_size = 5
 
 [node name="OuterBorder" type="ColorRect" parent="."]
 layout_mode = 1
@@ -40,6 +40,7 @@ color = Color(0.454524, 0.454524, 0.454524, 1)
 
 [node name="ItemIcon" type="Sprite2D" parent="InnerBorder"]
 position = Vector2(70, 70)
+scale = Vector2(5, 5)
 
 [node name="ItemQuantity" type="Label" parent="InnerBorder"]
 layout_mode = 0
@@ -152,35 +153,42 @@ text = "discard"
 visible = false
 top_level = true
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -400.0
-offset_top = -200.0
-offset_right = 400.0
-offset_bottom = 200.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.996078, 0, 0.0862745, 0)
+
+[node name="DiscardWarningWin" type="ColorRect" parent="DiscardWarning"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 560.0
+offset_top = 340.0
+offset_right = -560.0
+offset_bottom = -340.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.996078, 0, 0.0862745, 0.705882)
 
-[node name="Label2" type="Label" parent="DiscardWarning"]
+[node name="Label2" type="Label" parent="DiscardWarning/DiscardWarningWin"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -46.5
+offset_left = -115.0
 offset_top = 10.0
-offset_right = 46.5
-offset_bottom = 33.0
+offset_right = 115.0
+offset_bottom = 60.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 0.784314, 0, 1)
 theme_override_fonts/font = ExtResource("2_mhwhr")
 theme_override_font_sizes/font_size = 50
 text = "WARNING"
 
-[node name="Label" type="Label" parent="DiscardWarning"]
+[node name="Label" type="Label" parent="DiscardWarning/DiscardWarningWin"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -194,7 +202,7 @@ theme_override_fonts/font = ExtResource("2_mhwhr")
 theme_override_font_sizes/font_size = 50
 text = "You can't get your item back"
 
-[node name="OKButton" type="Button" parent="DiscardWarning"]
+[node name="OKButton" type="Button" parent="DiscardWarning/DiscardWarningWin"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -208,7 +216,7 @@ theme_override_fonts/font = ExtResource("2_mhwhr")
 theme_override_font_sizes/font_size = 40
 text = "OK"
 
-[node name="CancelButton" type="Button" parent="DiscardWarning"]
+[node name="CancelButton" type="Button" parent="DiscardWarning/DiscardWarningWin"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -230,5 +238,5 @@ text = "Cancel"
 [connection signal="pressed" from="ItemButton" to="." method="_on_item_button_pressed"]
 [connection signal="pressed" from="UsagePanel/UseButton" to="." method="_on_use_button_pressed"]
 [connection signal="pressed" from="UsagePanel/DropButton" to="." method="_on_drop_button_pressed"]
-[connection signal="pressed" from="DiscardWarning/OKButton" to="." method="_on_ok_button_pressed"]
-[connection signal="pressed" from="DiscardWarning/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="DiscardWarning/DiscardWarningWin/OKButton" to="." method="_on_ok_button_pressed"]
+[connection signal="pressed" from="DiscardWarning/DiscardWarningWin/CancelButton" to="." method="_on_cancel_button_pressed"]

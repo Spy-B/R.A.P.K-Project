@@ -1,8 +1,11 @@
 extends CharacterBody2D
 
+@export_group("Physics")
 var motion = Vector2.ZERO
 
 @export var gravity = 98
+@export var max_speed := 600
+@export var max_speed_in_water := 200
 
 @export_group("Movement")
 @export var canMove = true
@@ -72,6 +75,10 @@ func Gravity():
 
 func Move():
 	var direction = (player.global_position - global_position).normalized()
+	if motion.x != 0:
+		enemy_sprites.play("Running")
+	else:
+		enemy_sprites.play("Idle")
 	
 	if !isDie:
 		# Make the enemy look at the player
@@ -109,3 +116,8 @@ func Death():
 		#$AnimationPlayer.play(deadAnimation)
 		#
 		#isGrounded = is_on_floor()
+
+func in_water():
+	@warning_ignore("integer_division")
+	gravity = gravity / 3
+	max_speed = max_speed_in_water

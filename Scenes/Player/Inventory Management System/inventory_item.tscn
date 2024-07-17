@@ -3,15 +3,16 @@
 [ext_resource type="Script" path="res://Scripts/Player/Inventory Management System/inventory_item.gd" id="1_05kdw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v12h8"]
-radius = 8.0
+radius = 20.0
 
 [node name="Inventory_Item" type="Node2D" groups=["Items"]]
 script = ExtResource("1_05kdw")
-item_texture_size = 1.0
-slot_texture_size = 1.0
-item_effect = null
+item_icon_size = 5.0
+playerGroup = "Player"
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 257
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_v12h8")

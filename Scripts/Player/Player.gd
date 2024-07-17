@@ -1,51 +1,66 @@
 extends CharacterBody2D
 #@export_category("Player Abilities")
 
-var motion = Vector2.ZERO
+var motion := Vector2.ZERO
 
 @export_group("Character")
 @onready var spriteScaleX = $PlayerSprites.scale.x
 @onready var spriteScaleY = $PlayerSprites.scale.y
 var state_machine
 
+@export var checkpoint_manager: Node
+
 
 @export_group("Physics")
 @export var gravity = 98
+
+@export var max_speed := 600
+@export var max_speed_in_water := 200
+
 @export_range(0, 10) var timeScale: float = 1
 
+@export var followLvlScaneTime := false
+
+@export var PUSH_FORCE := 15
+@export var MIN_PUSH_FORCE := 10
+
 @export_group("Movement")
-@export var canWalk = true
-@export var walkingSpeed = 200
 @export_placeholder("Animation") var idleAnimation: String
+
+@export var canWalk := true
+@export var walkingSpeed := 200
 @export_placeholder("Animation") var walkingAnimation: String
-@export var canRun = true
-@export var runningSpeed = 500
+
+@export var canRun := true
+@export var runningSpeed := 500
 @export_placeholder("Animation") var runningAnimation: String
 
 @export_group("Jumping")
-@export var canJump = true
-@export var jumpPower = 1000
+@export var canJump := true
+@export var jumpPower := 1000
 @export_placeholder("Animation") var jumpingAnimation: String
 @export_placeholder("Animation") var fallingAnimation: String
 @export_placeholder("Animation") var touchTheGroundAnimation: String
-@export var canDoubleJump = true
-var extraDoubleJumps = 1
-@export var canTripleJump = false
+
+@export var canDoubleJump := true
+var extraDoubleJumps := 1
+@export var canTripleJump := false
 var extraTripleJumps = 2
-@export var canInfiniteJump = false
-var isGrounded = true
-var have_coyote = true
+@export var canInfiniteJump := false
+var isGrounded := true
+var have_coyote := true
 
 @export_group("Melee Attack")
-@export var canAttack = true
-@export var meleeCombo = true
-@export var comboPoints = 3
-@export var meleeComboCounter = true
+@export var canAttack := true
+@export var meleeCombo := true
+@export var comboPoints := 3
+@export var meleeComboCounter := true
 @export_placeholder("Animation") var meleeAttackAnimation: String
-var can_attack = true
+var can_attack := true
+var is_attack := false
 
 @export_group("Shooting")
-@export var canShoot = true
+@export var canShoot := true
 @export_placeholder("Animation") var shootingAnimation: String
 @export_placeholder("Animation") var PowerfulShootAnimation: String
 @export var bullet: PackedScene
@@ -53,32 +68,33 @@ var can_attack = true
 @export var maxAmmo: int = Global.max_ammo
 @export var extraAmmo: int = Global.extra_ammo
 
-@export var InfiniteAmmo = false
-@export var fireRate = 0.5
-@export var reloadTime = 0.5
-var can_reload = true
-var can_fire = true
-var is_shooting = false
-@export var killComboCounter = true
+@export var InfiniteAmmo := false
+@export var fireRate := 0.5
+@export var reloadTime := 0.5
+var can_reload := true
+var can_fire := true
+var is_shooting := false
+@export var killComboCounter := true
 var killCombo = Global.killComboCounter
-@export var killComboTime = 1
+@export var killComboTime := 1
 
 @export_range(0, 10) var bulletTimeScale: float = 1
 
 @export_group("Inventory Management System")
-@onready var interact_ui = $interactUI
 @onready var inventory_ui = $InventoryUI
+@onready var interact_ui = $InteractUI
 
 @export var handgunMagazineSize: int
 @export var IncreaseInventorySize_bag1: int
 
-@export var Test = []
+@export var Test := []
 
 @export_group("Other")
-@export_placeholder("Group") var playerGroup: String
 @export_placeholder("Group") var enemiesGroup: String
 
 @onready var reloadTimer = $Timers/ReloadTimer
+
+@export var voidAreaGroup: String
 
 # warning-ignore:export_hint_type_mistmatch
 #export(String,"Rebecca", "Mary", "Leah") var array = 1
@@ -95,12 +111,12 @@ var killCombo = Global.killComboCounter
 
 # Start function: Everything here starts at the first FRAME
 func _ready():
-	print(Global.ammo_in_mag)
 	$PlayerSprites.scale.x = spriteScaleX
 	$PlayerSprites.scale.y = spriteScaleY
 	
 	state_machine = $AnimationTree.get("parameters/playback")
 	$AnimationTree.active = true
+	$AnimationPlayer.speed_scale = timeScale
 	
 	$PlayerSprites/MeleeAttack2/CollisionShape2D.disabled = true
 	
@@ -109,13 +125,16 @@ func _ready():
 	
 	#	if spell_elements == 1 + 2 + 4 + 8:
 	#		print("fire")
-	
-	self.add_to_group(playerGroup)
 	Global.set_player_reference(self)
+	
+	#global_position = respawnPosition
 
 # Update function: Everything here is updated 60 times per second
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
+	if followLvlScaneTime:
+		timeScale = Global.timeScale
+	
 	set_velocity(motion * timeScale)
 	set_up_direction(Vector2.UP)
 	move_and_slide()
@@ -125,31 +144,38 @@ func _physics_process(delta):
 	State_Machine()
 	
 	# this Script for Exporting variabels
-	if canWalk:
+	if canWalk && !inventory_ui.visible:
 		walking()
-	if canRun:
+	if canRun && !inventory_ui.visible:
 		running()
-	if canJump:
+	if canJump && !inventory_ui.visible:
 		jumping()
-	if canDoubleJump && canJump && !canTripleJump:
+	if canDoubleJump && canJump && !canTripleJump && !inventory_ui.visible:
 		doubleJump()
-	if canTripleJump && canJump:
+	if canTripleJump && canJump && !inventory_ui.visible:
 		tripleJump()
-	if canInfiniteJump:
+	if canInfiniteJump && !inventory_ui.visible:
 		infiniteJumps()
-	if canAttack && !meleeCombo:
+	if canAttack && !meleeCombo && !inventory_ui.visible:
 		meleeAttack()
-	if meleeCombo:
+	if meleeCombo && !inventory_ui.visible:
 		MeleeCombo()
-	if canShoot:
+	if canShoot && !inventory_ui.visible:
 		shooting()
 		reload()
 			
-	if killComboCounter:
+	if killComboCounter && !inventory_ui.visible:
 		KillCombo()
 		
 	if InfiniteAmmo == true:
 		ammoInMag = !0
+	
+	
+	for i in get_slide_collision_count():
+		var c = get_slide_collision(i)
+		if c.get_collider() is RigidBody2D:
+			var push_force = (PUSH_FORCE * motion.length() / runningSpeed) + MIN_PUSH_FORCE
+			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
 
 func _input(event):
 	if event.is_action_pressed("ui_inventory"):
@@ -173,30 +199,30 @@ func Gravity():
 		$Particles/JumpParticles.restart()
 	
 	isGrounded = is_on_floor()
+	
+	#if !Input.is_action_pressed("jumping") && motion.y < 0:
+		#motion.y = lerp(motion.y,0,0.2)
 
 
 func State_Machine():
-	if is_on_floor():
+	if is_on_floor() && canWalk && canRun && !is_attack  && !inventory_ui.visible:
 		if Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left"):
 			state_machine.travel(walkingAnimation)
 		
-		if motion.x == 0:
+		if motion.x == 0 && !inventory_ui.visible:
 			state_machine.travel(idleAnimation)
 		
-		if motion.y < -gravity:
+		if motion.y < -gravity && !inventory_ui.visible:
 			state_machine.travel(jumpingAnimation)
 	
 	else:
-		if motion.y < 0:
+		if motion.y < 0 && !inventory_ui.visible:
 			state_machine.travel(jumpingAnimation)
 		
-		if motion.y > gravity:
+		if motion.y > gravity && !inventory_ui.visible:
 			state_machine.travel(fallingAnimation)
-		
-	#if Input.is_action_pressed("shooting"):
-		#animation_tree.travel("Shooting")
 	
-	if  (Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left")) &&  Input.is_action_pressed("running") && is_on_floor():
+	if  (Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left")) &&  Input.is_action_pressed("running") && is_on_floor() && !inventory_ui.visible:
 		state_machine.travel(runningAnimation)
 		$Particles/MoveParticles.emitting = true
 	else:
@@ -204,7 +230,7 @@ func State_Machine():
 
 #Walking Function
 func walking():
-	if canWalk && canRun:
+	if canWalk && canRun && !is_attack:
 		if Input.is_action_pressed("ui_right"):
 			motion.x = walkingSpeed
 			$PlayerSprites.scale.x = spriteScaleX
@@ -218,7 +244,7 @@ func walking():
 
 #Running Function
 func running():
-	if canWalk && canRun:
+	if canWalk && canRun && !is_attack:
 		if Input.is_action_pressed("ui_right") && Input.is_action_pressed("running"):
 			motion.x = runningSpeed
 			$PlayerSprites.scale.x = spriteScaleX
@@ -229,7 +255,7 @@ func running():
 			$PlayerSprites.scale.x = -spriteScaleX
 			
 	# this code make the player running using the walking input if the canWalking Variable is false
-	elif !canWalk && canRun:
+	elif !canWalk && canRun && !is_attack:
 		if Input.is_action_pressed("ui_right"):
 			motion.x = runningSpeed
 			$PlayerSprites.scale.x = spriteScaleX
@@ -273,33 +299,43 @@ func infiniteJumps():
 
 #Melee Attack Function
 func meleeAttack():
-	if Input.is_action_just_pressed("attack") && is_on_floor() && !meleeCombo:
-		#can_attack = false
+	if Input.is_action_just_pressed("attack") && is_on_floor() && (!meleeCombo && canAttack && !is_attack):
+		is_attack = true
+		can_attack = false
 		motion.x = 0
 		state_machine.travel(meleeAttackAnimation)
-		await $AnimationPlayer.animation_finished
-		#can_attack = true
+		await $AnimationTree.animation_finished
+		is_attack = false
+		can_attack = true
 		
 
 #Melee Combo Function
 func MeleeCombo():
-	if Input.is_action_just_pressed("attack") && is_on_floor() && comboPoints == 3:
+	if Input.is_action_just_pressed("attack") && is_on_floor() && comboPoints == 3 && (canAttack && !is_attack):
+		is_attack = true
+		can_attack = false
+		motion.x = 0
 		state_machine.travel(meleeAttackAnimation)
 		comboPoints = comboPoints - 1
 		$Timers/MeleeComboTimer.start()
 	
-	elif Input.is_action_just_pressed("attack") && is_on_floor() && comboPoints == 2:
-		$AnimationPlayer.play("Attack 2")
+	elif Input.is_action_just_pressed("attack") && is_on_floor() && comboPoints == 2 && (canAttack && !is_attack):
+		is_attack = true
+		can_attack = false
+		motion.x = 0
+		#state_machine.travel(********)   you should call the Socend ATTACK ANIMATION
 		comboPoints = comboPoints - 1
 		$Timers/MeleeComboTimer.start()
 
 func _on_MeleeComboTimer_timeout():
 	comboPoints = 3
+	is_attack = false
+	can_attack = true
 
 func _on_MeleeAttack2_body_entered(body):
 	if body.is_in_group(enemiesGroup):
 		#body.queue_free()
-		body.lifePoints -= 0.5
+		body.lifePoints -= 1
 
 #Shooting Function
 func shooting():
@@ -319,7 +355,7 @@ func shooting():
 			bulletInstance.global_position = $PlayerSprites/GunBarrel.global_position
 			bulletInstance.global_rotation = $PlayerSprites/GunBarrel.global_rotation
 			bulletInstance.shooter = self
-			#bulletInstance.timeScale = bulletTimeScale
+			bulletInstance.timeScale = bulletTimeScale
 			get_parent().add_child(bulletInstance)
 			state_machine.travel(shootingAnimation)
 			can_fire = false
@@ -372,9 +408,19 @@ func apply_item_effect(item):
 			print("Speed increased to ", runningSpeed)
 		"Handgun Mag":
 			extraAmmo += handgunMagazineSize
+		"Double Jump":
+			canDoubleJump = true
 		"Slot Boost":
 			Global.increase_inventory_size(IncreaseInventorySize_bag1)
 			print("Slots increased to ", Global.inventory.size())
 		_:
 			print("There is no effect for this item")
-			
+
+func in_water():
+	@warning_ignore("integer_division")
+	gravity = gravity / 3
+	max_speed = max_speed_in_water
+
+func _on_damage_area_area_entered(area):
+	if area.is_in_group(voidAreaGroup):
+		global_position = checkpoint_manager.last_position

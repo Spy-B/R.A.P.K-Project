@@ -2,7 +2,7 @@
 extends Control
 
 @onready var item_icon = $InnerBorder/ItemIcon
-@export var item_icon_size: float = Global.inventory_slot_icon_size
+@export var item_icon_size = Global.inventory_slot_icon_size
 @onready var item_quantity = $InnerBorder/ItemQuantity
 @onready var detailes_panel = $DetailesPanel
 @onready var item_name = $DetailesPanel/ItemName
@@ -10,8 +10,8 @@ extends Control
 @onready var item_effect = $DetailesPanel/ItemEffect
 @onready var usage_panel = $UsagePanel
 @onready var discard_warning = $DiscardWarning
-@onready var ok_button = $DiscardWarning/OKButton
-@onready var cancel_button = $DiscardWarning/CancelButton
+@onready var ok_button = $DiscardWarning/DiscardWarningWin/OKButton
+@onready var cancel_button = $DiscardWarning/DiscardWarningWin/CancelButton
 
 var item = null
 
@@ -23,6 +23,8 @@ func _ready():
 	if !Engine.is_editor_hint():
 		item_icon.scale.x = item_icon_size
 		item_icon.scale.y = item_icon_size
+	
+	Global.inventory_slot_icon_size = item_icon_size
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta):

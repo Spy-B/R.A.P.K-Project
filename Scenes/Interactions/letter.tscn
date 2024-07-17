@@ -1,0 +1,105 @@
+[gd_scene load_steps=7 format=3 uid="uid://4qvtq6epoo3e"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Letter.gd" id="1_y3g3p"]
+[ext_resource type="Texture2D" uid="uid://c7l67q2ffe28t" path="res://Assets/Objects/Shooter Game  Assets/Icons/Letter.png" id="2_ka42d"]
+[ext_resource type="Texture2D" uid="uid://beqlxk5kdxuin" path="res://Assets/UI/grunge-paper-background (Pixelized).jpg" id="3_p3v0h"]
+[ext_resource type="FontFile" uid="uid://dcp8gylagvxol" path="res://Assets/Fonts/Transyl-Bold.ttf" id="3_xcvvs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0elpo"]
+radius = 20.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_78ts3"]
+line_spacing = 4.0
+font = ExtResource("3_xcvvs")
+font_size = 22
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Letter" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_y3g3p")
+letter = "The Framework must allow us to make a variety of playable characters, from simple
+arcade shooters type (Metal Slug) to complex playable characters that can grab items
+and keep them in their inventory, that can switch between ranged and melee combat,
+switch between weapons quickly, that can unlock special skills, or unleash special
+moves after fulfilling specific conditions (EX: The King Of Fighters’ Power Gauge,
+KATANA ZERO’ Slow Motion), entering stealth mode, climbing ladders, hanging on
+edges, jumping up, double jump, jumping down, walk, run/jog, sprint, dodge, interact
+with NPCs or environmental elements.
+
+Our goal is to be able to make different playable characters that each one of them has
+his own gameplay hook."
+playerGroup = "Player"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 257
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_0elpo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_ka42d")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.529412)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -425.0
+offset_right = 320.0
+offset_bottom = 425.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_p3v0h")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -410.0
+offset_right = 300.0
+offset_bottom = 410.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_78ts3")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+text_overrun_behavior = 4
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

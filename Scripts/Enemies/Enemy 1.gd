@@ -1,8 +1,11 @@
 extends CharacterBody2D
 
+@export_group("Physics")
 var motion = Vector2.ZERO
 
 @export var gravity = 98
+@export var max_speed := 600
+@export var max_speed_in_water := 200
 
 @export_group("Movement")
 @export var canMove = true
@@ -23,7 +26,7 @@ var dir = 1
 @onready var spriteScaleX = enemy_sprites.scale.x
 @onready var spriteScaleY = enemy_sprites.scale.y
 var isGrounded = true
-@onready var ray_cast_2d = $EnemySprites/RayCast2D
+#@onready var ray_cast_2d = $EnemySprites/RayCast2D
 
 
 @export var group: String
@@ -63,6 +66,8 @@ func Gravity():
 
 func Move():
 	motion.x = -runningSpeed if isMovingLeft else runningSpeed
+	if motion.x != 0:
+		$AnimationPlayer.play("Run")
 	
 	if !$RayCast2D.is_colliding() && is_on_floor():
 		isMovingLeft = !isMovingLeft
@@ -70,10 +75,12 @@ func Move():
 	if $RayCast2D2.is_colliding() && is_on_floor():
 		isMovingLeft = !isMovingLeft
 		scale.x = -scale.x
-	
-
 
 func Death():
 	if lifePoints == 0:
 		queue_free()
-	
+
+func in_water():
+	@warning_ignore("integer_division")
+	gravity = gravity / 3
+	max_speed = max_speed_in_water

@@ -17,7 +17,7 @@ signal inventory_updated
 
 var player_node: Node = null
 @onready var inventory_slot_scene = preload("res://Scenes/Player/Inventory Management System/Inventory_slot.tscn")
-var inventory_slot_icon_size = 1
+@export var inventory_slot_icon_size: int = 5
 
 var loadingScreen = preload("res://Scenes/UI/loading.tscn")
 var nextScene = "res://Scenes/UI/main_menu.tscn"

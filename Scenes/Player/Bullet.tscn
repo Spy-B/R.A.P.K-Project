@@ -7,9 +7,10 @@
 radius = 1.0
 
 [node name="Bullet" type="Area2D"]
+collision_layer = 512
+collision_mask = 65793
 script = ExtResource("1_we2s8")
-lvlScene = "World"
-followLvlSceneTime = false
+followPlayerTime = false
 enemiesGroup = "Enemies"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -21,6 +22,7 @@ texture = ExtResource("2_q34e3")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 20.0
+one_shot = true
 autostart = true
 
 [connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]

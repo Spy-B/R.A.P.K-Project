@@ -1,4 +1,4 @@
-[gd_scene load_steps=852 format=3 uid="uid://cjtatbogu1g4q"]
+[gd_scene load_steps=854 format=3 uid="uid://cjtatbogu1g4q"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://cf6i6mocap5ie" path="res://Assets/Characters/Player/Scarlet Idle/Scarlet_Idle_Wait_B.png" id="2"]
@@ -646,9 +646,10 @@
 [ext_resource type="Texture2D" uid="uid://duh131ksvc8j2" path="res://Assets/VFX/PixelSimulations/Flame3[16x16]/0120.png" id="642_08fp8"]
 [ext_resource type="FontFile" uid="uid://bcnid3iximx4r" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.otf" id="645_7dkkb"]
 [ext_resource type="PackedScene" uid="uid://btqhpglnbwnll" path="res://Scenes/Player/Inventory Management System/inventory_ui.tscn" id="646_msosg"]
+[ext_resource type="Texture2D" uid="uid://ch7mnhgmyviuc" path="res://Assets/Keyboard F  Icon.png" id="647_lp1fk"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(39, 105)
+size = Vector2(39, 95)
 
 [sub_resource type="Gradient" id="Gradient_p04gc"]
 offsets = PackedFloat32Array(0, 0.973333)
@@ -3549,6 +3550,12 @@ animations = [{
 "speed": 25.0
 }]
 
+[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_7m8mb"]
+length = 65.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e1k4i"]
+size = Vector2(39, 95)
+
 [sub_resource type="Animation" id="12"]
 resource_name = "Attack 2"
 length = 0.2
@@ -3749,33 +3756,6 @@ tracks/4/keys = {
 "values": [true, false]
 }
 
-[sub_resource type="Animation" id="Animation_tbrdu"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerSprites/VFX:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerSprites/VFX:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="Animation" id="Animation_agext"]
 resource_name = "Reloading"
 step = 0.05
@@ -3972,7 +3952,6 @@ _data = {
 "Jumping": SubResource("Animation_oltkd"),
 "MeleeAttack": SubResource("9"),
 "PowerfulShoot": SubResource("Animation_x3apm"),
-"RESET": SubResource("Animation_tbrdu"),
 "Reloading": SubResource("Animation_agext"),
 "Running": SubResource("Animation_ni5hq"),
 "Shooting": SubResource("Animation_p18k1"),
@@ -4155,10 +4134,12 @@ states/TouchTheGround/position = Vector2(454, 670)
 states/Walking/node = SubResource("AnimationNodeAnimation_1avhj")
 states/Walking/position = Vector2(753, 670)
 transitions = ["Idle", "Running", SubResource("AnimationNodeStateMachineTransition_x1kjm"), "Running", "Idle", SubResource("AnimationNodeStateMachineTransition_2raas"), "Idle", "Walking", SubResource("AnimationNodeStateMachineTransition_b4r2r"), "Walking", "Idle", SubResource("AnimationNodeStateMachineTransition_oriba"), "Jumping", "Falling", SubResource("AnimationNodeStateMachineTransition_sw7b0"), "Falling", "Jumping", SubResource("AnimationNodeStateMachineTransition_6h7tb"), "Falling", "TouchTheGround", SubResource("AnimationNodeStateMachineTransition_dbqdy"), "Idle", "Shooting", SubResource("AnimationNodeStateMachineTransition_6xwyw"), "Shooting", "Idle", SubResource("AnimationNodeStateMachineTransition_mb5pn"), "Running", "Shooting", SubResource("AnimationNodeStateMachineTransition_useid"), "Shooting", "Running", SubResource("AnimationNodeStateMachineTransition_xutvk"), "Walking", "Shooting", SubResource("AnimationNodeStateMachineTransition_1rb8f"), "Shooting", "Walking", SubResource("AnimationNodeStateMachineTransition_bgkna"), "Idle", "MeleeAttack", SubResource("AnimationNodeStateMachineTransition_g7k6m"), "MeleeAttack", "Idle", SubResource("AnimationNodeStateMachineTransition_eafmm"), "MeleeAttack", "Walking", SubResource("AnimationNodeStateMachineTransition_xj08p"), "Walking", "MeleeAttack", SubResource("AnimationNodeStateMachineTransition_iw3af"), "Running", "MeleeAttack", SubResource("AnimationNodeStateMachineTransition_hf7qx"), "MeleeAttack", "Running", SubResource("AnimationNodeStateMachineTransition_u4xks"), "TouchTheGround", "Idle", SubResource("AnimationNodeStateMachineTransition_lgvaq"), "TouchTheGround", "Walking", SubResource("AnimationNodeStateMachineTransition_jekyf"), "TouchTheGround", "Running", SubResource("AnimationNodeStateMachineTransition_klj60"), "TouchTheGround", "Shooting", SubResource("AnimationNodeStateMachineTransition_bsfmv"), "TouchTheGround", "MeleeAttack", SubResource("AnimationNodeStateMachineTransition_ytujf"), "Shooting", "PowerfulShoot", SubResource("AnimationNodeStateMachineTransition_l6gvm"), "Falling", "Running", SubResource("AnimationNodeStateMachineTransition_nlodf"), "Falling", "Walking", SubResource("AnimationNodeStateMachineTransition_ivx4r"), "Walking", "Sprint", SubResource("AnimationNodeStateMachineTransition_w5vd4"), "Idle", "Sprint", SubResource("AnimationNodeStateMachineTransition_e7kfp"), "Running", "Sprint", SubResource("AnimationNodeStateMachineTransition_8d0i7"), "MeleeAttack", "Sprint", SubResource("AnimationNodeStateMachineTransition_0g5jk"), "Sprint", "MeleeAttack", SubResource("AnimationNodeStateMachineTransition_jsxjs"), "TouchTheGround", "Sprint", SubResource("AnimationNodeStateMachineTransition_pq24i"), "Running", "Jumping", SubResource("AnimationNodeStateMachineTransition_61qca"), "Running", "Falling", SubResource("AnimationNodeStateMachineTransition_lpsox"), "Walking", "Falling", SubResource("AnimationNodeStateMachineTransition_6o167"), "MeleeAttack", "Shooting", SubResource("AnimationNodeStateMachineTransition_bf47n"), "Shooting", "MeleeAttack", SubResource("AnimationNodeStateMachineTransition_gii8q"), "PowerfulShoot", "Shooting", SubResource("AnimationNodeStateMachineTransition_bgc6x"), "Idle", "PowerfulShoot", SubResource("AnimationNodeStateMachineTransition_xdco5"), "PowerfulShoot", "Idle", SubResource("AnimationNodeStateMachineTransition_d70d5"), "PowerfulShoot", "Running", SubResource("AnimationNodeStateMachineTransition_b0r61"), "Running", "PowerfulShoot", SubResource("AnimationNodeStateMachineTransition_j8x2d"), "Walking", "PowerfulShoot", SubResource("AnimationNodeStateMachineTransition_e0bdv"), "PowerfulShoot", "Walking", SubResource("AnimationNodeStateMachineTransition_7ho1d"), "Idle", "Falling", SubResource("AnimationNodeStateMachineTransition_khttg"), "Idle", "Jumping", SubResource("AnimationNodeStateMachineTransition_ccka7"), "Walking", "Jumping", SubResource("AnimationNodeStateMachineTransition_v3tol"), "Sprint", "Jumping", SubResource("AnimationNodeStateMachineTransition_75xur"), "TouchTheGround", "Jumping", SubResource("AnimationNodeStateMachineTransition_sjfbg")]
-graph_offset = Vector2(229, 343)
+graph_offset = Vector2(208, 7)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 process_mode = 3
+collision_layer = 256
+collision_mask = 131733
 script = ExtResource("1")
 gravity = 64
 idleAnimation = "Idle"
@@ -4173,13 +4154,12 @@ meleeAttackAnimation = "MeleeAttack"
 shootingAnimation = "Shooting"
 PowerfulShootAnimation = "PowerfulShoot"
 bullet = ExtResource("3")
-fireRate = 0.4
 Test = [["Stamina", 50], ["HandGun Mag", 9]]
-playerGroup = "Player"
 enemiesGroup = "Enemies"
+voidAreaGroup = "void"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 4.5)
+position = Vector2(0.5, 9.5)
 shape = SubResource("1")
 
 [node name="Particles" type="Node2D" parent="."]
@@ -4193,7 +4173,6 @@ amount = 20
 process_material = SubResource("ParticleProcessMaterial_c08rv")
 texture = ExtResource("3_api23")
 lifetime = 0.5
-speed_scale = 1.5
 explosiveness = 0.35
 randomness = 1.0
 fixed_fps = 60
@@ -4212,7 +4191,6 @@ randomness = 1.0
 fixed_fps = 60
 
 [node name="PlayerSprites" type="AnimatedSprite2D" parent="."]
-texture_filter = 1
 sprite_frames = SubResource("2")
 animation = &"Idle"
 
@@ -4222,6 +4200,8 @@ position = Vector2(34, -19)
 [node name="MeleeAttack2" type="Area2D" parent="PlayerSprites"]
 position = Vector2(38, 0)
 scale = Vector2(2, 2)
+collision_layer = 1024
+collision_mask = 65536
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprites/MeleeAttack2"]
 position = Vector2(4.5, 3.75)
@@ -4235,16 +4215,35 @@ position = Vector2(38, -19)
 scale = Vector2(1, 0.5)
 sprite_frames = SubResource("SpriteFrames_0n1qp")
 animation = &"Shooting Effect"
-frame = 1
+frame = 3
+
+[node name="NPCsDetector" type="Area2D" parent="PlayerSprites"]
+collision_layer = 2048
+collision_mask = 16777224
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprites/NPCsDetector"]
+position = Vector2(-19, 0)
+rotation = -1.5708
+shape = SubResource("SeparationRayShape2D_7m8mb")
+
+[node name="DamageArea" type="Area2D" parent="PlayerSprites"]
+collision_layer = 256
+collision_mask = 393344
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprites/DamageArea"]
+position = Vector2(0.5, 9.5)
+shape = SubResource("RectangleShape2D_e1k4i")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(0, -80)
+offset = Vector2(0, -120)
 zoom = Vector2(1.5, 1.5)
 limit_smoothed = true
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 drag_vertical_enabled = true
-drag_vertical_offset = -1.0
+drag_horizontal_offset = 0.5
+drag_vertical_offset = -0.6
+drag_bottom_margin = 0.3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -4258,7 +4257,7 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="Timers" type="Node" parent="."]
 
 [node name="CoyoteTimer" type="Timer" parent="Timers"]
-wait_time = 0.15
+wait_time = 0.1
 one_shot = true
 
 [node name="JumpBufferTimer" type="Timer" parent="Timers"]
@@ -4273,37 +4272,16 @@ one_shot = true
 
 [node name="ComboTimer" type="Timer" parent="Timers"]
 
-[node name="interactUI" type="CanvasLayer" parent="."]
+[node name="InteractUI" type="Control" parent="."]
 visible = false
+layout_mode = 3
+anchors_preset = 0
 
-[node name="ColorRect" type="ColorRect" parent="interactUI"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -250.0
-offset_top = -50.0
-grow_horizontal = 0
-grow_vertical = 0
-color = Color(0.160784, 0.321569, 0.666667, 0.705882)
-
-[node name="Label" type="Label" parent="interactUI/ColorRect"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("645_7dkkb")
-theme_override_font_sizes/font_size = 20
-text = "Press \"E\" to Pick Up"
+[node name="UseB" type="Sprite2D" parent="InteractUI"]
+modulate = Color(1, 1, 1, 0.490196)
+position = Vector2(0, -72)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("647_lp1fk")
 
 [node name="InventoryUI" type="CanvasLayer" parent="."]
 visible = false
@@ -4334,6 +4312,7 @@ text = "Inventory"
 layout_mode = 1
 
 [connection signal="body_entered" from="PlayerSprites/MeleeAttack2" to="." method="_on_MeleeAttack2_body_entered"]
+[connection signal="area_entered" from="PlayerSprites/DamageArea" to="." method="_on_damage_area_area_entered"]
 [connection signal="timeout" from="Timers/MeleeComboTimer" to="." method="_on_MeleeComboTimer_timeout"]
 [connection signal="timeout" from="Timers/ReloadTimer" to="." method="_on_reload_timer_timeout"]
 [connection signal="timeout" from="Timers/ComboTimer" to="." method="_on_ComboTimer_timeout"]
