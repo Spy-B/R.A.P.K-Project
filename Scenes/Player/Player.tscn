@@ -4192,7 +4192,7 @@ fixed_fps = 60
 
 [node name="PlayerSprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("2")
-animation = &"Idle"
+animation = &""
 
 [node name="GunBarrel" type="Marker2D" parent="PlayerSprites"]
 position = Vector2(34, -19)
@@ -4206,7 +4206,6 @@ collision_mask = 65536
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprites/MeleeAttack2"]
 position = Vector2(4.5, 3.75)
 shape = SubResource("3")
-disabled = true
 
 [node name="VFX" type="AnimatedSprite2D" parent="PlayerSprites"]
 visible = false
@@ -4214,8 +4213,7 @@ show_behind_parent = true
 position = Vector2(38, -19)
 scale = Vector2(1, 0.5)
 sprite_frames = SubResource("SpriteFrames_0n1qp")
-animation = &"Shooting Effect"
-frame = 3
+animation = &""
 
 [node name="NPCsDetector" type="Area2D" parent="PlayerSprites"]
 collision_layer = 2048

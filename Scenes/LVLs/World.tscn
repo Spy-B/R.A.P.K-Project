@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://c8yxig8q4w1xx"]
+[gd_scene load_steps=36 format=3 uid="uid://c8yxig8q4w1xx"]
 
 [ext_resource type="Script" path="res://Scripts/World.gd" id="1_1ka7b"]
 [ext_resource type="Texture2D" uid="uid://pmff0ghibkc0" path="res://Assets/Envirement/Prototype Textures/PNG/Dark/texture_01 - 128.png" id="2_el5tq"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dt743vgc0hwtt" path="res://Scenes/Physics/Water_Body.tscn" id="7_e11kw"]
 [ext_resource type="Texture2D" uid="uid://66q0s0qse4c8" path="res://Assets/Objects/key.png" id="7_gjhk3"]
 [ext_resource type="PackedScene" uid="uid://bewfbcgswoa3o" path="res://Scenes/Enemies/Enemy 1.tscn" id="8_63iag"]
+[ext_resource type="PackedScene" uid="uid://dxxchv3vupvbw" path="res://Scenes/Objects/bush.tscn" id="9_au3cm"]
 [ext_resource type="PackedScene" uid="uid://bejqc22buxrw1" path="res://Scenes/Enemies/Enemy 2.tscn" id="9_fjyv6"]
 [ext_resource type="Script" path="res://Scripts/UI/GUI.gd" id="12_11uvm"]
 [ext_resource type="Texture2D" uid="uid://ntsssusdepf4" path="res://Assets/Objects/Shooter Game  Assets/Icons/watermelon.png" id="12_phu68"]
@@ -185,16 +186,18 @@ slowTime = 0.1
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Parallax"]
 
 [node name="Sky" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
+position = Vector2(-1029, 0)
 motion_scale = Vector2(0, 0)
 motion_mirroring = Vector2(1920, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax/ParallaxBackground/Sky"]
+position = Vector2(1029, 0)
 scale = Vector2(3.33333, 3.33333)
 texture = ExtResource("2_yf8i7")
 centered = false
 
 [node name="Building1" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
-position = Vector2(0, 230)
+position = Vector2(-666, 230)
 motion_scale = Vector2(0.05, 0.05)
 motion_mirroring = Vector2(1728, 0)
 
@@ -213,7 +216,7 @@ centered = false
 offset = Vector2(576, 0)
 
 [node name="Building2" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
-position = Vector2(0, 200)
+position = Vector2(-666, 200)
 motion_scale = Vector2(0.08, 0.08)
 motion_mirroring = Vector2(1382.4, 0)
 
@@ -229,7 +232,7 @@ centered = false
 offset = Vector2(576, 0)
 
 [node name="Building3" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
-position = Vector2(0, 130)
+position = Vector2(-666, 130)
 motion_scale = Vector2(0.2, 0.2)
 motion_mirroring = Vector2(1728, 0)
 
@@ -245,7 +248,7 @@ centered = false
 offset = Vector2(576, 0)
 
 [node name="Building4" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
-position = Vector2(0, -200)
+position = Vector2(-666, -200)
 motion_scale = Vector2(0.4, 0.4)
 motion_mirroring = Vector2(3456, 0)
 
@@ -295,6 +298,12 @@ region_rect = Rect2(1, 90, 96, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Envirement Objects/Car2"]
 shape = SubResource("RectangleShape2D_c1ohi")
+
+[node name="Node2D" parent="Envirement Objects" instance=ExtResource("9_au3cm")]
+position = Vector2(1657, 564)
+
+[node name="Node2D2" parent="Envirement Objects" instance=ExtResource("9_au3cm")]
+position = Vector2(-56, 664)
 
 [node name="Interactions" type="Node2D" parent="."]
 
