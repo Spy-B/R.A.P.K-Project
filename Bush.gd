@@ -2,7 +2,7 @@ extends Node2D
 
 
 # Variables to control the skew and movement animation
-var skew_amount = 0.35 # Amount to skew
+var skew_amount = 0.30 # Amount to skew
 var move_amount = 0.1 # Amount to move left and right
 var animation_speed = 1.0 # Speed 
 var time_elapsed = 0.0
