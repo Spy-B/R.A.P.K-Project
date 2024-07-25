@@ -1,16 +1,46 @@
 extends CharacterBody2D
 
+@export_group("Physics")
 var motion = Vector2.ZERO
 @export var gravity = 98
 
-@export var walkingSpeed = 150
-@export var runningSpeed = 380
+@export_group("Movement")
+@export var walkingSpeed := 150
+@export var runningSpeed := 380
 
+@export_group("Dialogue System")
+var playerName: String = "SCARLET"
 
+@export var dialogueFile: JSON
+var state := {
+	"playerName": playerName,
+	"NpcName": "JONE"
+}
+@onready var dialogue_ui = $DialogueUI
+@onready var dialogue_box = $DialogueUI/DialogueBox
+@onready var ez_dialogue = $DialogueUI/DialogueBox/EzDialogue
 
-# Called when the node enters the scene tree for the first time.
+var playerIsNearby :=  false
+var conversationStarted := false
+var conversationEnded := true
+
 func _ready():
-	pass # Replace with function body.
+	#dialogue_ui.visible = false
+	pass
+
+@warning_ignore("unused_parameter")
+func _process(delta):
+	if Input.is_action_pressed("interact"):
+		if playerIsNearby:
+			conversationStarted = true
+			conversationEnded = false
+			set_process(false)
+	
+	start_dialogue()
+	
+	if $DialogueUI/DialogueBox/Label.text == "":
+		conversationEnded = true
+		conversationStarted = false
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
@@ -19,5 +49,21 @@ func _physics_process(delta):
 	move_and_slide()
 	motion = velocity
 	
+	Gravity()
+
+func Gravity():
 	if !is_on_floor():
 		motion.y += gravity
+
+func start_dialogue():
+	# FIXME the Dialogue System
+	if playerIsNearby && conversationStarted:
+		dialogue_ui.visible = true
+		(ez_dialogue as EzDialogue).start_dialogue(dialogueFile, state)
+	elif playerIsNearby && conversationEnded:
+		dialogue_ui.visible = false
+
+func _on_ez_dialogue_dialogue_generated(response):
+	dialogue_box.clear_dialogue_box()
+	
+	dialogue_box.add_text(response.text)

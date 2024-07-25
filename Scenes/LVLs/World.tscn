@@ -1,6 +1,6 @@
-[gd_scene load_steps=35 format=3 uid="uid://c8yxig8q4w1xx"]
+[gd_scene load_steps=36 format=3 uid="uid://c8yxig8q4w1xx"]
 
-[ext_resource type="Script" path="res://Scripts/World.gd" id="1_1ka7b"]
+[ext_resource type="Script" path="res://Scripts/LVLs/World.gd" id="1_1ka7b"]
 [ext_resource type="Texture2D" uid="uid://pmff0ghibkc0" path="res://Assets/Envirement/Prototype Textures/PNG/Dark/texture_01 - 128.png" id="2_el5tq"]
 [ext_resource type="Texture2D" uid="uid://crk2rgvs6rh6r" path="res://Assets/Envirement/City BG/city 7/1.png" id="2_yf8i7"]
 [ext_resource type="PackedScene" uid="uid://cjtatbogu1g4q" path="res://Scenes/Player/Player.tscn" id="3_8p1ve"]
@@ -12,8 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://bmx1ldj1bjbak" path="res://Assets/Envirement/City BG/city 7/5.png" id="6_nsvvg"]
 [ext_resource type="PackedScene" uid="uid://dt743vgc0hwtt" path="res://Scenes/Physics/Water_Body.tscn" id="7_e11kw"]
 [ext_resource type="Texture2D" uid="uid://66q0s0qse4c8" path="res://Assets/Objects/key.png" id="7_gjhk3"]
-[ext_resource type="PackedScene" uid="uid://bewfbcgswoa3o" path="res://Scenes/Enemies/Enemy 1.tscn" id="8_63iag"]
-[ext_resource type="PackedScene" uid="uid://bejqc22buxrw1" path="res://Scenes/Enemies/Enemy 2.tscn" id="9_fjyv6"]
+[ext_resource type="PackedScene" uid="uid://bewfbcgswoa3o" path="res://Scenes/NPCs/Enemies/Enemy 1.tscn" id="8_63iag"]
+[ext_resource type="PackedScene" uid="uid://bejqc22buxrw1" path="res://Scripts/Physics/Enemy 2.tscn" id="9_fjyv6"]
 [ext_resource type="Script" path="res://Scripts/UI/GUI.gd" id="12_11uvm"]
 [ext_resource type="Texture2D" uid="uid://ntsssusdepf4" path="res://Assets/Objects/Shooter Game  Assets/Icons/watermelon.png" id="12_phu68"]
 [ext_resource type="Texture2D" uid="uid://tsty3pl70lg6" path="res://Assets/Objects/Shooter Game  Assets/Icons/Handgun Magazine.png" id="13_57xg3"]
@@ -22,9 +22,10 @@
 [ext_resource type="Texture2D" uid="uid://85ptmos0irs2" path="res://Assets/Envirement/city_cars_8.png" id="15_kvdgx"]
 [ext_resource type="PackedScene" uid="uid://cmbj8hnx7kb3i" path="res://Scenes/Objects/box.tscn" id="15_v6txw"]
 [ext_resource type="PackedScene" uid="uid://dq0u5vt1sa20b" path="res://Scenes/Interactions/checkpoint.tscn" id="16_vfquq"]
+[ext_resource type="PackedScene" uid="uid://bg3nobdym6tb" path="res://Scenes/Player/Player Camera.tscn" id="21_rfx3p"]
 [ext_resource type="PackedScene" uid="uid://4qvtq6epoo3e" path="res://Scenes/Interactions/letter.tscn" id="22_kp5s7"]
 [ext_resource type="PackedScene" uid="uid://bgkxlm5cv7gx3" path="res://Scenes/NPCs/npc 1.tscn" id="23_77yie"]
-[ext_resource type="Script" path="res://Scripts/Interactions/CheckpointManager.gd" id="24_xr0r5"]
+[ext_resource type="PackedScene" uid="uid://td8b3vyvnsod" path="res://Scenes/Interactions/CheckpointManager.tscn" id="25_uw2cs"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_si2ns"]
 texture = ExtResource("2_el5tq")
@@ -48,12 +49,6 @@ size = Vector2(285, 87)
 size = Vector2(288, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qwv4s"]
-
-[sub_resource type="Environment" id="Environment_a6mdo"]
-background_mode = 3
-tonemap_mode = 2
-tonemap_exposure = 0.5
-glow_enabled = true
 
 [sub_resource type="FontFile" id="5"]
 fallbacks = Array[Font]([ExtResource("13_d61hv")])
@@ -176,6 +171,12 @@ cache/0/30/0/scale = 1.0
 cache/0/30/0/kerning_overrides/16/0 = Vector2(0, 0)
 cache/0/30/0/kerning_overrides/30/0 = Vector2(0, 0)
 
+[sub_resource type="Environment" id="Environment_a6mdo"]
+background_mode = 3
+tonemap_mode = 2
+tonemap_exposure = 0.5
+glow_enabled = true
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_1ka7b")
 slowTime = 0.1
@@ -183,6 +184,7 @@ slowTime = 0.1
 [node name="Parallax" type="Node2D" parent="."]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Parallax"]
+scroll_offset = Vector2(881.214, -78.1516)
 
 [node name="Sky" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
 motion_scale = Vector2(0, 0)
@@ -196,7 +198,7 @@ centered = false
 [node name="Building1" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
 position = Vector2(0, 230)
 motion_scale = Vector2(0.05, 0.05)
-motion_mirroring = Vector2(1728, 0)
+motion_mirroring = Vector2(2304, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax/ParallaxBackground/Building1"]
 texture = ExtResource("3_tqfar")
@@ -205,17 +207,22 @@ centered = false
 [node name="Sprite2D2" type="Sprite2D" parent="Parallax/ParallaxBackground/Building1"]
 texture = ExtResource("3_tqfar")
 centered = false
-offset = Vector2(1152, 0)
+offset = Vector2(576, 0)
 
 [node name="Sprite2D3" type="Sprite2D" parent="Parallax/ParallaxBackground/Building1"]
 texture = ExtResource("3_tqfar")
 centered = false
-offset = Vector2(576, 0)
+offset = Vector2(1152, 0)
+
+[node name="Sprite2D4" type="Sprite2D" parent="Parallax/ParallaxBackground/Building1"]
+texture = ExtResource("3_tqfar")
+centered = false
+offset = Vector2(1728, 0)
 
 [node name="Building2" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
 position = Vector2(0, 200)
 motion_scale = Vector2(0.08, 0.08)
-motion_mirroring = Vector2(1382.4, 0)
+motion_mirroring = Vector2(2073.6, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax/ParallaxBackground/Building2"]
 scale = Vector2(1.2, 1.2)
@@ -228,10 +235,16 @@ texture = ExtResource("4_70woc")
 centered = false
 offset = Vector2(576, 0)
 
+[node name="Sprite2D3" type="Sprite2D" parent="Parallax/ParallaxBackground/Building2"]
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("4_70woc")
+centered = false
+offset = Vector2(1152, 0)
+
 [node name="Building3" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
 position = Vector2(0, 130)
 motion_scale = Vector2(0.2, 0.2)
-motion_mirroring = Vector2(1728, 0)
+motion_mirroring = Vector2(2592, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax/ParallaxBackground/Building3"]
 scale = Vector2(1.5, 1.5)
@@ -244,10 +257,16 @@ texture = ExtResource("5_edqft")
 centered = false
 offset = Vector2(576, 0)
 
+[node name="Sprite2D3" type="Sprite2D" parent="Parallax/ParallaxBackground/Building3"]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("5_edqft")
+centered = false
+offset = Vector2(1152, 0)
+
 [node name="Building4" type="ParallaxLayer" parent="Parallax/ParallaxBackground"]
 position = Vector2(0, -200)
 motion_scale = Vector2(0.4, 0.4)
-motion_mirroring = Vector2(3456, 0)
+motion_mirroring = Vector2(5184, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax/ParallaxBackground/Building4"]
 scale = Vector2(3, 3)
@@ -259,6 +278,12 @@ scale = Vector2(3, 3)
 texture = ExtResource("6_nsvvg")
 centered = false
 offset = Vector2(576, 0)
+
+[node name="Sprite2D3" type="Sprite2D" parent="Parallax/ParallaxBackground/Building4"]
+scale = Vector2(3, 3)
+texture = ExtResource("6_nsvvg")
+centered = false
+offset = Vector2(1152, 0)
 
 [node name="TileMap" type="TileMap" parent="."]
 top_level = true
@@ -315,7 +340,7 @@ item_texture_size = 0.8
 item_effect = "Stamina"
 
 [node name="Inventory_Item4" parent="Interactions" instance=ExtResource("4_0gtf8")]
-position = Vector2(1208, 553)
+position = Vector2(259, 601)
 item_type = "ssassd"
 item_name = "Watermelon"
 item_texture = ExtResource("12_phu68")
@@ -366,11 +391,17 @@ mass = 0.01
 linear_damp = 50.0
 angular_damp = 50.0
 
-[node name="CheckPoint" parent="Interactions" instance=ExtResource("16_vfquq")]
+[node name="CheckPoint" parent="Interactions" node_paths=PackedStringArray("checkpoint_manager") instance=ExtResource("16_vfquq")]
 position = Vector2(1004, 555)
+checkpoint_manager = NodePath("../../CheckpointManager")
 
-[node name="CheckPoint2" parent="Interactions" instance=ExtResource("16_vfquq")]
+[node name="CheckPoint2" parent="Interactions" node_paths=PackedStringArray("checkpoint_manager") instance=ExtResource("16_vfquq")]
 position = Vector2(3832, 302)
+checkpoint_manager = NodePath("../../CheckpointManager")
+
+[node name="CheckPoint3" parent="Interactions" node_paths=PackedStringArray("checkpoint_manager") instance=ExtResource("16_vfquq")]
+position = Vector2(-794, 565)
+checkpoint_manager = NodePath("../../CheckpointManager")
 
 [node name="NPCs" type="Node2D" parent="."]
 
@@ -422,14 +453,17 @@ position = Vector2(5269, 168)
 lvlScene = "World"
 
 [node name="Player" parent="." node_paths=PackedStringArray("checkpoint_manager") instance=ExtResource("3_8p1ve")]
-position = Vector2(74, 595)
+position = Vector2(162, 583)
 checkpoint_manager = NodePath("../CheckpointManager")
+gravity = 64
 canDoubleJump = false
 ammoInMag = 9
 maxAmmo = 9
 fireRate = 0.4
 handgunMagazineSize = 9
 IncreaseInventorySize_bag1 = 5
+
+[node name="Camera2D" parent="Player" instance=ExtResource("21_rfx3p")]
 
 [node name="Water_Body" parent="." instance=ExtResource("7_e11kw")]
 position = Vector2(-576, 768)
@@ -444,17 +478,12 @@ border_thickness = 0.5
 [node name="VOID" type="Area2D" parent="." groups=["void"]]
 position = Vector2(0, 1500)
 collision_layer = 129
-collision_mask = 197406
+collision_mask = 16974606
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VOID"]
 rotation = -3.14159
 scale = Vector2(104118, -17.2857)
 shape = SubResource("RectangleShape2D_qwv4s")
-
-[node name="TimeScaleTimer" type="Timer" parent="."]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_a6mdo")
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource("12_11uvm")
@@ -505,8 +534,12 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("14_i4kd4")
 
-[node name="CheckpointManager" type="Node" parent="." node_paths=PackedStringArray("player")]
-script = ExtResource("24_xr0r5")
+[node name="TimeScaleTimer" type="Timer" parent="."]
+
+[node name="CheckpointManager" parent="." node_paths=PackedStringArray("player") instance=ExtResource("25_uw2cs")]
 player = NodePath("../Player")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_a6mdo")
 
 [connection signal="timeout" from="TimeScaleTimer" to="." method="_on_time_scale_timer_timeout"]

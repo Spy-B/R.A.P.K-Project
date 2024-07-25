@@ -1,0 +1,103 @@
+[gd_scene load_steps=11 format=3 uid="uid://rfp7mhvernmc"]
+
+[ext_resource type="FontFile" uid="uid://dcp8gylagvxol" path="res://Assets/Fonts/Transyl-Bold.ttf" id="1_e27lf"]
+[ext_resource type="FontFile" uid="uid://dve7mgsjik4dg" path="res://addons/phantom_camera/fonts/Nunito-Regular.ttf" id="2_sklin"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0i4j"]
+content_margin_right = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0rdw0"]
+line_spacing = 5.0
+font = ExtResource("2_sklin")
+font_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtdt5"]
+content_margin_left = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4snlj"]
+font = ExtResource("1_e27lf")
+font_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ad6v2"]
+content_margin_right = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_flisa"]
+font = ExtResource("2_sklin")
+font_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q83ff"]
+content_margin_left = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_eq32a"]
+line_spacing = 5.0
+font = ExtResource("1_e27lf")
+font_size = 25
+
+[node name="CreditsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameDesign" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -960.0
+offset_bottom = -1016.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_h0i4j")
+text = "Game Design"
+label_settings = SubResource("LabelSettings_0rdw0")
+horizontal_alignment = 2
+
+[node name="GameDesignName" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 960.0
+offset_bottom = -1015.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_qtdt5")
+text = "JOSEF RAFIA
+BADR AL-DIN AL-ANDALOUSI"
+label_settings = SubResource("LabelSettings_4snlj")
+
+[node name="Programming" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 64.0
+offset_right = -960.0
+offset_bottom = -952.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ad6v2")
+text = "Programming"
+label_settings = SubResource("LabelSettings_flisa")
+horizontal_alignment = 2
+
+[node name="ProgrammingName" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 960.0
+offset_top = 64.0
+offset_bottom = -952.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_q83ff")
+text = "BADR AL-DIN AL-ANDALOUSI"
+label_settings = SubResource("LabelSettings_eq32a")

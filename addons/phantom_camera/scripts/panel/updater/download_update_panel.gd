@@ -39,8 +39,6 @@ signal updated(updated_to_version: String)
 
 
 #region Variables
-
-# Todo - For 4.2 upgrade - Shows current version
 var _download_dialogue: AcceptDialog
 var _button_texture_default: Texture2D = load("res://addons/phantom_camera/assets/PhantomCameraBtnPrimaryDefault.png")
 var _button_texture_hover: Texture2D = load("res://addons/phantom_camera/assets/PhantomCameraBtnPrimaryHover.png")
@@ -49,7 +47,6 @@ var next_version_release: Dictionary:
 	set(value):
 		next_version_release = value
 		_download_verion.text = "%s update is available for download" % value.tag_name.substr(1)
-		# Todo - For 4.2 upgrade
 		#current_version_label.text = "Current version is " + editor_plugin.get_version()
 	get:
 		return next_version_release

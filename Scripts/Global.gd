@@ -9,7 +9,7 @@ extends Node
 @export var meleeComboCounter = 0
 @export var killComboCounter = 0
 
-@export var enemiesLifePoints = 0
+@export var enemiesLifePoints = 2
 
 var inventory = []
 
@@ -19,8 +19,8 @@ var player_node: Node = null
 @onready var inventory_slot_scene = preload("res://Scenes/Player/Inventory Management System/Inventory_slot.tscn")
 @export var inventory_slot_icon_size: int = 5
 
-var loadingScreen = preload("res://Scenes/UI/loading.tscn")
-var nextScene = "res://Scenes/UI/main_menu.tscn"
+var loadingScreen = preload("res://Scenes/UI/Loading.tscn")
+var nextScene = "res://Scenes/UI/Main Menu.tscn"
 
 func _ready():
 	inventory.resize(30)

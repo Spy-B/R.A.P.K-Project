@@ -44,6 +44,8 @@ var bottom = target_height + depth
 #reference to the particle we just created
 @onready var splash_particle = preload("res://Scenes/Physics/splash_particles.tscn")
 
+@export var playerGroup: String
+
 #initializes the spring array and all the springs
 func _ready():
 	water_border.width = border_thickness

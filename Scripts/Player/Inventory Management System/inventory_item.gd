@@ -32,7 +32,7 @@ func _physics_process(delta):
 		icon_sprite.scale.x = item_texture_size
 		icon_sprite.scale.y = item_texture_size
 	
-	if player_in_range && Input.is_action_just_pressed("take"):
+	if player_in_range && Input.is_action_just_pressed("interact"):
 		pickup_item()
 
 func pickup_item():

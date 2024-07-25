@@ -1,5 +1,4 @@
-##### Spring Modelling
-
+@tool
 extends Node2D
 
 #the spring's current velocity
@@ -15,6 +14,8 @@ var height = 0
 var target_height = 0
 
 @export var jointsVisible := false
+
+@export var playerGroup: String
 
 @onready var collision = $Area2D/CollisionShape2D
 @onready var sprite_2d = $Sprite2D
@@ -74,18 +75,20 @@ func initialize(x_position,id):
 func set_collision_width(value):
 	#this function will set the collision shape size of our springs
 	
-	var extents = collision.shape.get_size()
+	var size = collision.shape.get_size()
 	
-	#the new extents will mantain the value on the y width
+	#the new size will mantain the value on the y width
 	#the "value" variable is the space between springs, which we already have
-	var new_extents = Vector2(value/2, extents.y)
+	var new_size = Vector2(value/2, size.y)
 	
-	#set the new extents
-	collision.shape.set_size(new_extents)
-	pass
+	#set the new size
+	collision.shape.set_size(new_size)
 
 
 func _on_Area2D_body_entered(body):
+	#if body.is_in_group(playerGroup):
+		#body.playerIsInWater = true
+	
 	#called when a body collides with a spring
 	
 	#if the body already collided with the spring, then do not collide
@@ -104,6 +107,9 @@ func _on_Area2D_body_entered(body):
 
 
 func _on_area_2d_body_exited(body):
+	#if body.is_in_group(playerGroup):
+		#body.playerIsInWater = false
+	
 	#called when a body collides with a spring
 	
 	#if the body already collided with the spring, then do not collide

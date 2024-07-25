@@ -3,7 +3,7 @@ extends Control
 @export var LoadingIcon = true
 @export var LoadingText = true
 
-@export_file("*.tscn") var next_scene: String = "res://Scenes/UI/main_menu.tscn"
+@export_file("*.tscn") var next_scene: String = "res://Scenes/UI/Main Menu.tscn"
 
 @onready var loading_icon = $LoadingIcon
 @onready var animation_player = $AnimationPlayer

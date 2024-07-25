@@ -17,6 +17,8 @@ var state_machine
 @export var max_speed := 600
 @export var max_speed_in_water := 200
 
+var playerIsInWater: bool
+
 @export_range(0, 10) var timeScale: float = 1
 
 @export var followLvlScaneTime := false
@@ -78,11 +80,11 @@ var is_shooting := false
 var killCombo = Global.killComboCounter
 @export var killComboTime := 1
 
-@export_range(0, 10) var bulletTimeScale: float = 1
+@export_range(0, 2) var bulletTimeScale: float = 1
 
 @export_group("Inventory Management System")
-@onready var inventory_ui = $InventoryUI
 @onready var interact_ui = $InteractUI
+@onready var inventory_ui = $InventoryUI
 
 @export var handgunMagazineSize: int
 @export var IncreaseInventorySize_bag1: int
@@ -91,10 +93,13 @@ var killCombo = Global.killComboCounter
 
 @export_group("Other")
 @export_placeholder("Group") var enemiesGroup: String
+@export_placeholder("Group") var NPCsGroup: String
 
 @onready var reloadTimer = $Timers/ReloadTimer
 
 @export var voidAreaGroup: String
+
+var inConversation := false
 
 # warning-ignore:export_hint_type_mistmatch
 #export(String,"Rebecca", "Mary", "Leah") var array = 1
@@ -164,8 +169,8 @@ func _physics_process(delta):
 		shooting()
 		reload()
 			
-	if killComboCounter && !inventory_ui.visible:
-		KillCombo()
+	#if killComboCounter && !inventory_ui.visible:
+		#KillCombo()
 		
 	if InfiniteAmmo == true:
 		ammoInMag = !0
@@ -392,10 +397,10 @@ func _on_reload_timer_timeout():
 	
 	can_fire = true
 
-func KillCombo():
-	if killCombo != 0:
-		get_parent().get_node("GUI/ComboCounter").visible = true
-		$Timers/ComboTimer.start()
+#func KillCombo():
+	#if killCombo != 0:
+		#get_parent().get_node("GUI/ComboCounter").visible = true
+		#$Timers/ComboTimer.start()
 
 func _on_ComboTimer_timeout():
 	killCombo = 5
@@ -420,6 +425,29 @@ func in_water():
 	@warning_ignore("integer_division")
 	gravity = gravity / 3
 	max_speed = max_speed_in_water
+
+#func is_in_water():
+	#pass
+
+func _on_np_cs_detector_body_entered(body):
+	if body.is_in_group(NPCsGroup):
+		body.playerIsNearby = true
+		interact_ui.visible = true
+	
+	if body.conversationStarted && !body.conversationEnded:
+		inConversation = true
+	elif !body.conversationStarted && body.conversationEnded:
+		inConversation = false
+
+func _on_np_cs_detector_body_exited(body):
+	if body.is_in_group(NPCsGroup):
+		body.playerIsNearby = false
+		interact_ui.visible = false
+	
+	if body.conversationStarted && !body.conversationEnded:
+		inConversation = true
+	elif !body.conversationStarted && body.conversationEnded:
+		inConversation = false
 
 func _on_damage_area_area_entered(area):
 	if area.is_in_group(voidAreaGroup):

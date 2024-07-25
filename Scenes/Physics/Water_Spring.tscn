@@ -8,6 +8,7 @@ size = Vector2(13.5935, 3.15664)
 
 [node name="Water_Spring" type="Node2D" groups=["spring"]]
 script = ExtResource("2")
+playerGroup = "Player"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
