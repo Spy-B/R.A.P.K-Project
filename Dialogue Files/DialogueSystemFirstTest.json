@@ -1,1 +1,42 @@
-null
+[
+	{
+		"commands_raw": "${playerName} : Hello Sir How can I help you?\n\n?> Next -> 2",
+		"gnode_name": "start",
+		"id": 0,
+		"name": "Start",
+		"position": [
+			200,
+			400
+		]
+	},
+	{
+		"commands_raw": "${NpcName} : Thank you I'm Fine\n\n?> Next -> 3",
+		"gnode_name": "2",
+		"id": 1,
+		"name": "2",
+		"position": [
+			380,
+			400
+		]
+	},
+	{
+		"commands_raw": "${playerName} : Oh, OK I'm Sorry\n\n?> Next -> 4",
+		"gnode_name": "3",
+		"id": 2,
+		"name": "3",
+		"position": [
+			560,
+			400
+		]
+	},
+	{
+		"commands_raw": "${NpcName} : Nevermind it's OK",
+		"gnode_name": "4",
+		"id": 3,
+		"name": "4",
+		"position": [
+			780,
+			400
+		]
+	}
+]
