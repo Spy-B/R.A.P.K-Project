@@ -1,12 +1,12 @@
 extends Area2D
 
-var motion = Vector2.ZERO
-@export var speed = 2000
+var motion := Vector2.ZERO
+@export var speed := 2000
 var dir = 1
 @export_range(0, 10) var timeScale: float = 1
 
-@export var followLvlSceneTime = true
-@export var followPlayerTime = true
+@export var followLvlSceneTime := true
+@export var followPlayerTime := true
 
 var shooter = null
 @export var enemiesGroup: String
@@ -32,7 +32,7 @@ func _on_Bullet_body_entered(body):
 	
 	if body.is_in_group(enemiesGroup):
 		#body.queue_free()
-		body.lifePoints -= 1
+		body.lifePoints -= 2
 		#body.position.x = shooter.shooting().
 		#body.get_node("AnimatedSprite2D").play("Die")
 		shooter.killCombo += 1

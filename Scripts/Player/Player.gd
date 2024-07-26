@@ -82,6 +82,12 @@ var killCombo = Global.killComboCounter
 
 @export_range(0, 2) var bulletTimeScale: float = 1
 
+@export_group("Death")
+@export var canDie := true
+var isDie := false
+@export var lifePoints := 10
+@export var deathAnimation :String
+
 @export_group("Inventory Management System")
 @onready var interact_ui = $InteractUI
 @onready var inventory_ui = $InventoryUI
@@ -124,6 +130,8 @@ func _ready():
 	$AnimationPlayer.speed_scale = timeScale
 	
 	$PlayerSprites/MeleeAttack2/CollisionShape2D.disabled = true
+	
+	$PlayerSprites/ShootingEffect.visible = false
 	
 	#$ComboTimer.wait_time = killComboTime
 	#$ComboTimer.one_shot = true
@@ -168,13 +176,14 @@ func _physics_process(delta):
 	if canShoot && !inventory_ui.visible:
 		shooting()
 		reload()
-			
+	if canDie && !inventory_ui.visible:
+		Death()
+	
 	#if killComboCounter && !inventory_ui.visible:
 		#KillCombo()
 		
 	if InfiniteAmmo == true:
 		ammoInMag = !0
-	
 	
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
@@ -211,6 +220,7 @@ func Gravity():
 
 func State_Machine():
 	if is_on_floor() && canWalk && canRun && !is_attack  && !inventory_ui.visible:
+		$PlayerSprites/ShootingEffect.visible = false
 		if Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left"):
 			state_machine.travel(walkingAnimation)
 		
@@ -221,6 +231,7 @@ func State_Machine():
 			state_machine.travel(jumpingAnimation)
 	
 	else:
+		$PlayerSprites/ShootingEffect.visible = false
 		if motion.y < 0 && !inventory_ui.visible:
 			state_machine.travel(jumpingAnimation)
 		
@@ -228,10 +239,14 @@ func State_Machine():
 			state_machine.travel(fallingAnimation)
 	
 	if  (Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left")) &&  Input.is_action_pressed("running") && is_on_floor() && !inventory_ui.visible:
+		$PlayerSprites/ShootingEffect.visible = false
 		state_machine.travel(runningAnimation)
 		$Particles/MoveParticles.emitting = true
 	else:
 		$Particles/MoveParticles.emitting = false
+	
+	if lifePoints == 0:
+			state_machine.travel(deathAnimation)
 
 #Walking Function
 func walking():
@@ -252,6 +267,7 @@ func running():
 	if canWalk && canRun && !is_attack:
 		if Input.is_action_pressed("ui_right") && Input.is_action_pressed("running"):
 			motion.x = runningSpeed
+			#var new_position = current_position.lerp(target_position, lerp_speed)
 			$PlayerSprites.scale.x = spriteScaleX
 			
 			
@@ -405,6 +421,10 @@ func _on_reload_timer_timeout():
 func _on_ComboTimer_timeout():
 	killCombo = 5
 
+func Death():
+	if isDie:
+		global_position = checkpoint_manager.last_position
+
 # Apply the effect of the item (if possible)
 func apply_item_effect(item):
 	match item["effect"]:
@@ -434,20 +454,20 @@ func _on_np_cs_detector_body_entered(body):
 		body.playerIsNearby = true
 		interact_ui.visible = true
 	
-	if body.conversationStarted && !body.conversationEnded:
-		inConversation = true
-	elif !body.conversationStarted && body.conversationEnded:
-		inConversation = false
+	#if body.conversationStarted && !body.conversationEnded:
+		#inConversation = true
+	#elif !body.conversationStarted && body.conversationEnded:
+		#inConversation = false
 
 func _on_np_cs_detector_body_exited(body):
 	if body.is_in_group(NPCsGroup):
 		body.playerIsNearby = false
 		interact_ui.visible = false
 	
-	if body.conversationStarted && !body.conversationEnded:
-		inConversation = true
-	elif !body.conversationStarted && body.conversationEnded:
-		inConversation = false
+	#if body.conversationStarted && !body.conversationEnded:
+		#inConversation = true
+	#elif !body.conversationStarted && body.conversationEnded:
+		#inConversation = false
 
 func _on_damage_area_area_entered(area):
 	if area.is_in_group(voidAreaGroup):

@@ -27,9 +27,33 @@ var movingRight = false
 var movingLeft = false
 var dir = 1
 
+enum lookingDirs {Right, Left}
+@export var lookingDir: lookingDirs
+
 @export_group("Attack")
 @export var canAttack := true
 @export var attackAnimation: String
+
+@export_group("Shooting")
+@export var canShoot := true
+@export_placeholder("Animation") var shootingAnimation: String
+@export_placeholder("Animation") var PowerfulShootAnimation: String
+@export var bullet: PackedScene
+@export var ammoInMag: int = Global.enemy_ammo_in_mag
+@export var maxAmmo: int = Global.enemy_max_ammo
+@export var extraAmmo: int = Global.enemy_extra_ammo
+
+@export var InfiniteAmmo := false
+@export var fireRate := 0.5
+@export var reloadTime := 0.5
+var can_reload := true
+var can_fire := true
+var is_shooting := false
+@export var killComboCounter := true
+var killCombo = Global.killComboCounter
+@export var killComboTime := 1
+
+@export_range(0, 2) var bulletTimeScale: float = 1
 
 @export_group("Death")
 @export var canDie := true
@@ -43,7 +67,9 @@ var dir = 1
 @export var followLvlSceneTime := true
 
 @export var playerGroup: String
-@export var sawPlayer := false
+var sawPlayer := false
+var isLookingForPlayer := false
+var isAttacking := false
 
 
 @onready var animation_player = $AnimationPlayer
@@ -52,10 +78,16 @@ var dir = 1
 @onready var spriteScaleY = enemy_sprites.scale.y
 var isGrounded := true
 @onready var ray_cast_2d = $EnemySprites/RayCast2D
+@onready var reloadTimer = $Timers/ReloadTimer
 
 
 func _ready():
 	isDie = false
+	
+	if lookingDir == 0:
+		enemy_sprites.scale.x = spriteScaleX
+	elif lookingDir == 1:
+		enemy_sprites.scale.x = -spriteScaleX
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
@@ -76,6 +108,12 @@ func _physics_process(delta):
 	
 	if sawPlayer:
 		lookAtPlayer()
+	
+	if isLookingForPlayer && !isAttacking:
+		Searching()
+	
+	if isAttacking:
+		Attack()
 
 func Gravity():
 	if !is_on_floor():
@@ -91,12 +129,16 @@ func Friendly():
 
 func Enemy():
 	if ray_cast_2d.get_collider() == player:
-		sawPlayer = true
+		isAttacking = true
+		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 2
 	else:
+		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 0
+		isAttacking = false
 	
 	if lifePoints == 0:
+		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 3
 	
 	if NPCModes == 0:
@@ -107,12 +149,21 @@ func Enemy():
 	
 	elif NPCModes == 2:
 		Attack()
+		Shooting()
 	
 	elif NPCModes == 3:
 		Death()
 
 
 func Moving():
+	if motion.x == 0:
+		animation_player.play(idleAnimation)
+	else:
+		animation_player.play(runningAnimation)
+	
+	animation_player.speed_scale = timeScale
+
+func Wandering_around():
 	#var change_move_timer = randf_range(0.5, 5)
 	#
 	#if standing:
@@ -129,19 +180,21 @@ func Moving():
 		#!standing
 		#!movingRight
 		#motion.x = runningSpeed * dir
-	
-	if motion.x == 0:
-		animation_player.play(idleAnimation)
-	else:
-		animation_player.play(runningAnimation)
-	
-	animation_player.speed_scale = timeScale
+	pass
 
 func lookAtPlayer():
 	var direction = (player.global_position - global_position).normalized()
 	
-	if !isDie:
-		# Make the enemy look at the player
+	# Make the enemy look at the player
+	if lookingDir == 0:
+		if direction.x > 0:
+			dir = 1
+			enemy_sprites.scale.x = spriteScaleX  # Flip sprite horizontally if player is to the left
+		else:
+			dir = -1
+			enemy_sprites.scale.x = -spriteScaleX   # Flip sprite back if player is to the right
+	
+	elif lookingDir == 1:
 		if direction.x < 0:
 			dir = -1
 			enemy_sprites.scale.x = -spriteScaleX  # Flip sprite horizontally if player is to the left
@@ -150,25 +203,83 @@ func lookAtPlayer():
 			enemy_sprites.scale.x = spriteScaleX   # Flip sprite back if player is to the right
 
 func Searching():
-	pass
+	motion.x = runningSpeed * dir
 
 func Attack():
-	animation_player.play(attackAnimation)
+	motion.x = 0
+
+#Shooting Function
+func Shooting():
+	var randomShootingAnimtion = 0 #randi_range(0, 2)
+	if isAttacking && is_on_floor():
+		if ammoInMag != 0:
+			motion.x = 0
+			animation_player.play(attackAnimation)
+		can_reload = false
+		if can_fire && ammoInMag > 0:
+			ammoInMag = ammoInMag - 1
+			var bulletInstance = bullet.instantiate()
+			
+			bulletInstance.global_position = $EnemySprites/GunBarrel.global_position
+			bulletInstance.global_rotation = $EnemySprites/GunBarrel.global_rotation
+			bulletInstance.shooter = self
+			bulletInstance.timeScale = bulletTimeScale
+			get_parent().add_child(bulletInstance)
+			can_fire = false
+			await get_tree().create_timer(fireRate).timeout
+			can_fire = true
+		if !can_fire && ammoInMag == 0:
+			reloadTimer.start()
+
+# the reload script
+func reload():
+	reloadTimer.wait_time = reloadTime
+	reloadTimer.one_shot = true
 	
-	lookAtPlayer()
+	#if Input.is_action_just_pressed("reload"):
+		#can_fire = false
+		#reloadTimer.start()
+	
+	if ammoInMag == 0 && extraAmmo == 0:
+		can_fire = false
+		if ammoInMag == 0:
+			can_fire = true
+			reloadTimer.start()
+
+func _on_reload_timer_timeout():
+	var ammo_needed = (maxAmmo - ammoInMag)
+	
+	if ammoInMag == 0 && extraAmmo >= ammo_needed || ammoInMag < maxAmmo && extraAmmo != 0 && extraAmmo >= ammo_needed:
+		extraAmmo -= ammo_needed
+		ammoInMag += ammo_needed
+		
+	elif ammoInMag == 0 && extraAmmo < ammo_needed || extraAmmo < ammo_needed:
+		ammoInMag += extraAmmo
+		extraAmmo = 0
+	
+	can_fire = true
+
+func _on_player_detector_body_entered(body):
+	if body.is_in_group(playerGroup):
+		sawPlayer = true
+		isLookingForPlayer = true
+
+func _on_player_detector_body_exited(body):
+	if body.is_in_group(playerGroup):
+		sawPlayer = false
+		isLookingForPlayer = false
 
 @warning_ignore("unused_parameter")
 func _on_attack_area_body_entered(body):
 	pass
 
 func Death():
+	sawPlayer = false
+	isLookingForPlayer = false
+	isAttacking = false
 	animation_player.play(deadAnimation)
-		#if is_on_floor():
-			#gravity = 0
-			#$CollisionShape2D.disabled = true
-		#else:
-			#gravity = 98
-			#$CollisionShape2D.disabled = false
+	gravity = 0
+	$CollisionShape2D.disabled = true
 	
 	if isDie:
 		ray_cast_2d.enabled = false

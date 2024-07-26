@@ -4,13 +4,12 @@ extends Node2D
 @export_range(0, 2) var TimeScale: float = 1
 var defaultTimeScale = 1
 @export var slowTime: float = 0.5
-@export var timeIsSlow = false
+@export var timeIsSlow := false
 
 @onready var time_scale_timer = $TimeScaleTimer
 @export var waitTime: float = 1
 
 func _ready():
-	
 	#Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	pass
 

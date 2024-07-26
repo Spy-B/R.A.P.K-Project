@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export_group("Physics")
-var motion = Vector2.ZERO
+var motion := Vector2.ZERO
 @export var gravity = 98
 
 @export_group("Movement")
@@ -21,8 +21,7 @@ var state := {
 @onready var ez_dialogue = $DialogueUI/DialogueBox/EzDialogue
 
 var playerIsNearby :=  false
-var conversationStarted := false
-var conversationEnded := true
+var inConversation := false
 
 func _ready():
 	#dialogue_ui.visible = false
@@ -32,15 +31,13 @@ func _ready():
 func _process(delta):
 	if Input.is_action_pressed("interact"):
 		if playerIsNearby:
-			conversationStarted = true
-			conversationEnded = false
+			inConversation = true
 			set_process(false)
 	
 	start_dialogue()
 	
 	if $DialogueUI/DialogueBox/Label.text == "":
-		conversationEnded = true
-		conversationStarted = false
+		inConversation = false
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
@@ -57,10 +54,10 @@ func Gravity():
 
 func start_dialogue():
 	# FIXME the Dialogue System
-	if playerIsNearby && conversationStarted:
+	if playerIsNearby && inConversation:
 		dialogue_ui.visible = true
 		(ez_dialogue as EzDialogue).start_dialogue(dialogueFile, state)
-	elif playerIsNearby && conversationEnded:
+	elif playerIsNearby && !inConversation:
 		dialogue_ui.visible = false
 
 func _on_ez_dialogue_dialogue_generated(response):

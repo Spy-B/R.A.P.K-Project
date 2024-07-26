@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dq0u5vt1sa20b" path="res://Scenes/Interactions/checkpoint.tscn" id="10_ik7bi"]
 [ext_resource type="Texture2D" uid="uid://bpkj5xidw45v8" path="res://Assets/Envirement/the transmission Room.png" id="10_rg56r"]
 [ext_resource type="PackedScene" uid="uid://bg3nobdym6tb" path="res://Scenes/Player/Player Camera.tscn" id="12_k2c6x"]
-[ext_resource type="PackedScene" uid="uid://bejqc22buxrw1" path="res://Scripts/Physics/Enemy 2.tscn" id="14_so5jc"]
+[ext_resource type="PackedScene" uid="uid://bejqc22buxrw1" path="res://Scenes/NPCs/Enemies/NPC.tscn" id="14_so5jc"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_mmi70"]
 polygon = PackedVector2Array(-12, -4, 16, -4, 16, 16, -12, 16)
@@ -952,7 +952,7 @@ polygon = PackedVector2Array(47, -91, 47, 61, 95, 97, -98, 98, -98, -95, 9, -96)
 size = Vector2(513, 511)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fm782"]
-size = Vector2(20, 500)
+size = Vector2(20, 978)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wpkgx"]
 
@@ -1184,20 +1184,25 @@ checkpoint_manager = NodePath("../CheckpointManager")
 [node name="CheckpointManager" parent="Interactions/Checkpoints" node_paths=PackedStringArray("player") instance=ExtResource("9_2vm4v")]
 player = NodePath("../../../Player")
 
-[node name="Enemy 2" parent="." node_paths=PackedStringArray("player") groups=["Enemies"] instance=ExtResource("14_so5jc")]
-position = Vector2(4580, 823)
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="NPC" parent="Enemies" node_paths=PackedStringArray("player") instance=ExtResource("14_so5jc")]
+position = Vector2(1768, 858)
 NPCTypes = 1
-player = NodePath("../Player")
+lookingDir = 1
+reloadTime = 0.2
+lifePoints = 10.0
+player = NodePath("../../Player")
 lvlScene = "LVL-Alpha"
 
 [node name="Player" parent="." node_paths=PackedStringArray("checkpoint_manager") instance=ExtResource("7_dwqjf")]
-position = Vector2(3950, 829)
+position = Vector2(720, 890)
 checkpoint_manager = NodePath("../Interactions/Checkpoints/CheckpointManager")
-gravity = 64
 canDoubleJump = false
 ammoInMag = 9
 maxAmmo = 9
 extraAmmo = 999999
+lifePoints = 1
 
 [node name="Camera2D" parent="Player" instance=ExtResource("12_k2c6x")]
 limit_left = 0
@@ -1209,6 +1214,7 @@ limit_right = 9087
 position = Vector2(-16, 728)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LIMITs/LIMIT"]
+position = Vector2(0, -239)
 shape = SubResource("RectangleShape2D_fm782")
 
 [node name="LIMIT2" type="StaticBody2D" parent="LIMITs"]
@@ -1228,7 +1234,7 @@ scale = Vector2(104118, -17.2857)
 shape = SubResource("RectangleShape2D_wpkgx")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.0962047, 0.0962048, 0.0962047, 1)
+color = Color(0.226707, 0.226708, 0.226707, 1)
 
 [node name="TimeScaleTimer" type="Timer" parent="."]
 

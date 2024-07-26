@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cljnjrh4payn7"
+
+[deps]
+
+files=["res://addons/csv-animations-builder/example/Atlas_Animations_Data. frame.translation", "res://addons/csv-animations-builder/example/Atlas_Animations_Data. frame.translation", "res://addons/csv-animations-builder/example/Atlas_Animations_Data. frame.translation", "res://addons/csv-animations-builder/example/Atlas_Animations_Data. frame.translation", "res://addons/csv-animations-builder/example/Atlas_Animations_Data.frame.translation", "res://addons/csv-animations-builder/example/Atlas_Animations_Data.frame.translation", "res://addons/csv-animations-builder/example/Atlas_Animations_Data.autoplay.translation", "res://addons/csv-animations-builder/example/Atlas_Animations_Data.loop.translation"]
+
+source_file="res://addons/csv-animations-builder/example/Atlas_Animations_Data.csv"
+dest_files=["res://addons/csv-animations-builder/example/Atlas_Animations_Data. frame.translation", "res://addons/csv-animations-builder/example/Atlas_Animations_Data. frame.translation", "res://addons/csv-animations-builder/example/Atlas_Animations_Data. frame.translation", "res://addons/csv-animations-builder/example/Atlas_Animations_Data. frame.translation", "res://addons/csv-animations-builder/example/Atlas_Animations_Data.frame.translation", "res://addons/csv-animations-builder/example/Atlas_Animations_Data.frame.translation", "res://addons/csv-animations-builder/example/Atlas_Animations_Data.autoplay.translation", "res://addons/csv-animations-builder/example/Atlas_Animations_Data.loop.translation"]
+
+[params]
+
+compress=true
+delimiter=1

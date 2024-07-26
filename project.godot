@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="R.A.P.K Project"
-run/main_scene="res://Scenes/LVLs/World.tscn"
+run/main_scene="res://Scenes/LVLs/LVL-Alpha.tscn"
 config/use_custom_user_dir=true
 config/features=PackedStringArray("4.2")
 boot_splash/image="res://Default/RAFIA_LOGO.png"

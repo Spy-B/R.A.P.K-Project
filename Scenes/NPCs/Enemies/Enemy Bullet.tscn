@@ -1,13 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://vcfu0uoitxsi"]
+[gd_scene load_steps=5 format=3 uid="uid://vcfu0uoitxsi"]
 
 [ext_resource type="Texture2D" uid="uid://gtq6sl1pmcsf" path="res://Assets/VFX/Laser Sprites/02.png" id="1_kh0pv"]
 [ext_resource type="Script" path="res://Scripts/NPCs/Enemies/EnemyBullet.gd" id="1_kmtxv"]
+[ext_resource type="Texture2D" uid="uid://q2c87pw12ryu" path="res://Assets/VFX/PNG (Transparent)/circle_05.png" id="3_gcx5p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rgju8"]
 radius = 1.0
 
 [node name="EnemyBullet" type="Area2D"]
+collision_layer = 131072
+collision_mask = 65793
 script = ExtResource("1_kmtxv")
+playerGroup = "Player"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rgju8")
@@ -17,3 +21,10 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_kh0pv")
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 1.5
+texture = ExtResource("3_gcx5p")
+texture_scale = 0.02
+
+[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
