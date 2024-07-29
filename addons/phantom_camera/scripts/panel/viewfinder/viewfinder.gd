@@ -5,7 +5,7 @@ extends Control
 
 const Constants = preload("res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_constants.gd")
 
-# TODO - Should be in a central location
+#  - Should be in a central location
 const _camera_2d_icon: CompressedTexture2D = preload("res://addons/phantom_camera/icons/viewfinder/Camera2DIcon.svg")
 const _camera_3d_icon: CompressedTexture2D = preload("res://addons/phantom_camera/icons/viewfinder/Camera3DIcon.svg")
 const _pcam_host_icon: CompressedTexture2D = preload("res://addons/phantom_camera/icons/phantom_camera_host.svg")
@@ -81,7 +81,7 @@ func _ready() -> void:
 		set_process(true)
 		camera_viewport_panel.self_modulate.a = 0
 
-#	TODO - Don't think this is needed / does anything?
+#	 - Don't think this is needed / does anything?
 	root_node = get_tree().get_root().get_child(0)
 	if root_node is Node3D || root_node is Node2D:
 		%SubViewportContainer.set_visible(false)
@@ -163,7 +163,7 @@ func _settings_changed() -> void:
 	var ratio: float = viewport_width / viewport_height
 	aspect_ratio_container.set_ratio(ratio)
 	camera_viewport_panel.size.x = viewport_width / (viewport_height / sub_viewport.size.y)
-	# TODO - Add resizer for Framed Viewfinder
+	#  - Add resizer for Framed Viewfinder
 
 func _node_added_or_removed(_node: Node) -> void:
 	visibility_check()

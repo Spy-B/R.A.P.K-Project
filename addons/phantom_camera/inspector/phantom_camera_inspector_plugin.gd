@@ -4,7 +4,7 @@ extends EditorInspectorPlugin
 #var _phantom_camera_script: Script = preload("res://addons/phantom_camera/scripts/phantom_camera.gd")
 
 
-# 	TODO - Enable again once work is resumed for inspector based tasks
+# 	 - Enable again once work is resumed for inspector based tasks
 
 #func _can_handle(object) -> bool:
 #	return object is _phantom_camera_script

@@ -79,6 +79,7 @@ var isAttacking := false
 var isGrounded := true
 @onready var ray_cast_2d = $EnemySprites/RayCast2D
 @onready var reloadTimer = $Timers/ReloadTimer
+@onready var collision_shape_2d = $EnemySprites/PlayerDetector/CollisionShape2D
 
 
 func _ready():
@@ -106,14 +107,27 @@ func _physics_process(delta):
 	elif NPCTypes == 1:
 		Enemy()
 	
+	if ray_cast_2d.get_collider() == player:
+		isAttacking = true
+		@warning_ignore("int_as_enum_without_cast")
+		NPCModes = 2
+	else:
+		@warning_ignore("int_as_enum_without_cast")
+		NPCModes = 0
+		isAttacking = false
+	
 	if sawPlayer:
 		lookAtPlayer()
 	
 	if isLookingForPlayer && !isAttacking:
 		Searching()
 	
+	if !isLookingForPlayer:
+		motion.x = 0
+	
 	if isAttacking:
-		Attack()
+		@warning_ignore("int_as_enum_without_cast")
+		NPCModes = 2
 
 func Gravity():
 	if !is_on_floor():
@@ -124,19 +138,10 @@ func Gravity():
 			$CollisionShape2D.disabled = true
 
 func Friendly():
-	if NPCModes:
+	if NPCModes == 0:
 		Moving()
 
 func Enemy():
-	if ray_cast_2d.get_collider() == player:
-		isAttacking = true
-		@warning_ignore("int_as_enum_without_cast")
-		NPCModes = 2
-	else:
-		@warning_ignore("int_as_enum_without_cast")
-		NPCModes = 0
-		isAttacking = false
-	
 	if lifePoints == 0:
 		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 3
@@ -183,6 +188,7 @@ func Wandering_around():
 	pass
 
 func lookAtPlayer():
+	# TODO Improve the collision shape Size after
 	var direction = (player.global_position - global_position).normalized()
 	
 	# Make the enemy look at the player
@@ -210,11 +216,9 @@ func Attack():
 
 #Shooting Function
 func Shooting():
-	var randomShootingAnimtion = 0 #randi_range(0, 2)
 	if isAttacking && is_on_floor():
 		if ammoInMag != 0:
 			motion.x = 0
-			animation_player.play(attackAnimation)
 		can_reload = false
 		if can_fire && ammoInMag > 0:
 			ammoInMag = ammoInMag - 1
@@ -225,6 +229,7 @@ func Shooting():
 			bulletInstance.shooter = self
 			bulletInstance.timeScale = bulletTimeScale
 			get_parent().add_child(bulletInstance)
+			animation_player.play(attackAnimation)
 			can_fire = false
 			await get_tree().create_timer(fireRate).timeout
 			can_fire = true
@@ -261,13 +266,15 @@ func _on_reload_timer_timeout():
 
 func _on_player_detector_body_entered(body):
 	if body.is_in_group(playerGroup):
+		if NPCTypes == 1:
+			isLookingForPlayer = true
 		sawPlayer = true
-		isLookingForPlayer = true
 
 func _on_player_detector_body_exited(body):
 	if body.is_in_group(playerGroup):
-		sawPlayer = false
-		isLookingForPlayer = false
+		if NPCTypes == 1:
+			sawPlayer = false
+			isLookingForPlayer = false
 
 @warning_ignore("unused_parameter")
 func _on_attack_area_body_entered(body):

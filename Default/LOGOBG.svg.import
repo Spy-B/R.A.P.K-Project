@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dw2pdycxfyury"
-path="res://.godot/imported/icon.png-e0765c1c5418b1bd6e70b84bd5ef18c0.ctex"
+uid="uid://b5xfp15tmx11b"
+path="res://.godot/imported/LOGOBG.svg-6c404d47b36c4ec9e6aff7b482af6c15.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/ez_dialogue/icon.png"
-dest_files=["res://.godot/imported/icon.png-e0765c1c5418b1bd6e70b84bd5ef18c0.ctex"]
+source_file="res://Default/LOGOBG.svg"
+dest_files=["res://.godot/imported/LOGOBG.svg-6c404d47b36c4ec9e6aff7b482af6c15.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

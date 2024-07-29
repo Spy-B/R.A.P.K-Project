@@ -1,7 +1,6 @@
 @tool
 extends Node2D
 
-
 @export_placeholder("Type") var item_type = ""
 @export_placeholder("Name") var item_name = ""
 @export var item_texture: Texture

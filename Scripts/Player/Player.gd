@@ -19,7 +19,7 @@ var state_machine
 
 var playerIsInWater: bool
 
-@export_range(0, 10) var timeScale: float = 1
+@export_range(0, 2) var timeScale: float = 1
 
 @export var followLvlScaneTime := false
 
@@ -34,7 +34,7 @@ var playerIsInWater: bool
 @export_placeholder("Animation") var walkingAnimation: String
 
 @export var canRun := true
-@export var runningSpeed := 500
+@export var runningSpeed :float = 500
 @export_placeholder("Animation") var runningAnimation: String
 
 @export_group("Jumping")
@@ -51,6 +51,8 @@ var extraTripleJumps = 2
 @export var canInfiniteJump := false
 var isGrounded := true
 var have_coyote := true
+
+@export var jumpingWeight :float = 0.1
 
 @export_group("Melee Attack")
 @export var canAttack := true
@@ -85,7 +87,7 @@ var killCombo = Global.killComboCounter
 @export_group("Death")
 @export var canDie := true
 var isDie := false
-@export var lifePoints := 10
+@export var healthValue := 100
 @export var deathAnimation :String
 
 @export_group("Inventory Management System")
@@ -99,13 +101,16 @@ var isDie := false
 
 @export_group("Other")
 @export_placeholder("Group") var enemiesGroup: String
-@export_placeholder("Group") var NPCsGroup: String
+@export_placeholder("Group") var NpcsGroup: String
 
 @onready var reloadTimer = $Timers/ReloadTimer
 
 @export var voidAreaGroup: String
 
 var inConversation := false
+
+@onready var health_bar = $UI/HealthBar/TextureProgressBar
+
 
 # warning-ignore:export_hint_type_mistmatch
 #export(String,"Rebecca", "Mary", "Leah") var array = 1
@@ -117,7 +122,17 @@ var inConversation := false
 #
 #export(int, FLAGS, "Fire", "Water", "Earth", "Wind") var spell_elements = 0
 
+@export var DASH_SPEED = 1200
+@export var DASH_DURATION = 0.15
+@export var DASH_COOLDOWN = 0.5
+@export var PUSH = 100
 
+var dashVector = Vector2.ZERO
+var can_dash = true
+var isDashing = false
+var dashTimer = 0.0
+var dashCooldownTimer = 0.0
+var dir_x = 1
 
 
 # Start function: Everything here starts at the first FRAME
@@ -140,7 +155,7 @@ func _ready():
 	#		print("fire")
 	Global.set_player_reference(self)
 	
-	#global_position = respawnPosition
+	Global.playerHealthValue = healthValue
 
 # Update function: Everything here is updated 60 times per second
 @warning_ignore("unused_parameter")
@@ -150,6 +165,9 @@ func _physics_process(delta):
 	
 	set_velocity(motion * timeScale)
 	set_up_direction(Vector2.UP)
+	#set_floor_stop_on_slope_enabled(false)
+	#set_max_slides(4)
+	#set_floor_max_angle(PI/4)
 	move_and_slide()
 	motion = velocity
 	
@@ -178,6 +196,10 @@ func _physics_process(delta):
 		reload()
 	if canDie && !inventory_ui.visible:
 		Death()
+	
+	Dash(delta)
+	
+	health_bar.value = Global.playerHealthValue
 	
 	#if killComboCounter && !inventory_ui.visible:
 		#KillCombo()
@@ -208,12 +230,6 @@ func Gravity():
 		extraTripleJumps = 2
 		have_coyote = true
 	
-	if !isGrounded && is_on_floor():
-		state_machine.travel(touchTheGroundAnimation)
-		$Particles/JumpParticles.restart()
-	
-	isGrounded = is_on_floor()
-	
 	#if !Input.is_action_pressed("jumping") && motion.y < 0:
 		#motion.y = lerp(motion.y,0,0.2)
 
@@ -237,6 +253,12 @@ func State_Machine():
 		
 		if motion.y > gravity && !inventory_ui.visible:
 			state_machine.travel(fallingAnimation)
+		
+	if !isGrounded && is_on_floor():
+		state_machine.travel(touchTheGroundAnimation)
+		$Particles/JumpParticles.restart()
+	
+	isGrounded = is_on_floor()
 	
 	if  (Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left")) &&  Input.is_action_pressed("running") && is_on_floor() && !inventory_ui.visible:
 		$PlayerSprites/ShootingEffect.visible = false
@@ -245,8 +267,9 @@ func State_Machine():
 	else:
 		$Particles/MoveParticles.emitting = false
 	
-	if lifePoints == 0:
-			state_machine.travel(deathAnimation)
+	if Global.playerHealthValue <= 0:
+		
+		state_machine.travel(deathAnimation)
 
 #Walking Function
 func walking():
@@ -267,14 +290,13 @@ func running():
 	if canWalk && canRun && !is_attack:
 		if Input.is_action_pressed("ui_right") && Input.is_action_pressed("running"):
 			motion.x = runningSpeed
-			#var new_position = current_position.lerp(target_position, lerp_speed)
+			#motion.x = lerp(0.0, runningSpeed, 1)
 			$PlayerSprites.scale.x = spriteScaleX
-			
-			
+		
 		elif Input.is_action_pressed("ui_left") && Input.is_action_pressed("running"):
 			motion.x = -runningSpeed
 			$PlayerSprites.scale.x = -spriteScaleX
-			
+		
 	# this code make the player running using the walking input if the canWalking Variable is false
 	elif !canWalk && canRun && !is_attack:
 		if Input.is_action_pressed("ui_right"):
@@ -302,21 +324,80 @@ func jumping():
 		$Particles/JumpParticles.restart()
 		$Timers/CoyoteTimer.stop()
 		$Timers/JumpBufferTimer.stop()
+	
+	if !Input.is_action_pressed("jumping") && motion.y < 0:
+		motion.y = lerp(motion.y, 0.0,jumpingWeight)
 
 func doubleJump():
 	if (Input.is_action_just_pressed("jumping") || !$Timers/JumpBufferTimer.is_stopped()) && !is_on_floor() && extraDoubleJumps > 0:
 		motion.y = -jumpPower
 		$Timers/JumpBufferTimer.stop()
 		extraDoubleJumps -= 1
+	
+	if !Input.is_action_pressed("jumping") && motion.y < 0:
+		motion.y = lerp(motion.y, 0.0,jumpingWeight)
 
 func tripleJump():
 	if Input.is_action_just_pressed("jumping") && !is_on_floor() && extraTripleJumps > 0:
 		motion.y = -jumpPower
 		extraTripleJumps -= 1
+	
+	if !Input.is_action_pressed("jumping") && motion.y < 0:
+		motion.y = lerp(motion.y, 0.0,jumpingWeight)
 
 func infiniteJumps():
 	if Input.is_action_just_pressed("jumping"):
 		motion.y = -jumpPower
+	
+	if !Input.is_action_pressed("jumping") && motion.y < 0:
+		motion.y = lerp(motion.y, 0.0,jumpingWeight)
+
+@warning_ignore("unused_parameter")
+func Dash(delta):
+	#@warning_ignore("unused_variable", "shadowed_variable_base_class")
+	#var velocity = Vector2.ZERO
+	#
+	#if Input.is_action_just_pressed("Dashing") and not isDashing and dashCooldownTimer <= 0.0 && can_dash == true:
+		#dashVector = Input.get_action_strength("ui_right") * Vector2.RIGHT
+		#dashVector += Input.get_action_strength("ui_left") * Vector2.LEFT
+		#dashVector += Input.get_action_strength("ui_down") * Vector2.DOWN
+		#dashVector += Input.get_action_strength("ui_up") * Vector2.UP
+		##$Squish/AnimatedSprite.play("Dash 2")
+		#
+##		if Input.is_action_just_pressed("ui_down") && is_on_floor():
+##			get_parent().get_node("TileMapOne-Way/StaticBody2D/CollisionShape2D").disabled = true
+##		else:
+##			get_parent().get_node("TileMapOne-Way/StaticBody2D/CollisionShape2D").disabled = false
+		#
+		#if dashVector == Vector2.ZERO:
+			#if dir_x == 1:
+				#dashVector = Vector2.RIGHT
+			#elif dir_x == -1:
+				#dashVector = Vector2.LEFT
+			#else:
+				#dashVector = Vector2.ZERO
+		#
+		#if dashVector != Vector2.ZERO:
+			#dashVector = dashVector.normalized()
+			#isDashing = true
+			#can_dash = false
+			#dashTimer = DASH_DURATION
+			#dashCooldownTimer = DASH_COOLDOWN
+	#
+	#if isDashing:
+		#velocity = dashVector * DASH_SPEED
+		#dashTimer -= delta
+		#if dashTimer <= 0.0:
+			#isDashing = false
+	#
+##	if !is_on_floor():
+##		velocity.y += 1000 * delta
+## warning-ignore:return_value_discarded
+	#
+	#if dashCooldownTimer > 0.0:
+		#dashCooldownTimer -= delta
+	
+	pass
 
 #Melee Attack Function
 func meleeAttack():
@@ -344,7 +425,7 @@ func MeleeCombo():
 		is_attack = true
 		can_attack = false
 		motion.x = 0
-		#state_machine.travel(********)   you should call the Socend ATTACK ANIMATION
+		#state_machine.travel(********)   you should call the Second ATTACK ANIMATION
 		comboPoints = comboPoints - 1
 		$Timers/MeleeComboTimer.start()
 
@@ -424,8 +505,19 @@ func _on_ComboTimer_timeout():
 func Death():
 	if isDie:
 		global_position = checkpoint_manager.last_position
+		await get_tree().create_timer(0.05).timeout
+		Respawn()
 
-# Apply the effect of the item (if possible)
+func _on_damage_area_area_entered(area):
+	if area.is_in_group(voidAreaGroup):
+		Respawn()
+
+func Respawn():
+	global_position = checkpoint_manager.last_position
+	isDie = false
+	Global.playerHealthValue = healthValue
+
+# Apply the effect of the item
 func apply_item_effect(item):
 	match item["effect"]:
 		"Stamina":
@@ -435,6 +527,8 @@ func apply_item_effect(item):
 			extraAmmo += handgunMagazineSize
 		"Double Jump":
 			canDoubleJump = true
+		"Health":
+			Global.playerHealthValue += 20
 		"Slot Boost":
 			Global.increase_inventory_size(IncreaseInventorySize_bag1)
 			print("Slots increased to ", Global.inventory.size())
@@ -450,7 +544,7 @@ func in_water():
 	#pass
 
 func _on_np_cs_detector_body_entered(body):
-	if body.is_in_group(NPCsGroup):
+	if body.is_in_group(NpcsGroup):
 		body.playerIsNearby = true
 		interact_ui.visible = true
 	
@@ -460,7 +554,7 @@ func _on_np_cs_detector_body_entered(body):
 		#inConversation = false
 
 func _on_np_cs_detector_body_exited(body):
-	if body.is_in_group(NPCsGroup):
+	if body.is_in_group(NpcsGroup):
 		body.playerIsNearby = false
 		interact_ui.visible = false
 	
@@ -468,7 +562,3 @@ func _on_np_cs_detector_body_exited(body):
 		#inConversation = true
 	#elif !body.conversationStarted && body.conversationEnded:
 		#inConversation = false
-
-func _on_damage_area_area_entered(area):
-	if area.is_in_group(voidAreaGroup):
-		global_position = checkpoint_manager.last_position

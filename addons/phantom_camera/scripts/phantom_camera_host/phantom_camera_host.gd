@@ -272,7 +272,7 @@ func _process_pcam(delta: float) -> void:
 			_show_viewfinder_in_play()
 			_viewfinder_needed_check = false
 
-		# TODO - Should be able to find a more efficient way
+		#  - Should be able to find a more efficient way
 		if Engine.is_editor_hint():
 			if not _is_2D:
 				if _active_pcam.get_camera_3d_resource():

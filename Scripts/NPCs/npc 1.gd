@@ -36,8 +36,9 @@ func _process(delta):
 	
 	start_dialogue()
 	
-	if $DialogueUI/DialogueBox/Label.text == "":
-		inConversation = false
+	# TODO fix the logic
+	#if $DialogueUI/DialogueBox/Label.text == "":
+		#inConversation = false
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
@@ -57,7 +58,7 @@ func start_dialogue():
 	if playerIsNearby && inConversation:
 		dialogue_ui.visible = true
 		(ez_dialogue as EzDialogue).start_dialogue(dialogueFile, state)
-	elif playerIsNearby && !inConversation:
+	elif !playerIsNearby || !inConversation:
 		dialogue_ui.visible = false
 
 func _on_ez_dialogue_dialogue_generated(response):

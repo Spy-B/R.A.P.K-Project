@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://brwddqb7thkn8"]
+[gd_scene load_steps=44 format=3 uid="uid://brwddqb7thkn8"]
 
 [ext_resource type="Script" path="res://Scripts/LVLs/World.gd" id="1_474be"]
 [ext_resource type="Texture2D" uid="uid://bl0scgi63vt2f" path="res://Assets/Envirement/City BG/city 1/1.png" id="2_atgvj"]
@@ -14,8 +14,13 @@
 [ext_resource type="Texture2D" uid="uid://dw3dhiavoiaik" path="res://Assets/Envirement/KERES-000 Pod.png" id="9_j1qy4"]
 [ext_resource type="PackedScene" uid="uid://dq0u5vt1sa20b" path="res://Scenes/Interactions/checkpoint.tscn" id="10_ik7bi"]
 [ext_resource type="Texture2D" uid="uid://bpkj5xidw45v8" path="res://Assets/Envirement/the transmission Room.png" id="10_rg56r"]
+[ext_resource type="Texture2D" uid="uid://dpsa2kd0cqh2x" path="res://Assets/Objects/Shooter Game  Assets/Icons/Medkit.png" id="12_itjr2"]
 [ext_resource type="PackedScene" uid="uid://bg3nobdym6tb" path="res://Scenes/Player/Player Camera.tscn" id="12_k2c6x"]
 [ext_resource type="PackedScene" uid="uid://bejqc22buxrw1" path="res://Scenes/NPCs/Enemies/NPC.tscn" id="14_so5jc"]
+[ext_resource type="Script" path="res://Scripts/UI/GUI.gd" id="17_7me76"]
+[ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="18_t2mby"]
+[ext_resource type="Script" path="res://Scripts/UI/Pause.gd" id="19_dyubv"]
+[ext_resource type="PackedScene" uid="uid://bgkxlm5cv7gx3" path="res://Scenes/NPCs/npc 2.tscn" id="21_h7nxy"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_mmi70"]
 polygon = PackedVector2Array(-12, -4, 16, -4, 16, 16, -12, 16)
@@ -956,6 +961,136 @@ size = Vector2(20, 978)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wpkgx"]
 
+[sub_resource type="FontFile" id="FontFile_gte5u"]
+fallbacks = Array[Font]([ExtResource("18_t2mby")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/40/0/ascent = 0.0
+cache/0/40/0/descent = 0.0
+cache/0/40/0/underline_position = 0.0
+cache/0/40/0/underline_thickness = 0.0
+cache/0/40/0/scale = 1.0
+cache/0/40/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/40/0 = Vector2(0, 0)
+
+[sub_resource type="FontFile" id="FontFile_jvgub"]
+fallbacks = Array[Font]([ExtResource("18_t2mby")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/500/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/1/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/30/0 = Vector2(0, 0)
+cache/0/2/0/ascent = 0.0
+cache/0/2/0/descent = 0.0
+cache/0/2/0/underline_position = 0.0
+cache/0/2/0/underline_thickness = 0.0
+cache/0/2/0/scale = 1.0
+cache/0/2/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/500/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/1/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/2/0/kerning_overrides/30/0 = Vector2(0, 0)
+cache/0/500/0/ascent = 0.0
+cache/0/500/0/descent = 0.0
+cache/0/500/0/underline_position = 0.0
+cache/0/500/0/underline_thickness = 0.0
+cache/0/500/0/scale = 1.0
+cache/0/500/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/500/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/500/0/kerning_overrides/500/0 = Vector2(0, 0)
+cache/0/500/0/kerning_overrides/1/0 = Vector2(0, 0)
+cache/0/500/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/500/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/500/0/kerning_overrides/30/0 = Vector2(0, 0)
+cache/0/1/0/ascent = 0.0
+cache/0/1/0/descent = 0.0
+cache/0/1/0/underline_position = 0.0
+cache/0/1/0/underline_thickness = 0.0
+cache/0/1/0/scale = 1.0
+cache/0/1/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/1/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/1/0/kerning_overrides/500/0 = Vector2(0, 0)
+cache/0/1/0/kerning_overrides/1/0 = Vector2(0, 0)
+cache/0/1/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/1/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/1/0/kerning_overrides/30/0 = Vector2(0, 0)
+cache/0/20/0/ascent = 0.0
+cache/0/20/0/descent = 0.0
+cache/0/20/0/underline_position = 0.0
+cache/0/20/0/underline_thickness = 0.0
+cache/0/20/0/scale = 1.0
+cache/0/20/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/20/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/20/0/kerning_overrides/500/0 = Vector2(0, 0)
+cache/0/20/0/kerning_overrides/1/0 = Vector2(0, 0)
+cache/0/20/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/20/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/20/0/kerning_overrides/30/0 = Vector2(0, 0)
+cache/0/40/0/ascent = 0.0
+cache/0/40/0/descent = 0.0
+cache/0/40/0/underline_position = 0.0
+cache/0/40/0/underline_thickness = 0.0
+cache/0/40/0/scale = 1.0
+cache/0/40/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/500/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/1/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/30/0 = Vector2(0, 0)
+cache/0/30/0/ascent = 0.0
+cache/0/30/0/descent = 0.0
+cache/0/30/0/underline_position = 0.0
+cache/0/30/0/underline_thickness = 0.0
+cache/0/30/0/scale = 1.0
+cache/0/30/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/30/0/kerning_overrides/2/0 = Vector2(0, 0)
+cache/0/30/0/kerning_overrides/500/0 = Vector2(0, 0)
+cache/0/30/0/kerning_overrides/1/0 = Vector2(0, 0)
+cache/0/30/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/30/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/30/0/kerning_overrides/30/0 = Vector2(0, 0)
+
+[sub_resource type="FontFile" id="FontFile_lbks3"]
+fallbacks = Array[Font]([ExtResource("18_t2mby")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/30/0 = Vector2(0, 0)
+cache/0/30/0/ascent = 0.0
+cache/0/30/0/descent = 0.0
+cache/0/30/0/underline_position = 0.0
+cache/0/30/0/underline_thickness = 0.0
+cache/0/30/0/scale = 1.0
+cache/0/30/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/30/0/kerning_overrides/30/0 = Vector2(0, 0)
+
 [node name="LVL-Alpha" type="Node2D"]
 script = ExtResource("1_474be")
 
@@ -973,7 +1108,7 @@ centered = false
 
 [node name="Mountains" type="ParallaxLayer" parent="ParallaxBackground/ParallaxBackground"]
 position = Vector2(0, 160)
-motion_scale = Vector2(0.01, 0.01)
+motion_scale = Vector2(0.02, 0.02)
 motion_mirroring = Vector2(384, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxBackground/Mountains"]
@@ -1174,6 +1309,22 @@ item_texture = ExtResource("8_0bemw")
 item_texture_size = 2.5
 item_effect = "Double Jump"
 
+[node name="Inventory_Item2" parent="Interactions" instance=ExtResource("8_vct8e")]
+position = Vector2(2757, 948)
+item_type = "Consumption"
+item_name = "Medkit"
+item_texture = ExtResource("12_itjr2")
+item_texture_size = 2.5
+item_effect = "Health"
+
+[node name="Inventory_Item3" parent="Interactions" instance=ExtResource("8_vct8e")]
+position = Vector2(4996, 885)
+item_type = "Consumption"
+item_name = "Medkit"
+item_texture = ExtResource("12_itjr2")
+item_texture_size = 2.5
+item_effect = "Health"
+
 [node name="Checkpoints" type="Node2D" parent="Interactions"]
 position = Vector2(35, 4)
 
@@ -1184,16 +1335,44 @@ checkpoint_manager = NodePath("../CheckpointManager")
 [node name="CheckpointManager" parent="Interactions/Checkpoints" node_paths=PackedStringArray("player") instance=ExtResource("9_2vm4v")]
 player = NodePath("../../../Player")
 
-[node name="Enemies" type="Node2D" parent="."]
+[node name="MovingPlatfotms" type="Node2D" parent="Interactions"]
 
-[node name="NPC" parent="Enemies" node_paths=PackedStringArray("player") instance=ExtResource("14_so5jc")]
-position = Vector2(1768, 858)
+[node name="NPCs" type="Node2D" parent="."]
+
+[node name="NPC" parent="NPCs" node_paths=PackedStringArray("player") instance=ExtResource("14_so5jc")]
+position = Vector2(1175, 892)
+collision_layer = 16777216
+lookingDir = 1
+reloadTime = 0.2
+player = NodePath("../../Player")
+lvlScene = "LVL-Alpha"
+
+[node name="NPC2" parent="NPCs" node_paths=PackedStringArray("player") instance=ExtResource("14_so5jc")]
+position = Vector2(2135, 858)
 NPCTypes = 1
 lookingDir = 1
 reloadTime = 0.2
-lifePoints = 10.0
 player = NodePath("../../Player")
 lvlScene = "LVL-Alpha"
+
+[node name="NPC3" parent="NPCs" node_paths=PackedStringArray("player") instance=ExtResource("14_so5jc")]
+position = Vector2(4152, 790)
+NPCTypes = 1
+lookingDir = 1
+reloadTime = 0.2
+player = NodePath("../../Player")
+lvlScene = "LVL-Alpha"
+
+[node name="NPC4" parent="NPCs" node_paths=PackedStringArray("player") instance=ExtResource("14_so5jc")]
+position = Vector2(6020, 829)
+NPCTypes = 1
+lookingDir = 1
+reloadTime = 0.2
+player = NodePath("../../Player")
+lvlScene = "LVL-Alpha"
+
+[node name="npc" parent="NPCs" instance=ExtResource("21_h7nxy")]
+position = Vector2(1081, 900)
 
 [node name="Player" parent="." node_paths=PackedStringArray("checkpoint_manager") instance=ExtResource("7_dwqjf")]
 position = Vector2(720, 890)
@@ -1202,7 +1381,6 @@ canDoubleJump = false
 ammoInMag = 9
 maxAmmo = 9
 extraAmmo = 999999
-lifePoints = 1
 
 [node name="Camera2D" parent="Player" instance=ExtResource("12_k2c6x")]
 limit_left = 0
@@ -1234,10 +1412,49 @@ scale = Vector2(104118, -17.2857)
 shape = SubResource("RectangleShape2D_wpkgx")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.226707, 0.226708, 0.226707, 1)
+color = Color(0.118581, 0.118581, 0.118581, 1)
 
 [node name="TimeScaleTimer" type="Timer" parent="."]
 
 [node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("17_7me76")
+
+[node name="AmmunitionCounter" type="Label" parent="UI"]
+offset_left = 60.0
+offset_top = 933.0
+offset_right = 296.0
+offset_bottom = 973.0
+theme_override_fonts/font = SubResource("FontFile_gte5u")
+theme_override_font_sizes/font_size = 40
+
+[node name="FPS" type="Label" parent="UI"]
+offset_left = 32.0
+offset_top = 1008.0
+offset_right = 33.0
+offset_bottom = 1048.0
+theme_override_fonts/font = SubResource("FontFile_jvgub")
+theme_override_font_sizes/font_size = 40
+text = "60"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ComboCounter" type="Label" parent="UI"]
+visible = false
+offset_left = 64.0
+offset_top = 288.0
+offset_right = 172.0
+offset_bottom = 351.0
+theme_override_colors/font_color = Color(0.784314, 0.588235, 0.0196078, 1)
+theme_override_fonts/font = SubResource("FontFile_lbks3")
+theme_override_font_sizes/font_size = 30
+text = "999"
+
+[node name="Pause" type="Control" parent="UI"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("19_dyubv")
 
 [connection signal="timeout" from="TimeScaleTimer" to="." method="_on_time_scale_timer_timeout"]

@@ -14,6 +14,7 @@ extends Node
 @export var killComboCounter = 0
 
 @export var enemiesLifePoints = 2
+@export var playerHealthValue:float = 100
 
 var inventory = []
 
@@ -39,12 +40,10 @@ func add_item(item):
 		if inventory[i] != null and inventory[i]["type"] == item["type"] and inventory[i]["effect"] == item["effect"]:
 			inventory[i]["quantity"] += item["quantity"]
 			inventory_updated.emit()
-			print("Item added", inventory)
 			return true
 		elif inventory[i] == null:
 			inventory[i] = item
 			inventory_updated.emit()
-			print("Item added", inventory)
 			return true
 	return false
 

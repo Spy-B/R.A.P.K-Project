@@ -32,7 +32,7 @@ func _on_Bullet_body_entered(body):
 	
 	if body.is_in_group(playerGroup):
 		#body.queue_free()
-		body.lifePoints -= 1
+		Global.playerHealthValue -= 10
 		#body.position.x = shooter.shooting().
 		#body.get_node("AnimatedSprite2D").play("Die")
 

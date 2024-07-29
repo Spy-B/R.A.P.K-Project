@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dw2pdycxfyury"
-path="res://.godot/imported/icon.png-e0765c1c5418b1bd6e70b84bd5ef18c0.ctex"
+uid="uid://bixcjmfwdjfxd"
+path="res://.godot/imported/LOGOBG.png-f704ebfdc766095dc6bddfe9d354b6de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/ez_dialogue/icon.png"
-dest_files=["res://.godot/imported/icon.png-e0765c1c5418b1bd6e70b84bd5ef18c0.ctex"]
+source_file="res://Default/LOGOBG.png"
+dest_files=["res://.godot/imported/LOGOBG.png-f704ebfdc766095dc6bddfe9d354b6de.ctex"]
 
 [params]
 

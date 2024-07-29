@@ -38,7 +38,7 @@ func _enter_tree() -> void:
 	# Phantom Camera 3D Gizmo
 	add_node_3d_gizmo_plugin(pcam_3D_gizmo_plugin)
 
-	# TODO - Should be disabled unless in editor
+	#  - Should be disabled unless in editor
 	# Viewfinder
 	editor_panel_instance = EditorPanel.instantiate()
 	editor_panel_instance.editor_plugin = self

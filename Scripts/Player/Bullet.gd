@@ -32,7 +32,7 @@ func _on_Bullet_body_entered(body):
 	
 	if body.is_in_group(enemiesGroup):
 		#body.queue_free()
-		body.lifePoints -= 2
+		body.lifePoints -= 1
 		#body.position.x = shooter.shooting().
 		#body.get_node("AnimatedSprite2D").play("Die")
 		shooter.killCombo += 1

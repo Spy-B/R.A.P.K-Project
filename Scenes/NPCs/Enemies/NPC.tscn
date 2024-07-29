@@ -148,7 +148,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jej3d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5dnyc"]
-size = Vector2(1536, 128)
+size = Vector2(1088, 128)
 
 [sub_resource type="Animation" id="Animation_lealt"]
 resource_name = "Attack"
@@ -329,11 +329,13 @@ position = Vector2(17.5, 2.25)
 shape = SubResource("RectangleShape2D_jej3d")
 disabled = true
 
-[node name="PlayerDetector" type="Area2D" parent="."]
+[node name="PlayerDetector" type="Area2D" parent="EnemySprites"]
+scale = Vector2(0.25, 0.25)
 collision_layer = 131072
 collision_mask = 768
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySprites/PlayerDetector"]
+position = Vector2(224, 0)
 shape = SubResource("RectangleShape2D_5dnyc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -347,6 +349,6 @@ libraries = {
 one_shot = true
 
 [connection signal="body_entered" from="EnemySprites/AttackArea" to="." method="_on_attack_area_body_entered"]
-[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
-[connection signal="body_exited" from="PlayerDetector" to="." method="_on_player_detector_body_exited"]
+[connection signal="body_entered" from="EnemySprites/PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="EnemySprites/PlayerDetector" to="." method="_on_player_detector_body_exited"]
 [connection signal="timeout" from="Timers/ReloadTimer" to="." method="_on_reload_timer_timeout"]

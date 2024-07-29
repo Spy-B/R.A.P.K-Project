@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://c8yxig8q4w1xx"]
+[gd_scene load_steps=36 format=3 uid="uid://c8yxig8q4w1xx"]
 
 [ext_resource type="Script" path="res://Scripts/LVLs/World.gd" id="1_1ka7b"]
 [ext_resource type="Texture2D" uid="uid://pmff0ghibkc0" path="res://Assets/Envirement/Prototype Textures/PNG/Dark/texture_01 - 128.png" id="2_el5tq"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/Pause.gd" id="14_i4kd4"]
 [ext_resource type="Texture2D" uid="uid://85ptmos0irs2" path="res://Assets/Envirement/city_cars_8.png" id="15_kvdgx"]
 [ext_resource type="PackedScene" uid="uid://dq0u5vt1sa20b" path="res://Scenes/Interactions/checkpoint.tscn" id="16_vfquq"]
+[ext_resource type="PackedScene" uid="uid://bg3nobdym6tb" path="res://Scenes/Player/Player Camera.tscn" id="21_46x8j"]
 [ext_resource type="PackedScene" uid="uid://4qvtq6epoo3e" path="res://Scenes/Interactions/letter.tscn" id="22_kp5s7"]
 [ext_resource type="PackedScene" uid="uid://bgkxlm5cv7gx3" path="res://Scenes/NPCs/npc 2.tscn" id="23_77yie"]
 [ext_resource type="Script" path="res://Scripts/Interactions/CheckpointManager.gd" id="24_xr0r5"]
@@ -449,7 +450,8 @@ maxAmmo = 9
 fireRate = 0.4
 handgunMagazineSize = 9
 IncreaseInventorySize_bag1 = 5
-NPCsGroup = "NPCs"
+
+[node name="Camera2D" parent="Player" instance=ExtResource("21_46x8j")]
 
 [node name="Water_Body" parent="." instance=ExtResource("7_e11kw")]
 position = Vector2(-576, 768)
