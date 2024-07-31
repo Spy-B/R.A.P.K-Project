@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://ov647hx6yjxa"]
+
+[ext_resource type="Script" path="res://addons/ui_extensions/dropdown/Dropdown.gd" id="1_ah183"]
+
+[node name="DropdownContent" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_ah183")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="HBox"]
+visible = false
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Selector" type="Button" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 0
+icon_alignment = 2
+
+[node name="Clear" type="Button" parent="HBox"]
+layout_mode = 2
+size_flags_vertical = 3
+icon_alignment = 1
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+
+[node name="VBoxPanel" type="VBoxContainer" parent="PopupPanel"]
+visible = false
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 96.0
+offset_bottom = 96.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Filter" type="LineEdit" parent="PopupPanel/VBoxPanel"]
+layout_mode = 2
+
+[node name="Scroll" type="ScrollContainer" parent="PopupPanel/VBoxPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollVBox" type="VBoxContainer" parent="PopupPanel/VBoxPanel/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="PopupPanel/VBoxPanel/Scroll/ScrollVBox"]
+layout_mode = 2

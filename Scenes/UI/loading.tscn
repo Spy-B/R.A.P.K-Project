@@ -332,7 +332,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.575882, 0.373156, 0.311049, 1)
+color = Color(0.215315, 0.322917, 0.387641, 1)
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 layout_mode = 1

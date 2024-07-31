@@ -16,12 +16,19 @@ var state := {
 	"playerName": playerName,
 	"NpcName": "JONE"
 }
-@onready var dialogue_ui = $DialogueUI
-@onready var dialogue_box = $DialogueUI/DialogueBox
-@onready var ez_dialogue = $DialogueUI/DialogueBox/EzDialogue
 
 var playerIsNearby :=  false
 var inConversation := false
+
+@export_group("Other")
+@export var player: CharacterBody2D
+
+@onready var dialogue_ui = $DialogueUI
+@onready var dialogue_box = $DialogueUI/DialogueBox
+@onready var ez_dialogue = $DialogueUI/DialogueBox/EzDialogue
+@onready var timer = $DialogueUI/DialogueBox/Timer
+
+
 
 func _ready():
 	#dialogue_ui.visible = false
@@ -31,14 +38,12 @@ func _ready():
 func _process(delta):
 	if Input.is_action_pressed("interact"):
 		if playerIsNearby:
-			inConversation = true
+			Global.inConversation = true
+			player.global_position = $Marker2D.global_position
 			set_process(false)
+			timer.start()
 	
 	start_dialogue()
-	
-	# TODO fix the logic
-	#if $DialogueUI/DialogueBox/Label.text == "":
-		#inConversation = false
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
@@ -55,13 +60,17 @@ func Gravity():
 
 func start_dialogue():
 	# FIXME the Dialogue System
-	if playerIsNearby && inConversation:
+	if playerIsNearby && Global.inConversation:
 		dialogue_ui.visible = true
 		(ez_dialogue as EzDialogue).start_dialogue(dialogueFile, state)
-	elif !playerIsNearby || !inConversation:
+	elif !playerIsNearby || !Global.inConversation:
 		dialogue_ui.visible = false
 
 func _on_ez_dialogue_dialogue_generated(response):
 	dialogue_box.clear_dialogue_box()
-	
 	dialogue_box.add_text(response.text)
+
+func _on_ez_dialogue_custom_signal_received(value: String):
+	if value == "endConversation":
+		Global.inConversation = false
+		set_process(true)

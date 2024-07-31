@@ -16,6 +16,8 @@ extends Node
 @export var enemiesLifePoints = 2
 @export var playerHealthValue:float = 100
 
+@export var inConversation := false
+
 var inventory = []
 
 signal inventory_updated

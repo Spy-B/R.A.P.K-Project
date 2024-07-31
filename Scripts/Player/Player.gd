@@ -10,7 +10,6 @@ var state_machine
 
 @export var checkpoint_manager: Node
 
-
 @export_group("Physics")
 @export var gravity = 98
 
@@ -34,8 +33,13 @@ var playerIsInWater: bool
 @export_placeholder("Animation") var walkingAnimation: String
 
 @export var canRun := true
-@export var runningSpeed :float = 500
+@export var runningSpeed: float = 500
 @export_placeholder("Animation") var runningAnimation: String
+
+@export var acceleration: float = 10
+@export var movementWeight: float = 0.2
+
+var dir := 1
 
 @export_group("Jumping")
 @export var canJump := true
@@ -52,7 +56,7 @@ var extraTripleJumps = 2
 var isGrounded := true
 var have_coyote := true
 
-@export var jumpingWeight :float = 0.1
+@export var jumpingWeight: float = 0.1
 
 @export_group("Melee Attack")
 @export var canAttack := true
@@ -88,7 +92,7 @@ var killCombo = Global.killComboCounter
 @export var canDie := true
 var isDie := false
 @export var healthValue := 100
-@export var deathAnimation :String
+@export var deathAnimation: String
 
 @export_group("Inventory Management System")
 @onready var interact_ui = $InteractUI
@@ -175,11 +179,11 @@ func _physics_process(delta):
 	State_Machine()
 	
 	# this Script for Exporting variabels
-	if canWalk && !inventory_ui.visible:
+	if canWalk && !inventory_ui.visible && !Global.inConversation:
 		walking()
-	if canRun && !inventory_ui.visible:
+	if canRun && !inventory_ui.visible && !Global.inConversation:
 		running()
-	if canJump && !inventory_ui.visible:
+	if canJump && !inventory_ui.visible && !Global.inConversation:
 		jumping()
 	if canDoubleJump && canJump && !canTripleJump && !inventory_ui.visible:
 		doubleJump()
@@ -187,14 +191,14 @@ func _physics_process(delta):
 		tripleJump()
 	if canInfiniteJump && !inventory_ui.visible:
 		infiniteJumps()
-	if canAttack && !meleeCombo && !inventory_ui.visible:
+	if canAttack && !meleeCombo && !inventory_ui.visible && !Global.inConversation:
 		meleeAttack()
 	if meleeCombo && !inventory_ui.visible:
 		MeleeCombo()
-	if canShoot && !inventory_ui.visible:
+	if canShoot && !inventory_ui.visible && !Global.inConversation:
 		shooting()
 		reload()
-	if canDie && !inventory_ui.visible:
+	if canDie && !inventory_ui.visible && !Global.inConversation:
 		Death()
 	
 	Dash(delta)
@@ -206,6 +210,9 @@ func _physics_process(delta):
 		
 	if InfiniteAmmo == true:
 		ammoInMag = !0
+	
+	if Global.inConversation:
+		interact_ui.visible = false
 	
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
@@ -235,12 +242,12 @@ func Gravity():
 
 
 func State_Machine():
-	if is_on_floor() && canWalk && canRun && !is_attack  && !inventory_ui.visible:
+	if is_on_floor() && canWalk && canRun && !is_attack  && !inventory_ui.visible && !Global.inConversation:
 		$PlayerSprites/ShootingEffect.visible = false
-		if Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left"):
+		if (Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left")) && !(Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_left")):
 			state_machine.travel(walkingAnimation)
 		
-		if motion.x == 0 && !inventory_ui.visible:
+		else:
 			state_machine.travel(idleAnimation)
 		
 		if motion.y < -gravity && !inventory_ui.visible:
@@ -260,7 +267,7 @@ func State_Machine():
 	
 	isGrounded = is_on_floor()
 	
-	if  (Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left")) &&  Input.is_action_pressed("running") && is_on_floor() && !inventory_ui.visible:
+	if  (Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left")) && !(Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_left")) &&  Input.is_action_pressed("running") && is_on_floor() && !inventory_ui.visible && !Global.inConversation:# && (motion.x >= runningSpeed || motion.x <= -runningSpeed):
 		$PlayerSprites/ShootingEffect.visible = false
 		state_machine.travel(runningAnimation)
 		$Particles/MoveParticles.emitting = true
@@ -268,51 +275,61 @@ func State_Machine():
 		$Particles/MoveParticles.emitting = false
 	
 	if Global.playerHealthValue <= 0:
-		
 		state_machine.travel(deathAnimation)
 
 #Walking Function
 func walking():
 	if canWalk && canRun && !is_attack:
-		if Input.is_action_pressed("ui_right"):
-			motion.x = walkingSpeed
+		if Input.is_action_pressed("ui_right") && !Input.is_action_pressed("ui_left"):
+			#motion.x = walkingSpeed
+			motion.x = min(motion.x + acceleration, walkingSpeed)
+			dir = 1
 			$PlayerSprites.scale.x = spriteScaleX
 			
-		elif Input.is_action_pressed("ui_left"):
-			motion.x = -walkingSpeed
+		elif Input.is_action_pressed("ui_left") && !Input.is_action_pressed("ui_right"):
+			#motion.x = -walkingSpeed
+			motion.x = max(motion.x - acceleration, -walkingSpeed)
+			dir = -1
 			$PlayerSprites.scale.x = -spriteScaleX
 			
 		else:
-			motion.x = 0
+			motion.x = lerp(motion.x, 0.0, movementWeight)
 
 #Running Function
 func running():
 	if canWalk && canRun && !is_attack:
-		if Input.is_action_pressed("ui_right") && Input.is_action_pressed("running"):
+		if Input.is_action_pressed("ui_right") && Input.is_action_pressed("running") && !Input.is_action_pressed("ui_left"):
 			motion.x = runningSpeed
-			#motion.x = lerp(0.0, runningSpeed, 1)
+			dir = 1
+			#motion.x = min(motion.x + acceleration, runningSpeed)
 			$PlayerSprites.scale.x = spriteScaleX
 		
-		elif Input.is_action_pressed("ui_left") && Input.is_action_pressed("running"):
+		elif Input.is_action_pressed("ui_left") && Input.is_action_pressed("running") && !Input.is_action_pressed("ui_right"):
 			motion.x = -runningSpeed
+			dir = -1
+			#motion.x = max(motion.x - acceleration, -runningSpeed)
 			$PlayerSprites.scale.x = -spriteScaleX
 		
 	# this code make the player running using the walking input if the canWalking Variable is false
 	elif !canWalk && canRun && !is_attack:
-		if Input.is_action_pressed("ui_right"):
+		if Input.is_action_pressed("ui_right") && !Input.is_action_pressed("ui_left"):
 			motion.x = runningSpeed
+			dir = 1
+			#motion.x = min(motion.x + acceleration, runningSpeed)
 			$PlayerSprites.scale.x = spriteScaleX
 			
 			
-		elif Input.is_action_pressed("ui_left"):
+		elif Input.is_action_pressed("ui_left") && !Input.is_action_pressed("ui_right"):
 			motion.x = -runningSpeed
+			dir = -1
+			#motion.x = max(motion.x - acceleration, -runningSpeed)
 			$PlayerSprites.scale.x = -spriteScaleX
 			
 			
 		else:
-			motion.x = 0
+			motion.x = lerp(motion.x, 0.0, movementWeight)
 	else:
-		motion.x = 0
+		motion.x = lerp(motion.x, 0.0, movementWeight)
 
 #Jumping Functions
 func jumping():
@@ -321,6 +338,8 @@ func jumping():
 	
 	if (is_on_floor() || !$Timers/CoyoteTimer.is_stopped()) && (Input.is_action_just_pressed("jumping") || !$Timers/JumpBufferTimer.is_stopped()):
 		motion.y = -jumpPower
+		#if (Input.is_action_just_pressed("ui_right") || Input.is_action_just_pressed("ui_left")):
+			#motion.x = 1000 * dir
 		$Particles/JumpParticles.restart()
 		$Timers/CoyoteTimer.stop()
 		$Timers/JumpBufferTimer.stop()

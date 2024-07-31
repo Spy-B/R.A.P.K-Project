@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5ko610clbu87"]
+
+[ext_resource type="Texture2D" uid="uid://dnw1xbg83c5pu" path="res://addons/inventory_editor/icons/Add.png" id="1"]
+[ext_resource type="Script" path="res://addons/inventory_editor/scenes/inventories/InventoryInventoryPreview.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://ov647hx6yjxa" path="res://addons/ui_extensions/dropdown/Dropdown.tscn" id="2_a6el8"]
+[ext_resource type="Texture2D" uid="uid://csnxfw6mmjma6" path="res://addons/inventory_editor/icons/Del.png" id="4"]
+
+[node name="PreviewData" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2")
+
+[node name="ItemHandler" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ItemHandler"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="ItemHandler/HBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Item"
+
+[node name="Dropdown" parent="ItemHandler/HBoxContainer" instance=ExtResource("2_a6el8")]
+layout_mode = 2
+
+[node name="Quantity" type="LineEdit" parent="ItemHandler/HBoxContainer"]
+layout_mode = 2
+text = "1"
+
+[node name="Add" type="Button" parent="ItemHandler/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("1")
+icon_alignment = 1
+
+[node name="Del" type="Button" parent="ItemHandler/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("4")
+icon_alignment = 1
+
+[node name="HBoxFill" type="HBoxContainer" parent="ItemHandler"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrollPreview" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Preview" type="HBoxContainer" parent="ScrollPreview"]
+layout_mode = 2

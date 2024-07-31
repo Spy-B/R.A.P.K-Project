@@ -1,8 +1,12 @@
-[gd_scene load_steps=29 format=3 uid="uid://bejqc22buxrw1"]
+[gd_scene load_steps=34 format=3 uid="uid://bejqc22buxrw1"]
 
-[ext_resource type="Script" path="res://Scripts/NPCs/Enemies/Enemy 2.gd" id="1_i447x"]
+[ext_resource type="Script" path="res://Scripts/NPCs/Enemies/NPC.gd" id="1_arx3i"]
 [ext_resource type="PackedScene" uid="uid://vcfu0uoitxsi" path="res://Scenes/NPCs/Enemies/Enemy Bullet.tscn" id="2_qp8th"]
 [ext_resource type="Texture2D" uid="uid://umtm63sma2t6" path="res://Assets/Characters/Enemies/Prototype/No Outlines/players grey x1.png" id="2_wkfwl"]
+[ext_resource type="JSON" path="res://Dialogue Files/DialogueSystemFirstTest.json" id="3_5e6be"]
+[ext_resource type="Script" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="4_l4tas"]
+[ext_resource type="Script" path="res://Dialogue Files/DialogueBox.gd" id="4_rt3et"]
+[ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="6_30yfs"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(76, 104)
@@ -286,10 +290,17 @@ _data = {
 "Running": SubResource("Animation_t278e")
 }
 
-[node name="NPC" type="CharacterBody2D" groups=["Enemies"]]
-collision_layer = 65536
-collision_mask = 1681
-script = ExtResource("1_i447x")
+[sub_resource type="LabelSettings" id="LabelSettings_dgdq1"]
+line_spacing = 4.0
+font = ExtResource("6_30yfs")
+font_size = 24
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="NPC" type="CharacterBody2D"]
+collision_layer = 16842752
+collision_mask = 3729
+script = ExtResource("1_arx3i")
 idleAnimation = "Idle"
 runningAnimation = "Running"
 attackAnimation = "Attack"
@@ -301,7 +312,10 @@ extraAmmo = 999
 isDie = true
 lifePoints = 2.0
 deadAnimation = "Death"
+dialogueFile = ExtResource("3_5e6be")
 playerGroup = "Player"
+enemiesGroup = "Enemies"
+npcsGroup = "NPCs"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-6, 12)
@@ -338,6 +352,10 @@ collision_mask = 768
 position = Vector2(224, 0)
 shape = SubResource("RectangleShape2D_5dnyc")
 
+[node name="Marker2D" type="Marker2D" parent="EnemySprites"]
+position = Vector2(26, 2)
+scale = Vector2(0.25, 0.25)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_4jby7")
@@ -348,7 +366,45 @@ libraries = {
 [node name="ReloadTimer" type="Timer" parent="Timers"]
 one_shot = true
 
+[node name="DialogueUI" type="CanvasLayer" parent="."]
+
+[node name="DialogueBox" type="Control" parent="DialogueUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_rt3et")
+
+[node name="Label" type="Label" parent="DialogueUI/DialogueBox"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -448.0
+offset_top = -120.0
+offset_right = 448.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+label_settings = SubResource("LabelSettings_dgdq1")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="EzDialogue" type="Node" parent="DialogueUI/DialogueBox"]
+script = ExtResource("4_l4tas")
+
+[node name="Timer" type="Timer" parent="DialogueUI/DialogueBox"]
+wait_time = 5.0
+
 [connection signal="body_entered" from="EnemySprites/AttackArea" to="." method="_on_attack_area_body_entered"]
 [connection signal="body_entered" from="EnemySprites/PlayerDetector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_exited" from="EnemySprites/PlayerDetector" to="." method="_on_player_detector_body_exited"]
 [connection signal="timeout" from="Timers/ReloadTimer" to="." method="_on_reload_timer_timeout"]
+[connection signal="custom_signal_received" from="DialogueUI/DialogueBox/EzDialogue" to="." method="_on_ez_dialogue_custom_signal_received"]
+[connection signal="dialogue_generated" from="DialogueUI/DialogueBox/EzDialogue" to="." method="_on_ez_dialogue_dialogue_generated"]
+[connection signal="timeout" from="DialogueUI/DialogueBox/Timer" to="DialogueUI/DialogueBox" method="_on_timer_timeout"]

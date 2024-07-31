@@ -24,12 +24,12 @@ config/icon="res://Default/RAFIA_LOGO.png"
 [autoload]
 
 Global="*res://Scripts/Global.gd"
+FullscreenControl="*res://addons/fullscreen_control/FullscreenControl.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/borderless=true
 window/size/window_width_override=960
 window/size/window_height_override=540
 window/stretch/mode="canvas_items"
@@ -44,7 +44,7 @@ movie_writer/physics_ticks_per_second=60
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/ez_dialogue/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/ez_dialogue/plugin.cfg", "res://addons/fullscreen_control/plugin.cfg")
 
 [file_customization]
 

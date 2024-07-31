@@ -18,9 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://bg3nobdym6tb" path="res://Scenes/Player/Player Camera.tscn" id="12_k2c6x"]
 [ext_resource type="PackedScene" uid="uid://bejqc22buxrw1" path="res://Scenes/NPCs/Enemies/NPC.tscn" id="14_so5jc"]
 [ext_resource type="Script" path="res://Scripts/UI/GUI.gd" id="17_7me76"]
+[ext_resource type="Script" path="res://Scripts/Player/Player Camera.gd" id="18_ntf2m"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="18_t2mby"]
-[ext_resource type="Script" path="res://Scripts/UI/Pause.gd" id="19_dyubv"]
-[ext_resource type="PackedScene" uid="uid://bgkxlm5cv7gx3" path="res://Scenes/NPCs/npc 2.tscn" id="21_h7nxy"]
+[ext_resource type="PackedScene" uid="uid://dcqdlc1umudh4" path="res://Scenes/UI/Pause Menu.tscn" id="21_ybbq5"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_mmi70"]
 polygon = PackedVector2Array(-12, -4, 16, -4, 16, 16, -12, 16)
@@ -1099,7 +1099,7 @@ script = ExtResource("1_474be")
 [node name="ParallaxBackground" type="ParallaxBackground" parent="ParallaxBackground"]
 
 [node name="Sky" type="ParallaxLayer" parent="ParallaxBackground/ParallaxBackground"]
-motion_scale = Vector2(0, 0)
+motion_scale = Vector2(0.005, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxBackground/Sky"]
 scale = Vector2(3.33333, 3.33333)
@@ -1371,20 +1371,22 @@ reloadTime = 0.2
 player = NodePath("../../Player")
 lvlScene = "LVL-Alpha"
 
-[node name="npc" parent="NPCs" instance=ExtResource("21_h7nxy")]
-position = Vector2(1081, 900)
-
 [node name="Player" parent="." node_paths=PackedStringArray("checkpoint_manager") instance=ExtResource("7_dwqjf")]
-position = Vector2(720, 890)
+position = Vector2(964.53, 856.696)
 checkpoint_manager = NodePath("../Interactions/Checkpoints/CheckpointManager")
+acceleration = 15.0
+movementWeight = 0.25
 canDoubleJump = false
 ammoInMag = 9
 maxAmmo = 9
-extraAmmo = 999999
+extraAmmo = 99999
+fireRate = 0.4
+reloadTime = 0.4
 
 [node name="Camera2D" parent="Player" instance=ExtResource("12_k2c6x")]
 limit_left = 0
 limit_right = 9087
+script = ExtResource("18_ntf2m")
 
 [node name="LIMITs" type="Node2D" parent="."]
 
@@ -1449,12 +1451,6 @@ theme_override_fonts/font = SubResource("FontFile_lbks3")
 theme_override_font_sizes/font_size = 30
 text = "999"
 
-[node name="Pause" type="Control" parent="UI"]
-process_mode = 3
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("19_dyubv")
+[node name="Pause" parent="UI" instance=ExtResource("21_ybbq5")]
 
 [connection signal="timeout" from="TimeScaleTimer" to="." method="_on_time_scale_timer_timeout"]

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/NPCs/npc 1.gd" id="1_b0jc4"]
 [ext_resource type="Texture2D" uid="uid://cqa56lf0ve751" path="res://Assets/Characters/NPCs/hat-man-idle.png" id="1_pynbw"]
 [ext_resource type="JSON" path="res://Dialogue Files/DialogueSystemFirstTest.json" id="2_vpfm3"]
-[ext_resource type="Script" path="res://Dialogue Files/DialogueBox_NPC1.gd" id="4_uke64"]
+[ext_resource type="Script" path="res://Dialogue Files/DialogueBox.gd" id="4_uke64"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="5_ln834"]
 [ext_resource type="Script" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="6_8btgx"]
 
@@ -68,4 +68,12 @@ autowrap_mode = 3
 [node name="EzDialogue" type="Node" parent="DialogueUI/DialogueBox"]
 script = ExtResource("6_8btgx")
 
+[node name="Timer" type="Timer" parent="DialogueUI/DialogueBox"]
+wait_time = 5.0
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-72, 0)
+
+[connection signal="custom_signal_received" from="DialogueUI/DialogueBox/EzDialogue" to="." method="_on_ez_dialogue_custom_signal_received"]
 [connection signal="dialogue_generated" from="DialogueUI/DialogueBox/EzDialogue" to="." method="_on_ez_dialogue_dialogue_generated"]
+[connection signal="timeout" from="DialogueUI/DialogueBox/Timer" to="DialogueUI/DialogueBox" method="_on_timer_timeout"]

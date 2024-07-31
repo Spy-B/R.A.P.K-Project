@@ -1,0 +1,117 @@
+[gd_scene load_steps=6 format=3 uid="uid://l03mugb48y86"]
+
+[ext_resource type="Texture2D" uid="uid://b1i08s3b1wkj3" path="res://addons/inventory_editor/icons/Inventory.png" id="1"]
+[ext_resource type="PackedScene" path="res://addons/inventory_editor/scenes/inventories/InventoryInventoryDataPath.tscn" id="3"]
+[ext_resource type="Script" path="res://addons/inventory_editor/scenes/inventories/InventoryInventoryData.gd" id="4"]
+[ext_resource type="PackedScene" uid="uid://diwd5k2ssotp5" path="res://addons/inventory_editor/scenes/inventories/InventoryInventoryDataPathScene.tscn" id="6"]
+[ext_resource type="Texture2D" uid="uid://bsbdtbgy66s7k" path="res://addons/inventory_editor/icons/File.png" id="7"]
+
+[node name="InventoryInventoryData" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("4")
+
+[node name="MarginData" type="MarginContainer" parent="."]
+offset_right = 574.0
+offset_bottom = 648.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="MarginData"]
+offset_right = 574.0
+offset_bottom = 648.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxStacks" type="HBoxContainer" parent="MarginData/VBox"]
+offset_right = 574.0
+offset_bottom = 31.0
+
+[node name="Label" type="Label" parent="MarginData/VBox/HBoxStacks"]
+custom_minimum_size = Vector2(120, 0)
+offset_top = 2.0
+offset_right = 120.0
+offset_bottom = 28.0
+text = "Stacks"
+
+[node name="Stacks" type="LineEdit" parent="MarginData/VBox/HBoxStacks"]
+offset_left = 124.0
+offset_right = 574.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+
+[node name="HBoxIcon" type="HBoxContainer" parent="MarginData/VBox"]
+offset_top = 35.0
+offset_right = 574.0
+offset_bottom = 66.0
+
+[node name="Label" type="Label" parent="MarginData/VBox/HBoxIcon"]
+custom_minimum_size = Vector2(120, 0)
+offset_top = 2.0
+offset_right = 120.0
+offset_bottom = 28.0
+text = "Icon"
+
+[node name="Icon" parent="MarginData/VBox/HBoxIcon" instance=ExtResource("3")]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 124.0
+offset_right = 574.0
+offset_bottom = 31.0
+
+[node name="HBoxScene" type="HBoxContainer" parent="MarginData/VBox"]
+offset_top = 70.0
+offset_right = 574.0
+offset_bottom = 101.0
+
+[node name="Label" type="Label" parent="MarginData/VBox/HBoxScene"]
+custom_minimum_size = Vector2(120, 0)
+offset_top = 2.0
+offset_right = 120.0
+offset_bottom = 28.0
+text = "Scene"
+
+[node name="PathScene" parent="MarginData/VBox/HBoxScene" instance=ExtResource("6")]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 124.0
+offset_right = 552.0
+offset_bottom = 31.0
+
+[node name="Open" type="Button" parent="MarginData/VBox/HBoxScene"]
+offset_left = 556.0
+offset_right = 574.0
+offset_bottom = 31.0
+icon = ExtResource("7")
+icon_alignment = 1
+
+[node name="MarginPreview" type="MarginContainer" parent="."]
+offset_left = 578.0
+offset_right = 1152.0
+offset_bottom = 648.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="MarginPreview"]
+offset_right = 574.0
+offset_bottom = 648.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginPreview/VBox"]
+offset_right = 574.0
+offset_bottom = 26.0
+text = "Icon"
+
+[node name="Texture" type="TextureRect" parent="MarginPreview/VBox"]
+offset_top = 30.0
+offset_right = 574.0
+offset_bottom = 648.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1")
+stretch_mode = 5

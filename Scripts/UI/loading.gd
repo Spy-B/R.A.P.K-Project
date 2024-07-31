@@ -42,5 +42,4 @@ func _process(delta):
 			animation_player.play("Transation Effect")
 			var new_scene: PackedScene = ResourceLoader.load_threaded_get(Global.nextScene)
 			get_tree().change_scene_to_packed(new_scene)
-	#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	

@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvplrh5krh46n"]
+[gd_scene load_steps=4 format=3 uid="uid://cvplrh5krh46n"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Main Menu.gd" id="1_e6i5b"]
 [ext_resource type="FontFile" uid="uid://dcp8gylagvxol" path="res://Assets/Fonts/Transyl-Bold.ttf" id="2_0oyis"]
-[ext_resource type="FontFile" uid="uid://bcnid3iximx4r" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.otf" id="3_tptgg"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="4_n458f"]
 
 [node name="MainMenu" type="Control"]
@@ -15,8 +14,8 @@ offset_right = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_e6i5b")
-newGame_scene = "res://Scenes/LVLs/World.tscn"
-options_scene = "res://Scenes/LVLs/LVL-Alpha.tscn"
+newGame_scene = "res://Scenes/LVLs/LVL-Alpha.tscn"
+loadGame_scene = "res://Scenes/LVLs/World.tscn"
 
 [node name="GameName" type="Label" parent="."]
 layout_mode = 1
@@ -39,36 +38,47 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
+offset_left = -190.0
+offset_top = -156.0
+offset_right = 194.0
+offset_bottom = -91.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("3_tptgg")
+theme_override_fonts/font = ExtResource("4_n458f")
 theme_override_font_sizes/font_size = 50
-text = "Change Scene"
+text = "New Game"
+
+[node name="LoadGame" type="Button" parent="."]
+layout_mode = 0
+offset_left = 770.0
+offset_top = 512.0
+offset_right = 1154.0
+offset_bottom = 584.0
+theme_override_fonts/font = ExtResource("4_n458f")
+theme_override_font_sizes/font_size = 50
+text = "Load Game"
 
 [node name="Options" type="Button" parent="."]
 layout_mode = 0
-offset_left = 858.0
+offset_left = 770.0
 offset_top = 640.0
-offset_right = 1072.0
-offset_bottom = 711.0
+offset_right = 1154.0
+offset_bottom = 704.0
 theme_override_fonts/font = ExtResource("4_n458f")
 theme_override_font_sizes/font_size = 50
 text = "Options"
 
 [node name="Quit" type="Button" parent="."]
 layout_mode = 0
-offset_left = 906.0
+offset_left = 770.0
 offset_top = 768.0
-offset_right = 914.0
-offset_bottom = 776.0
+offset_right = 1154.0
+offset_bottom = 832.0
 theme_override_fonts/font = ExtResource("4_n458f")
 theme_override_font_sizes/font_size = 50
 text = "Quit"
 
-[connection signal="pressed" from="NewGame" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="LoadGame" to="." method="_on_load_game_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
