@@ -33,7 +33,7 @@ var playerIsInWater: bool
 @export_placeholder("Animation") var walkingAnimation: String
 
 @export var canRun := true
-@export var runningSpeed: float = 500
+@export var runningSpeed: float = 400
 @export_placeholder("Animation") var runningAnimation: String
 
 @export var acceleration: float = 10
@@ -57,6 +57,19 @@ var isGrounded := true
 var have_coyote := true
 
 @export var jumpingWeight: float = 0.1
+
+@export_group("Dashing")
+@export var DASH_SPEED = 1200
+@export var DASH_DURATION = 0.15
+@export var DASH_COOLDOWN = 0.5
+@export var PUSH = 100
+
+var dashVector = Vector2.ZERO
+var can_dash = true
+var isDashing = false
+var dashTimer = 0.0
+var dashCooldownTimer = 0.0
+var dir_x = 1
 
 @export_group("Melee Attack")
 @export var canAttack := true
@@ -87,6 +100,11 @@ var killCombo = Global.killComboCounter
 @export var killComboTime := 1
 
 @export_range(0, 2) var bulletTimeScale: float = 1
+
+@export_group("Camera")
+@export var amountX: float = 0
+@export var amountY: float = 0
+@export var shakeTime: float = 1
 
 @export_group("Death")
 @export var canDie := true
@@ -125,18 +143,6 @@ var inConversation := false
 #export(String, "Rebecca", "Mary", "Leah") var character_name
 #
 #export(int, FLAGS, "Fire", "Water", "Earth", "Wind") var spell_elements = 0
-
-@export var DASH_SPEED = 1200
-@export var DASH_DURATION = 0.15
-@export var DASH_COOLDOWN = 0.5
-@export var PUSH = 100
-
-var dashVector = Vector2.ZERO
-var can_dash = true
-var isDashing = false
-var dashTimer = 0.0
-var dashCooldownTimer = 0.0
-var dir_x = 1
 
 
 # Start function: Everything here starts at the first FRAME
@@ -247,7 +253,24 @@ func State_Machine():
 		if (Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left")) && !(Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_left")):
 			state_machine.travel(walkingAnimation)
 		
+		elif (Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left")) && !(Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_left")) && Input.is_action_pressed("running"):
+			state_machine.travel(runningAnimation)
+			$Particles/MoveParticles.emitting = true
+		
 		else:
+			state_machine.travel(idleAnimation)
+		
+		if motion.y < -gravity && !inventory_ui.visible:
+			state_machine.travel(jumpingAnimation)
+	
+	elif is_on_floor() && !canWalk && canRun && !is_attack  && !inventory_ui.visible && !Global.inConversation:
+		if  (Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left")) && !(Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_left")):
+			$PlayerSprites/ShootingEffect.visible = false
+			state_machine.travel(runningAnimation)
+			$Particles/MoveParticles.emitting = true
+		
+		else:
+			$Particles/MoveParticles.emitting = false
 			state_machine.travel(idleAnimation)
 		
 		if motion.y < -gravity && !inventory_ui.visible:
@@ -293,7 +316,8 @@ func walking():
 			$PlayerSprites.scale.x = -spriteScaleX
 			
 		else:
-			motion.x = lerp(motion.x, 0.0, movementWeight)
+			if is_on_floor():
+				motion.x = lerp(motion.x, 0.0, movementWeight)
 
 #Running Function
 func running():
@@ -327,9 +351,11 @@ func running():
 			
 			
 		else:
-			motion.x = lerp(motion.x, 0.0, movementWeight)
+			if is_on_floor():
+				motion.x = lerp(motion.x, 0.0, movementWeight)
 	else:
-		motion.x = lerp(motion.x, 0.0, movementWeight)
+		if is_on_floor():
+			motion.x = lerp(motion.x, 0.0, movementWeight)
 
 #Jumping Functions
 func jumping():
@@ -338,8 +364,6 @@ func jumping():
 	
 	if (is_on_floor() || !$Timers/CoyoteTimer.is_stopped()) && (Input.is_action_just_pressed("jumping") || !$Timers/JumpBufferTimer.is_stopped()):
 		motion.y = -jumpPower
-		#if (Input.is_action_just_pressed("ui_right") || Input.is_action_just_pressed("ui_left")):
-			#motion.x = 1000 * dir
 		$Particles/JumpParticles.restart()
 		$Timers/CoyoteTimer.stop()
 		$Timers/JumpBufferTimer.stop()
@@ -473,6 +497,8 @@ func shooting():
 			ammoInMag = ammoInMag - 1
 			var bulletInstance = bullet.instantiate()
 			
+			# FIXME 
+			Global.camera.shake(shakeTime, amountX, amountY)
 			bulletInstance.global_position = $PlayerSprites/GunBarrel.global_position
 			bulletInstance.global_rotation = $PlayerSprites/GunBarrel.global_rotation
 			bulletInstance.shooter = self

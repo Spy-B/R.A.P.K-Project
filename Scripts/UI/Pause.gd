@@ -6,13 +6,13 @@ extends Control
 @warning_ignore("unused_parameter")
 func _physics_process(delta):
 	if Input.is_action_just_released("pause"):
-		$VBoxContainer.visible = !$VBoxContainer.visible
+		visible = !visible
 		var newPauseState = !get_tree().paused
 		get_tree().paused = newPauseState
 		visible = newPauseState
 
 func _on_button_pressed():
-	$VBoxContainer.visible = !$VBoxContainer.visible
+	visible = !visible
 	var newPauseState = !get_tree().paused
 	get_tree().paused = newPauseState
 	visible = newPauseState

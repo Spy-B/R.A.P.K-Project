@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://brwddqb7thkn8"]
+[gd_scene load_steps=43 format=3 uid="uid://brwddqb7thkn8"]
 
 [ext_resource type="Script" path="res://Scripts/LVLs/World.gd" id="1_474be"]
 [ext_resource type="Texture2D" uid="uid://bl0scgi63vt2f" path="res://Assets/Envirement/City BG/city 1/1.png" id="2_atgvj"]
@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://bg3nobdym6tb" path="res://Scenes/Player/Player Camera.tscn" id="12_k2c6x"]
 [ext_resource type="PackedScene" uid="uid://bejqc22buxrw1" path="res://Scenes/NPCs/Enemies/NPC.tscn" id="14_so5jc"]
 [ext_resource type="Script" path="res://Scripts/UI/GUI.gd" id="17_7me76"]
-[ext_resource type="Script" path="res://Scripts/Player/Player Camera.gd" id="18_ntf2m"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="18_t2mby"]
 [ext_resource type="PackedScene" uid="uid://dcqdlc1umudh4" path="res://Scenes/UI/Pause Menu.tscn" id="21_ybbq5"]
 
@@ -1216,7 +1215,33 @@ offset = Vector2(576, 0)
 region_enabled = true
 region_rect = Rect2(224, 0, 128, 256)
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="Tree4" type="Node2D" parent="ParallaxBackground/ParallaxBackground/Trees"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxBackground/Trees/Tree4"]
+scale = Vector2(2, 2)
+texture = ExtResource("3_ux0ph")
+centered = false
+offset = Vector2(576, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 256)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxBackground/Trees/Tree4"]
+scale = Vector2(2, 2)
+texture = ExtResource("3_ux0ph")
+centered = false
+offset = Vector2(672, 0)
+region_enabled = true
+region_rect = Rect2(112, 0, 96, 256)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxBackground/Trees/Tree4"]
+scale = Vector2(2, 2)
+texture = ExtResource("3_ux0ph")
+centered = false
+offset = Vector2(768, 0)
+region_enabled = true
+region_rect = Rect2(224, 0, 128, 256)
+
+[node name="TileMap" type="TileMap" parent="." groups=["LVLs"]]
 tile_set = SubResource("TileSet_5s672")
 rendering_quadrant_size = 32
 format = 2
@@ -1332,6 +1357,10 @@ position = Vector2(35, 4)
 position = Vector2(4908, 785)
 checkpoint_manager = NodePath("../CheckpointManager")
 
+[node name="CheckPoint2" parent="Interactions/Checkpoints" node_paths=PackedStringArray("checkpoint_manager") instance=ExtResource("10_ik7bi")]
+position = Vector2(7446, 816)
+checkpoint_manager = NodePath("../CheckpointManager")
+
 [node name="CheckpointManager" parent="Interactions/Checkpoints" node_paths=PackedStringArray("player") instance=ExtResource("9_2vm4v")]
 player = NodePath("../../../Player")
 
@@ -1372,32 +1401,33 @@ player = NodePath("../../Player")
 lvlScene = "LVL-Alpha"
 
 [node name="Player" parent="." node_paths=PackedStringArray("checkpoint_manager") instance=ExtResource("7_dwqjf")]
-position = Vector2(964.53, 856.696)
+position = Vector2(7261, 820)
 checkpoint_manager = NodePath("../Interactions/Checkpoints/CheckpointManager")
-acceleration = 15.0
-movementWeight = 0.25
+movementWeight = 0.4
 canDoubleJump = false
 ammoInMag = 9
 maxAmmo = 9
-extraAmmo = 99999
+extraAmmo = 999
 fireRate = 0.4
 reloadTime = 0.4
+amountX = 0.5
+amountY = -120.5
+shakeTime = 0.1
 
 [node name="Camera2D" parent="Player" instance=ExtResource("12_k2c6x")]
 limit_left = 0
 limit_right = 9087
-script = ExtResource("18_ntf2m")
 
 [node name="LIMITs" type="Node2D" parent="."]
 
-[node name="LIMIT" type="StaticBody2D" parent="LIMITs"]
+[node name="LIMIT" type="StaticBody2D" parent="LIMITs" groups=["LVLs"]]
 position = Vector2(-16, 728)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LIMITs/LIMIT"]
 position = Vector2(0, -239)
 shape = SubResource("RectangleShape2D_fm782")
 
-[node name="LIMIT2" type="StaticBody2D" parent="LIMITs"]
+[node name="LIMIT2" type="StaticBody2D" parent="LIMITs" groups=["LVLs"]]
 position = Vector2(9104, 440)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LIMITs/LIMIT2"]
@@ -1414,7 +1444,7 @@ scale = Vector2(104118, -17.2857)
 shape = SubResource("RectangleShape2D_wpkgx")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.118581, 0.118581, 0.118581, 1)
+color = Color(0.117647, 0.117647, 0.117647, 1)
 
 [node name="TimeScaleTimer" type="Timer" parent="."]
 
@@ -1422,10 +1452,10 @@ color = Color(0.118581, 0.118581, 0.118581, 1)
 script = ExtResource("17_7me76")
 
 [node name="AmmunitionCounter" type="Label" parent="UI"]
-offset_left = 60.0
-offset_top = 933.0
-offset_right = 296.0
-offset_bottom = 973.0
+offset_left = 32.0
+offset_top = 960.0
+offset_right = 268.0
+offset_bottom = 1000.0
 theme_override_fonts/font = SubResource("FontFile_gte5u")
 theme_override_font_sizes/font_size = 40
 

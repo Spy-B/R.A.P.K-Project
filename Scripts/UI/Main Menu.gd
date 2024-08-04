@@ -6,7 +6,6 @@ extends Control
 
 
 func _ready():
-	print(2**16)
 	pass
 
 func _on_new_game_pressed():

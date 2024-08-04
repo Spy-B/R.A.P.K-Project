@@ -55,6 +55,9 @@ var killCombo = Global.killComboCounter
 
 @export_range(0, 2) var bulletTimeScale: float = 1
 
+@export_group("Damage")
+@export var hitAnimation: String
+
 @export_group("Death")
 @export var canDie := true
 @export var isDie := false
@@ -108,6 +111,8 @@ func _ready():
 		enemy_sprites.scale.x = spriteScaleX
 	elif lookingDir == 1:
 		enemy_sprites.scale.x = -spriteScaleX
+	
+	enemy_sprites.material = enemy_sprites.material.duplicate(true)
 
 @warning_ignore("unused_parameter")
 func _process(delta):
@@ -115,6 +120,7 @@ func _process(delta):
 		if playerIsNearby:
 			Global.inConversation = true
 			player.global_position = marker_2d.global_position
+			player.motion.x = 0
 			set_process(false)
 			timer.start()
 	
@@ -317,10 +323,18 @@ func _on_player_detector_body_exited(body):
 func _on_attack_area_body_entered(body):
 	pass
 
+func applyDamage():
+	var tween = get_tree().create_tween()
+	tween.tween_method(set_flashShader, 1.0, 0.0, 0.15)
+
+func set_flashShader(newValue: float):
+	enemy_sprites.material.set_shader_parameter("flashValue", newValue)
+
 func Death():
 	sawPlayer = false
 	isLookingForPlayer = false
 	isAttacking = false
+	
 	animation_player.play(deadAnimation)
 	gravity = 0
 	$CollisionShape2D.disabled = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bejqc22buxrw1"]
+[gd_scene load_steps=36 format=3 uid="uid://bejqc22buxrw1"]
 
 [ext_resource type="Script" path="res://Scripts/NPCs/Enemies/NPC.gd" id="1_arx3i"]
 [ext_resource type="PackedScene" uid="uid://vcfu0uoitxsi" path="res://Scenes/NPCs/Enemies/Enemy Bullet.tscn" id="2_qp8th"]
@@ -6,10 +6,16 @@
 [ext_resource type="JSON" path="res://Dialogue Files/DialogueSystemFirstTest.json" id="3_5e6be"]
 [ext_resource type="Script" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="4_l4tas"]
 [ext_resource type="Script" path="res://Dialogue Files/DialogueBox.gd" id="4_rt3et"]
+[ext_resource type="Shader" path="res://Shaders/Hit Flash.gdshader" id="4_w88ua"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="6_30yfs"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(76, 104)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_smjpv"]
+shader = ExtResource("4_w88ua")
+shader_parameter/flashColor = Color(1, 1, 1, 1)
+shader_parameter/flashValue = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y1kjf"]
 atlas = ExtResource("2_wkfwl")
@@ -310,7 +316,7 @@ ammoInMag = 9
 maxAmmo = 9
 extraAmmo = 999
 isDie = true
-lifePoints = 2.0
+lifePoints = 5.0
 deadAnimation = "Death"
 dialogueFile = ExtResource("3_5e6be")
 playerGroup = "Player"
@@ -322,9 +328,10 @@ position = Vector2(-6, 12)
 shape = SubResource("1")
 
 [node name="EnemySprites" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_smjpv")
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_nlyia")
-animation = &"Idle"
+animation = &"Attack"
 
 [node name="RayCast2D" type="RayCast2D" parent="EnemySprites"]
 rotation = -1.5708

@@ -18,6 +18,9 @@ extends Node
 
 @export var inConversation := false
 
+var camera = null
+
+
 var inventory = []
 
 signal inventory_updated
