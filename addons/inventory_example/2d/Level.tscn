@@ -1,7 +1,7 @@
 [gd_scene load_steps=27 format=3 uid="uid://dp0yasubajc6x"]
 
 [ext_resource type="Texture2D" uid="uid://dgset6q225exm" path="res://addons/inventory_example/textures/Background.png" id="1"]
-[ext_resource type="PackedScene" path="res://addons/inventory_example/2d/player/Player.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://3hbq2wkatuu4" path="res://addons/inventory_example/2d/player/Player.tscn" id="2"]
 [ext_resource type="Script" path="res://addons/inventory_example/2d/Level.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://yc0j01w34y78" path="res://addons/inventory_example/textures/BackgroundSide.png" id="4"]
 [ext_resource type="Script" path="res://addons/inventory_editor/InventoryItem2D.gd" id="5"]
@@ -205,9 +205,11 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="InventoryAny" parent="CanvasInventory/Inventories" instance=ExtResource("13")]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -215,6 +217,7 @@ offset_left = -300.0
 offset_top = 100.0
 offset_right = 0.0
 offset_bottom = 400.0
+grow_horizontal = 0
 inventory = "e4530fc7-c5d6-41af-9b6e-35249272186a"
 
 [node name="InventoryClothes" parent="CanvasInventory/Inventories" instance=ExtResource("23")]

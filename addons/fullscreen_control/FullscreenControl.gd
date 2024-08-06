@@ -1,6 +1,7 @@
 extends Node
 
-var _save_path_fullscreen_mode = "user://fullscreen_mode.save"
+var _save_folder_path_fullscreen_mode = "user://GameData"
+var _save_path_fullscreen_mode = "user://GameData/fullscreen_mode.rf"
 var _toggle_fullscreen_action: StringName = "toggle_fullscreen"
 
 func _ready():
@@ -14,6 +15,9 @@ func _ready():
 
 		InputMap.action_add_event(_toggle_fullscreen_action, inputEventKey)
 	DisplayServer.window_set_mode(_load_fullscreen_mode())
+	
+	DirAccess.make_dir_absolute(_save_folder_path_fullscreen_mode)
+	
 
 func _process(delta):
 	if Input.is_action_just_pressed(_toggle_fullscreen_action):

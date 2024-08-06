@@ -3,7 +3,7 @@
 @icon('res://addons/dialogue_nodes/icons/DialogueParser.svg')
 class_name DialogueParser
 extends Node
-# TODO : Fix [wait] bbcode
+# : Fix [wait] bbcode
 
 ## Triggered when a dialogue has started. Passes [param id] of the dialogue tree as defined in the StartNode.
 signal dialogue_started(id : String)
@@ -277,7 +277,7 @@ func _parse_variable_names(value: String):
 	return results
 
 
-# FIXME : Length calculation is borked when the value has [, ] unrelated to any bbcodes.
+#  : Length calculation is borked when the value has [, ] unrelated to any bbcodes.
 # Updates all the [wait] bbcode tags in the given text to include additional info about the text
 func _update_wait_tags(node : RichTextLabel, value : String):
 	# add a wait if none present at beginning

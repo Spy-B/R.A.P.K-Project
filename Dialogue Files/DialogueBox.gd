@@ -22,3 +22,7 @@ func Next():
 func _on_timer_timeout():
 	if Global.inConversation:
 		(ez_dialogue as EzDialogue).next()
+
+
+func _on_ez_dialogue_dialogue_generated(response):
+	pass # Replace with function body.

@@ -1,13 +1,12 @@
-[gd_scene load_steps=36 format=3 uid="uid://bejqc22buxrw1"]
+[gd_scene load_steps=35 format=3 uid="uid://bejqc22buxrw1"]
 
 [ext_resource type="Script" path="res://Scripts/NPCs/Enemies/NPC.gd" id="1_arx3i"]
 [ext_resource type="PackedScene" uid="uid://vcfu0uoitxsi" path="res://Scenes/NPCs/Enemies/Enemy Bullet.tscn" id="2_qp8th"]
 [ext_resource type="Texture2D" uid="uid://umtm63sma2t6" path="res://Assets/Characters/Enemies/Prototype/No Outlines/players grey x1.png" id="2_wkfwl"]
-[ext_resource type="JSON" path="res://Dialogue Files/DialogueSystemFirstTest.json" id="3_5e6be"]
-[ext_resource type="Script" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="4_l4tas"]
 [ext_resource type="Script" path="res://Dialogue Files/DialogueBox.gd" id="4_rt3et"]
 [ext_resource type="Shader" path="res://Shaders/Hit Flash.gdshader" id="4_w88ua"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="6_30yfs"]
+[ext_resource type="Script" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="8_fphww"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(76, 104)
@@ -318,7 +317,6 @@ extraAmmo = 999
 isDie = true
 lifePoints = 5.0
 deadAnimation = "Death"
-dialogueFile = ExtResource("3_5e6be")
 playerGroup = "Player"
 enemiesGroup = "Enemies"
 npcsGroup = "NPCs"
@@ -403,7 +401,7 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="EzDialogue" type="Node" parent="DialogueUI/DialogueBox"]
-script = ExtResource("4_l4tas")
+script = ExtResource("8_fphww")
 
 [node name="Timer" type="Timer" parent="DialogueUI/DialogueBox"]
 wait_time = 5.0

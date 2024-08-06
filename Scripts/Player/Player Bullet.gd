@@ -35,21 +35,20 @@ func _on_Bullet_body_entered(body):
 		return
 	
 	if body.is_in_group(lvlsGroup):
-		sprite_2d.visible = false
-		motion.x = 0
 		WallImpact.emitting = true
-		await get_tree().create_timer(0.1).timeout
+		motion.x = 0
+		await get_tree().create_timer(0.2).timeout
 		queue_free()
 	
+	sprite_2d.visible = false
 	queue_free()
-
+	
 	if body.is_in_group(enemiesGroup):
 		#body.queue_free()
 		body.applyDamage()
 		# TODO body.motion.y += 20
+		# TODO add slow motion when the bullet hit the enemy
 		body.lifePoints -= 1
-		#body.position.x = shooter.shooting().
-		#body.get_node("AnimatedSprite2D").play("Die")
 		shooter.killCombo += 1
 
 func _on_Timer_timeout():

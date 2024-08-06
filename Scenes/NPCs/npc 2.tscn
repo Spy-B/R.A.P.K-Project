@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bgkxlm5cv7gx3"]
+[gd_scene load_steps=8 format=3 uid="uid://bgkxlm5cv7gx3"]
 
 [ext_resource type="Script" path="res://Scripts/NPCs/npc 1.gd" id="1_b0jc4"]
 [ext_resource type="Texture2D" uid="uid://cqa56lf0ve751" path="res://Assets/Characters/NPCs/hat-man-idle.png" id="1_pynbw"]
-[ext_resource type="JSON" path="res://Dialogue Files/DialogueSystemFirstTest.json" id="2_vpfm3"]
 [ext_resource type="Script" path="res://Dialogue Files/DialogueBox.gd" id="4_uke64"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="5_ln834"]
 [ext_resource type="Script" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="6_8btgx"]
@@ -21,7 +20,6 @@ outline_color = Color(0, 0, 0, 1)
 collision_layer = 16777216
 collision_mask = 2049
 script = ExtResource("1_b0jc4")
-dialogueFile = ExtResource("2_vpfm3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, 0)

@@ -497,7 +497,6 @@ func shooting():
 			ammoInMag = ammoInMag - 1
 			var bulletInstance = bullet.instantiate()
 			
-			# FIXME 
 			Global.camera.shake(shakeTime, amountX, amountY)
 			bulletInstance.global_position = $PlayerSprites/GunBarrel.global_position
 			bulletInstance.global_rotation = $PlayerSprites/GunBarrel.global_rotation

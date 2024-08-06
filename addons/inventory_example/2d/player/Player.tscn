@@ -1,26 +1,22 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://3hbq2wkatuu4"]
 
-[ext_resource path="res://addons/inventory_example/textures/Boy_eys_open.png" type="Texture" id=1]
-[ext_resource path="res://addons/inventory_example/2d/player/Player.gd" type="Script" id=2]
+[ext_resource type="Texture2D" uid="uid://dow812fk5dhef" path="res://addons/inventory_example/textures/Boy_eys_open.png" id="1"]
+[ext_resource type="Script" path="res://addons/inventory_example/2d/player/Player.gd" id="2"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 200.474, 199.131 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(400.948, 398.262)
 
-[node name="Player" type="KinematicBody2D"]
-script = ExtResource( 2 )
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 0, -700 )
-current = true
+position = Vector2(0, -700)
 limit_smoothed = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -200 )
-shape = SubResource( 1 )
+position = Vector2(0, -200)
+shape = SubResource("1")
 
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 1 )
-offset = Vector2( 0, -220 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1")
+offset = Vector2(0, -220)

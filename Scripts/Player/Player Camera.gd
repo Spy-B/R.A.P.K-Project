@@ -28,5 +28,4 @@ func shake(time, amountX, amountY):
 func _on_timer_timeout():
 	set_process(false)
 	var tween = create_tween()
-	# FIXME 
 	tween.tween_property(self, "offset", default_offset, 0.1)

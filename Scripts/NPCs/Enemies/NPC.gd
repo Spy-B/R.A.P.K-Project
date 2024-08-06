@@ -344,7 +344,6 @@ func Death():
 		queue_free()
 
 func start_dialogue():
-	# FIXME the Dialogue System
 	if playerIsNearby && Global.inConversation:
 		dialogue_ui.visible = true
 		(ez_dialogue as EzDialogue).start_dialogue(dialogueFile, state)

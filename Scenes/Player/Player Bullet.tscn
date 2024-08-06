@@ -75,6 +75,7 @@ alpha_curve = SubResource("CurveTexture_3rkte")
 collision_layer = 512
 collision_mask = 65793
 script = ExtResource("1_4x2ku")
+speed = 1500
 followPlayerTime = false
 enemiesGroup = "Enemies"
 lvlsGroup = "LVLs"
