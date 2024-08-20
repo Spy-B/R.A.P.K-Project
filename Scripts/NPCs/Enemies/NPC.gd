@@ -6,7 +6,7 @@ var motion := Vector2.ZERO
 enum Types {Friendly, Enemey}
 @export var NPCTypes: Types
 
-enum Modes {WanderingAround ,Searching, Attacking, Death}
+enum Modes {WanderingAround ,Searching, Attacking, Dead}
 @export var NPCModes: Modes
 
 @export_group("Physics")
@@ -83,17 +83,17 @@ var inConversation := false
 
 @export var playerGroup: String
 @export var enemiesGroup: String
-@export var npcsGroup: String
+@export var friendlyNpcsGroup: String
 var sawPlayer := false
 var isLookingForPlayer := false
 var isAttacking := false
 
+var isGrounded := true
 
 @onready var animation_player = $AnimationPlayer
 @onready var enemy_sprites = $EnemySprites
 @onready var spriteScaleX = enemy_sprites.scale.x
 @onready var spriteScaleY = enemy_sprites.scale.y
-var isGrounded := true
 @onready var ray_cast_2d = $EnemySprites/RayCast2D
 @onready var collision_shape_2d = $EnemySprites/PlayerDetector/CollisionShape2D
 @onready var reloadTimer = $Timers/ReloadTimer
@@ -104,7 +104,7 @@ var isGrounded := true
 @onready var marker_2d = $EnemySprites/Marker2D
 
 
-func _ready():
+func _ready() -> void:
 	isDie = false
 	
 	if lookingDir == 0:
@@ -114,8 +114,7 @@ func _ready():
 	
 	enemy_sprites.material = enemy_sprites.material.duplicate(true)
 
-@warning_ignore("unused_parameter")
-func _process(delta):
+func _process(_delta: float) -> void:
 	if Input.is_action_pressed("interact"):
 		if playerIsNearby:
 			Global.inConversation = true
@@ -126,8 +125,8 @@ func _process(delta):
 	
 	start_dialogue()
 
-@warning_ignore("unused_parameter")
-func _physics_process(delta):
+
+func _physics_process(_delta: float) -> void:
 	if followLvlSceneTime:
 		timeScale = Global.timeScale
 	
@@ -138,36 +137,11 @@ func _physics_process(delta):
 	
 	Gravity()
 	
-	if NPCTypes == 0:
-		Friendly()
-		add_to_group(npcsGroup)
-	elif NPCTypes == 1:
-		Enemy()
-		add_to_group(enemiesGroup)
 	
-	if ray_cast_2d.get_collider() == player:
-		isAttacking = true
-		@warning_ignore("int_as_enum_without_cast")
-		NPCModes = 2
-	else:
-		@warning_ignore("int_as_enum_without_cast")
-		NPCModes = 0
-		isAttacking = false
-	
-	if sawPlayer:
-		lookAtPlayer()
-	
-	if isLookingForPlayer && !isAttacking:
-		Searching()
-	
-	if !isLookingForPlayer:
-		motion.x = 0
-	
-	if isAttacking:
-		@warning_ignore("int_as_enum_without_cast")
-		NPCModes = 2
+	States_Manager()
 
-func Gravity():
+
+func Gravity() -> void:
 	if !is_on_floor():
 		motion.y += gravity
 	else:
@@ -175,21 +149,40 @@ func Gravity():
 			gravity = 0
 			$CollisionShape2D.disabled = true
 
-func Friendly():
+#Types and Modes Manager
+func States_Manager() -> void:
+	if NPCTypes == 0:
+		Friendly()
+		add_to_group(friendlyNpcsGroup)
+		
+	elif NPCTypes == 1:
+		Enemy()
+		add_to_group(enemiesGroup)
+	
+	if ray_cast_2d.get_collider() == player && NPCModes != 3:
+		NPCModes = 2
+	
+	
+	elif ray_cast_2d.get_collider() != player &&  NPCModes != 0 && NPCModes != 3:
+		NPCModes = 1
+	
+	
+	if lifePoints == 0:
+		NPCModes = 3
+
+
+func Friendly() -> void:
 	if NPCModes == 0:
-		Moving()
+		motion.x = 0
 	
 	lookAtPlayer()
 	
 	ray_cast_2d.enabled = false
 	collision_shape_2d.disabled = true
 
-func Enemy():
-	if lifePoints == 0:
-		@warning_ignore("int_as_enum_without_cast")
-		NPCModes = 3
-	
+func Enemy() -> void:
 	if NPCModes == 0:
+		Wandering_around()
 		Moving()
 	
 	elif NPCModes == 1:
@@ -203,7 +196,7 @@ func Enemy():
 		Death()
 
 
-func Moving():
+func Moving() -> void:
 	if motion.x == 0:
 		animation_player.play(idleAnimation)
 	else:
@@ -211,7 +204,9 @@ func Moving():
 	
 	animation_player.speed_scale = timeScale
 
-func Wandering_around():
+
+func Wandering_around() -> void:
+	animation_player.play("Idle")
 	#var change_move_timer = randf_range(0.5, 5)
 	#
 	#if standing:
@@ -230,7 +225,7 @@ func Wandering_around():
 		#motion.x = runningSpeed * dir
 	pass
 
-func lookAtPlayer():
+func lookAtPlayer() -> void:
 	# TODO Improve the collision shape Size whene he see the player
 	var direction = (player.global_position - global_position).normalized()
 	
@@ -251,15 +246,16 @@ func lookAtPlayer():
 			dir = 1
 			enemy_sprites.scale.x = spriteScaleX   # Flip sprite back if player is to the right
 
-func Searching():
+func Searching() -> void:
+	lookAtPlayer()
 	motion.x = runningSpeed * dir
 
-func Attack():
-	motion.x = 0
+func Attack() -> void:
+	pass
 
 #Shooting Function
-func Shooting():
-	if isAttacking && is_on_floor():
+func Shooting() -> void:
+	if is_on_floor():
 		if ammoInMag != 0:
 			motion.x = 0
 		can_reload = false
@@ -280,7 +276,7 @@ func Shooting():
 			reloadTimer.start()
 
 # the reload script
-func reload():
+func reload() -> void:
 	reloadTimer.wait_time = reloadTime
 	reloadTimer.one_shot = true
 	
@@ -294,7 +290,8 @@ func reload():
 			can_fire = true
 			reloadTimer.start()
 
-func _on_reload_timer_timeout():
+# the realoading Timer
+func _on_reload_timer_timeout() -> void:
 	var ammo_needed = (maxAmmo - ammoInMag)
 	
 	if ammoInMag == 0 && extraAmmo >= ammo_needed || ammoInMag < maxAmmo && extraAmmo != 0 && extraAmmo >= ammo_needed:
@@ -307,55 +304,60 @@ func _on_reload_timer_timeout():
 	
 	can_fire = true
 
-func _on_player_detector_body_entered(body):
-	if body.is_in_group(playerGroup):
-		if NPCTypes == 1:
-			isLookingForPlayer = true
-		sawPlayer = true
 
-func _on_player_detector_body_exited(body):
+func _on_player_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group(playerGroup):
-		if NPCTypes == 1:
-			sawPlayer = false
-			isLookingForPlayer = false
+		NPCModes = 1
+		#sawPlayer = true
+
+func _on_player_detector_body_exited(body: Node2D) -> void:
+	if body.is_in_group(playerGroup):
+		NPCModes = 0
+		motion.x = 0
+		#sawPlayer = false
+
 
 @warning_ignore("unused_parameter")
-func _on_attack_area_body_entered(body):
+func _on_attack_area_body_entered(body: Node2D) -> void:
 	pass
 
-func applyDamage():
+
+func applyDamage() -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_method(set_flashShader, 1.0, 0.0, 0.15)
-
-func set_flashShader(newValue: float):
+func set_flashShader(newValue: float) -> void:
 	enemy_sprites.material.set_shader_parameter("flashValue", newValue)
 
-func Death():
+
+func Death() -> void:
+	motion.x = 0
 	sawPlayer = false
 	isLookingForPlayer = false
 	isAttacking = false
 	
 	animation_player.play(deadAnimation)
 	gravity = 0
-	$CollisionShape2D.disabled = true
+	collision_shape_2d.disabled = true
 	
 	if isDie:
 		ray_cast_2d.enabled = false
 		queue_free()
 
-func start_dialogue():
+
+
+func start_dialogue() -> void:
 	if playerIsNearby && Global.inConversation:
 		dialogue_ui.visible = true
 		(ez_dialogue as EzDialogue).start_dialogue(dialogueFile, state)
 	elif !playerIsNearby || !Global.inConversation:
 		dialogue_ui.visible = false
 
-func _on_ez_dialogue_custom_signal_received(value):
+func _on_ez_dialogue_custom_signal_received(value: Variant) -> void:
 	if value == "endConversation":
 		Global.inConversation = false
 		set_process(true)
 
-func _on_ez_dialogue_dialogue_generated(response):
+func _on_ez_dialogue_dialogue_generated(response: DialogueResponse) -> void:
 	dialogue_box.clear_dialogue_box()
 	dialogue_box.add_text(response.text)
 

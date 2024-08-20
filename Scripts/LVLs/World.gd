@@ -5,16 +5,22 @@ extends Node2D
 var defaultTimeScale = 1
 @export var slowTime: float = 0.5
 @export var timeIsSlow := false
-
-@onready var time_scale_timer = $TimeScaleTimer
 @export var waitTime: float = 1
 
-func _ready():
+
+@onready var time_scale_timer: Timer = $TimeScaleTimer
+#@onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
+#@onready var vis: VisibleOnScreenNotifier2D = $TileMap/VisibleOnScreenNotifier2D
+
+@onready var keres_000: StaticBody2D = %"KERES-000"
+
+func _ready() -> void:
 	#Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	#visible_on_screen_notifier_2d.connect("screen_enterd", self, "show")
 	pass
 
 @warning_ignore("unused_parameter")
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	Global.timeScale = TimeScale
 	time_scale_timer.wait_time = waitTime
 	if Input.is_action_just_pressed("slow_motion") && timeIsSlow == false:

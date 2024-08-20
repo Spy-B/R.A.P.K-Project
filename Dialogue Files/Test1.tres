@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="DialogueData" load_steps=2 format=3 uid="uid://cnd8ydlkas246"]
+
+[ext_resource type="Script" path="res://addons/dialogue_nodes/objects/DialogueData.gd" id="1_81r2k"]
+
+[resource]
+script = ExtResource("1_81r2k")
+starts = {
+"0": &"0_1"
+}
+nodes = {
+"0_1": {
+"link": &"1_1",
+"offset": Vector2(-600, -240),
+"start_id": "0"
+},
+"1_1": {
+"dialogue": "Hello Guys dfhsadfhkdsjaf;  af eiwfhdsa f
+afd adskj dskkkkkkkkkkkkkkkkkkkkkkkkkkk ;a dsjf;aief afj;hjaiewjfkdjfiowejrdhfaisdfh ei fddsakfjoiwefkjdfiaeifj",
+"offset": Vector2(-340, -300),
+"options": {
+0: {
+"condition": {},
+"link": &"1_2",
+"text": "OK"
+},
+1: {
+"condition": {},
+"link": &"1_3",
+"text": "No"
+}
+},
+"size": Vector2(300, 256),
+"speaker": "Me"
+},
+"1_2": {
+"dialogue": "dsadfdsfasdf",
+"offset": Vector2(40, -360),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
+"speaker": "Jone"
+},
+"1_3": {
+"dialogue": "Its ok",
+"offset": Vector2(40, -60),
+"options": {
+0: {
+"condition": {},
+"link": "END",
+"text": ""
+}
+},
+"size": Vector2(300, 240),
+"speaker": "Jone"
+}
+}
+variables = {}
+strays = Array[String]([])
+characters = ""

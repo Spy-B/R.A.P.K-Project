@@ -30,7 +30,7 @@ func _ready():
 	label_2.visible = false
 
 @warning_ignore("unused_parameter")
-func _process(delta):
+func _process(delta: float) -> void:
 	var progress = []
 	if ResourceLoader.load_threaded_get_status(Global.nextScene, progress) == ResourceLoader.THREAD_LOAD_LOADED:
 		loading_icon.visible = false

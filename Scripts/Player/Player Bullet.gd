@@ -12,10 +12,11 @@ var shooter = null
 @export var enemiesGroup: String
 @export var lvlsGroup: String
 
-@onready var WallImpact = $WallImpact
+
 @onready var sprite_2d = $Sprite2D
 @onready var timer = $Timer
 @onready var GunBarrelImpact = $GunBarrelImpact
+@onready var WallImpact = $WallImpact
 
 func _ready():
 	motion = Vector2(speed, 0).rotated(rotation)

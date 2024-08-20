@@ -26,6 +26,7 @@ region_rect = Rect2(223, 49, 35, 108)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(-1, -90)
+enabled = false
 energy = 3.0
 shadow_enabled = true
 texture = ExtResource("3_mnydr")

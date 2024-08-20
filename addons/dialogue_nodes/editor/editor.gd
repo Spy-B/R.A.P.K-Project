@@ -151,4 +151,3 @@ func _on_dialogue_ended():
 
 	if _debug:
 		print('Dialogue ended')
-

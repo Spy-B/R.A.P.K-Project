@@ -319,7 +319,7 @@ lifePoints = 5.0
 deadAnimation = "Death"
 playerGroup = "Player"
 enemiesGroup = "Enemies"
-npcsGroup = "NPCs"
+friendlyNpcsGroup = "FriendlyNPCs"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-6, 12)
@@ -329,7 +329,7 @@ shape = SubResource("1")
 material = SubResource("ShaderMaterial_smjpv")
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_nlyia")
-animation = &"Attack"
+animation = &"Idle"
 
 [node name="RayCast2D" type="RayCast2D" parent="EnemySprites"]
 rotation = -1.5708
