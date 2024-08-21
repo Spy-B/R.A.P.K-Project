@@ -319,7 +319,7 @@ lifePoints = 5.0
 deadAnimation = "Death"
 playerGroup = "Player"
 enemiesGroup = "Enemies"
-npcsGroup = "NPCs"
+friendlyNpcsGroup = "FriendlyNPCs"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-6, 12)

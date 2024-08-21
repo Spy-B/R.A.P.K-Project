@@ -1085,7 +1085,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerSprites/MeleeAttack2/CollisionShape2D:disabled")
+tracks/2/path = NodePath("PlayerSprites/MeleeAttack/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1589,7 +1589,7 @@ bullet = ExtResource("3")
 deathAnimation = "Death"
 Test = [["Stamina", 50], ["HandGun Mag", 9]]
 enemiesGroup = "Enemies"
-NpcsGroup = "NPCs"
+friendlyNpcsGroup = "FriendlyNPCs"
 voidAreaGroup = "void"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -1626,21 +1626,20 @@ fixed_fps = 60
 
 [node name="PlayerSprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("2")
-animation = &"Idle"
+animation = &""
 
 [node name="GunBarrel" type="Marker2D" parent="PlayerSprites"]
 position = Vector2(34, -19)
 
-[node name="MeleeAttack2" type="Area2D" parent="PlayerSprites"]
+[node name="MeleeAttack" type="Area2D" parent="PlayerSprites"]
 position = Vector2(38, 0)
 scale = Vector2(2, 2)
 collision_layer = 1024
 collision_mask = 65536
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprites/MeleeAttack2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprites/MeleeAttack"]
 position = Vector2(4.5, 3.75)
 shape = SubResource("3")
-disabled = true
 
 [node name="ShootingEffect" type="Sprite2D" parent="PlayerSprites"]
 visible = false
@@ -1748,7 +1747,7 @@ text = "Inventory"
 [node name="Inventory_UI" parent="InventoryUI/ColorRect" instance=ExtResource("646_msosg")]
 layout_mode = 1
 
-[connection signal="body_entered" from="PlayerSprites/MeleeAttack2" to="." method="_on_MeleeAttack2_body_entered"]
+[connection signal="body_entered" from="PlayerSprites/MeleeAttack" to="." method="_on_MeleeAttack2_body_entered"]
 [connection signal="body_entered" from="PlayerSprites/NPCsDetector" to="." method="_on_np_cs_detector_body_entered"]
 [connection signal="body_exited" from="PlayerSprites/NPCsDetector" to="." method="_on_np_cs_detector_body_exited"]
 [connection signal="area_entered" from="PlayerSprites/DamageArea" to="." method="_on_damage_area_area_entered"]

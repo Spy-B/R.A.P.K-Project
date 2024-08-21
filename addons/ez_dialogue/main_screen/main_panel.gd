@@ -4,7 +4,9 @@ class_name MainDiagPanel extends Panel
 @onready var name_editor = $HSplitContainer/edit_container/name_editor
 @onready var content_editor = $HSplitContainer/edit_container/content_editor
 @onready var edit_container = $HSplitContainer/edit_container
-@onready var draw_surface = $HSplitContainer/graph_container/draw_container
+@onready var draw_surface = $HSplitContainer/graph_container/draw_container 
+@onready var search_text_input: LineEdit = $HSplitContainer/graph_container/SearchBar/MarginContainer/HBoxContainer/LineEdit
+@onready var search_bar = $HSplitContainer/graph_container/SearchBar
 
 @onready var dialogueNodes: Array[DialogueNode] = []
 @onready var nodeToOutputs = {}
@@ -35,7 +37,7 @@ func _is_dirty():
 func _mark_dirty():
 	$HSplitContainer/graph_container/HBoxContainer/dirty_marker.visible = true
 	$HSplitContainer/graph_container/HBoxContainer/save.disabled = false
-	
+
 func _mark_saved():
 	$HSplitContainer/graph_container/HBoxContainer/dirty_marker.visible = false
 	$HSplitContainer/graph_container/HBoxContainer/save.disabled = true
@@ -56,9 +58,10 @@ func save(force_save: bool = false):
 func reset():
 	#clear graph
 	draw_surface.clear_connections()
-	for childNode in draw_surface.get_children():
-		draw_surface.remove_child(childNode)
-		childNode.queue_free()
+	for child_node in draw_surface.get_children():
+		if child_node is GraphNode:
+			draw_surface.remove_child(child_node)
+			child_node.queue_free()
 	_init_state()
 	_populate_editor_from_selections([])
 	#_mark_dirty()
@@ -118,6 +121,7 @@ func _add_dialogue_node(node_name = "Diag Node"):
 	return dialogue
 	
 func _add_dialogue_node_graph(dialogue: DialogueNode, focus = false, position = null):
+	print(dialogue)
 	var node = dialogueGraphNodePrefab.instantiate()
 	node.title = dialogue.name + " #" + str(dialogue.id)
 	node.name = dialogue.name.strip_edges(true, true).to_lower()
@@ -128,7 +132,7 @@ func _add_dialogue_node_graph(dialogue: DialogueNode, focus = false, position = 
 	if position:
 		node.position_offset = position
 	else:
-		node.position_offset = draw_surface.scroll_offset + (draw_surface.size*0.5)
+		node.position_offset = draw_surface.get_center_of_graph_position()
 	dialogue.gnode_name = node.name
 	return node
 
@@ -350,9 +354,10 @@ func _on_open_file_dialog_file_selected(path):
 
 	#clear graph
 	draw_surface.clear_connections()
-	for childNode in draw_surface.get_children():
-		draw_surface.remove_child(childNode)
-		childNode.queue_free()
+	for child_node in draw_surface.get_children():
+		if child_node is GraphNode:
+			draw_surface.remove_child(child_node)
+			child_node.queue_free()
 	_init_state()
 	
 	dialogueNodes = resource.dialogue_nodes
@@ -374,3 +379,13 @@ func _on_working_path_changed(path: String):
 	else:	
 		workingPath = path
 		$HSplitContainer/graph_container/HBoxContainer/fileNameLbl.text = workingPath
+
+func _on_node_search_text_submitted(node_name: String):
+	var dialogue_node: DialogueNode = _get_dialogue_node_by_name(node_name)
+	if dialogue_node:
+		draw_surface.center_on_node(dialogue_node)
+	else:
+		search_bar.warn_not_found()
+	
+func _on_node_search_text_changed(node_name: String):
+	search_bar.clear_warn()

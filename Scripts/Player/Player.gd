@@ -123,15 +123,15 @@ var isDie := false
 
 @export_group("Other")
 @export_placeholder("Group") var enemiesGroup: String
-@export_placeholder("Group") var NpcsGroup: String
-
-@onready var reloadTimer = $Timers/ReloadTimer
+@export_placeholder("Group") var friendlyNpcsGroup: String
 
 @export var voidAreaGroup: String
-
 var inConversation := false
 
-@onready var health_bar = $UI/HealthBar/TextureProgressBar
+
+@onready var reloadTimer: Timer = $Timers/ReloadTimer
+@onready var healthBar: TextureProgressBar = $UI/HealthBar/TextureProgressBar
+@onready var collision_shape_2d_MA: CollisionShape2D = $PlayerSprites/MeleeAttack/CollisionShape2D
 
 
 # warning-ignore:export_hint_type_mistmatch
@@ -146,15 +146,15 @@ var inConversation := false
 
 
 # Start function: Everything here starts at the first FRAME
-func _ready():
+func _ready() -> void:
 	$PlayerSprites.scale.x = spriteScaleX
 	$PlayerSprites.scale.y = spriteScaleY
 	
-	state_machine = $AnimationTree.get("parameters/playback")
+	state_machine = $AnimationTree["parameters/playback"]
 	$AnimationTree.active = true
 	$AnimationPlayer.speed_scale = timeScale
 	
-	$PlayerSprites/MeleeAttack2/CollisionShape2D.disabled = true
+	$PlayerSprites/MeleeAttack/CollisionShape2D.disabled = true
 	
 	$PlayerSprites/ShootingEffect.visible = false
 	
@@ -166,10 +166,12 @@ func _ready():
 	Global.set_player_reference(self)
 	
 	Global.playerHealthValue = healthValue
+	
+	collision_shape_2d_MA.disabled = true
 
 # Update function: Everything here is updated 60 times per second
 @warning_ignore("unused_parameter")
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	if followLvlScaneTime:
 		timeScale = Global.timeScale
 	
@@ -184,32 +186,11 @@ func _physics_process(delta):
 	Gravity()
 	State_Machine()
 	
-	# this Script for Exporting variabels
-	if canWalk && !inventory_ui.visible && !Global.inConversation:
-		walking()
-	if canRun && !inventory_ui.visible && !Global.inConversation:
-		running()
-	if canJump && !inventory_ui.visible && !Global.inConversation:
-		jumping()
-	if canDoubleJump && canJump && !canTripleJump && !inventory_ui.visible:
-		doubleJump()
-	if canTripleJump && canJump && !inventory_ui.visible:
-		tripleJump()
-	if canInfiniteJump && !inventory_ui.visible:
-		infiniteJumps()
-	if canAttack && !meleeCombo && !inventory_ui.visible && !Global.inConversation:
-		meleeAttack()
-	if meleeCombo && !inventory_ui.visible:
-		MeleeCombo()
-	if canShoot && !inventory_ui.visible && !Global.inConversation:
-		shooting()
-		reload()
-	if canDie && !inventory_ui.visible && !Global.inConversation:
-		Death()
+	funcManager()
 	
-	Dash(delta)
 	
-	health_bar.value = Global.playerHealthValue
+	
+	healthBar.value = Global.playerHealthValue
 	
 	#if killComboCounter && !inventory_ui.visible:
 		#KillCombo()
@@ -226,13 +207,57 @@ func _physics_process(delta):
 			var push_force = (PUSH_FORCE * motion.length() / runningSpeed) + MIN_PUSH_FORCE
 			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
 
-func _input(event):
+func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_inventory"):
 		inventory_ui.visible = !inventory_ui.visible
 		get_tree().paused = !get_tree().paused
 
+
+func funcManager() -> void:
+	# this Script for Exporting variabels
+	if canWalk && !inventory_ui.visible && !Global.inConversation:
+		walking()
+	
+	
+	if canRun && !inventory_ui.visible && !Global.inConversation:
+		running()
+	
+	
+	if canJump && !inventory_ui.visible && !Global.inConversation:
+		jumping()
+	
+	
+	if canDoubleJump && canJump && !canTripleJump && !inventory_ui.visible:
+		doubleJump()
+	
+	
+	if canTripleJump && canJump && !inventory_ui.visible:
+		tripleJump()
+	
+	
+	if canInfiniteJump && !inventory_ui.visible:
+		infiniteJumps()
+	
+	
+	if canAttack && !meleeCombo && !inventory_ui.visible && !Global.inConversation:
+		meleeAttack()
+	
+	
+	if meleeCombo && !inventory_ui.visible:
+		MeleeCombo()
+	
+	
+	if canShoot && !inventory_ui.visible && !Global.inConversation:
+		shooting()
+		reload()
+	
+	
+	if canDie && !inventory_ui.visible && !Global.inConversation:
+		Death()
+
+
 #Gravity Function
-func Gravity():
+func Gravity() -> void:
 	if !is_on_floor():
 		motion.y += gravity
 		if have_coyote:
@@ -247,7 +272,7 @@ func Gravity():
 		#motion.y = lerp(motion.y,0,0.2)
 
 
-func State_Machine():
+func State_Machine() -> void:
 	if is_on_floor() && canWalk && canRun && !is_attack  && !inventory_ui.visible && !Global.inConversation:
 		$PlayerSprites/ShootingEffect.visible = false
 		if (Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left")) && !(Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_left")):
@@ -301,7 +326,7 @@ func State_Machine():
 		state_machine.travel(deathAnimation)
 
 #Walking Function
-func walking():
+func walking() -> void:
 	if canWalk && canRun && !is_attack:
 		if Input.is_action_pressed("ui_right") && !Input.is_action_pressed("ui_left"):
 			#motion.x = walkingSpeed
@@ -320,7 +345,7 @@ func walking():
 				motion.x = lerp(motion.x, 0.0, movementWeight)
 
 #Running Function
-func running():
+func running() -> void:
 	if canWalk && canRun && !is_attack:
 		if Input.is_action_pressed("ui_right") && Input.is_action_pressed("running") && !Input.is_action_pressed("ui_left"):
 			motion.x = runningSpeed
@@ -358,7 +383,7 @@ func running():
 			motion.x = lerp(motion.x, 0.0, movementWeight)
 
 #Jumping Functions
-func jumping():
+func jumping() -> void:
 	if Input.is_action_just_pressed("jumping"):
 		$Timers/JumpBufferTimer.start()
 	
@@ -371,7 +396,7 @@ func jumping():
 	if !Input.is_action_pressed("jumping") && motion.y < 0:
 		motion.y = lerp(motion.y, 0.0,jumpingWeight)
 
-func doubleJump():
+func doubleJump() -> void:
 	if (Input.is_action_just_pressed("jumping") || !$Timers/JumpBufferTimer.is_stopped()) && !is_on_floor() && extraDoubleJumps > 0:
 		motion.y = -jumpPower
 		$Timers/JumpBufferTimer.stop()
@@ -380,7 +405,7 @@ func doubleJump():
 	if !Input.is_action_pressed("jumping") && motion.y < 0:
 		motion.y = lerp(motion.y, 0.0,jumpingWeight)
 
-func tripleJump():
+func tripleJump() -> void:
 	if Input.is_action_just_pressed("jumping") && !is_on_floor() && extraTripleJumps > 0:
 		motion.y = -jumpPower
 		extraTripleJumps -= 1
@@ -388,7 +413,7 @@ func tripleJump():
 	if !Input.is_action_pressed("jumping") && motion.y < 0:
 		motion.y = lerp(motion.y, 0.0,jumpingWeight)
 
-func infiniteJumps():
+func infiniteJumps() -> void:
 	if Input.is_action_just_pressed("jumping"):
 		motion.y = -jumpPower
 	
@@ -396,7 +421,7 @@ func infiniteJumps():
 		motion.y = lerp(motion.y, 0.0,jumpingWeight)
 
 @warning_ignore("unused_parameter")
-func Dash(delta):
+func Dash(delta: float) -> void:
 	#@warning_ignore("unused_variable", "shadowed_variable_base_class")
 	#var velocity = Vector2.ZERO
 	#
@@ -443,7 +468,7 @@ func Dash(delta):
 	pass
 
 #Melee Attack Function
-func meleeAttack():
+func meleeAttack() -> void:
 	if Input.is_action_just_pressed("attack") && is_on_floor() && (!meleeCombo && canAttack && !is_attack):
 		is_attack = true
 		can_attack = false
@@ -455,7 +480,7 @@ func meleeAttack():
 		
 
 #Melee Combo Function
-func MeleeCombo():
+func MeleeCombo() -> void:
 	if Input.is_action_just_pressed("attack") && is_on_floor() && comboPoints == 3 && (canAttack && !is_attack):
 		is_attack = true
 		can_attack = false
@@ -472,18 +497,18 @@ func MeleeCombo():
 		comboPoints = comboPoints - 1
 		$Timers/MeleeComboTimer.start()
 
-func _on_MeleeComboTimer_timeout():
+func _on_MeleeComboTimer_timeout() -> void:
 	comboPoints = 3
 	is_attack = false
 	can_attack = true
 
-func _on_MeleeAttack2_body_entered(body):
+func _on_MeleeAttack2_body_entered(body: Node2D) -> void:
 	if body.is_in_group(enemiesGroup):
 		#body.queue_free()
 		body.lifePoints -= 1
 
 #Shooting Function
-func shooting():
+func shooting() -> void:
 	var randomShootingAnimtion = 0 #randi_range(0, 2)
 	if Input.is_action_pressed("shooting") && is_on_floor():
 		if ammoInMag != 0:
@@ -511,7 +536,7 @@ func shooting():
 			reloadTimer.start()
 
 # the reload script
-func reload():
+func reload() -> void:
 	reloadTimer.wait_time = reloadTime
 	reloadTimer.one_shot = true
 	
@@ -525,7 +550,7 @@ func reload():
 			can_fire = true
 			reloadTimer.start()
 
-func _on_reload_timer_timeout():
+func _on_reload_timer_timeout() -> void:
 	var ammo_needed = (maxAmmo - ammoInMag)
 	
 	if ammoInMag == 0 && extraAmmo >= ammo_needed || ammoInMag < maxAmmo && extraAmmo != 0 && extraAmmo >= ammo_needed:
@@ -543,26 +568,26 @@ func _on_reload_timer_timeout():
 		#get_parent().get_node("GUI/ComboCounter").visible = true
 		#$Timers/ComboTimer.start()
 
-func _on_ComboTimer_timeout():
+func _on_ComboTimer_timeout() -> void:
 	killCombo = 5
 
-func Death():
+func Death() -> void:
 	if isDie:
 		global_position = checkpoint_manager.last_position
 		await get_tree().create_timer(0.05).timeout
 		Respawn()
 
-func _on_damage_area_area_entered(area):
+func _on_damage_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group(voidAreaGroup):
 		Respawn()
 
-func Respawn():
+func Respawn() -> void:
 	global_position = checkpoint_manager.last_position
 	isDie = false
 	Global.playerHealthValue = healthValue
 
 # Apply the effect of the item
-func apply_item_effect(item):
+func apply_item_effect(item: Dictionary) -> void:
 	match item["effect"]:
 		"Stamina":
 			runningSpeed += Test[0][1]
@@ -579,7 +604,7 @@ func apply_item_effect(item):
 		_:
 			print("There is no effect for this item")
 
-func in_water():
+func in_water() -> void:
 	@warning_ignore("integer_division")
 	gravity = gravity / 3
 	max_speed = max_speed_in_water
@@ -587,8 +612,8 @@ func in_water():
 #func is_in_water():
 	#pass
 
-func _on_np_cs_detector_body_entered(body):
-	if body.is_in_group(NpcsGroup):
+func _on_np_cs_detector_body_entered(body: Node2D) -> void:
+	if body.is_in_group(friendlyNpcsGroup):
 		body.playerIsNearby = true
 		interact_ui.visible = true
 	
@@ -597,8 +622,8 @@ func _on_np_cs_detector_body_entered(body):
 	#elif !body.conversationStarted && body.conversationEnded:
 		#inConversation = false
 
-func _on_np_cs_detector_body_exited(body):
-	if body.is_in_group(NpcsGroup):
+func _on_np_cs_detector_body_exited(body: Node2D) -> void:
+	if body.is_in_group(friendlyNpcsGroup):
 		body.playerIsNearby = false
 		interact_ui.visible = false
 	

@@ -86,7 +86,6 @@ func next(choice_index: int = 0):
 	if is_running:
 		return
 	
-	dialogue_visit_history = []
 	if choice_index >= 0 && choice_index < _pending_choice_actions.size():
 		# select a choice
 		var commands = _pending_choice_actions[choice_index] as Array[DialogueCommand]
@@ -153,20 +152,40 @@ func _process_command(command: DialogueCommand, response: DialogueResponse):
 		
 func _inject_variable_to_text(text: String):
 		# replacing variable placeholders
-		var requiredVariables: Array[String] = []
+		var requiredVariables: Array = []
 		var variablePlaceholderRegex = RegEx.new()
 		variablePlaceholderRegex.compile("\\${(\\S+?)}")
+		var nestedVariableRegex = RegEx.new()
+		nestedVariableRegex.compile("(\"\\S+?\")")
 		var final_text = text
 		var matchResults = variablePlaceholderRegex.search_all(final_text)
 		for result in matchResults:
-			requiredVariables.push_back(result.get_string(1))
+			var nestedResults = nestedVariableRegex.search_all(result.get_string(1))
+			if nestedResults.size()>0:
+				requiredVariables.push_back(_nested_state_reference(result.get_string(1),nestedResults))
+			else:
+				requiredVariables.push_back(result.get_string(1))
 		
 		for variable in requiredVariables:
-			var value = _stateReference.get(variable)
-			if not value is String:
-				value = str(value)
-			final_text = final_text.replace(
-				"${%s}"%variable, value)
+			var value = "" 
+			var variable_name_string = ""
+			if variable is Array:
+				value = _retrieve_nested_values(variable)
+				if not value is String:
+					value = str(value)
+				variable_name_string = variable[0]
+			else:
+				value = _stateReference.get(variable)
+				variable_name_string = variable
+				
+			if value:
+				if not value is String:
+					value = str(value)
+				final_text = final_text.replace(
+					"${%s}"%variable_name_string, value)
+			else:
+				final_text = final_text.replace(
+					"${%s}"%variable_name_string, "")
 		return final_text
 
 func _queue_executing_commands(commands: Array[DialogueCommand]):
@@ -179,16 +198,101 @@ func _evaluate_conditional_expression(expression: String):
 	# only handle order of operation and && and ||
 	var properties = _stateReference.keys()
 	var evaluation = Expression.new()
-	var availableVariables: Array[String] = []
-	var variableValues = []
-	for property in properties:
-		availableVariables.push_back(property)
-		variableValues.push_back(_stateReference.get(property))
+	var workingExpression = expression
 	
-	var parse_error = evaluation.parse(expression, PackedStringArray(availableVariables))
-	var result = evaluation.execute(variableValues)
+	var requiredVariables = []
+	var variable_pattern = RegEx.new()
+	variable_pattern.compile("[\"a-zA-Z_\\d]+(\\[\"[a-zA-Z_\\d]+?\"\\])*")
+	var match_results = variable_pattern.search_all(expression)
+	var nestedVariableRegex = RegEx.new()
+	nestedVariableRegex.compile("(\"\\S+?\")")
+	
+	for variable_match in match_results:
+		var extracted_pattern = variable_match.get_string(0)
+		if ["true", "false"].has(extracted_pattern)\
+			|| extracted_pattern.is_valid_float()\
+			|| extracted_pattern.is_valid_int() \
+			|| extracted_pattern.begins_with("\""):
+			continue
+
+		var nestedResults = nestedVariableRegex.search_all(extracted_pattern)
+		if nestedResults.size() > 0:
+			requiredVariables.push_back(
+				_nested_state_reference(variable_match.get_string(0), nestedResults))
+		else:
+			requiredVariables.push_back(variable_match.get_string(0))
+
+	for variable in requiredVariables:
+		var value = "" 
+		if variable is Array:
+			value = _retrieve_nested_values(variable)
+			if not value is String :
+				value = str(value)
+			else:
+				value = "\"" + value + "\""
+
+			workingExpression = workingExpression.replace(
+				variable[0], value)
+		else:
+			value = _stateReference.get(variable)
+			if not value is String:
+				value = str(value)
+			else:
+				value = "\"" + value + "\""
+			workingExpression = workingExpression.replace(
+				variable, value)
+			
+	var parse_error = evaluation.parse(workingExpression)
+	if parse_error > 0:
+		printerr("Error in [%s]: Can't find expression '%s' in the stateReference: %s"\
+			%[_get_current_node_name(), expression,_stateReference])
+		# Removing causes an error in debugger due to parsing failing and going into evaluation.execute() after failing.
+		return false 
+	var result = evaluation.execute()
 	if evaluation.has_execute_failed():
-		printerr("Conditional expression '%s' did not parse/execute correctly with state: %s"%[expression, variableValues])
+		printerr("Error in [%s]: Conditional expression '%s' did not parse/execute \
+			correctly with state: %s"%[_get_current_node_name(), workingExpression, _stateReference])
 		# failed expression statement is assumed falsy.
 		return false
 	return result
+
+func _retrieve_nested_values(searchKeys: Array):
+	# [param searchKeys, contains an array of the starting expression or text along side all keys to search for]
+	# [Eg: ["some_variable["nested_component"]","some_variable","nested_component"]]
+	var currentKey = _stateReference
+	if searchKeys.size() >= 1:
+		for key in len(searchKeys):
+			if key != 0: # skip first entry since it will contain the full expression / ${} variable
+				if currentKey is Dictionary:
+					if currentKey.has(searchKeys[key]):
+						currentKey = currentKey[searchKeys[key]]
+					else:
+						printerr("Error in [%s]: Can't find key '%s' from the stack '%s'"\
+							%[_get_current_node_name(), searchKeys[key],searchKeys[0]])
+						return false
+				elif currentKey is Resource:
+					if (currentKey as Resource).get(searchKeys[key]):
+						currentKey = (currentKey as Resource).get(searchKeys[key])
+					else:
+						printerr("Error in [%s]: Can't find key '%s' from the stack '%s'"\
+							%[_get_current_node_name(), searchKeys[key],searchKeys[0]])
+						return false
+				else:	# fail safe since we only care for nested dictionaries. 
+					break
+		return currentKey	
+	else:
+		printerr("Error in [%s]: Expression incorrect %s"\
+			%[_get_current_node_name(), searchKeys])
+		return false
+
+func _nested_state_reference(key: String, nestedKey: Array[RegExMatch]):
+	#finds all the keys of a expression or ${variable}
+	var temp = [key,key.left(key.find("["))]
+
+	for i in nestedKey:
+		temp.append(i.get_string(1).replace("\"",""))
+	return temp
+
+# Retrieve the name of the dialogue node that the DialogueReader is currently processing.
+func _get_current_node_name() -> String:
+	return dialogue_visit_history[0]
