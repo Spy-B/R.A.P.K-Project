@@ -329,7 +329,7 @@ shape = SubResource("1")
 material = SubResource("ShaderMaterial_smjpv")
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_nlyia")
-animation = &"Idle"
+animation = &"Running"
 
 [node name="RayCast2D" type="RayCast2D" parent="EnemySprites"]
 rotation = -1.5708
@@ -365,6 +365,14 @@ scale = Vector2(0.25, 0.25)
 libraries = {
 "": SubResource("AnimationLibrary_4jby7")
 }
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(4, 12)
+scale = Vector2(4.4, 5.2)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(-9.53674e-07, 12)
+scale = Vector2(8, 5.2)
 
 [node name="Timers" type="Node" parent="."]
 

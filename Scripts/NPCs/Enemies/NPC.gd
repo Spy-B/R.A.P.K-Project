@@ -9,6 +9,7 @@ enum Types {Friendly, Enemey}
 enum Modes {WanderingAround ,Searching, Attacking, Dead}
 @export var NPCModes: Modes
 
+
 @export_group("Physics")
 @export var gravity = 98
 @export var max_speed := 600
@@ -160,14 +161,17 @@ func States_Manager() -> void:
 		add_to_group(enemiesGroup)
 	
 	if ray_cast_2d.get_collider() == player && NPCModes != 3:
+		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 2
 	
 	
 	elif ray_cast_2d.get_collider() != player &&  NPCModes != 0 && NPCModes != 3:
+		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 1
 	
 	
 	if lifePoints == 0:
+		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 3
 
 
@@ -180,10 +184,11 @@ func Friendly() -> void:
 	ray_cast_2d.enabled = false
 	collision_shape_2d.disabled = true
 
+
 func Enemy() -> void:
 	if NPCModes == 0:
 		Wandering_around()
-		Moving()
+		
 	
 	elif NPCModes == 1:
 		Searching()
@@ -249,6 +254,7 @@ func lookAtPlayer() -> void:
 func Searching() -> void:
 	lookAtPlayer()
 	motion.x = runningSpeed * dir
+	Moving()
 
 func Attack() -> void:
 	pass
@@ -307,11 +313,13 @@ func _on_reload_timer_timeout() -> void:
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group(playerGroup):
+		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 1
 		#sawPlayer = true
 
 func _on_player_detector_body_exited(body: Node2D) -> void:
 	if body.is_in_group(playerGroup):
+		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 0
 		motion.x = 0
 		#sawPlayer = false

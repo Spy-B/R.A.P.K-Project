@@ -2091,7 +2091,7 @@ player = NodePath("../../Player")
 lvlScene = "LVL-Alpha"
 
 [node name="NPC2" parent="NPCs" node_paths=PackedStringArray("player") instance=ExtResource("14_so5jc")]
-position = Vector2(5008, 599)
+position = Vector2(4160, 826)
 NPCTypes = 1
 lookingDir = 1
 reloadTime = 0.2
@@ -2099,16 +2099,15 @@ player = NodePath("../../Player")
 lvlScene = "LVL-Alpha"
 
 [node name="NPC3" parent="NPCs" node_paths=PackedStringArray("player") instance=ExtResource("14_so5jc")]
-position = Vector2(4156, 790)
+position = Vector2(5716, 857)
 NPCTypes = 1
-lookingDir = 1
 reloadTime = 0.2
 player = NodePath("../../Player")
 lvlScene = "LVL-Alpha"
 playerGroup = "Playerqqq"
 
 [node name="NPC4" parent="NPCs" node_paths=PackedStringArray("player") instance=ExtResource("14_so5jc")]
-position = Vector2(6020, 829)
+position = Vector2(7105, 853)
 NPCTypes = 1
 lookingDir = 1
 reloadTime = 0.2

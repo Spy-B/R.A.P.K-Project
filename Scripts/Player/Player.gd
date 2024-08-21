@@ -131,6 +131,7 @@ var inConversation := false
 
 @onready var reloadTimer: Timer = $Timers/ReloadTimer
 @onready var healthBar: TextureProgressBar = $UI/HealthBar/TextureProgressBar
+@onready var collision_shape_2d_MA: CollisionShape2D = $PlayerSprites/MeleeAttack/CollisionShape2D
 
 
 # warning-ignore:export_hint_type_mistmatch
@@ -165,6 +166,8 @@ func _ready() -> void:
 	Global.set_player_reference(self)
 	
 	Global.playerHealthValue = healthValue
+	
+	collision_shape_2d_MA.disabled = true
 
 # Update function: Everything here is updated 60 times per second
 @warning_ignore("unused_parameter")

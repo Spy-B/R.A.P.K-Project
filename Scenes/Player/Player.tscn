@@ -857,7 +857,7 @@ libraries = {
 
 [node name="PlayerSprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("4_x1pu1")
-animation = &"Damage"
+animation = &""
 
 [node name="GunBarrel" type="Marker2D" parent="PlayerSprites"]
 position = Vector2(34, -19)

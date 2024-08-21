@@ -51,7 +51,7 @@ movie_writer/physics_ticks_per_second=60
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/ez_dialogue/plugin.cfg", "res://addons/fullscreen_control/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/dialogue_nodes/plugin.cfg", "res://addons/ez_dialogue/plugin.cfg", "res://addons/fullscreen_control/plugin.cfg")
 
 [file_customization]
 
