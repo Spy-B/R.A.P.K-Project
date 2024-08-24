@@ -2099,12 +2099,11 @@ player = NodePath("../../Player")
 lvlScene = "LVL-Alpha"
 
 [node name="NPC3" parent="NPCs" node_paths=PackedStringArray("player") instance=ExtResource("14_so5jc")]
-position = Vector2(5716, 857)
+position = Vector2(5768, 858)
 NPCTypes = 1
 reloadTime = 0.2
 player = NodePath("../../Player")
 lvlScene = "LVL-Alpha"
-playerGroup = "Playerqqq"
 
 [node name="NPC4" parent="NPCs" node_paths=PackedStringArray("player") instance=ExtResource("14_so5jc")]
 position = Vector2(7105, 853)
@@ -2114,8 +2113,11 @@ reloadTime = 0.2
 player = NodePath("../../Player")
 lvlScene = "LVL-Alpha"
 
+[node name="Slime" parent="NPCs" instance=ExtResource("22_8sr62")]
+position = Vector2(804, 859)
+
 [node name="Player" parent="." node_paths=PackedStringArray("checkpoint_manager") instance=ExtResource("7_dwqjf")]
-position = Vector2(983, 814)
+position = Vector2(4711, 760)
 checkpoint_manager = NodePath("../Interactions/Checkpoints/CheckpointManager")
 movementWeight = 0.4
 canDoubleJump = false
@@ -2129,6 +2131,7 @@ amountY = -120.5
 shakeTime = 0.1
 
 [node name="Camera2D" parent="Player" instance=ExtResource("12_k2c6x")]
+zoom = Vector2(0.65, 0.65)
 limit_left = 0
 limit_right = 9087
 
@@ -2196,8 +2199,5 @@ theme_override_font_sizes/font_size = 30
 text = "999"
 
 [node name="Pause" parent="UI" instance=ExtResource("21_ybbq5")]
-
-[node name="Slime" parent="." instance=ExtResource("22_8sr62")]
-position = Vector2(804, 859)
 
 [connection signal="timeout" from="TimeScaleTimer" to="." method="_on_time_scale_timer_timeout"]

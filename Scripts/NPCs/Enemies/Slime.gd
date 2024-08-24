@@ -7,6 +7,9 @@ var isMovingLeft = true
 @export var group: String
 @export var lifePoints = 3
 
+@onready var ray_cast_2d: RayCast2D = $RayCast2D
+@onready var ray_cast_2d_2: RayCast2D = $RayCast2D2
+
 func _ready():
 	pass
 
@@ -23,10 +26,10 @@ func _physics_process(delta):
 	if !is_on_floor():
 		motion.y += gravity
 	
-	if !$RayCast2D.is_colliding() && is_on_floor():
+	if !ray_cast_2d.is_colliding() && is_on_floor():
 		isMovingLeft = !isMovingLeft
 		scale.x = -scale.x
-	if $RayCast2D2.is_colliding() && is_on_floor():
+	if ray_cast_2d_2.is_colliding() && is_on_floor():
 		isMovingLeft = !isMovingLeft
 		scale.x = -scale.x
 	

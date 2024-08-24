@@ -329,12 +329,15 @@ shape = SubResource("1")
 material = SubResource("ShaderMaterial_smjpv")
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_nlyia")
-animation = &"Attack"
+animation = &"Idle"
 
-[node name="RayCast2D" type="RayCast2D" parent="EnemySprites"]
-rotation = -1.5708
-target_position = Vector2(0, 96)
-collision_mask = 256
+[node name="GRayCast" type="RayCast2D" parent="EnemySprites"]
+position = Vector2(14, 0)
+target_position = Vector2(0, 18)
+
+[node name="WRayCast" type="RayCast2D" parent="EnemySprites"]
+rotation = -1.57083
+target_position = Vector2(0, 24)
 
 [node name="GunBarrel" type="Marker2D" parent="EnemySprites"]
 position = Vector2(11.5, 7.25)
@@ -357,7 +360,12 @@ collision_mask = 768
 position = Vector2(224, 0)
 shape = SubResource("RectangleShape2D_5dnyc")
 
-[node name="Marker2D" type="Marker2D" parent="EnemySprites"]
+[node name="PlayerDetector2" type="RayCast2D" parent="EnemySprites"]
+rotation = -1.5708
+target_position = Vector2(0, 96)
+collision_mask = 256
+
+[node name="PlayerPos" type="Marker2D" parent="EnemySprites"]
 position = Vector2(26, 2)
 scale = Vector2(0.25, 0.25)
 
@@ -365,6 +373,13 @@ scale = Vector2(0.25, 0.25)
 libraries = {
 "": SubResource("AnimationLibrary_4jby7")
 }
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-7.62939e-06, 2.14577e-06)
+scale = Vector2(12.8, 6.4)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibleOnScreenNotifier2D"]
+enable_node_path = NodePath("../..")
 
 [node name="Timers" type="Node" parent="."]
 

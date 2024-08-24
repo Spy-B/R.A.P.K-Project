@@ -28,6 +28,8 @@ var movingRight = false
 var movingLeft = false
 var dir = 1
 
+@export var isMovingLeft = true
+
 enum lookingDirs {Right, Left}
 @export var lookingDir: lookingDirs
 
@@ -91,18 +93,22 @@ var isAttacking := false
 
 var isGrounded := true
 
-@onready var animation_player = $AnimationPlayer
-@onready var enemy_sprites = $EnemySprites
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var enemy_sprites: AnimatedSprite2D = $EnemySprites
+
 @onready var spriteScaleX = enemy_sprites.scale.x
 @onready var spriteScaleY = enemy_sprites.scale.y
-@onready var ray_cast_2d = $EnemySprites/RayCast2D
-@onready var collision_shape_2d = $EnemySprites/PlayerDetector/CollisionShape2D
-@onready var reloadTimer = $Timers/ReloadTimer
-@onready var dialogue_ui = $DialogueUI
-@onready var dialogue_box = $DialogueUI/DialogueBox
-@onready var ez_dialogue = $DialogueUI/DialogueBox/EzDialogue
-@onready var timer = $DialogueUI/DialogueBox/Timer
-@onready var marker_2d = $EnemySprites/Marker2D
+
+@onready var PD_rayCast: RayCast2D = $EnemySprites/PlayerDetector2
+@onready var G_rayCast: RayCast2D = $EnemySprites/GRayCast
+@onready var W_rayCast: RayCast2D = $EnemySprites/WRayCast
+@onready var PD_collision: CollisionShape2D = $EnemySprites/PlayerDetector/CollisionShape2D
+@onready var reloadTimer: Timer = $Timers/ReloadTimer
+@onready var dialogue_ui: CanvasLayer = $DialogueUI
+@onready var dialogue_box: Control = $DialogueUI/DialogueBox
+@onready var ez_dialogue: EzDialogue = $DialogueUI/DialogueBox/EzDialogue
+@onready var timer: Timer = $DialogueUI/DialogueBox/Timer
+@onready var playerPos: Marker2D = $EnemySprites/PlayerPos
 
 
 func _ready() -> void:
@@ -111,8 +117,10 @@ func _ready() -> void:
 	if lookingDir == 0:
 		enemy_sprites.scale.x = spriteScaleX
 		dir = 1
+		#isMovingLeft = false
 	elif lookingDir == 1:
 		dir = -1
+		#isMovingLeft = true
 		enemy_sprites.scale.x = -spriteScaleX
 	
 	enemy_sprites.material = enemy_sprites.material.duplicate(true)
@@ -121,12 +129,14 @@ func _process(_delta: float) -> void:
 	if Input.is_action_pressed("interact"):
 		if playerIsNearby:
 			Global.inConversation = true
-			player.global_position = marker_2d.global_position
+			player.global_position = playerPos.global_position
 			player.motion.x = 0
 			set_process(false)
 			timer.start()
 	
 	start_dialogue()
+	
+	print("Hello")
 
 
 func _physics_process(_delta: float) -> void:
@@ -149,7 +159,7 @@ func Gravity() -> void:
 	else:
 		if isDie:
 			gravity = 0
-			collision_shape_2d.disabled = true
+			PD_collision.disabled = true
 
 #Types and Modes Manager
 func States_Manager() -> void:
@@ -161,12 +171,12 @@ func States_Manager() -> void:
 		Enemy()
 		add_to_group(enemiesGroup)
 	
-	if ray_cast_2d.get_collider() == player && NPCModes != 3:
+	if PD_rayCast.get_collider() == player && NPCModes != 3:
 		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 2
 	
 	
-	elif ray_cast_2d.get_collider() != player &&  NPCModes != 0 && NPCModes != 3:
+	elif PD_rayCast.get_collider() != player &&  NPCModes != 0 && NPCModes != 3:
 		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 1
 	
@@ -180,13 +190,13 @@ func States_Manager() -> void:
 
 func Friendly() -> void:
 	if NPCModes == 0:
-		Wandering_around()
+		animation_player.play(idleAnimation)
 		motion.x = 0
 	
 	lookAtPlayer()
 	
-	ray_cast_2d.enabled = false
-	collision_shape_2d.disabled = true
+	PD_rayCast.enabled = false
+	PD_collision.disabled = true
 
 
 func Enemy() -> void:
@@ -215,8 +225,15 @@ func Moving() -> void:
 
 
 func Wandering_around() -> void:
-	animation_player.play("Idle")
 	sawPlayer = false
+	
+	motion.x = -runningSpeed if isMovingLeft else runningSpeed
+	Moving()
+	
+	if (!G_rayCast.is_colliding() || W_rayCast.is_colliding()) && is_on_floor():
+		isMovingLeft = !isMovingLeft
+		scale.x = -scale.x
+	
 	#var change_move_timer = randf_range(0.5, 5)
 	#
 	#if standing:
@@ -243,17 +260,21 @@ func lookAtPlayer() -> void:
 	if lookingDir == 0:
 		if direction.x > 0:
 			dir = 1
+			isMovingLeft = false
 			enemy_sprites.scale.x = spriteScaleX  # Flip sprite horizontally if player is to the left
 		else:
 			dir = -1
+			isMovingLeft = true
 			enemy_sprites.scale.x = -spriteScaleX   # Flip sprite back if player is to the right
 	
 	elif lookingDir == 1:
 		if direction.x < 0:
 			dir = -1
+			isMovingLeft = true
 			enemy_sprites.scale.x = -spriteScaleX  # Flip sprite horizontally if player is to the left
 		else:
 			dir = 1
+			isMovingLeft = false
 			enemy_sprites.scale.x = spriteScaleX   # Flip sprite back if player is to the right
 
 func Searching() -> void:
@@ -321,7 +342,6 @@ func _on_player_detector_body_entered(body: Node2D) -> void:
 		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 1
 		
-		#
 
 func _on_player_detector_body_exited(body: Node2D) -> void:
 	if body.is_in_group(playerGroup):
@@ -351,10 +371,10 @@ func Death() -> void:
 	
 	animation_player.play(deadAnimation)
 	gravity = 0
-	collision_shape_2d.disabled = true
+	PD_collision.disabled = true
 	
 	if isDie:
-		ray_cast_2d.enabled = false
+		PD_rayCast.enabled = false
 		queue_free()
 
 
