@@ -329,13 +329,14 @@ shape = SubResource("1")
 material = SubResource("ShaderMaterial_smjpv")
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_nlyia")
-animation = &"Idle"
+animation = &"Attack"
 
 [node name="GRayCast" type="RayCast2D" parent="EnemySprites"]
 position = Vector2(14, 0)
 target_position = Vector2(0, 18)
 
 [node name="WRayCast" type="RayCast2D" parent="EnemySprites"]
+position = Vector2(0, 10)
 rotation = -1.57083
 target_position = Vector2(0, 24)
 
@@ -375,8 +376,8 @@ libraries = {
 }
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-7.62939e-06, 2.14577e-06)
-scale = Vector2(12.8, 6.4)
+position = Vector2(0, 2.14577e-06)
+scale = Vector2(44.8, 6.4)
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibleOnScreenNotifier2D"]
 enable_node_path = NodePath("../..")

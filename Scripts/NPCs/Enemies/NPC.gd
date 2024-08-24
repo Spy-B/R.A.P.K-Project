@@ -136,7 +136,6 @@ func _process(_delta: float) -> void:
 	
 	start_dialogue()
 	
-	print("Hello")
 
 
 func _physics_process(_delta: float) -> void:
@@ -254,6 +253,7 @@ func Wandering_around() -> void:
 
 func lookAtPlayer() -> void:
 	# TODO Improve the collision shape Size whene he see the player
+	# FIXME
 	var direction = (player.global_position - global_position).normalized()
 	
 	# Make the enemy look at the player
@@ -347,7 +347,6 @@ func _on_player_detector_body_exited(body: Node2D) -> void:
 	if body.is_in_group(playerGroup):
 		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 0
-		motion.x = 0
 		#sawPlayer = false
 
 

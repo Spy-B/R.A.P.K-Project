@@ -7,11 +7,11 @@ extends Path2D
 @onready var pathFollower = $PathFollow2D
 @onready var animation_player = $AnimationPlayer
 
-func _ready():
+func _ready() -> void:
 	if !loop:
 		animation_player.play("Moving")
 		animation_player.speed_scale = speedScale
 		set_process(false)
 
-func _process(delta):
+func _physics_process(_delta: float) -> void:
 	pathFollower.progress += speed

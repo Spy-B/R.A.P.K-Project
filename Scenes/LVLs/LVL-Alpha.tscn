@@ -2117,7 +2117,7 @@ lvlScene = "LVL-Alpha"
 position = Vector2(804, 859)
 
 [node name="Player" parent="." node_paths=PackedStringArray("checkpoint_manager") instance=ExtResource("7_dwqjf")]
-position = Vector2(4711, 760)
+position = Vector2(565, 878)
 checkpoint_manager = NodePath("../Interactions/Checkpoints/CheckpointManager")
 movementWeight = 0.4
 canDoubleJump = false
@@ -2131,7 +2131,6 @@ amountY = -120.5
 shakeTime = 0.1
 
 [node name="Camera2D" parent="Player" instance=ExtResource("12_k2c6x")]
-zoom = Vector2(0.65, 0.65)
 limit_left = 0
 limit_right = 9087
 
