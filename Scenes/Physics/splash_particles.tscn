@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://h5ydh27dqpuq"]
 
 [ext_resource type="Texture2D" uid="uid://du5scffh4g2tm" path="res://Assets/Water_particle_1.png" id="1"]
-[ext_resource type="Script" path="res://Scripts/Physics/splash_particles.gd" id="2"]
+[ext_resource type="Script" uid="uid://hlhulvoy0ud" path="res://Scripts/Physics/splash_particles.gd" id="2"]
 
 [sub_resource type="Gradient" id="1"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)

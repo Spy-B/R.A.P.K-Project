@@ -18,7 +18,7 @@ func _on_button_pressed():
 	visible = newPauseState
 
 func _on_button_2_pressed():
-	pass # Replace with function body.
+	get_tree().reload_current_scene()
 
 func _on_button_3_pressed():
 	get_tree().quit()

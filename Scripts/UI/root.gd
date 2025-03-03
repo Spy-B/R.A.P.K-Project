@@ -17,7 +17,7 @@ func _process(delta):
 		set_process(false)
 		await get_tree().create_timer(5).timeout
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MINIMIZED)
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.05).timeout
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
 		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_ALWAYS_ON_TOP, false)

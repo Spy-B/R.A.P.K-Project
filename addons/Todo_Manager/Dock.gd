@@ -11,7 +11,7 @@ const Todo := preload("res://addons/Todo_Manager/todo_class.gd")
 const TodoItem := preload("res://addons/Todo_Manager/todoItem_class.gd")
 const ColourPicker := preload("res://addons/Todo_Manager/UI/ColourPicker.tscn")
 const Pattern := preload("res://addons/Todo_Manager/UI/Pattern.tscn")
-const DEFAULT_PATTERNS := [["\\bTODO\\b", Color("96f1ad"), CASE_INSENSITIVE], ["\\bHACK\\b", Color("d5bc70"), CASE_INSENSITIVE], ["\\bFIXME\\b", Color("d57070"), CASE_INSENSITIVE]]
+const DEFAULT_PATTERNS := [["\\bTODO\\b", Color("96f1ad"), CASE_INSENSITIVE], ["\\bNt\\b", Color("d5bc70"), CASE_INSENSITIVE], ["\\bEr\\b", Color("d57070"), CASE_INSENSITIVE], ["\\bDdit\\b", Color("d57070"), CASE_INSENSITIVE]]
 const DEFAULT_SCRIPT_COLOUR := Color("ccced3")
 const DEFAULT_SCRIPT_NAME := false
 const DEFAULT_SORT := true
@@ -27,7 +27,7 @@ var auto_refresh := true
 var builtin_enabled := false
 var _sort_alphabetical := true
 
-var patterns := [["\\bTODO\\b", Color("96f1ad"), CASE_INSENSITIVE], ["\\bHACK\\b", Color("d5bc70"), CASE_INSENSITIVE], ["\\bFIXME\\b", Color("d57070"), CASE_INSENSITIVE]]
+var patterns := [["\\bTODO\\b", Color("96f1ad"), CASE_INSENSITIVE], ["\\bNt\\b", Color("d5bc70"), CASE_INSENSITIVE], ["\\bEr\\b", Color("d57070"), CASE_INSENSITIVE], ["\\bDdit\\b", Color("d57070"), CASE_INSENSITIVE]]
 
 
 @onready var tabs := $VBoxContainer/TabContainer as TabContainer

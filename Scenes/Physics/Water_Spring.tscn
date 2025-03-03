@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dvhtyx5jfkwlv"]
 
-[ext_resource type="Script" path="res://Scripts/Physics/Water_Spring.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://by1ctc74oefbn" path="res://Assets/joint 2.png" id="2_lbk8y"]
+[ext_resource type="Script" uid="uid://be584josduj0h" path="res://Scripts/Physics/Water_Spring.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://by1ctc74oefbn" path="res://Assets/joint_2.png" id="2_lbk8y"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(13.5935, 3.15664)

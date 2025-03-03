@@ -2,6 +2,9 @@ extends Node
 
 @export_range(0, 10) var timeScale = 1
 
+@export_group("Enemy")
+@export var is_chased : bool = false;
+
 @export var ammo_in_mag = 0
 @export var extra_ammo = 0
 @export var max_ammo = 0
@@ -18,6 +21,8 @@ extends Node
 
 @export var inConversation := false
 
+#@export var damage : bool = false;
+
 var camera = null
 
 
@@ -30,7 +35,7 @@ var player_node: Node = null
 @export var inventory_slot_icon_size: int = 5
 
 var loadingScreen = preload("res://Scenes/UI/Loading.tscn")
-var nextScene = "res://Scenes/UI/Main Menu.tscn"
+var nextScene = "res://Scenes/UI/Main_Menu.tscn"
 
 func _ready():
 	inventory.resize(30)

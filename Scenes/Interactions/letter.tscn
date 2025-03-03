@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://4qvtq6epoo3e"]
 
-[ext_resource type="Script" path="res://Scripts/Objects/Letter.gd" id="1_y3g3p"]
+[ext_resource type="Script" uid="uid://bp8go8m4hpe6p" path="res://Scripts/Interactions/Letter.gd" id="1_y3g3p"]
 [ext_resource type="Texture2D" uid="uid://c7l67q2ffe28t" path="res://Assets/Objects/Shooter Game  Assets/Icons/Letter.png" id="2_ka42d"]
 [ext_resource type="Texture2D" uid="uid://beqlxk5kdxuin" path="res://Assets/UI/grunge-paper-background (Pixelized).jpg" id="3_p3v0h"]
 [ext_resource type="FontFile" uid="uid://dcp8gylagvxol" path="res://Assets/Fonts/Transyl-Bold.ttf" id="3_xcvvs"]
@@ -42,10 +42,10 @@ shape = SubResource("CircleShape2D_0elpo")
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_ka42d")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,7 +55,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+[node name="ColorRect" type="ColorRect" parent="UI/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,7 +64,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.529412)
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+[node name="TextureRect" type="TextureRect" parent="UI/Control"]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -81,7 +81,7 @@ grow_vertical = 2
 texture = ExtResource("3_p3v0h")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/Control"]
+[node name="Label" type="Label" parent="UI/Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

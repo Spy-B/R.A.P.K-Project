@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc7p7yi6s3k22"]
+
+[ext_resource type="Material" uid="uid://cbmg8uyrxn87h" path="res://Scenes/Player/Bullet_Wall_Impact.tres" id="1_qtbdl"]
+[ext_resource type="Texture2D" uid="uid://cjk48kgpnvvq5" path="res://Assets/VFX/PNG (Transparent)/dirt_01.png" id="2_to810"]
+
+[node name="WallImpact" type="GPUParticles2D"]
+emitting = false
+amount = 10
+process_material = ExtResource("1_qtbdl")
+texture = ExtResource("2_to810")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.6
+randomness = 1.0

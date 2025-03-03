@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=3 uid="uid://c8yxig8q4w1xx"]
 
-[ext_resource type="Script" path="res://Scripts/LVLs/World.gd" id="1_1ka7b"]
+[ext_resource type="Script" uid="uid://dnofuy07gx43o" path="res://Scripts/LVLs/lvl.gd" id="1_1ka7b"]
 [ext_resource type="Texture2D" uid="uid://pmff0ghibkc0" path="res://Assets/Envirement/Prototype Textures/PNG/Dark/texture_01 - 128.png" id="2_el5tq"]
 [ext_resource type="Texture2D" uid="uid://crk2rgvs6rh6r" path="res://Assets/Envirement/City BG/city 7/1.png" id="2_yf8i7"]
 [ext_resource type="PackedScene" uid="uid://cjtatbogu1g4q" path="res://Scenes/Player/Player.tscn" id="3_8p1ve"]
@@ -12,27 +12,25 @@
 [ext_resource type="Texture2D" uid="uid://bmx1ldj1bjbak" path="res://Assets/Envirement/City BG/city 7/5.png" id="6_nsvvg"]
 [ext_resource type="PackedScene" uid="uid://dt743vgc0hwtt" path="res://Scenes/Physics/Water_Body.tscn" id="7_e11kw"]
 [ext_resource type="Texture2D" uid="uid://66q0s0qse4c8" path="res://Assets/Objects/key.png" id="7_gjhk3"]
-[ext_resource type="PackedScene" uid="uid://bewfbcgswoa3o" path="res://Scenes/NPCs/Enemies/Enemy 1.tscn" id="8_63iag"]
+[ext_resource type="PackedScene" uid="uid://bewfbcgswoa3o" path="res://Scenes/NPCs/Enemies/Enemy_1.tscn" id="8_63iag"]
 [ext_resource type="PackedScene" uid="uid://bejqc22buxrw1" path="res://Scenes/NPCs/Enemies/NPC.tscn" id="9_fjyv6"]
-[ext_resource type="Script" path="res://Scripts/UI/GUI.gd" id="12_11uvm"]
+[ext_resource type="Script" uid="uid://bnpsqvquvqpo4" path="res://Scripts/UI/GUI.gd" id="12_11uvm"]
 [ext_resource type="Texture2D" uid="uid://ntsssusdepf4" path="res://Assets/Objects/Shooter Game  Assets/Icons/watermelon.png" id="12_phu68"]
 [ext_resource type="Texture2D" uid="uid://tsty3pl70lg6" path="res://Assets/Objects/Shooter Game  Assets/Icons/Handgun Magazine.png" id="13_57xg3"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="13_d61hv"]
-[ext_resource type="Script" path="res://Scripts/UI/Pause.gd" id="14_i4kd4"]
+[ext_resource type="Script" uid="uid://barqhq4f21wby" path="res://Scripts/UI/Pause.gd" id="14_i4kd4"]
 [ext_resource type="Texture2D" uid="uid://85ptmos0irs2" path="res://Assets/Envirement/city_cars_8.png" id="15_kvdgx"]
-[ext_resource type="PackedScene" uid="uid://dq0u5vt1sa20b" path="res://Scenes/Interactions/checkpoint.tscn" id="16_vfquq"]
-[ext_resource type="PackedScene" uid="uid://bg3nobdym6tb" path="res://Scenes/Player/Player Camera.tscn" id="21_46x8j"]
+[ext_resource type="PackedScene" uid="uid://dq0u5vt1sa20b" path="res://Scenes/Interactions/Checkpoint/Checkpoint.tscn" id="16_vfquq"]
+[ext_resource type="PackedScene" uid="uid://bg3nobdym6tb" path="res://Scenes/Player/Player_Camera.tscn" id="21_46x8j"]
 [ext_resource type="PackedScene" uid="uid://4qvtq6epoo3e" path="res://Scenes/Interactions/letter.tscn" id="22_kp5s7"]
-[ext_resource type="PackedScene" uid="uid://bgkxlm5cv7gx3" path="res://Scenes/NPCs/npc 2.tscn" id="23_77yie"]
-[ext_resource type="Script" path="res://Scripts/Interactions/CheckpointManager.gd" id="24_xr0r5"]
+[ext_resource type="PackedScene" uid="uid://bgkxlm5cv7gx3" path="res://Scenes/NPCs/npc_2.tscn" id="23_77yie"]
+[ext_resource type="Script" uid="uid://dioxs6uruqi3x" path="res://Scripts/Interactions/Checkpoint/Checkpoint_Manager.gd" id="24_xr0r5"]
 [ext_resource type="PackedScene" uid="uid://cmbj8hnx7kb3i" path="res://Scenes/Objects/box.tscn" id="26_qq22g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_si2ns"]
 texture = ExtResource("2_el5tq")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
 
 [sub_resource type="TileSet" id="TileSet_e1k8u"]

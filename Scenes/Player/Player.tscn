@@ -1,8 +1,8 @@
 [gd_scene load_steps=236 format=3 uid="uid://cjtatbogu1g4q"]
 
-[ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1"]
+[ext_resource type="Script" uid="uid://hqtqx3b0jpri" path="res://Scripts/Player/Player.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://cf6i6mocap5ie" path="res://Assets/Characters/Player/Scarlet Idle/Scarlet_Idle_Wait_B.png" id="2"]
-[ext_resource type="PackedScene" uid="uid://rbqg3ill35nk" path="res://Scenes/Player/Player Bullet.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://rbqg3ill35nk" path="res://Scenes/Player/Player_Bullet.tscn" id="3"]
 [ext_resource type="Texture2D" uid="uid://s0hel6ow6lei" path="res://Assets/VFX/PNG (Transparent)/smoke_01.png" id="3_api23"]
 [ext_resource type="Texture2D" uid="uid://blhcj4pok38p0" path="res://Assets/Characters/Player/Scarlet Run/Scarlet_run_front.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://bejx2sqhnpxce" path="res://Assets/Characters/Enemies/Prototype/players blue x1.png" id="4_ifm6r"]
@@ -15,11 +15,11 @@
 [ext_resource type="Texture2D" uid="uid://bp2kcq7xu1o0e" path="res://Assets/Characters/Player/Scarlet Sprint/Scarlet_Pistol_SprintLoop.png" id="8_frqwo"]
 [ext_resource type="Texture2D" uid="uid://boife0vp6iv10" path="res://Assets/Characters/Player/Scarlet Jump/Scarlet jmp land/Scarlet_Land_Base_Wait.png" id="9_1m64n"]
 [ext_resource type="Texture2D" uid="uid://q2c87pw12ryu" path="res://Assets/VFX/PNG (Transparent)/circle_05.png" id="15_aqkka"]
-[ext_resource type="PackedScene" uid="uid://crkq5vbtfsw1e" path="res://Scenes/Player/Health Bar.tscn" id="18_g5htb"]
+[ext_resource type="PackedScene" uid="uid://crkq5vbtfsw1e" path="res://Scenes/Player/Health_Bar.tscn" id="18_g5htb"]
 [ext_resource type="Texture2D" uid="uid://dhl7dy20kh0la" path="res://Assets/VFX/All_Fire_Bullet_Pixel_16x16_00.png" id="523_nyl11"]
 [ext_resource type="FontFile" uid="uid://bcnid3iximx4r" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.otf" id="645_7dkkb"]
 [ext_resource type="PackedScene" uid="uid://btqhpglnbwnll" path="res://Scenes/Player/Inventory Management System/inventory_ui.tscn" id="646_msosg"]
-[ext_resource type="Texture2D" uid="uid://ch7mnhgmyviuc" path="res://Assets/Keyboard F  Icon.png" id="647_lp1fk"]
+[ext_resource type="Texture2D" uid="uid://ch7mnhgmyviuc" path="res://Assets/Keyboard_F_Icon.png" id="647_lp1fk"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(39, 95)
@@ -1326,19 +1326,19 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sqcss"]
 _data = {
-"Attack 2": SubResource("12"),
-"Death": SubResource("Animation_tidig"),
-"Falling": SubResource("5"),
-"Idle": SubResource("Animation_ta1r3"),
-"Jumping": SubResource("Animation_oltkd"),
-"MeleeAttack": SubResource("9"),
-"PowerfulShoot": SubResource("Animation_x3apm"),
-"Reloading": SubResource("Animation_agext"),
-"Running": SubResource("Animation_ni5hq"),
-"Shooting": SubResource("Animation_p18k1"),
-"Sprint": SubResource("Animation_q24e4"),
-"TouchTheGround": SubResource("Animation_v5a4g"),
-"Walking": SubResource("Animation_2ku12")
+&"Attack 2": SubResource("12"),
+&"Death": SubResource("Animation_tidig"),
+&"Falling": SubResource("5"),
+&"Idle": SubResource("Animation_ta1r3"),
+&"Jumping": SubResource("Animation_oltkd"),
+&"MeleeAttack": SubResource("9"),
+&"PowerfulShoot": SubResource("Animation_x3apm"),
+&"Reloading": SubResource("Animation_agext"),
+&"Running": SubResource("Animation_ni5hq"),
+&"Shooting": SubResource("Animation_p18k1"),
+&"Sprint": SubResource("Animation_q24e4"),
+&"TouchTheGround": SubResource("Animation_v5a4g"),
+&"Walking": SubResource("Animation_2ku12")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_plokm"]
@@ -1548,7 +1548,7 @@ states/Jumping/position = Vector2(454, 197)
 states/MeleeAttack/node = SubResource("AnimationNodeAnimation_udtpc")
 states/MeleeAttack/position = Vector2(1041, 447)
 states/PowerfulShoot/node = SubResource("AnimationNodeAnimation_rnuji")
-states/PowerfulShoot/position = Vector2(1267, 197)
+states/PowerfulShoot/position = Vector2(1266, 197)
 states/Running/node = SubResource("AnimationNodeAnimation_isjc4")
 states/Running/position = Vector2(753, 197)
 states/Shooting/node = SubResource("AnimationNodeAnimation_nnixc")
@@ -1561,7 +1561,7 @@ states/TouchTheGround/position = Vector2(454, 670)
 states/Walking/node = SubResource("AnimationNodeAnimation_1avhj")
 states/Walking/position = Vector2(753, 670)
 transitions = ["Idle", "Running", SubResource("AnimationNodeStateMachineTransition_x1kjm"), "Running", "Idle", SubResource("AnimationNodeStateMachineTransition_2raas"), "Idle", "Walking", SubResource("AnimationNodeStateMachineTransition_b4r2r"), "Walking", "Idle", SubResource("AnimationNodeStateMachineTransition_oriba"), "Jumping", "Falling", SubResource("AnimationNodeStateMachineTransition_sw7b0"), "Falling", "Jumping", SubResource("AnimationNodeStateMachineTransition_6h7tb"), "Falling", "TouchTheGround", SubResource("AnimationNodeStateMachineTransition_dbqdy"), "Idle", "Shooting", SubResource("AnimationNodeStateMachineTransition_6xwyw"), "Shooting", "Idle", SubResource("AnimationNodeStateMachineTransition_mb5pn"), "Running", "Shooting", SubResource("AnimationNodeStateMachineTransition_useid"), "Shooting", "Running", SubResource("AnimationNodeStateMachineTransition_xutvk"), "Walking", "Shooting", SubResource("AnimationNodeStateMachineTransition_1rb8f"), "Shooting", "Walking", SubResource("AnimationNodeStateMachineTransition_bgkna"), "Idle", "MeleeAttack", SubResource("AnimationNodeStateMachineTransition_g7k6m"), "MeleeAttack", "Idle", SubResource("AnimationNodeStateMachineTransition_eafmm"), "MeleeAttack", "Walking", SubResource("AnimationNodeStateMachineTransition_xj08p"), "Walking", "MeleeAttack", SubResource("AnimationNodeStateMachineTransition_iw3af"), "Running", "MeleeAttack", SubResource("AnimationNodeStateMachineTransition_hf7qx"), "MeleeAttack", "Running", SubResource("AnimationNodeStateMachineTransition_u4xks"), "TouchTheGround", "Idle", SubResource("AnimationNodeStateMachineTransition_lgvaq"), "TouchTheGround", "Walking", SubResource("AnimationNodeStateMachineTransition_jekyf"), "TouchTheGround", "Running", SubResource("AnimationNodeStateMachineTransition_klj60"), "TouchTheGround", "Shooting", SubResource("AnimationNodeStateMachineTransition_bsfmv"), "TouchTheGround", "MeleeAttack", SubResource("AnimationNodeStateMachineTransition_ytujf"), "Shooting", "PowerfulShoot", SubResource("AnimationNodeStateMachineTransition_l6gvm"), "Falling", "Running", SubResource("AnimationNodeStateMachineTransition_nlodf"), "Falling", "Walking", SubResource("AnimationNodeStateMachineTransition_ivx4r"), "Walking", "Sprint", SubResource("AnimationNodeStateMachineTransition_w5vd4"), "Idle", "Sprint", SubResource("AnimationNodeStateMachineTransition_e7kfp"), "Running", "Sprint", SubResource("AnimationNodeStateMachineTransition_8d0i7"), "MeleeAttack", "Sprint", SubResource("AnimationNodeStateMachineTransition_0g5jk"), "Sprint", "MeleeAttack", SubResource("AnimationNodeStateMachineTransition_jsxjs"), "TouchTheGround", "Sprint", SubResource("AnimationNodeStateMachineTransition_pq24i"), "Running", "Jumping", SubResource("AnimationNodeStateMachineTransition_61qca"), "Running", "Falling", SubResource("AnimationNodeStateMachineTransition_lpsox"), "Walking", "Falling", SubResource("AnimationNodeStateMachineTransition_6o167"), "MeleeAttack", "Shooting", SubResource("AnimationNodeStateMachineTransition_bf47n"), "Shooting", "MeleeAttack", SubResource("AnimationNodeStateMachineTransition_gii8q"), "PowerfulShoot", "Shooting", SubResource("AnimationNodeStateMachineTransition_bgc6x"), "Idle", "PowerfulShoot", SubResource("AnimationNodeStateMachineTransition_xdco5"), "PowerfulShoot", "Idle", SubResource("AnimationNodeStateMachineTransition_d70d5"), "PowerfulShoot", "Running", SubResource("AnimationNodeStateMachineTransition_b0r61"), "Running", "PowerfulShoot", SubResource("AnimationNodeStateMachineTransition_j8x2d"), "Walking", "PowerfulShoot", SubResource("AnimationNodeStateMachineTransition_e0bdv"), "PowerfulShoot", "Walking", SubResource("AnimationNodeStateMachineTransition_7ho1d"), "Idle", "Falling", SubResource("AnimationNodeStateMachineTransition_khttg"), "Idle", "Jumping", SubResource("AnimationNodeStateMachineTransition_ccka7"), "Walking", "Jumping", SubResource("AnimationNodeStateMachineTransition_v3tol"), "Sprint", "Jumping", SubResource("AnimationNodeStateMachineTransition_75xur"), "TouchTheGround", "Jumping", SubResource("AnimationNodeStateMachineTransition_sjfbg"), "Walking", "Death", SubResource("AnimationNodeStateMachineTransition_25p0p"), "Sprint", "Death", SubResource("AnimationNodeStateMachineTransition_jhbek"), "MeleeAttack", "Death", SubResource("AnimationNodeStateMachineTransition_2jpgl"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_4knnj"), "Running", "Death", SubResource("AnimationNodeStateMachineTransition_5lkqx"), "Shooting", "Death", SubResource("AnimationNodeStateMachineTransition_gb83j"), "PowerfulShoot", "Death", SubResource("AnimationNodeStateMachineTransition_3wu7r"), "Jumping", "Death", SubResource("AnimationNodeStateMachineTransition_l4sbm"), "TouchTheGround", "Death", SubResource("AnimationNodeStateMachineTransition_d3opb"), "Death", "TouchTheGround", SubResource("AnimationNodeStateMachineTransition_wupam"), "Death", "Jumping", SubResource("AnimationNodeStateMachineTransition_45wgi"), "Death", "Walking", SubResource("AnimationNodeStateMachineTransition_xhfe5"), "Death", "Idle", SubResource("AnimationNodeStateMachineTransition_a23wt"), "Death", "Running", SubResource("AnimationNodeStateMachineTransition_lm4c8"), "Death", "Sprint", SubResource("AnimationNodeStateMachineTransition_n7krv"), "Death", "MeleeAttack", SubResource("AnimationNodeStateMachineTransition_4gktb"), "Death", "Shooting", SubResource("AnimationNodeStateMachineTransition_ncup1"), "Death", "PowerfulShoot", SubResource("AnimationNodeStateMachineTransition_y3qmf"), "Falling", "Death", SubResource("AnimationNodeStateMachineTransition_d0jg0")]
-graph_offset = Vector2(357, 420)
+graph_offset = Vector2(195, 240)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 process_mode = 3

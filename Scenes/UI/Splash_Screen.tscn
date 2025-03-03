@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxrtguea5i00"]
+
+[ext_resource type="Script" uid="uid://ysdx7iqbppxm" path="res://Scripts/UI/root.gd" id="1_7i40u"]
+[ext_resource type="Texture2D" uid="uid://d3oov2wka8dt2" path="res://Assets/0000.jpg" id="2_howh3"]
+[ext_resource type="Texture2D" uid="uid://dy2poqolk38ii" path="res://Default/RAFIA_LOGO.svg" id="3_47mih"]
+[ext_resource type="FontFile" uid="uid://dcp8gylagvxol" path="res://Assets/Fonts/Transyl-Bold.ttf" id="4_m52gb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f6uch"]
+font = ExtResource("4_m52gb")
+font_size = 32
+
+[node name="SplashScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7i40u")
+nextScene = "res://Scenes/UI/Intro.tscn"
+nextScene2 = "res://Scenes/UI/Main_Menu.tscn"
+
+[node name="GameArt" type="Sprite2D" parent="."]
+texture = ExtResource("2_howh3")
+centered = false
+
+[node name="GameStudio" type="Sprite2D" parent="."]
+position = Vector2(1744, 992)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_47mih")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 398.0
+offset_bottom = 103.0
+text = "Made With R.A.P.K"
+label_settings = SubResource("LabelSettings_f6uch")

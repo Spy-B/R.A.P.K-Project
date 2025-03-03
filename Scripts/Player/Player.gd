@@ -109,7 +109,7 @@ var killCombo = Global.killComboCounter
 @export_group("Death")
 @export var canDie := true
 var isDie := false
-@export var healthValue := 100
+const healthValue := 100
 @export var deathAnimation: String
 
 @export_group("Inventory Management System")
@@ -132,6 +132,12 @@ var inConversation := false
 @onready var reloadTimer: Timer = $Timers/ReloadTimer
 @onready var healthBar: TextureProgressBar = $UI/HealthBar/TextureProgressBar
 @onready var collision_shape_2d_MA: CollisionShape2D = $PlayerSprites/MeleeAttack/CollisionShape2D
+
+@onready var coyote_timer: Timer = $Timers/CoyoteTimer
+@onready var jump_buffer_timer: Timer = $Timers/JumpBufferTimer
+@onready var melee_combo_timer: Timer = $Timers/MeleeComboTimer
+@onready var reload_timer: Timer = $Timers/ReloadTimer
+@onready var combo_timer: Timer = $Timers/ComboTimer
 
 
 # warning-ignore:export_hint_type_mistmatch

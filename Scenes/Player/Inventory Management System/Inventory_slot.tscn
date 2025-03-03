@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dayebqgpdqvoa"]
 
-[ext_resource type="Script" path="res://Scripts/Player/Inventory Management System/Inventory_slot.gd" id="1_qnp8o"]
+[ext_resource type="Script" uid="uid://b7cefplnpk3ac" path="res://Scripts/Player/Inventory_Management_System/Inventory_slot.gd" id="1_qnp8o"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="2_mhwhr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_li08j"]

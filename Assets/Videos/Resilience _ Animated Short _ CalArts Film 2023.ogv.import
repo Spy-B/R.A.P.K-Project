@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dgcth6kq5m1xn"
+path="res://.godot/imported/Resilience _ Animated Short _ CalArts Film 2023.ogg-89e7af9dec0e6efc68445dab2bbafe16.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Videos/Resilience _ Animated Short _ CalArts Film 2023.ogg"
+dest_files=["res://.godot/imported/Resilience _ Animated Short _ CalArts Film 2023.ogg-89e7af9dec0e6efc68445dab2bbafe16.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

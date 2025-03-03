@@ -1,0 +1,127 @@
+[gd_scene load_steps=17 format=3 uid="uid://rbqg3ill35nk"]
+
+[ext_resource type="Script" uid="uid://bul1riclg3683" path="res://Scripts/Player/Player_Bullet.gd" id="1_4x2ku"]
+[ext_resource type="Texture2D" uid="uid://bbuksvixystwk" path="res://Assets/VFX/Laser Sprites/01.png" id="2_x8xkf"]
+[ext_resource type="Texture2D" uid="uid://q2c87pw12ryu" path="res://Assets/VFX/PNG (Transparent)/circle_05.png" id="3_cbn0l"]
+[ext_resource type="Texture2D" uid="uid://c84m3ecf3y8jc" path="res://Assets/VFX/PNG (Transparent)/fire_02.png" id="5_alexo"]
+[ext_resource type="Texture2D" uid="uid://cjk48kgpnvvq5" path="res://Assets/VFX/PNG (Transparent)/dirt_01.png" id="6_ejqpo"]
+
+[sub_resource type="CircleShape2D" id="1"]
+radius = 1.0
+
+[sub_resource type="Curve" id="Curve_ilns7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.043956), -1.71795, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_horlv"]
+curve = SubResource("Curve_ilns7")
+
+[sub_resource type="Curve" id="Curve_1keiu"]
+_data = [Vector2(0, 0.35), 0.0, 6.84725, 0, 0, Vector2(0.25, 1), 0.363223, 0.363223, 0, 0, Vector2(1, 0.25), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="CurveTexture" id="CurveTexture_aikmg"]
+curve = SubResource("Curve_1keiu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wn51r"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+spread = 0.0
+flatness = 1.0
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.02
+scale_max = 0.04
+scale_curve = SubResource("CurveTexture_aikmg")
+color = Color(1, 1, 1, 0.588235)
+alpha_curve = SubResource("CurveTexture_horlv")
+
+[sub_resource type="Curve" id="Curve_wks7h"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.043956), -1.71795, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="CurveTexture" id="CurveTexture_3rkte"]
+curve = SubResource("Curve_wks7h")
+
+[sub_resource type="Curve" id="Curve_v071s"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.5), 2.80966, 2.80966, 0, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="CurveTexture" id="CurveTexture_npn6d"]
+curve = SubResource("Curve_v071s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t4bvr"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 10.0
+flatness = 1.0
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+damping_min = 50.0
+damping_max = 50.0
+scale_min = 0.01
+scale_max = 0.04
+scale_curve = SubResource("CurveTexture_npn6d")
+color = Color(1, 1, 1, 0.588235)
+alpha_curve = SubResource("CurveTexture_3rkte")
+
+[node name="PlayerBullet" type="Area2D"]
+collision_layer = 512
+collision_mask = 65793
+script = ExtResource("1_4x2ku")
+speed = 1500
+followPlayerTime = false
+enemiesGroup = "Enemies"
+lvlsGroup = "LVLs"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_x8xkf")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 1.5
+texture = ExtResource("3_cbn0l")
+texture_scale = 0.02
+
+[node name="GunBarrelImpact" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_wn51r")
+texture = ExtResource("5_alexo")
+lifetime = 0.5
+one_shot = true
+speed_scale = 1.5
+explosiveness = 1.0
+randomness = 0.8
+
+[node name="WallImpact" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_t4bvr")
+texture = ExtResource("6_ejqpo")
+lifetime = 0.5
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 60
+
+[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

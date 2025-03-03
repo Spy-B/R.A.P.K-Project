@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bmhdiwk82fqs2"]
 
 [ext_resource type="Texture2D" uid="uid://bk3ipmaetj1hl" path="res://Assets/VFX/Particle Material.png" id="1"]
-[ext_resource type="Script" path="res://Scripts/NPCs/Enemies/Slime.gd" id="2"]
+[ext_resource type="Script" uid="uid://deimh45yu8d80" path="res://Scripts/NPCs/Enemies/Slime.gd" id="2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fij7q"]
 radius = 7.0

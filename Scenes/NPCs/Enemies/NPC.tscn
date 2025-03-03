@@ -1,15 +1,15 @@
 [gd_scene load_steps=35 format=3 uid="uid://bejqc22buxrw1"]
 
-[ext_resource type="Script" path="res://Scripts/NPCs/Enemies/NPC.gd" id="1_arx3i"]
-[ext_resource type="PackedScene" uid="uid://vcfu0uoitxsi" path="res://Scenes/NPCs/Enemies/Enemy Bullet.tscn" id="2_qp8th"]
+[ext_resource type="Script" uid="uid://tyvamjxkhoni" path="res://Scripts/NPCs/Enemies/NPC.gd" id="1_arx3i"]
+[ext_resource type="PackedScene" uid="uid://vcfu0uoitxsi" path="res://Scenes/NPCs/Enemies/Enemy_Bullet.tscn" id="2_qp8th"]
 [ext_resource type="Texture2D" uid="uid://umtm63sma2t6" path="res://Assets/Characters/Enemies/Prototype/No Outlines/players grey x1.png" id="2_wkfwl"]
-[ext_resource type="Script" path="res://Dialogue Files/DialogueBox.gd" id="4_rt3et"]
-[ext_resource type="Shader" path="res://Shaders/Hit Flash.gdshader" id="4_w88ua"]
+[ext_resource type="Script" uid="uid://hct8g0dwy6rm" path="res://Dialogue_Files/DialogueBox.gd" id="4_rt3et"]
+[ext_resource type="Shader" uid="uid://dmn0dmxfshr1d" path="res://Resource/Shaders/hit_flash.gdshader" id="4_w88ua"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="6_30yfs"]
-[ext_resource type="Script" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="8_fphww"]
+[ext_resource type="Script" uid="uid://dls7mh5jtd45t" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="8_fphww"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(76, 104)
+size = Vector2(48, 40)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_smjpv"]
 shader = ExtResource("4_w88ua")
@@ -157,7 +157,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jej3d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5dnyc"]
-size = Vector2(1088, 128)
+size = Vector2(844, 80)
 
 [sub_resource type="Animation" id="Animation_lealt"]
 resource_name = "Attack"
@@ -289,10 +289,10 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4jby7"]
 _data = {
-"Attack": SubResource("Animation_lealt"),
-"Death": SubResource("Animation_4c0vk"),
-"Idle": SubResource("Animation_s2686"),
-"Running": SubResource("Animation_t278e")
+&"Attack": SubResource("Animation_lealt"),
+&"Death": SubResource("Animation_4c0vk"),
+&"Idle": SubResource("Animation_s2686"),
+&"Running": SubResource("Animation_t278e")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_dgdq1"]
@@ -314,7 +314,6 @@ bullet = ExtResource("2_qp8th")
 ammoInMag = 9
 maxAmmo = 9
 extraAmmo = 999
-isDie = true
 lifePoints = 5.0
 deadAnimation = "Death"
 playerGroup = "Player"
@@ -322,14 +321,14 @@ enemiesGroup = "Enemies"
 friendlyNpcsGroup = "FriendlyNPCs"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-6, 12)
+position = Vector2(-2, 12)
 shape = SubResource("1")
 
 [node name="EnemySprites" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_smjpv")
-scale = Vector2(4, 4)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_nlyia")
-animation = &"Attack"
+animation = &"Idle"
 
 [node name="GRayCast" type="RayCast2D" parent="EnemySprites"]
 position = Vector2(14, 0)
@@ -358,10 +357,11 @@ collision_layer = 131072
 collision_mask = 768
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySprites/PlayerDetector"]
-position = Vector2(224, 0)
+position = Vector2(162, 24)
 shape = SubResource("RectangleShape2D_5dnyc")
 
 [node name="PlayerDetector2" type="RayCast2D" parent="EnemySprites"]
+position = Vector2(0, 7.5)
 rotation = -1.5708
 target_position = Vector2(0, 96)
 collision_mask = 256
@@ -372,12 +372,11 @@ scale = Vector2(0.25, 0.25)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_4jby7")
+&"": SubResource("AnimationLibrary_4jby7")
 }
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(0, 2.14577e-06)
-scale = Vector2(44.8, 6.4)
+scale = Vector2(50, 10)
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibleOnScreenNotifier2D"]
 enable_node_path = NodePath("../..")

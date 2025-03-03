@@ -23,13 +23,8 @@ enum Modes {WanderingAround ,Searching, Attacking, Dead}
 @export var runningSpeed := 100
 @export var runningAnimation: String
 
-var standing = true
-var movingRight = false
-var movingLeft = false
 var dir = 1
-
-@export var isMovingLeft = true
-
+var isMovingLeft = true
 enum lookingDirs {Right, Left}
 @export var lookingDir: lookingDirs
 
@@ -87,8 +82,9 @@ var inConversation := false
 @export var playerGroup: String
 @export var enemiesGroup: String
 @export var friendlyNpcsGroup: String
+var wanderingAround := false
+var lookingForPlayer := false
 var sawPlayer := false
-var isLookingForPlayer := false
 var isAttacking := false
 
 var isGrounded := true
@@ -115,13 +111,14 @@ func _ready() -> void:
 	isDie = false
 	
 	if lookingDir == 0:
-		enemy_sprites.scale.x = spriteScaleX
 		dir = 1
-		#isMovingLeft = false
+		enemy_sprites.scale.x = spriteScaleX
+		isMovingLeft = false
+		
 	elif lookingDir == 1:
 		dir = -1
-		#isMovingLeft = true
 		enemy_sprites.scale.x = -spriteScaleX
+		isMovingLeft = true
 	
 	enemy_sprites.material = enemy_sprites.material.duplicate(true)
 
@@ -135,7 +132,6 @@ func _process(_delta: float) -> void:
 			timer.start()
 	
 	start_dialogue()
-	
 
 
 func _physics_process(_delta: float) -> void:
@@ -150,6 +146,8 @@ func _physics_process(_delta: float) -> void:
 	Gravity()
 	
 	States_Manager()
+	
+	print(dir)
 
 
 func Gravity() -> void:
@@ -165,26 +163,34 @@ func States_Manager() -> void:
 	if NPCTypes == 0:
 		Friendly()
 		add_to_group(friendlyNpcsGroup)
+		set_collision_layer_value(17, false)
 		
 	elif NPCTypes == 1:
 		Enemy()
 		add_to_group(enemiesGroup)
+		set_collision_layer_value(17, true)
 	
 	if PD_rayCast.get_collider() == player && NPCModes != 3:
-		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 2
 	
-	
 	elif PD_rayCast.get_collider() != player &&  NPCModes != 0 && NPCModes != 3:
-		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 1
+	
+	if wanderingAround:
+		Wandering_around()
+	
+	if lookingForPlayer:
+		Searching()
 	
 	if sawPlayer:
 		lookAtPlayer()
 	
-	if lifePoints == 0:
-		@warning_ignore("int_as_enum_without_cast")
-		NPCModes = 3
+	if isAttacking:
+		Attack()
+		Shooting()
+	
+	if lifePoints == 0 && canDie:
+			NPCModes = 3
 
 
 func Friendly() -> void:
@@ -192,7 +198,9 @@ func Friendly() -> void:
 		animation_player.play(idleAnimation)
 		motion.x = 0
 	
-	lookAtPlayer()
+	wanderingAround = false
+	lookingForPlayer = false
+	sawPlayer = true
 	
 	PD_rayCast.enabled = false
 	PD_collision.disabled = true
@@ -200,17 +208,24 @@ func Friendly() -> void:
 
 func Enemy() -> void:
 	if NPCModes == 0:
-		Wandering_around()
-		
+		wanderingAround = true
+		lookingForPlayer = false
+		isAttacking = false
 	
 	elif NPCModes == 1:
-		Searching()
+		wanderingAround = false
+		lookingForPlayer = true
+		isAttacking = false
 	
 	elif NPCModes == 2:
-		Attack()
-		Shooting()
+		wanderingAround = false
+		lookingForPlayer = false
+		isAttacking = true
 	
 	elif NPCModes == 3:
+		wanderingAround = false
+		lookingForPlayer = false
+		isAttacking = false
 		Death()
 
 
@@ -226,12 +241,20 @@ func Moving() -> void:
 func Wandering_around() -> void:
 	sawPlayer = false
 	
-	motion.x = -runningSpeed if isMovingLeft else runningSpeed
-	Moving()
-	
 	if (!G_rayCast.is_colliding() || W_rayCast.is_colliding()) && is_on_floor():
 		isMovingLeft = !isMovingLeft
 		scale.x = -scale.x
+		dir = -dir
+	
+	#if isMovingLeft:
+		#dir = -1
+	#elif !isMovingLeft:
+		#dir = 1
+	
+	motion.x = runningSpeed * dir
+	
+	Moving()
+	
 	
 	#var change_move_timer = randf_range(0.5, 5)
 	#
@@ -253,33 +276,46 @@ func Wandering_around() -> void:
 
 func lookAtPlayer() -> void:
 	# TODO Improve the collision shape Size whene he see the player
-	# FIXME
 	var direction = (player.global_position - global_position).normalized()
+	
+	#if isMovingLeft:
+		#direction = (player.global_position + global_position).normalized()
+		#
+	#elif !isMovingLeft:
+		#direction = (player.global_position - global_position).normalized()
 	
 	# Make the enemy look at the player
 	if lookingDir == 0:
-		if direction.x > 0:
+		if direction.x >= 0:
 			dir = 1
-			isMovingLeft = false
 			enemy_sprites.scale.x = spriteScaleX  # Flip sprite horizontally if player is to the left
-		else:
+			
+		elif direction.x <= 0:
 			dir = -1
-			isMovingLeft = true
 			enemy_sprites.scale.x = -spriteScaleX   # Flip sprite back if player is to the right
-	
+		
 	elif lookingDir == 1:
-		if direction.x < 0:
+		if direction.x <= 0:
 			dir = -1
-			isMovingLeft = true
 			enemy_sprites.scale.x = -spriteScaleX  # Flip sprite horizontally if player is to the left
-		else:
+			
+		elif direction.x >= 0:
 			dir = 1
-			isMovingLeft = false
 			enemy_sprites.scale.x = spriteScaleX   # Flip sprite back if player is to the right
 
 func Searching() -> void:
 	sawPlayer = true
-	motion.x = runningSpeed * dir
+	
+	if dir == 1:
+		isMovingLeft = false
+		enemy_sprites.scale.x = spriteScaleX
+	elif dir == -1:
+		print("is left!")
+		isMovingLeft = true
+		enemy_sprites.scale.x = -spriteScaleX
+	
+	motion.x = 300 * dir
+	
 	Moving()
 
 func Attack() -> void:
@@ -312,10 +348,6 @@ func reload() -> void:
 	reloadTimer.wait_time = reloadTime
 	reloadTimer.one_shot = true
 	
-	#if Input.is_action_just_pressed("reload"):
-		#can_fire = false
-		#reloadTimer.start()
-	
 	if ammoInMag == 0 && extraAmmo == 0:
 		can_fire = false
 		if ammoInMag == 0:
@@ -339,15 +371,11 @@ func _on_reload_timer_timeout() -> void:
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group(playerGroup):
-		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 1
-		
 
 func _on_player_detector_body_exited(body: Node2D) -> void:
 	if body.is_in_group(playerGroup):
-		@warning_ignore("int_as_enum_without_cast")
 		NPCModes = 0
-		#sawPlayer = false
 
 
 @warning_ignore("unused_parameter")
@@ -365,7 +393,7 @@ func set_flashShader(newValue: float) -> void:
 func Death() -> void:
 	motion.x = 0
 	sawPlayer = false
-	isLookingForPlayer = false
+	lookingForPlayer = false
 	isAttacking = false
 	
 	animation_player.play(deadAnimation)
@@ -394,7 +422,7 @@ func _on_ez_dialogue_dialogue_generated(response: DialogueResponse) -> void:
 	dialogue_box.clear_dialogue_box()
 	dialogue_box.add_text(response.text)
 
-func in_water():
+func in_water() -> void:
 	@warning_ignore("integer_division")
 	gravity = gravity / 3
 	max_speed = max_speed_in_water
