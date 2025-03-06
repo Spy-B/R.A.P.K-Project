@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cmdo4y67uis4f"]
+[gd_scene load_steps=24 format=3 uid="uid://cmdo4y67uis4f"]
 
 [ext_resource type="Script" uid="uid://bj3uho672bvem" path="res://Scenes/NPCs/NPC-newTest-/npc.gd" id="1_e8lvv"]
 [ext_resource type="Shader" uid="uid://dmn0dmxfshr1d" path="res://Resource/Shaders/hit_flash.gdshader" id="2_5dkjo"]
@@ -26,9 +26,6 @@ size = Vector2(31.9999, 37)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_40auk"]
 size = Vector2(27.9999, 37)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yxs4f"]
-size = Vector2(608, 64)
 
 [sub_resource type="Animation" id="Animation_okxx1"]
 resource_name = "Death"
@@ -162,7 +159,6 @@ _data = {
 collision_layer = 65536
 collision_mask = 1537
 script = ExtResource("1_e8lvv")
-NpcType = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -2.5)
@@ -200,14 +196,6 @@ position = Vector2(2.99997, -2.50002)
 shape = SubResource("RectangleShape2D_40auk")
 disabled = true
 
-[node name="PlayerDetector" type="Area2D" parent="Sprite2D/Areas"]
-collision_layer = 65536
-collision_mask = 256
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Areas/PlayerDetector"]
-position = Vector2(-80, 0)
-shape = SubResource("RectangleShape2D_yxs4f")
-
 [node name="RayCasts" type="Node2D" parent="Sprite2D"]
 
 [node name="GRayCast" type="RayCast2D" parent="Sprite2D/RayCasts"]
@@ -220,7 +208,12 @@ target_position = Vector2(10, 0)
 
 [node name="ShootRayCast" type="RayCast2D" parent="Sprite2D/RayCasts"]
 position = Vector2(0, 8.5)
-target_position = Vector2(120, 0)
+target_position = Vector2(150, 0)
+collision_mask = 256
+
+[node name="PlayerDetector" type="RayCast2D" parent="Sprite2D/RayCasts"]
+position = Vector2(0, 5)
+target_position = Vector2(250, 0)
 collision_mask = 256
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -272,8 +265,6 @@ deathState = NodePath("../Die")
 bulletScene = ExtResource("9_v5ibw")
 animationName = "Shooting"
 
-[node name="ShootingTimer" type="Timer" parent="NPCsStateMachine/Shoot"]
-
 [node name="Reload" type="Node" parent="NPCsStateMachine" node_paths=PackedStringArray("idleState", "wanderingState", "chasingState", "shootingState", "talkingState", "deathState")]
 script = ExtResource("7_h6x30")
 idleState = NodePath("../Idle")
@@ -282,6 +273,7 @@ chasingState = NodePath("../Chase")
 shootingState = NodePath("../Shoot")
 talkingState = NodePath("../Talk")
 deathState = NodePath("../Die")
+reloadingTime = 0.5
 animationName = "Reloading"
 
 [node name="Talk" type="Node" parent="NPCsStateMachine" node_paths=PackedStringArray("idleState", "wanderingState", "chasingState", "shootingState", "reloadingState", "deathState")]
@@ -306,11 +298,14 @@ animationName = "Death"
 
 [node name="Timers" type="Node" parent="."]
 
+[node name="ShootingTimer" type="Timer" parent="Timers"]
+
 [node name="RGSTimer" type="Timer" parent="Timers"]
 editor_description = "Roaming game states timer"
 
 [node name="CooldownPeriodTimer" type="Timer" parent="Timers"]
-wait_time = 5.0
+
+[node name="ReloadingTimer" type="Timer" parent="Timers"]
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0, -2.86102e-06)
@@ -335,9 +330,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[connection signal="body_entered" from="Sprite2D/Areas/PlayerDetector" to="." method="_on_player_detector_body_entered"]
-[connection signal="body_exited" from="Sprite2D/Areas/PlayerDetector" to="." method="_on_player_detector_body_exited"]
-[connection signal="timeout" from="NPCsStateMachine/Shoot/ShootingTimer" to="NPCsStateMachine/Shoot" method="_on_shooting_timer_timeout"]
+[connection signal="timeout" from="Timers/ShootingTimer" to="NPCsStateMachine/Shoot" method="_on_shooting_timer_timeout"]
 [connection signal="timeout" from="Timers/RGSTimer" to="NPCsStateMachine/Idle" method="_on_rgs_timer_timeout"]
 [connection signal="timeout" from="Timers/RGSTimer" to="NPCsStateMachine/Wander" method="_on_rgs_timer_timeout"]
 [connection signal="timeout" from="Timers/CooldownPeriodTimer" to="NPCsStateMachine/Chase" method="_on_cooldown_period_timer_timeout"]
+[connection signal="timeout" from="Timers/ReloadingTimer" to="NPCsStateMachine/Reload" method="_on_reloading_timer_timeout"]

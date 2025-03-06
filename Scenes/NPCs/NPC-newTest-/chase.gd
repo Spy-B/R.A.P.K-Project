@@ -16,9 +16,8 @@ func enter() -> void:
 	print("[Enemy][State]: Chase")
 	
 	cooldown_period_timer.wait_time = cooldownPeriod
-	cooldown_period_timer.start()
 	
-	parent.player_detector_collision.shape.size.x = 700.0
+	parent.player_detector.target_position.x = 300.0
 
 func process_input(_event: InputEvent) -> NPCsState:
 	return null
@@ -48,15 +47,17 @@ func process_frame(_delta: float) -> NPCsState:
 	if parent.shoot_ray_cast.get_collider() == parent.player:
 		return shootingState
 	
-	if !parent.player_detected:
-		parent.player_detector_collision.shape.size.x = 608.0
-		return idleState
-	
-	if parent.cool_down:
-		return idleState
+	if !parent.player_detected: 
+		cooldown_period_timer.start()
+		
+		if parent.cool_down:
+			parent.player_detector.target_position.x = 250.0
+			return idleState
 	
 	return null
 
 
 func _on_cooldown_period_timer_timeout() -> void:
 	parent.cool_down = true
+	print("cool down")
+	cooldown_period_timer.stop()

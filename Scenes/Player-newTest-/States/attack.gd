@@ -15,7 +15,7 @@ extends State
 
 var finished_animations: Array = []
 
-@onready var quit_state_timer: Timer = $MeleeComboTimer
+@onready var quit_state_timer: Timer = $"../../Timers/MeleeComboTimer"
 var timeout: bool = false
 
 @export var target: String

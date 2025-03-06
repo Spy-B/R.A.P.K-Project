@@ -7,21 +7,32 @@ extends NPCsState
 @export var talkingState: NPCsState
 @export var deathState: NPCsState
 
+@export_range(0, 1, 0.02) var reloadingTime: float = 1.0
+
+@onready var reloading_timer: Timer = $"../../Timers/ReloadingTimer"
+var can_fire: bool = true
+
 func enter() -> void:
-	super()
+	can_fire = false
 	
-	print("[Enemy][State]: Reload")
-
-func process_input(_event: InputEvent) -> NPCsState:
-	return null
-
-func process_physics(delta: float) -> NPCsState:
-	if !parent.is_on_floor():
-		parent.velocity.y += gravity * delta
-	
-	parent.move_and_slide()
-	
-	return null
+	reloading_timer.wait_time = reloadingTime
+	reloading_timer.start()
 
 func process_frame(_delta: float) -> NPCsState:
+	
 	return null
+
+
+func _on_reloading_timer_timeout() -> void:
+	#var ammo_needed = (parent.maxAmmo - parent.ammoInMag)
+	#
+	#if parent.ammoInMag == 0 && parent.extraAmmo >= ammo_needed || parent.ammoInMag < parent.maxAmmo && parent.extraAmmo != 0 && parent.extraAmmo >= ammo_needed:
+		#parent.extraAmmo -= ammo_needed
+		#parent.ammoInMag += ammo_needed
+		#
+	#elif parent.ammoInMag == 0 && parent.extraAmmo < ammo_needed || parent.extraAmmo < ammo_needed:
+		#parent.ammoInMag += parent.extraAmmo
+		#parent.extraAmmo = 0
+	
+	can_fire = true
+	reloading_timer.stop()

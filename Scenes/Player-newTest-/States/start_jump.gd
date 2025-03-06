@@ -8,7 +8,7 @@ extends State
 @export var deathState: State
 
 @export_group("Timer")
-@onready var timer: Timer = $StartJumpTimer
+@onready var timer: Timer = $"../../Timers/StartJumpTimer"
 @export var wait_time: float = 1
 
 var timeout = false

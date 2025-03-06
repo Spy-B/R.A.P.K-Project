@@ -42,11 +42,9 @@ func process_frame(_delta: float) -> NPCsState:
 	if parent.health <= 0:
 		return deathState
 	
-	if change_state:
+	if !parent.g_ray_cast.is_colliding() || change_state:
 		return wanderingState
 	
-	if !parent.g_ray_cast.is_colliding():
-		return wanderingState
 	if parent.w_ray_cast.is_colliding():
 		dir *= -1
 	

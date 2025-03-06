@@ -455,15 +455,23 @@ position = Vector2(3001, 1013)
 
 [node name="Enemies" type="Node2D" parent="NPCs"]
 
-[node name="Friendly" type="Node2D" parent="NPCs"]
-
-[node name="NPC" parent="NPCs" node_paths=PackedStringArray("player") instance=ExtResource("13_ondqr")]
+[node name="NPC" parent="NPCs/Enemies" node_paths=PackedStringArray("player") instance=ExtResource("13_ondqr")]
 position = Vector2(2699, 879)
-player = NodePath("../../Player")
+player = NodePath("../../../Player")
+
+[node name="NPC2" parent="NPCs/Enemies" node_paths=PackedStringArray("player") instance=ExtResource("13_ondqr")]
+position = Vector2(3768, 848)
+player = NodePath("../../../Player")
+
+[node name="NPC3" parent="NPCs/Enemies" node_paths=PackedStringArray("player") instance=ExtResource("13_ondqr")]
+position = Vector2(4668, 827)
+player = NodePath("../../../Player")
+
+[node name="Friendly" type="Node2D" parent="NPCs"]
 
 [node name="Player" parent="." node_paths=PackedStringArray("checkpointManager") instance=ExtResource("14_qekjm")]
 unique_name_in_owner = true
-position = Vector2(2249, 897)
+position = Vector2(1881, 931)
 collision_mask = 393345
 checkpointManager = NodePath("../Interactions/Checkpoints/CheckpointManager")
 

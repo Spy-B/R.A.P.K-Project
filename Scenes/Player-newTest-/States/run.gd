@@ -6,19 +6,24 @@ extends State
 @export var fallingState: State
 @export var attackingState: State
 @export var shootingState: State
+@export var reloadingState: State
 @export var deathState: State
 
 @export var acceleration: int = 20
 
 func process_input(_event: InputEvent) -> State:
-	if Input.is_action_just_pressed(jumpingInput) && parent.is_on_floor():
-		return startJumpingState
-	
-	if Input.is_action_just_pressed(attackingInput) && parent.is_on_floor():
-		return attackingState
-	
-	if Input.is_action_just_pressed(shootingInput) && parent.is_on_floor():
-		return shootingState
+	if parent.is_on_floor():
+		if Input.is_action_just_pressed(jumpingInput):
+			return startJumpingState
+		
+		if Input.is_action_just_pressed(attackingInput):
+			return attackingState
+		
+		if Input.is_action_just_pressed(shootingInput):
+			return shootingState
+		
+		if Input.is_action_just_pressed("reload"):
+			return reloadingState
 	
 	return null
 

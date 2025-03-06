@@ -7,9 +7,9 @@ func init(parent: CharacterBody2D, gun_barrel: Marker2D, animation: AnimationPla
 	for child in get_children():
 		child.parent = parent
 		child.animation = animation
+		child.gun_barrel = gun_barrel
 		child.coyote_timer = coyote_timer
 		child.jump_buffer_timer = jump_buffer_timer
-		child.gun_barrel = gun_barrel
 	
 	change_state(startingState)
 

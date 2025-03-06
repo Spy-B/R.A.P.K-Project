@@ -30,5 +30,6 @@ func _on_body_entered(body: Node2D) -> void:
 		
 		if !body.player_detected:
 			body.player_detected = true
+			body.cool_down = false
 	
 	queue_free()

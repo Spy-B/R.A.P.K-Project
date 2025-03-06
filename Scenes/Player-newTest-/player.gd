@@ -9,7 +9,13 @@ var have_coyote: bool = true
 var combo_points: int = 2
 var a_n_s_p: bool = false
 
+
 @export var checkpointManager: Node
+
+@export var ammoInMag: int = 9
+@export var maxAmmo: int = 9
+@export var extraAmmo: int = 999
+
 
 @onready var player_sprite: Sprite2D = $PlayerSprite
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
@@ -21,7 +27,8 @@ var a_n_s_p: bool = false
 @onready var coyote_timer: Timer = $Timers/CoyoteTimer
 @onready var jump_buffer_timer: Timer = $Timers/JumpBufferTimer
 
-@onready var health_label: Label = $UI/Health
+#@onready var health_label: Label = $UI/Health
+@onready var health_label: Label = $Health
 
 func _ready() -> void:
 	state_machine.init(self, gun_barrel, animation_player, coyote_timer, jump_buffer_timer)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://odlluvrio0fy"]
+[gd_scene load_steps=34 format=3 uid="uid://odlluvrio0fy"]
 
 [ext_resource type="Script" uid="uid://c84khsfjk8jkw" path="res://Scenes/Player-newTest-/player.gd" id="1_3wwtw"]
 [ext_resource type="Texture2D" uid="uid://df6a0s6s4n8rm" path="res://Assets/Characters/Player/red hood itch free Copy-Sheet.png" id="1_enipy"]
@@ -14,7 +14,9 @@
 [ext_resource type="Script" uid="uid://dgblu2jsnjcwy" path="res://Scenes/Player-newTest-/States/shoot.gd" id="10_xqoms"]
 [ext_resource type="Script" uid="uid://cxhhcu4ieh75a" path="res://Scenes/Player-newTest-/States/die.gd" id="11_wk1dk"]
 [ext_resource type="PackedScene" uid="uid://ctncad00jdckv" path="res://Scenes/Player-newTest-/arrow.tscn" id="13_88yj3"]
+[ext_resource type="Script" uid="uid://o10qb2iw2jbp" path="res://Scenes/Player-newTest-/reload.gd" id="14_jlfwl"]
 [ext_resource type="Script" uid="uid://caq1yqbc8kym7" path="res://Scenes/Player-newTest-/respawn.gd" id="15_gsya0"]
+[ext_resource type="Script" uid="uid://8gqr7prnhgj" path="res://Scenes/Player-newTest-/ui_handler.gd" id="17_1w6uu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bmxon"]
 size = Vector2(18, 34.5)
@@ -375,7 +377,7 @@ libraries = {
 [node name="StateMachine" parent="." node_paths=PackedStringArray("startingState") instance=ExtResource("3_vytom")]
 startingState = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "deathState")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "reloadingState", "deathState")]
 script = ExtResource("4_g7jtl")
 walkingState = NodePath("../Walk")
 runningState = NodePath("../Run")
@@ -383,6 +385,7 @@ startJumpingState = NodePath("../StartJump")
 fallingState = NodePath("../Fall")
 attackingState = NodePath("../Attack")
 shootingState = NodePath("../Shoot")
+reloadingState = NodePath("../Reload")
 deathState = NodePath("../Die")
 animationName = "Idle"
 
@@ -396,7 +399,7 @@ attackingState = NodePath("../Attack")
 shootingState = NodePath("../Shoot")
 deathState = NodePath("../Die")
 
-[node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "startJumpingState", "fallingState", "attackingState", "shootingState", "deathState")]
+[node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "startJumpingState", "fallingState", "attackingState", "shootingState", "reloadingState", "deathState")]
 script = ExtResource("6_msey6")
 idleState = NodePath("../Idle")
 walkingState = NodePath("../Walk")
@@ -404,6 +407,7 @@ startJumpingState = NodePath("../StartJump")
 fallingState = NodePath("../Fall")
 attackingState = NodePath("../Attack")
 shootingState = NodePath("../Shoot")
+reloadingState = NodePath("../Reload")
 deathState = NodePath("../Die")
 animationName = "Running"
 
@@ -417,8 +421,6 @@ shootingState = NodePath("../Shoot")
 deathState = NodePath("../Die")
 wait_time = 0.05
 animationName = "StartJumping"
-
-[node name="StartJumpTimer" type="Timer" parent="StateMachine/StartJump"]
 
 [node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "fallingState", "landingState", "attackingState", "shootingState", "deathState")]
 script = ExtResource("7_ncnvn")
@@ -456,8 +458,6 @@ deathState = NodePath("../Die")
 wait_time = 0.2
 animationName = "Landing"
 
-[node name="LandTimer" type="Timer" parent="StateMachine/Land"]
-
 [node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "shootingState", "deathState")]
 script = ExtResource("9_6ut1u")
 idleState = NodePath("../Idle")
@@ -473,10 +473,7 @@ shooting = "Shooting"
 target = "Enemy"
 animationName = "Attack_1"
 
-[node name="MeleeComboTimer" type="Timer" parent="StateMachine/Attack"]
-wait_time = 0.4
-
-[node name="Shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "deathState")]
+[node name="Shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "reloadingState", "deathState")]
 script = ExtResource("10_xqoms")
 idleState = NodePath("../Idle")
 walkingState = NodePath("../Walk")
@@ -484,9 +481,22 @@ runningState = NodePath("../Run")
 startJumpingState = NodePath("../StartJump")
 fallingState = NodePath("../Fall")
 attackingState = NodePath("../Attack")
+reloadingState = NodePath("../Reload")
 deathState = NodePath(".")
 arrowScene = ExtResource("13_88yj3")
 animationName = "Shooting"
+
+[node name="Reload" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "deathState")]
+script = ExtResource("14_jlfwl")
+idleState = NodePath("../Idle")
+walkingState = NodePath("../Walk")
+runningState = NodePath("../Run")
+startJumpingState = NodePath("../StartJump")
+fallingState = NodePath("../Fall")
+attackingState = NodePath("../Attack")
+shootingState = NodePath("../Shoot")
+deathState = NodePath("../Die")
+reloadingTime = 0.5
 
 [node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "respawningState")]
 script = ExtResource("11_wk1dk")
@@ -501,6 +511,13 @@ animationName = "Idle"
 
 [node name="Timers" type="Node" parent="."]
 
+[node name="StartJumpTimer" type="Timer" parent="Timers"]
+
+[node name="LandTimer" type="Timer" parent="Timers"]
+
+[node name="MeleeComboTimer" type="Timer" parent="Timers"]
+wait_time = 0.4
+
 [node name="CoyoteTimer" type="Timer" parent="Timers"]
 wait_time = 0.1
 one_shot = true
@@ -509,14 +526,9 @@ one_shot = true
 wait_time = 0.3
 one_shot = true
 
-[node name="UI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="ReloadingTimer" type="Timer" parent="Timers"]
 
-[node name="Health" type="Label" parent="UI"]
-layout_mode = 0
+[node name="Health" type="Label" parent="."]
 offset_left = -20.0
 offset_top = -43.0
 offset_right = 20.0
@@ -525,9 +537,29 @@ text = "100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="UIHandler" type="CanvasLayer" parent="."]
+script = ExtResource("17_1w6uu")
+
+[node name="UI" type="Control" parent="UIHandler"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AmmoLabel" type="Label" parent="UIHandler/UI"]
+layout_mode = 1
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 200.0
+offset_bottom = 56.0
+text = "Ammo: "
+
 [connection signal="body_entered" from="PlayerSprite/HitArea" to="StateMachine/Attack" method="_on_hit_area_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Shoot" method="_on_animation_player_animation_finished"]
-[connection signal="timeout" from="StateMachine/StartJump/StartJumpTimer" to="StateMachine/StartJump" method="_on_start_jump_timer_timeout"]
-[connection signal="timeout" from="StateMachine/Land/LandTimer" to="StateMachine/Land" method="_on_quit_jump_timer_timeout"]
-[connection signal="timeout" from="StateMachine/Attack/MeleeComboTimer" to="StateMachine/Attack" method="_on_melee_combo_timer_timeout"]
+[connection signal="timeout" from="Timers/StartJumpTimer" to="StateMachine/StartJump" method="_on_start_jump_timer_timeout"]
+[connection signal="timeout" from="Timers/LandTimer" to="StateMachine/Land" method="_on_quit_jump_timer_timeout"]
+[connection signal="timeout" from="Timers/MeleeComboTimer" to="StateMachine/Attack" method="_on_melee_combo_timer_timeout"]
+[connection signal="timeout" from="Timers/ReloadingTimer" to="StateMachine/Reload" method="_on_reloading_timer_timeout"]

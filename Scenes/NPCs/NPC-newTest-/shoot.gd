@@ -10,7 +10,7 @@ extends NPCsState
 @export var bulletScene: PackedScene
 @export_range(0, 1, 0.02) var fireRate: float = 0.5
 
-@onready var shooting_timer: Timer = $ShootingTimer
+@onready var shooting_timer: Timer = $"../../Timers/ShootingTimer"
 
 func enter() -> void:
 	super()
@@ -50,4 +50,4 @@ func _on_shooting_timer_timeout() -> void:
 		bullet.dir = dir
 		get_parent().add_child(bullet)
 		
-		#enter()
+		enter()

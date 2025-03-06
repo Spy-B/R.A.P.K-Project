@@ -13,4 +13,5 @@ func enter() -> void:
 func process_frame(_delta: float) -> State:
 	parent.health = 100
 	parent.health_label.text = str(parent.health)
+	
 	return idleState
