@@ -1,7 +1,7 @@
 extends Area2D
 
 var motion := Vector2.ZERO
-@export var speed := 2000
+@export var speed := 1000
 var dir = 1
 @export_range(0, 10) var timeScale: float = 1
 
@@ -9,7 +9,7 @@ var dir = 1
 @export var followPlayerTime := true
 
 var shooter = null
-@export var playerGroup: String
+@export var playerGroup: String = "Player"
 
 @onready var timer = $Timer
 
@@ -23,18 +23,18 @@ func _physics_process(delta: float) -> void:
 	elif followPlayerTime:
 		timeScale = shooter.bulletTimeScale
 	
-	position += motion * delta * timeScale
+	position += motion * delta # * timeScale
 
 func _on_Bullet_body_entered(body: Node) -> void:
 	if body == shooter:
 		return
-	queue_free()
 	
 	if body.is_in_group(playerGroup):
-		#body.queue_free()
-		Global.playerHealthValue -= 10
-		#body.position.x = shooter.shooting().
-		#body.get_node("AnimatedSprite2D").play("Die")
+		print("Player Shooted")
+		body.health -= 20
+		body.health_label.text = str(body.health)
+	
+	queue_free()
 
 
 func _on_Timer_timeout() -> void:

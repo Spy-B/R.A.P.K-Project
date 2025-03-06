@@ -20,8 +20,7 @@ func enter() -> void:
 	change_state = false
 	
 	randomize()
-	waiting_time = randf_range(1, 5)
-	print("Waiting Time: ", waiting_time)
+	waiting_time = randf_range(1, 4)
 	
 	rgs_timer.wait_time = waiting_time
 	rgs_timer.start()
@@ -32,11 +31,11 @@ func process_input(_event: InputEvent) -> NPCsState:
 	return null
 
 func process_physics(delta: float) -> NPCsState:
-	parent.velocity.x = walkSpeed * dir
-	sprite.scale.x = abs(sprite.scale.x) * dir
-	
 	if !parent.is_on_floor():
 		parent.velocity.y += gravity * delta
+	
+	parent.velocity.x = walkSpeed * dir
+	sprite.scale.x = abs(sprite.scale.x) * dir
 	
 	parent.move_and_slide()
 	
@@ -54,6 +53,10 @@ func process_frame(_delta: float) -> NPCsState:
 		return idleState
 	if parent.w_ray_cast.is_colliding():
 		dir *= -1
+	
+	if parent.player_detected:
+		return chasingState
+		
 	
 	return null
 

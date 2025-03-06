@@ -1598,25 +1598,25 @@ texture_filter = 1
 position = Vector2(7, 73)
 emitting = false
 amount = 20
-process_material = SubResource("ParticleProcessMaterial_c08rv")
 texture = ExtResource("3_api23")
 lifetime = 0.5
 explosiveness = 0.35
 randomness = 1.0
 fixed_fps = 60
 visibility_rect = Rect2(-25, -25, 50, 50)
+process_material = SubResource("ParticleProcessMaterial_c08rv")
 
 [node name="JumpParticles" type="GPUParticles2D" parent="Particles"]
 position = Vector2(1, 73)
 emitting = false
 amount = 20
-process_material = SubResource("ParticleProcessMaterial_lur8k")
 texture = ExtResource("3_api23")
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 randomness = 1.0
 fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_lur8k")
 
 [node name="PlayerSprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("2")
@@ -1668,7 +1668,7 @@ shape = SubResource("RectangleShape2D_e1k4i")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_sqcss")
+&"": SubResource("AnimationLibrary_sqcss")
 }
 speed_scale = 0.6
 

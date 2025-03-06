@@ -37,3 +37,9 @@ func process_physics(delta: float) -> State:
 	parent.move_and_slide()
 	
 	return null
+
+func process_frame(_delta: float) -> State:
+	if parent.health <= 0:
+		return deathState
+	
+	return null

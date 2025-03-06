@@ -80,6 +80,12 @@ func process_physics(delta: float) -> State:
 	
 	return null
 
+func process_frame(_delta: float) -> State:
+	if parent.health <= 0:
+		return deathState
+	
+	return null
+
 
 func _on_melee_combo_timer_timeout() -> void:
 	timeout = true

@@ -27,5 +27,8 @@ func _on_body_entered(body: Node2D) -> void:
 		print("[Enemy] -> [Health]: -20")
 		body.health -= 20
 		body.npc_label.text = str(body.health)
+		
+		if !body.player_detected:
+			body.player_detected = true
 	
 	queue_free()

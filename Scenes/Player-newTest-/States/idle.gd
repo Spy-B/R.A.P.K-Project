@@ -28,15 +28,21 @@ func process_input(_event: InputEvent) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
-	parent.velocity.x = lerp(parent.velocity.x, 0.0, parent.movementWeight)
-	
-	parent.velocity.y += gravity * delta
-	parent.move_and_slide()
-	
 	if !parent.is_on_floor():
+		parent.velocity.y += gravity * delta
 		return fallingState
+	
+	parent.velocity.x = lerp(parent.velocity.x, 0.0, parent.movementWeight)
 	
 	if !jump_buffer_timer.is_stopped():
 		return startJumpingState
+	
+	parent.move_and_slide()
+	
+	return null
+
+func process_frame(_delta: float) -> State:
+	if parent.health <= 0:
+		return deathState
 	
 	return null

@@ -55,6 +55,11 @@ func process_physics(delta: float) -> State:
 	
 	return null
 
+func process_frame(_delta: float) -> State:
+	if parent.health <= 0:
+		return deathState
+	
+	return null
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == animationName:

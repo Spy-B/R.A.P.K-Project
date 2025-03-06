@@ -11,7 +11,8 @@ radius = 1.0
 collision_layer = 131072
 collision_mask = 65793
 script = ExtResource("1_lv1qe")
-playerGroup = "Player"
+followLvlSceneTime = false
+followPlayerTime = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rgju8")

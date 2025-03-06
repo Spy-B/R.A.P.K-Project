@@ -16,21 +16,23 @@ func enter() -> void:
 	
 	change_state = false
 	
-	randomize()
-	waiting_time = randf_range(1, 3)
-	print("Waiting Time: ", waiting_time)
-	
-	rgs_timer.wait_time = waiting_time
-	rgs_timer.start()
+	if parent.NpcType == 0:
+		randomize()
+		waiting_time = randf_range(1, 3)
+		
+		rgs_timer.wait_time = waiting_time
+		rgs_timer.start()
+	else:
+		return
 
 func process_input(_event: InputEvent) -> NPCsState:
 	return null
 
 func process_physics(delta: float) -> NPCsState:
-	parent.velocity.x = lerp(parent.velocity.x, 0.0, parent.movementWeight)
-	
 	if !parent.is_on_floor():
 		parent.velocity.y += gravity * delta
+	
+	parent.velocity.x = lerp(parent.velocity.x, 0.0, parent.movementWeight)
 	
 	parent.move_and_slide()
 	
@@ -47,6 +49,9 @@ func process_frame(_delta: float) -> NPCsState:
 		return wanderingState
 	if parent.w_ray_cast.is_colliding():
 		dir *= -1
+	
+	if parent.player_detected:
+		return chasingState
 	
 	return null
 

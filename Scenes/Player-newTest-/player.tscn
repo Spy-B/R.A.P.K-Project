@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://odlluvrio0fy"]
+[gd_scene load_steps=32 format=3 uid="uid://odlluvrio0fy"]
 
 [ext_resource type="Script" uid="uid://c84khsfjk8jkw" path="res://Scenes/Player-newTest-/player.gd" id="1_3wwtw"]
 [ext_resource type="Texture2D" uid="uid://df6a0s6s4n8rm" path="res://Assets/Characters/Player/red hood itch free Copy-Sheet.png" id="1_enipy"]
@@ -14,12 +14,13 @@
 [ext_resource type="Script" uid="uid://dgblu2jsnjcwy" path="res://Scenes/Player-newTest-/States/shoot.gd" id="10_xqoms"]
 [ext_resource type="Script" uid="uid://cxhhcu4ieh75a" path="res://Scenes/Player-newTest-/States/die.gd" id="11_wk1dk"]
 [ext_resource type="PackedScene" uid="uid://ctncad00jdckv" path="res://Scenes/Player-newTest-/arrow.tscn" id="13_88yj3"]
+[ext_resource type="Script" uid="uid://caq1yqbc8kym7" path="res://Scenes/Player-newTest-/respawn.gd" id="15_gsya0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bmxon"]
 size = Vector2(18, 34.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omcea"]
-size = Vector2(20, 32.5)
+size = Vector2(20, 31.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_16yam"]
 size = Vector2(18, 34.5)
@@ -162,6 +163,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [120, 121, 122, 123, 124, 125, 126]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.48, 0.56),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.56),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_8eqv0"]
@@ -463,10 +488,16 @@ deathState = NodePath(".")
 arrowScene = ExtResource("13_88yj3")
 animationName = "Shooting"
 
-[node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState")]
+[node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "respawningState")]
 script = ExtResource("11_wk1dk")
 idleState = NodePath("../Idle")
+respawningState = NodePath("../Respawn")
 animationName = "Death"
+
+[node name="Respawn" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState")]
+script = ExtResource("15_gsya0")
+idleState = NodePath("../Idle")
+animationName = "Idle"
 
 [node name="Timers" type="Node" parent="."]
 
@@ -477,6 +508,22 @@ one_shot = true
 [node name="JumpBufferTimer" type="Timer" parent="Timers"]
 wait_time = 0.3
 one_shot = true
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Health" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = -20.0
+offset_top = -43.0
+offset_right = 20.0
+offset_bottom = -20.0
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="PlayerSprite/HitArea" to="StateMachine/Attack" method="_on_hit_area_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]
