@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dqcfgrrxg0lip"]
 
-[ext_resource type="Script" uid="uid://c2c1ncxi4ciot" path="res://Scripts/UI/Intro.gd" id="1_8s6ko"]
+[ext_resource type="Script" uid="uid://c2c1ncxi4ciot" path="res://Scripts/UI/intro.gd" id="1_8s6ko"]
 [ext_resource type="Texture2D" uid="uid://dy2poqolk38ii" path="res://Default/RAFIA_LOGO.svg" id="1_t13kq"]
 
 [sub_resource type="Animation" id="Animation_kndrd"]

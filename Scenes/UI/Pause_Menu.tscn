@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dcqdlc1umudh4"]
 
-[ext_resource type="Script" uid="uid://barqhq4f21wby" path="res://Scripts/UI/Pause.gd" id="1_38i67"]
+[ext_resource type="Script" uid="uid://barqhq4f21wby" path="res://Scripts/UI/pause.gd" id="1_38i67"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="2_wrqqf"]
 
 [node name="Pause" type="Control"]

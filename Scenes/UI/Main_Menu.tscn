@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cvplrh5krh46n"]
 
-[ext_resource type="Script" uid="uid://cleogt786p7en" path="res://Scripts/UI/Main_Menu.gd" id="1_e6i5b"]
+[ext_resource type="Script" uid="uid://cleogt786p7en" path="res://Scripts/UI/main_menu.gd" id="1_e6i5b"]
 [ext_resource type="FontFile" uid="uid://dcp8gylagvxol" path="res://Assets/Fonts/Transyl-Bold.ttf" id="2_0oyis"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="4_n458f"]
 

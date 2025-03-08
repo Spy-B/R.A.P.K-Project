@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b1yg145rjjukt"]
 
-[ext_resource type="Script" uid="uid://det86q5b5770u" path="res://Scripts/traps/Surprise_Trap.gd" id="1_emmqd"]
-[ext_resource type="Texture2D" uid="uid://dmh6mwqb2f484" path="res://Assets/traps/surprise trap/surprise trap.png" id="2_w414s"]
+[ext_resource type="Script" uid="uid://det86q5b5770u" path="res://Scripts/Obstacles/traps/surprise_trap.gd" id="1_emmqd"]
+[ext_resource type="Texture2D" uid="uid://dmh6mwqb2f484" path="res://Assets/traps/surprise trap.png" id="2_w414s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ex816"]
 size = Vector2(65, 33.5)

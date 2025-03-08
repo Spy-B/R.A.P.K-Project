@@ -1,13 +1,13 @@
 extends Node2D
 
-@export_multiline var letter:String = ""
+@export_multiline var letter = ""
 @export var playerGroup: String
 
 
-@onready var UI = $UI
+@onready var canvas_layer = $CanvasLayer
 #@onready var control = $CanvasLayer/Control
-@onready var texture_rect = $UI/Control/TextureRect
-@onready var label = $UI/Control/Label
+@onready var texture_rect = $CanvasLayer/Control/TextureRect
+@onready var label = $CanvasLayer/Control/Label
 
 
 var player_in_range = false
@@ -18,7 +18,7 @@ func _ready():
 @warning_ignore("unused_parameter")
 func _process(delta):
 		if Input.is_action_just_pressed("interact") && player_in_range:
-			UI.visible = !UI.visible
+			canvas_layer.visible = !canvas_layer.visible
 			get_tree().paused = !get_tree().paused
 
 func _on_area_2d_body_entered(body):

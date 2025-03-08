@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dt743vgc0hwtt"]
 
 [ext_resource type="Shader" uid="uid://d4divnflshxhf" path="res://Resource/Shaders/water_shader.gdshader" id="1"]
-[ext_resource type="Script" uid="uid://08hfh75mps47" path="res://Scripts/Physics/Water_Body.gd" id="2"]
+[ext_resource type="Script" uid="uid://08hfh75mps47" path="res://Scripts/Physics/water_body.gd" id="2"]
 [ext_resource type="Script" uid="uid://drqxxp07bd5ia" path="res://Scripts/Physics/smooth_path_modified.gd" id="3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p066d"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dsbijqdyjddj5"]
 
-[ext_resource type="Script" uid="uid://dokhyde8mkft8" path="res://Scripts/Physics/Moving_Platform.gd" id="1_5pnn2"]
+[ext_resource type="Script" uid="uid://dokhyde8mkft8" path="res://Scripts/Physics/moving_platform.gd" id="1_5pnn2"]
 [ext_resource type="Texture2D" uid="uid://dhgjur85t8ofe" path="res://Assets/Envirement/Texture/TX Tileset Ground.png" id="1_c32mc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5bpvx"]

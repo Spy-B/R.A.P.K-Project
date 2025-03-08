@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bqpqehuqtwuu6"]
 
-[ext_resource type="Script" uid="uid://n5uyuk78wnf1" path="res://Scripts/traps/Floor_Saw.gd" id="1_0cgl1"]
-[ext_resource type="Texture2D" uid="uid://bvsisv2n3v7u8" path="res://Assets/traps/floor saw/floor saw.png" id="1_y23dg"]
+[ext_resource type="Script" uid="uid://n5uyuk78wnf1" path="res://Scripts/Obstacles/traps/floor_saw_trap.gd" id="1_0cgl1"]
+[ext_resource type="Texture2D" uid="uid://bvsisv2n3v7u8" path="res://Assets/traps/floor_saw.png" id="1_y23dg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e3p11"]
 radius = 13.0

@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://b5b5dfh0nfqbt"]
+[gd_scene load_steps=9 format=3 uid="uid://b5b5dfh0nfqbt"]
 
-[ext_resource type="Script" uid="uid://y3mjps20to58" path="res://Scripts/UI/Loading.gd" id="1_oyonu"]
+[ext_resource type="Script" uid="uid://y3mjps20to58" path="res://Scripts/UI/loading.gd" id="1_oyonu"]
 [ext_resource type="FontFile" uid="uid://bcnid3iximx4r" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.otf" id="3_bjyxr"]
-[ext_resource type="VideoStream" uid="uid://dgcth6kq5m1xn" path="res://Assets/Videos/Resilience _ Animated Short _ CalArts Film 2023.ogv" id="4_u573m"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="5_us26t"]
 
 [sub_resource type="Animation" id="Animation_fmaqw"]
@@ -129,7 +128,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-stream = ExtResource("4_u573m")
 volume_db = -10.0
 autoplay = true
 expand = true
@@ -138,7 +136,7 @@ expand = true
 visible = false
 position = Vector2(1832, 1000)
 scale = Vector2(0.1, 0.1)
-animation = &"Loading"
+animation = &""
 
 [node name="LoadingText" type="Label" parent="."]
 layout_mode = 0
