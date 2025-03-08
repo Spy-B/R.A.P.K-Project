@@ -22,7 +22,7 @@
 size = Vector2(18, 34.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omcea"]
-size = Vector2(20, 31.5)
+size = Vector2(21, 34.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_16yam"]
 size = Vector2(18, 34.5)
@@ -55,18 +55,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [true, false, true]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerSprite/HitArea/CollisionShape2D:shape:size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(20, 31.5)]
-}
 
 [sub_resource type="Animation" id="Animation_0vm1q"]
 resource_name = "Attack_2"
@@ -96,18 +84,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [true, false, true]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerSprite/HitArea/CollisionShape2D:shape:size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(22, 32.5)]
-}
 
 [sub_resource type="Animation" id="Animation_ua1bk"]
 resource_name = "Attack_3"
@@ -136,18 +112,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PlayerSprite/HitArea/CollisionShape2D:shape:size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(20, 32.5)]
 }
 
 [sub_resource type="Animation" id="Animation_4kem3"]
@@ -335,7 +299,7 @@ _data = {
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 256
-collision_mask = 393217
+collision_mask = 393219
 script = ExtResource("1_3wwtw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -348,6 +312,7 @@ texture = ExtResource("1_enipy")
 flip_h = true
 hframes = 12
 vframes = 11
+frame = 62
 
 [node name="HitArea" type="Area2D" parent="PlayerSprite"]
 position = Vector2(17, 16)
@@ -355,7 +320,7 @@ collision_layer = 256
 collision_mask = 196609
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprite/HitArea"]
-position = Vector2(0, -1.75)
+position = Vector2(1.5, -2.75)
 shape = SubResource("RectangleShape2D_omcea")
 disabled = true
 

@@ -46,7 +46,6 @@ func process_frame(_delta: float) -> NPCsState:
 		return deathState
 	
 	if change_state:
-		change_state = false
 		return idleState
 	
 	if !parent.g_ray_cast.is_colliding():

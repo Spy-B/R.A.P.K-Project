@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://6yql0tuo5qyo" path="res://Scenes/NPCs/NPC-newTest-/shoot.gd" id="6_7csx7"]
 [ext_resource type="Script" uid="uid://xs4sakmnfrj1" path="res://Scenes/NPCs/NPC-newTest-/chase.gd" id="6_m07t2"]
 [ext_resource type="Script" uid="uid://bj2til3cuyu48" path="res://Scenes/NPCs/NPC-newTest-/reload.gd" id="7_h6x30"]
+[ext_resource type="Script" uid="uid://bp8vfrf041qxm" path="res://Scenes/NPCs/NPC-newTest-/cool_down.gd" id="8_0q3ly"]
 [ext_resource type="Script" uid="uid://15vf6aaeeha8" path="res://Scenes/NPCs/NPC-newTest-/talk.gd" id="8_5xtl5"]
 [ext_resource type="Script" uid="uid://deo4juuw4jita" path="res://Scenes/NPCs/NPC-newTest-/die.gd" id="8_16q4q"]
 [ext_resource type="PackedScene" uid="uid://cwormf6p6oqbo" path="res://Scenes/NPCs/NPC-newTest-/npc_bullet.tscn" id="9_v5ibw"]
@@ -20,9 +21,6 @@ size = Vector2(30, 35)
 shader = ExtResource("2_5dkjo")
 shader_parameter/flashColor = Color(1, 1, 1, 1)
 shader_parameter/flashValue = 0.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2qxjj"]
-size = Vector2(31.9999, 37)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_40auk"]
 size = Vector2(27.9999, 37)
@@ -172,26 +170,17 @@ texture = ExtResource("2_jwyqi")
 hframes = 8
 vframes = 13
 
-[node name="GunBarrel" type="Marker2D" parent="Sprite2D"]
-position = Vector2(8, 8)
-
 [node name="Areas" type="Node2D" parent="Sprite2D"]
 position = Vector2(0, 8.5)
 rotation = 3.14159
 scale = Vector2(0.5, -0.5)
-
-[node name="HurtArea" type="Area2D" parent="Sprite2D/Areas"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Areas/HurtArea"]
-position = Vector2(0.999992, -2.50002)
-shape = SubResource("RectangleShape2D_2qxjj")
 
 [node name="HitArea" type="Area2D" parent="Sprite2D/Areas"]
 position = Vector2(-27, 0)
 collision_layer = 262144
 collision_mask = 256
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Areas/HitArea"]
+[node name="HitCollision" type="CollisionShape2D" parent="Sprite2D/Areas/HitArea"]
 position = Vector2(2.99997, -2.50002)
 shape = SubResource("RectangleShape2D_40auk")
 disabled = true
@@ -204,17 +193,21 @@ target_position = Vector2(0, 12)
 
 [node name="WRayCast" type="RayCast2D" parent="Sprite2D/RayCasts"]
 position = Vector2(0, 8.5)
-target_position = Vector2(10, 0)
+target_position = Vector2(12, 0)
+collision_mask = 3
 
 [node name="ShootRayCast" type="RayCast2D" parent="Sprite2D/RayCasts"]
 position = Vector2(0, 8.5)
 target_position = Vector2(150, 0)
-collision_mask = 256
+collision_mask = 258
 
 [node name="PlayerDetector" type="RayCast2D" parent="Sprite2D/RayCasts"]
 position = Vector2(0, 5)
 target_position = Vector2(250, 0)
-collision_mask = 256
+collision_mask = 258
+
+[node name="GunBarrel" type="Marker2D" parent="Sprite2D"]
+position = Vector2(8, 8)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -244,15 +237,22 @@ talkingState = NodePath("../Talk")
 deathState = NodePath("../Die")
 animationName = "Running"
 
-[node name="Chase" type="Node" parent="NPCsStateMachine" node_paths=PackedStringArray("idleState", "wanderingState", "shootingState", "reloadingState", "talkingState", "deathState")]
+[node name="Chase" type="Node" parent="NPCsStateMachine" node_paths=PackedStringArray("idleState", "wanderingState", "cooldownState", "shootingState", "reloadingState", "talkingState", "deathState")]
 script = ExtResource("6_m07t2")
 idleState = NodePath("../Idle")
 wanderingState = NodePath("../Wander")
+cooldownState = NodePath("../CoolDown")
 shootingState = NodePath("../Shoot")
 reloadingState = NodePath("../Reload")
 talkingState = NodePath("../Talk")
 deathState = NodePath("../Die")
 animationName = "Running"
+
+[node name="CoolDown" type="Node" parent="NPCsStateMachine" node_paths=PackedStringArray("idleState", "chasingState", "deathState")]
+script = ExtResource("8_0q3ly")
+idleState = NodePath("../Idle")
+chasingState = NodePath("../Chase")
+deathState = NodePath("../Die")
 
 [node name="Shoot" type="Node" parent="NPCsStateMachine" node_paths=PackedStringArray("idleState", "wanderingState", "chasingState", "reloadingState", "talkingState", "deathState")]
 script = ExtResource("6_7csx7")
@@ -309,7 +309,7 @@ editor_description = "Roaming game states timer"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0, -2.86102e-06)
-scale = Vector2(11.2, 3.2)
+scale = Vector2(19.2, 3.2)
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibleOnScreenNotifier2D"]
 enable_node_path = NodePath("../..")
@@ -333,5 +333,5 @@ metadata/_edit_use_anchors_ = true
 [connection signal="timeout" from="Timers/ShootingTimer" to="NPCsStateMachine/Shoot" method="_on_shooting_timer_timeout"]
 [connection signal="timeout" from="Timers/RGSTimer" to="NPCsStateMachine/Idle" method="_on_rgs_timer_timeout"]
 [connection signal="timeout" from="Timers/RGSTimer" to="NPCsStateMachine/Wander" method="_on_rgs_timer_timeout"]
-[connection signal="timeout" from="Timers/CooldownPeriodTimer" to="NPCsStateMachine/Chase" method="_on_cooldown_period_timer_timeout"]
+[connection signal="timeout" from="Timers/CooldownPeriodTimer" to="NPCsStateMachine/CoolDown" method="_on_cooldown_period_timer_timeout"]
 [connection signal="timeout" from="Timers/ReloadingTimer" to="NPCsStateMachine/Reload" method="_on_reloading_timer_timeout"]

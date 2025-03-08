@@ -16,17 +16,21 @@ func enter() -> void:
 	
 	change_state = false
 	
-	if parent.NpcType == 0:
-		randomize()
-		waiting_time = randf_range(1, 3)
-		
-		rgs_timer.wait_time = waiting_time
-		rgs_timer.start()
-	else:
-		return
-
-func process_input(_event: InputEvent) -> NPCsState:
-	return null
+	match parent.NpcType:
+		0:
+			randomize()
+			waiting_time = randf_range(1, 3)
+			
+			rgs_timer.wait_time = waiting_time
+			rgs_timer.start()
+		1:
+			parent.set_collision_layer_value(17, false)
+			parent.set_collision_layer_value(23, true)
+			
+			parent.g_ray_cast.enabled = false
+			parent.w_ray_cast.enabled = false
+			parent.shoot_ray_cast.enabled = false
+			parent.player_detector.enabled = false
 
 func process_physics(delta: float) -> NPCsState:
 	if !parent.is_on_floor():
@@ -39,17 +43,22 @@ func process_physics(delta: float) -> NPCsState:
 	return null
 
 func process_frame(_delta: float) -> NPCsState:
-	if parent.health <= 0:
-		return deathState
-	
-	if !parent.g_ray_cast.is_colliding() || change_state:
-		return wanderingState
-	
-	if parent.w_ray_cast.is_colliding():
-		dir *= -1
-	
-	if parent.player_detected:
-		return chasingState
+	#if parent.NpcType:
+	match parent.NpcType:
+		0:
+			if parent.health <= 0:
+				return deathState
+			
+			if !parent.g_ray_cast.is_colliding() || change_state:
+				return wanderingState
+			
+			if parent.w_ray_cast.is_colliding():
+				dir *= -1
+			
+			if parent.player_detected:
+				return chasingState
+		1:
+			pass
 	
 	return null
 

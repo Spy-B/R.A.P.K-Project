@@ -16,16 +16,22 @@ var cool_down: bool = true
 
 
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var gun_barrel: Marker2D = $Sprite2D/GunBarrel
+
+@onready var hit_collision: CollisionShape2D = $Sprite2D/Areas/HitArea/HitCollision
+
 @onready var g_ray_cast: RayCast2D = $Sprite2D/RayCasts/GRayCast
 @onready var w_ray_cast: RayCast2D = $Sprite2D/RayCasts/WRayCast
 @onready var shoot_ray_cast: RayCast2D = $Sprite2D/RayCasts/ShootRayCast
 @onready var player_detector: RayCast2D = $Sprite2D/RayCasts/PlayerDetector
 
+@onready var gun_barrel: Marker2D = $Sprite2D/GunBarrel
+
 @onready var npcs_state_machine: Node = $NPCsStateMachine
 
 @onready var rgs_timer: Timer = $Timers/RGSTimer
+#@onready var cooldown_period_timer: Timer = $Timers/CooldownPeriodTimer
 @onready var npc_label: Label = $UI/Label
 
 func _ready() -> void:

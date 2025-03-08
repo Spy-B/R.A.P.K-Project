@@ -1,13 +1,9 @@
-[gd_scene load_steps=29 format=4 uid="uid://brwddqb7thkn8"]
+[gd_scene load_steps=20 format=4 uid="uid://brwddqb7thkn8"]
 
 [ext_resource type="Script" uid="uid://dnofuy07gx43o" path="res://Scripts/LVLs/lvl.gd" id="1_rbo7i"]
 [ext_resource type="Texture2D" uid="uid://bl0scgi63vt2f" path="res://Assets/Envirement/City BG/city 1/1.png" id="2_msls5"]
 [ext_resource type="Texture2D" uid="uid://b2cw7dwfgy6b" path="res://Assets/Envirement/Legacy-Fantasy - High Forest 2.3/Trees/Background.png" id="3_6ii1r"]
 [ext_resource type="TileSet" uid="uid://bgtqyj7x8mfmm" path="res://TileMaps/LVL-Alpha Tilemap.tres" id="4_ee1ov"]
-[ext_resource type="Texture2D" uid="uid://85ptmos0irs2" path="res://Assets/Envirement/city_cars_8.png" id="5_popyq"]
-[ext_resource type="Texture2D" uid="uid://2ulxbpm7qm8i" path="res://Assets/VFX/PNG (Transparent)/light_01.png" id="6_adhwj"]
-[ext_resource type="Texture2D" uid="uid://dw3dhiavoiaik" path="res://Assets/Envirement/KERES-000 Pod.png" id="7_hhrw2"]
-[ext_resource type="Texture2D" uid="uid://bpkj5xidw45v8" path="res://Assets/Envirement/the transmission Room.png" id="8_1dltn"]
 [ext_resource type="PackedScene" uid="uid://dq0u5vt1sa20b" path="res://Scenes/Interactions/Checkpoint/Checkpoint.tscn" id="9_p7leh"]
 [ext_resource type="PackedScene" uid="uid://td8b3vyvnsod" path="res://Scenes/Interactions/Checkpoint/Checkpoint_Manager.tscn" id="10_jrcsv"]
 [ext_resource type="PackedScene" uid="uid://b1yg145rjjukt" path="res://Scenes/Obstacles/Traps/Surprise_Trap.tscn" id="11_b3ecj"]
@@ -18,23 +14,6 @@
 [ext_resource type="Script" uid="uid://bnpsqvquvqpo4" path="res://Scripts/UI/GUI.gd" id="16_2tak6"]
 [ext_resource type="FontFile" uid="uid://bipxkoltcmv64" path="res://Assets/Fonts/Fuente-Metal-Slug-Latino-master/Metal Slug Latino Regular.ttf" id="17_3838w"]
 [ext_resource type="PackedScene" uid="uid://dcqdlc1umudh4" path="res://Scenes/UI/Pause_Menu.tscn" id="18_a7apl"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b7x6j"]
-size = Vector2(285, 87)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jegqo"]
-cull_mode = 1
-polygon = PackedVector2Array(-55, -8, -59, -10, -65, -10, -454, 51, -78, 51, -56, 11, -54, 5, -54, -3)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iwmlp"]
-size = Vector2(143, 191)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_r5e12"]
-cull_mode = 1
-polygon = PackedVector2Array(47, -91, 47, 61, 95, 97, -98, 98, -98, -95, 9, -96)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qmily"]
-size = Vector2(513, 511)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fm782"]
 size = Vector2(20, 978)
@@ -334,91 +313,6 @@ tile_map_data = PackedByteArray("AAD//x4ABgAAAAAAAAAAAB4ABgABAAAAAAABAB4ABgALAAM
 [node name="FGround" type="TileMapLayer" parent="TileMapLayers" groups=["LVLs"]]
 
 [node name="Envirement Objects" type="Node2D" parent="."]
-visible = false
-
-[node name="Car" type="StaticBody2D" parent="Envirement Objects"]
-position = Vector2(1536, 917)
-collision_layer = 2
-
-[node name="Sprite2D" type="Sprite2D" parent="Envirement Objects/Car"]
-scale = Vector2(3, 3)
-texture = ExtResource("5_popyq")
-region_enabled = true
-region_rect = Rect2(0, 33, 96, 29)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Envirement Objects/Car"]
-position = Vector2(-8.5, 0.5)
-shape = SubResource("RectangleShape2D_b7x6j")
-
-[node name="PointLight2D" type="PointLight2D" parent="Envirement Objects/Car"]
-position = Vector2(-61, -1)
-energy = 2.0
-shadow_enabled = true
-shadow_filter = 1
-shadow_filter_smooth = 2.0
-texture = ExtResource("6_adhwj")
-texture_scale = 4.0
-
-[node name="PointLight2D2" type="PointLight2D" parent="Envirement Objects/Car"]
-position = Vector2(-131, 0)
-energy = 2.0
-shadow_enabled = true
-shadow_filter = 1
-shadow_filter_smooth = 2.0
-texture = ExtResource("6_adhwj")
-texture_scale = 4.0
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Envirement Objects/Car"]
-occluder = SubResource("OccluderPolygon2D_jegqo")
-
-[node name="LightOccluder2D2" type="LightOccluder2D" parent="Envirement Objects/Car"]
-position = Vector2(-69, -1)
-occluder = SubResource("OccluderPolygon2D_jegqo")
-
-[node name="KERES-000" type="StaticBody2D" parent="Envirement Objects"]
-unique_name_in_owner = true
-position = Vector2(2981, 928)
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Envirement Objects/KERES-000"]
-position = Vector2(-23.5, 0.5)
-shape = SubResource("RectangleShape2D_iwmlp")
-
-[node name="Sprite2D" type="Sprite2D" parent="Envirement Objects/KERES-000"]
-scale = Vector2(3, 3)
-texture = ExtResource("7_hhrw2")
-
-[node name="PointLight2D" type="PointLight2D" parent="Envirement Objects/KERES-000"]
-position = Vector2(50, 0)
-energy = 2.0
-shadow_enabled = true
-shadow_filter = 1
-shadow_filter_smooth = 10.0
-texture = ExtResource("6_adhwj")
-texture_scale = 2.0
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Envirement Objects/KERES-000"]
-occluder = SubResource("OccluderPolygon2D_r5e12")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Envirement Objects/KERES-000"]
-position = Vector2(-0.999984, 2.19345e-05)
-scale = Vector2(10, 9.6)
-
-[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="Envirement Objects/KERES-000"]
-position = Vector2(-1, 0)
-scale = Vector2(10, 9.6)
-
-[node name="TransmissionRoom" type="StaticBody2D" parent="Envirement Objects"]
-position = Vector2(194, 706)
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Envirement Objects/TransmissionRoom"]
-position = Vector2(-0.5, -1.5)
-shape = SubResource("RectangleShape2D_qmily")
-
-[node name="Sprite2D" type="Sprite2D" parent="Envirement Objects/TransmissionRoom"]
-scale = Vector2(8, 8)
-texture = ExtResource("8_1dltn")
 
 [node name="Interactions" type="Node2D" parent="."]
 
@@ -427,10 +321,6 @@ position = Vector2(35, 4)
 
 [node name="CheckPoint" parent="Interactions/Checkpoints" node_paths=PackedStringArray("checkpoint_manager") instance=ExtResource("9_p7leh")]
 position = Vector2(4908, 785)
-checkpoint_manager = NodePath("../CheckpointManager")
-
-[node name="CheckPoint2" parent="Interactions/Checkpoints" node_paths=PackedStringArray("checkpoint_manager") instance=ExtResource("9_p7leh")]
-position = Vector2(7446, 816)
 checkpoint_manager = NodePath("../CheckpointManager")
 
 [node name="CheckpointManager" parent="Interactions/Checkpoints" node_paths=PackedStringArray("player") instance=ExtResource("10_jrcsv")]
@@ -456,11 +346,12 @@ position = Vector2(3001, 1013)
 [node name="Enemies" type="Node2D" parent="NPCs"]
 
 [node name="NPC" parent="NPCs/Enemies" node_paths=PackedStringArray("player") instance=ExtResource("13_ondqr")]
-position = Vector2(2699, 879)
+position = Vector2(1919, 898)
+NpcType = 1
 player = NodePath("../../../Player")
 
 [node name="NPC2" parent="NPCs/Enemies" node_paths=PackedStringArray("player") instance=ExtResource("13_ondqr")]
-position = Vector2(3768, 848)
+position = Vector2(2693, 876)
 player = NodePath("../../../Player")
 
 [node name="NPC3" parent="NPCs/Enemies" node_paths=PackedStringArray("player") instance=ExtResource("13_ondqr")]
@@ -471,7 +362,7 @@ player = NodePath("../../../Player")
 
 [node name="Player" parent="." node_paths=PackedStringArray("checkpointManager") instance=ExtResource("14_qekjm")]
 unique_name_in_owner = true
-position = Vector2(1881, 931)
+position = Vector2(1207, 938)
 collision_mask = 393345
 checkpointManager = NodePath("../Interactions/Checkpoints/CheckpointManager")
 
@@ -483,14 +374,14 @@ limit_right = 6300
 [node name="LIMITs" type="Node2D" parent="."]
 
 [node name="LIMIT" type="StaticBody2D" parent="LIMITs" groups=["LVLs"]]
-position = Vector2(-16, 728)
+position = Vector2(13, 935)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LIMITs/LIMIT"]
 position = Vector2(0, -239)
 shape = SubResource("RectangleShape2D_fm782")
 
 [node name="LIMIT2" type="StaticBody2D" parent="LIMITs" groups=["LVLs"]]
-position = Vector2(9104, 440)
+position = Vector2(6312, 696)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LIMITs/LIMIT2"]
 shape = SubResource("RectangleShape2D_fm782")

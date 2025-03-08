@@ -1,27 +1,16 @@
 extends NPCsState
 
 @export var idleState: NPCsState
-@export var wanderingState: NPCsState
-@export var cooldownState: NPCsState
-@export var shootingState: NPCsState
-@export var reloadingState: NPCsState
-@export var talkingState: NPCsState
+@export var chasingState: NPCsState
 @export var deathState: NPCsState
 
 @export_range(0, 10, 0.5) var cooldownPeriod: float = 5.0
 @onready var cooldown_period_timer: Timer = $"../../Timers/CooldownPeriodTimer"
 
-
 func enter() -> void:
-	super()
-	print("[Enemy][State]: Chase")
-	
+	print("[Enemy][State]: Cool Down")
 	cooldown_period_timer.wait_time = cooldownPeriod
-	
-	parent.player_detector.target_position.x = 300.0
-
-func process_input(_event: InputEvent) -> NPCsState:
-	return null
+	cooldown_period_timer.start()
 
 func process_physics(delta: float) -> NPCsState:
 	if !parent.is_on_floor():
@@ -45,10 +34,17 @@ func process_frame(_delta: float) -> NPCsState:
 	if parent.health <= 0:
 		return deathState
 	
-	if parent.shoot_ray_cast.get_collider() == parent.player:
-		return shootingState
+	if parent.player_detected:
+		return chasingState
 	
-	if !parent.player_detected: 
-		return cooldownState
+	if parent.cool_down:
+		return idleState
 	
 	return null
+
+
+func _on_cooldown_period_timer_timeout() -> void:
+	parent.player_detector.target_position.x = 250.0
+	parent.cool_down = true
+	
+	cooldown_period_timer.stop()
