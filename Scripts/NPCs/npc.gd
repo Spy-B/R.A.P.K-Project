@@ -14,6 +14,9 @@ var cool_down: bool = true
 @export var maxAmmo: int = 9
 @export var extraAmmo: int = 999
 
+@export_group("Dielogue Settings")
+@export var dialogueJson: JSON
+@onready var state: Dictionary = {}
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
@@ -32,10 +35,14 @@ var cool_down: bool = true
 
 @onready var rgs_timer: Timer = $Timers/RGSTimer
 #@onready var cooldown_period_timer: Timer = $Timers/CooldownPeriodTimer
-@onready var npc_label: Label = $UI/Label
+
+@onready var dialogue_box: Control = $UI/DialogueBox
+@onready var ez_dialogue: EzDialogue = $UI/DialogueBox/EzDialogue
 
 func _ready() -> void:
 	npcs_state_machine.init(self, sprite, animation_player, gun_barrel, rgs_timer)
+	
+	(ez_dialogue as EzDialogue).start_dialogue(dialogueJson, state)
 
 func _unhandled_input(event: InputEvent) -> void:
 	npcs_state_machine.process_input(event)
@@ -51,3 +58,7 @@ func _process(delta: float) -> void:
 		cool_down = false
 	elif !player_detector.get_collider() == player:
 		player_detected = false
+
+
+func _on_ez_dialogue_dialogue_generated(response: DialogueResponse) -> void:
+	dialogue_box.add_text(response.text)

@@ -24,9 +24,9 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	
 	if body.is_in_group(target):
-		print("[Enemy] -> [Health]: -20")
 		body.health -= 20
-		body.npc_label.text = str(body.health)
+		print("[Enemy] -> [Health]: -20")
+		
 		
 		if !body.player_detected:
 			body.player_detected = true

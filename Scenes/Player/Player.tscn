@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://ctncad00jdckv" path="res://Scenes/Player/arrow.tscn" id="13_88yj3"]
 [ext_resource type="Script" uid="uid://o10qb2iw2jbp" path="res://Scripts/Player/reload.gd" id="14_jlfwl"]
 [ext_resource type="Script" uid="uid://caq1yqbc8kym7" path="res://Scripts/Player/respawn.gd" id="15_gsya0"]
-[ext_resource type="Script" uid="uid://8gqr7prnhgj" path="res://Scripts/Player/ui_handler.gd" id="17_1w6uu"]
+[ext_resource type="Script" uid="uid://8gqr7prnhgj" path="res://Scripts/Player/ui.gd" id="17_1w6uu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bmxon"]
 size = Vector2(18, 34.5)
@@ -502,19 +502,10 @@ text = "100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="UIHandler" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("17_1w6uu")
 
-[node name="UI" type="Control" parent="UIHandler"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="AmmoLabel" type="Label" parent="UIHandler/UI"]
-layout_mode = 1
+[node name="AmmoLabel" type="Label" parent="UI"]
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 200.0

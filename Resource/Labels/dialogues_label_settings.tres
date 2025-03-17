@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://ck3j7eyrm2267"]
+
+[ext_resource type="FontFile" uid="uid://dcp8gylagvxol" path="res://Assets/Fonts/Transyl-Bold.ttf" id="1_vlj22"]
+
+[resource]
+font = ExtResource("1_vlj22")
+font_size = 32
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)

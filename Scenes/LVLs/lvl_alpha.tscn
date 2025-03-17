@@ -368,6 +368,7 @@ checkpointManager = NodePath("../Interactions/Checkpoints/CheckpointManager")
 
 [node name="Camera2D" parent="Player" instance=ExtResource("15_nq3fu")]
 offset = Vector2(0, -100)
+zoom = Vector2(1.5, 1.5)
 limit_left = 0
 limit_right = 6300
 

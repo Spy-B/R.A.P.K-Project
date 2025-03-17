@@ -106,6 +106,5 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 func _on_hit_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group(target):
-		print("[Enemy] -> [Health]: -10")
 		body.health -= 10
-		body.npc_label.text = str(body.health)
+		print("[Enemy] -> [Health]: -10")

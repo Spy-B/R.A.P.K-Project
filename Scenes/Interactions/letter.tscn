@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://4qvtq6epoo3e"]
 
-[ext_resource type="Script" uid="uid://bp8go8m4hpe6p" path="res://Scripts/Interactions/Letter.gd" id="1_y3g3p"]
+[ext_resource type="Script" uid="uid://c12b2x2ywwk8b" path="res://Scripts/Interactions/Letter.gd" id="1_y3g3p"]
 [ext_resource type="Texture2D" uid="uid://c7l67q2ffe28t" path="res://Assets/Objects/Shooter Game  Assets/Icons/Letter.png" id="2_ka42d"]
 [ext_resource type="Texture2D" uid="uid://beqlxk5kdxuin" path="res://Assets/UI/grunge-paper-background (Pixelized).jpg" id="3_p3v0h"]
 [ext_resource type="FontFile" uid="uid://dcp8gylagvxol" path="res://Assets/Fonts/Transyl-Bold.ttf" id="3_xcvvs"]

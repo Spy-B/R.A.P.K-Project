@@ -51,4 +51,4 @@ func _on_shooting_timer_timeout() -> void:
 		get_parent().add_child(bullet)
 		
 		enter()
-		shooting_timer.stop()
+		#shooting_timer.stop()

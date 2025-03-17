@@ -4,7 +4,6 @@
 
 [node name="Camera2D" type="Camera2D"]
 offset = Vector2(0, -120)
-zoom = Vector2(1.5, 1.5)
 limit_smoothed = true
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true

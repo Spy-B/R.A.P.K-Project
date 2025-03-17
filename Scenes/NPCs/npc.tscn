@@ -1,8 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://cmdo4y67uis4f"]
+[gd_scene load_steps=28 format=3 uid="uid://cmdo4y67uis4f"]
 
 [ext_resource type="Script" uid="uid://bj3uho672bvem" path="res://Scripts/NPCs/npc.gd" id="1_e8lvv"]
 [ext_resource type="Shader" uid="uid://dmn0dmxfshr1d" path="res://Resource/Shaders/hit_flash.gdshader" id="2_5dkjo"]
 [ext_resource type="Texture2D" uid="uid://j5b72bfewmqr" path="res://Assets/Characters/NPCs/Enemies/Prototype/No Outlines/players green x1.png" id="2_jwyqi"]
+[ext_resource type="JSON" path="res://Dialogue_Files/Dialogue_test_2.json" id="2_mg3ue"]
 [ext_resource type="PackedScene" uid="uid://cmbpwc3svcncr" path="res://Scenes/NPCs/npcs_state_machine.tscn" id="2_tklva"]
 [ext_resource type="Script" uid="uid://cmu6mxc2vx1gg" path="res://Scripts/NPCs/States/idle.gd" id="3_d4vqv"]
 [ext_resource type="Script" uid="uid://chveseg337sex" path="res://Scripts/NPCs/States/wander.gd" id="5_ysxli"]
@@ -13,6 +14,9 @@
 [ext_resource type="Script" uid="uid://15vf6aaeeha8" path="res://Scripts/NPCs/States/talk.gd" id="8_5xtl5"]
 [ext_resource type="Script" uid="uid://deo4juuw4jita" path="res://Scripts/NPCs/States/die.gd" id="8_16q4q"]
 [ext_resource type="PackedScene" uid="uid://cwormf6p6oqbo" path="res://Scenes/NPCs/npc_bullet.tscn" id="9_v5ibw"]
+[ext_resource type="Script" uid="uid://hct8g0dwy6rm" path="res://Dialogue_Files/dialogue_box.gd" id="14_c55s6"]
+[ext_resource type="LabelSettings" uid="uid://ck3j7eyrm2267" path="res://Resource/Labels/dialogues_label_settings.tres" id="14_ki3bk"]
+[ext_resource type="Script" uid="uid://lngqm66mqljp" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="16_lgjjx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6da7p"]
 size = Vector2(30, 35)
@@ -157,6 +161,7 @@ _data = {
 collision_layer = 65536
 collision_mask = 1537
 script = ExtResource("1_e8lvv")
+dialogueJson = ExtResource("2_mg3ue")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -2.5)
@@ -309,29 +314,52 @@ editor_description = "Roaming game states timer"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0, -2.86102e-06)
-scale = Vector2(19.2, 3.2)
+scale = Vector2(27.2, 12.8)
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibleOnScreenNotifier2D"]
 enable_node_path = NodePath("../..")
 
-[node name="UI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-metadata/_edit_use_anchors_ = true
+[node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Label" type="Label" parent="UI"]
-layout_mode = 0
-offset_left = -19.0
-offset_top = -43.0
-offset_right = 19.0
-offset_bottom = -20.0
-text = "100"
+[node name="DialogueBox" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("14_c55s6")
+
+[node name="DialogueText" type="Label" parent="UI/DialogueBox"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -16.0
+offset_right = 30.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "test test test"
+label_settings = ExtResource("14_ki3bk")
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
+
+[node name="DialogueTimer" type="Timer" parent="UI/DialogueBox"]
+
+[node name="EzDialogue" type="Node" parent="UI/DialogueBox"]
+script = ExtResource("16_lgjjx")
+metadata/_custom_type_script = "uid://lngqm66mqljp"
 
 [connection signal="timeout" from="Timers/ShootingTimer" to="NPCsStateMachine/Shoot" method="_on_shooting_timer_timeout"]
 [connection signal="timeout" from="Timers/RGSTimer" to="NPCsStateMachine/Idle" method="_on_rgs_timer_timeout"]
 [connection signal="timeout" from="Timers/RGSTimer" to="NPCsStateMachine/Wander" method="_on_rgs_timer_timeout"]
 [connection signal="timeout" from="Timers/CooldownPeriodTimer" to="NPCsStateMachine/CoolDown" method="_on_cooldown_period_timer_timeout"]
 [connection signal="timeout" from="Timers/ReloadingTimer" to="NPCsStateMachine/Reload" method="_on_reloading_timer_timeout"]
+[connection signal="timeout" from="UI/DialogueBox/DialogueTimer" to="UI/DialogueBox" method="_on_dialogue_timer_timeout"]
+[connection signal="dialogue_generated" from="UI/DialogueBox/EzDialogue" to="." method="_on_ez_dialogue_dialogue_generated"]
