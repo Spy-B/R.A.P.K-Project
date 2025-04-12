@@ -9,6 +9,8 @@ var have_coyote: bool = true
 var combo_points: int = 2
 var a_n_s_p: bool = false
 
+var can_start_dialogue: bool = false
+var is_in_dialogue: bool = false
 
 @export var checkpointManager: Node
 
@@ -29,6 +31,7 @@ var a_n_s_p: bool = false
 
 #@onready var health_label: Label = $UI/Health
 @onready var health_label: Label = $Health
+@onready var interact_key: TextureRect = $UI/InteractKey
 
 func _ready() -> void:
 	state_machine.init(self, gun_barrel, animation_player, coyote_timer, jump_buffer_timer)

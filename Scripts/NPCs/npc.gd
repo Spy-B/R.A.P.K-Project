@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
+#Enemy Type Vars
 var movementWeight: float = 0.2
 var health: int = 100
 var player_detected: bool = false
 var cool_down: bool = true
-
 
 @export_enum("Enemy", "Friendly") var NpcType = 0
 @export var player: CharacterBody2D
@@ -14,9 +14,8 @@ var cool_down: bool = true
 @export var maxAmmo: int = 9
 @export var extraAmmo: int = 999
 
-@export_group("Dielogue Settings")
-@export var dialogueJson: JSON
-@onready var state: Dictionary = {}
+#@export_group("Dielogue Settings")
+
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
@@ -36,13 +35,8 @@ var cool_down: bool = true
 @onready var rgs_timer: Timer = $Timers/RGSTimer
 #@onready var cooldown_period_timer: Timer = $Timers/CooldownPeriodTimer
 
-@onready var dialogue_box: Control = $UI/DialogueBox
-@onready var ez_dialogue: EzDialogue = $UI/DialogueBox/EzDialogue
-
 func _ready() -> void:
 	npcs_state_machine.init(self, sprite, animation_player, gun_barrel, rgs_timer)
-	
-	(ez_dialogue as EzDialogue).start_dialogue(dialogueJson, state)
 
 func _unhandled_input(event: InputEvent) -> void:
 	npcs_state_machine.process_input(event)
@@ -56,9 +50,9 @@ func _process(delta: float) -> void:
 	if player_detector.get_collider() == player:
 		player_detected = true
 		cool_down = false
-	elif !player_detector.get_collider() == player:
+		
+		player.can_start_dialogue = true
+	else:
 		player_detected = false
-
-
-func _on_ez_dialogue_dialogue_generated(response: DialogueResponse) -> void:
-	dialogue_box.add_text(response.text)
+		
+		player.can_start_dialogue = false

@@ -346,7 +346,7 @@ position = Vector2(3001, 1013)
 [node name="Enemies" type="Node2D" parent="NPCs"]
 
 [node name="NPC" parent="NPCs/Enemies" node_paths=PackedStringArray("player") instance=ExtResource("13_ondqr")]
-position = Vector2(1919, 898)
+position = Vector2(1368, 930)
 NpcType = 1
 player = NodePath("../../../Player")
 

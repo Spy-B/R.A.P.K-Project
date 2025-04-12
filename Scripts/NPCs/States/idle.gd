@@ -30,7 +30,9 @@ func enter() -> void:
 			parent.g_ray_cast.enabled = false
 			parent.w_ray_cast.enabled = false
 			parent.shoot_ray_cast.enabled = false
-			parent.player_detector.enabled = false
+			#parent.player_detector.enabled = false
+			
+			parent.player_detector.target_position.x = 25.0
 
 func process_physics(delta: float) -> NPCsState:
 	if !parent.is_on_floor():
@@ -51,7 +53,6 @@ func process_physics(delta: float) -> NPCsState:
 	return null
 
 func process_frame(_delta: float) -> NPCsState:
-	#if parent.NpcType:
 	match parent.NpcType:
 		0:
 			if parent.health <= 0:
@@ -68,6 +69,9 @@ func process_frame(_delta: float) -> NPCsState:
 		1:
 			#dir = -1
 			pass
+	
+	if Input.is_action_just_pressed("interact"):
+		return talkingState
 	
 	return null
 

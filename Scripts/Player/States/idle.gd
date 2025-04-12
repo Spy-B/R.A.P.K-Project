@@ -7,6 +7,7 @@ extends State
 @export var attackingState: State
 @export var shootingState: State
 @export var reloadingState: State
+@export var talkingState: State
 @export var deathState: State
 
 func enter() -> void:
@@ -50,5 +51,13 @@ func process_physics(delta: float) -> State:
 func process_frame(_delta: float) -> State:
 	if parent.health <= 0:
 		return deathState
+	
+	if parent.can_start_dialogue:
+		parent.interact_key.visible = true
+		
+		if Input.is_action_just_pressed("interact"):
+			return talkingState
+	else:
+		parent.interact_key.visible = false
 	
 	return null

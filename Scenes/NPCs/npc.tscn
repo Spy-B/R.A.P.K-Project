@@ -161,7 +161,6 @@ _data = {
 collision_layer = 65536
 collision_mask = 1537
 script = ExtResource("1_e8lvv")
-dialogueJson = ExtResource("2_mg3ue")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -2.5)
@@ -289,6 +288,7 @@ chasingState = NodePath("../Chase")
 shootingState = NodePath("../Shoot")
 reloadingState = NodePath("../Reload")
 deathState = NodePath("../Die")
+dialogueJson = ExtResource("2_mg3ue")
 animationName = "Talking"
 
 [node name="Die" type="Node" parent="NPCsStateMachine" node_paths=PackedStringArray("idleState", "wanderingState", "chasingState", "shootingState", "reloadingState", "talkingState")]
@@ -351,6 +351,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DialogueTimer" type="Timer" parent="UI/DialogueBox"]
+wait_time = 10.479
+autostart = true
 
 [node name="EzDialogue" type="Node" parent="UI/DialogueBox"]
 script = ExtResource("16_lgjjx")
@@ -362,4 +364,5 @@ metadata/_custom_type_script = "uid://lngqm66mqljp"
 [connection signal="timeout" from="Timers/CooldownPeriodTimer" to="NPCsStateMachine/CoolDown" method="_on_cooldown_period_timer_timeout"]
 [connection signal="timeout" from="Timers/ReloadingTimer" to="NPCsStateMachine/Reload" method="_on_reloading_timer_timeout"]
 [connection signal="timeout" from="UI/DialogueBox/DialogueTimer" to="UI/DialogueBox" method="_on_dialogue_timer_timeout"]
-[connection signal="dialogue_generated" from="UI/DialogueBox/EzDialogue" to="." method="_on_ez_dialogue_dialogue_generated"]
+[connection signal="dialogue_generated" from="UI/DialogueBox/EzDialogue" to="NPCsStateMachine/Talk" method="_on_ez_dialogue_dialogue_generated"]
+[connection signal="end_of_dialogue_reached" from="UI/DialogueBox/EzDialogue" to="NPCsStateMachine/Talk" method="_on_ez_dialogue_end_of_dialogue_reached"]

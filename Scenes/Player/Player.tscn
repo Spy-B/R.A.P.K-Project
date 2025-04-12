@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://odlluvrio0fy"]
+[gd_scene load_steps=36 format=3 uid="uid://odlluvrio0fy"]
 
 [ext_resource type="Script" uid="uid://c84khsfjk8jkw" path="res://Scripts/Player/player.gd" id="1_3wwtw"]
 [ext_resource type="Texture2D" uid="uid://df6a0s6s4n8rm" path="res://Assets/Characters/Player/red hood itch free Copy-Sheet.png" id="1_enipy"]
@@ -15,8 +15,10 @@
 [ext_resource type="Script" uid="uid://cxhhcu4ieh75a" path="res://Scripts/Player/States/die.gd" id="11_wk1dk"]
 [ext_resource type="PackedScene" uid="uid://ctncad00jdckv" path="res://Scenes/Player/arrow.tscn" id="13_88yj3"]
 [ext_resource type="Script" uid="uid://o10qb2iw2jbp" path="res://Scripts/Player/reload.gd" id="14_jlfwl"]
+[ext_resource type="Script" uid="uid://dc2qoct47fdum" path="res://Scripts/Player/States/talk.gd" id="15_aqm4k"]
 [ext_resource type="Script" uid="uid://caq1yqbc8kym7" path="res://Scripts/Player/respawn.gd" id="15_gsya0"]
 [ext_resource type="Script" uid="uid://8gqr7prnhgj" path="res://Scripts/Player/ui.gd" id="17_1w6uu"]
+[ext_resource type="Texture2D" uid="uid://ct1nomm0fe8i1" path="res://Assets/Keyboard_E_Icon.png" id="18_hnuln"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bmxon"]
 size = Vector2(18, 34.5)
@@ -312,7 +314,6 @@ texture = ExtResource("1_enipy")
 flip_h = true
 hframes = 12
 vframes = 11
-frame = 62
 
 [node name="HitArea" type="Area2D" parent="PlayerSprite"]
 position = Vector2(17, 16)
@@ -342,7 +343,7 @@ libraries = {
 [node name="StateMachine" parent="." node_paths=PackedStringArray("startingState") instance=ExtResource("3_vytom")]
 startingState = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "reloadingState", "deathState")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "reloadingState", "talkingState", "deathState")]
 script = ExtResource("4_g7jtl")
 walkingState = NodePath("../Walk")
 runningState = NodePath("../Run")
@@ -351,6 +352,7 @@ fallingState = NodePath("../Fall")
 attackingState = NodePath("../Attack")
 shootingState = NodePath("../Shoot")
 reloadingState = NodePath("../Reload")
+talkingState = NodePath("../Talk")
 deathState = NodePath("../Die")
 animationName = "Idle"
 
@@ -463,6 +465,17 @@ shootingState = NodePath("../Shoot")
 deathState = NodePath("../Die")
 reloadingTime = 0.5
 
+[node name="Talk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "reloadingState", "deathState")]
+script = ExtResource("15_aqm4k")
+idleState = NodePath("../Idle")
+runningState = NodePath("../Run")
+startJumpingState = NodePath("../StartJump")
+fallingState = NodePath("../Fall")
+attackingState = NodePath("../Attack")
+shootingState = NodePath("../Shoot")
+reloadingState = NodePath("../Reload")
+deathState = NodePath("../Die")
+
 [node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "respawningState")]
 script = ExtResource("11_wk1dk")
 idleState = NodePath("../Idle")
@@ -494,6 +507,7 @@ one_shot = true
 [node name="ReloadingTimer" type="Timer" parent="Timers"]
 
 [node name="Health" type="Label" parent="."]
+visible = false
 offset_left = -20.0
 offset_top = -43.0
 offset_right = 20.0
@@ -511,6 +525,24 @@ offset_top = 24.0
 offset_right = 200.0
 offset_bottom = 56.0
 text = "Ammo: "
+
+[node name="InteractKey" type="TextureRect" parent="UI"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.607843)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -52.0
+offset_top = -148.0
+offset_right = 53.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("18_hnuln")
+expand_mode = 5
+stretch_mode = 5
 
 [connection signal="body_entered" from="PlayerSprite/HitArea" to="StateMachine/Attack" method="_on_hit_area_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]
