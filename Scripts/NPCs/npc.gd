@@ -32,6 +32,7 @@ var cool_down: bool = true
 
 @onready var npcs_state_machine: Node = $NPCsStateMachine
 
+##Roaming game states timer
 @onready var rgs_timer: Timer = $Timers/RGSTimer
 #@onready var cooldown_period_timer: Timer = $Timers/CooldownPeriodTimer
 

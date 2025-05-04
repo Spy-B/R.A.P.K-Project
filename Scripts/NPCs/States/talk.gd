@@ -18,6 +18,7 @@ func enter() -> void:
 	print("[Enemy][State]: Talk")
 	
 	(ez_dialogue as EzDialogue).start_dialogue(dialogueJson, state)
+	parent.player.is_in_dialogue = true
 
 func process_input(_event: InputEvent) -> NPCsState:
 	return null
@@ -31,12 +32,14 @@ func process_physics(delta: float) -> NPCsState:
 	return null
 
 func process_frame(_delta: float) -> NPCsState:
+	
+	if !parent.player.is_in_dialogue:
+		return idleState
+	
 	return null
-
 
 func _on_ez_dialogue_dialogue_generated(response: DialogueResponse) -> void:
 	dialogue_box.add_text(response.text)
-
 
 func _on_ez_dialogue_end_of_dialogue_reached() -> void:
 	if !dialogue_box.dialogue_text.text:

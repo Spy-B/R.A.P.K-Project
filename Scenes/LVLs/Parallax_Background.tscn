@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://c3jg61g4n83bp"]
 
-[ext_resource type="Texture2D" uid="uid://4i3riymceb3f" path="res://Assets/Envirement/City BG/city 2/1.png" id="1_v3qvm"]
-[ext_resource type="Texture2D" uid="uid://b36unyuk2dxsj" path="res://Assets/Envirement/City BG/city 5/2.png" id="2_yj2nc"]
-[ext_resource type="Texture2D" uid="uid://1puwwfdcmy55" path="res://Assets/Envirement/City BG/city 5/3.png" id="3_dxt6d"]
-[ext_resource type="Texture2D" uid="uid://pbc46mwexwlx" path="res://Assets/Envirement/City BG/city 5/4.png" id="4_dp1qh"]
-[ext_resource type="Texture2D" uid="uid://cdwpyq3fwc6g2" path="res://Assets/Envirement/City BG/city 5/5.png" id="5_x3ndk"]
+[ext_resource type="Texture2D" uid="uid://4i3riymceb3f" path="res://Assets/Envirement/City-BG/city 2/1.png" id="1_v3qvm"]
+[ext_resource type="Texture2D" uid="uid://b36unyuk2dxsj" path="res://Assets/Envirement/City-BG/city 5/2.png" id="2_yj2nc"]
+[ext_resource type="Texture2D" uid="uid://1puwwfdcmy55" path="res://Assets/Envirement/City-BG/city 5/3.png" id="3_dxt6d"]
+[ext_resource type="Texture2D" uid="uid://pbc46mwexwlx" path="res://Assets/Envirement/City-BG/city 5/4.png" id="4_dp1qh"]
+[ext_resource type="Texture2D" uid="uid://cdwpyq3fwc6g2" path="res://Assets/Envirement/City-BG/city 5/5.png" id="5_x3ndk"]
 
 [node name="Parallax" type="Node2D"]
 

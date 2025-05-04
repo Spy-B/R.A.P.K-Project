@@ -8,6 +8,8 @@ extends Control
 
 func _ready() -> void:
 	clear_dialogue_box()
+	
+	dialogue_timer.wait_time = waitingTime
 
 func _physics_process(_delta: float) -> void:
 	next()
@@ -20,7 +22,6 @@ func add_text(text: String) -> void:
 
 func next() -> void:
 	if Input.is_action_just_pressed("continue"):
-		dialogue_timer.wait_time = waitingTime
 		(ez_dialogue as EzDialogue).next()
 
 func _on_dialogue_timer_timeout() -> void:

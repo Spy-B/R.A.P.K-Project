@@ -12,6 +12,7 @@ extends State
 
 func enter() -> void:
 	parent.is_in_dialogue = true
+	parent.interact_key.visible = false
 
 func process_input(_input: InputEvent) -> State:
 	return null
@@ -21,6 +22,7 @@ func process_physics(_delta: float) -> State:
 
 func process_frame(_delta: float) -> State:
 	if !parent.is_in_dialogue:
+		parent.can_start_dialogue = false
 		return idleState
 	
 	return null

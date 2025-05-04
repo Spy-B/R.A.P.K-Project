@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cmbj8hnx7kb3i"]
 
-[ext_resource type="Texture2D" uid="uid://drvvsyejbfb4h" path="res://Assets/Envirement/Legacy-Fantasy - High Forest 2.3/Assets/Interior-01.png" id="1_6iamf"]
+[ext_resource type="Texture2D" uid="uid://drvvsyejbfb4h" path="res://Assets/Envirement/Legacy-Fantasy_-_High_Forest/Assets/Interior-01.png" id="1_6iamf"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t5mnx"]
 

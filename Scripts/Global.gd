@@ -27,5 +27,5 @@ var camera = null
 
 var player_node: Node = null
 
-var loadingScreen = preload("res://Scenes/UI/Loading.tscn")
-var nextScene = "res://Scenes/UI/Main_Menu.tscn"
+var loadingScreen = preload("uid://b5b5dfh0nfqbt")
+var nextScene = "uid://cvplrh5krh46n"

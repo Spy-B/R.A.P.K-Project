@@ -7,6 +7,7 @@ extends State
 @export var landingState: State
 @export var attackingState: State
 @export var shootingState: State
+@export var talkingState: State
 @export var deathState: State
 
 var attack_type: Array = []
@@ -56,5 +57,16 @@ func process_physics(delta: float) -> State:
 			return shootingState
 		
 		return landingState
+	
+	return null
+
+func process_frame(_delta: float) -> State:
+	if parent.can_start_dialogue:
+		parent.interact_key.visible = true
+		
+		if Input.is_action_just_pressed("interact"):
+			return talkingState
+	else:
+		parent.interact_key.visible = false
 	
 	return null

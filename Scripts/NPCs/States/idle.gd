@@ -67,10 +67,9 @@ func process_frame(_delta: float) -> NPCsState:
 			if parent.player_detected:
 				return chasingState
 		1:
-			#dir = -1
 			pass
 	
-	if Input.is_action_just_pressed("interact"):
+	if parent.player.is_in_dialogue:
 		return talkingState
 	
 	return null

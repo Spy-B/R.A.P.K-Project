@@ -1,7 +1,7 @@
 [gd_scene load_steps=28 format=3 uid="uid://cmdo4y67uis4f"]
 
 [ext_resource type="Script" uid="uid://bj3uho672bvem" path="res://Scripts/NPCs/npc.gd" id="1_e8lvv"]
-[ext_resource type="Shader" uid="uid://dmn0dmxfshr1d" path="res://Resource/Shaders/hit_flash.gdshader" id="2_5dkjo"]
+[ext_resource type="Shader" uid="uid://dmn0dmxfshr1d" path="res://Resources/Shaders/hit_flash.gdshader" id="2_5dkjo"]
 [ext_resource type="Texture2D" uid="uid://j5b72bfewmqr" path="res://Assets/Characters/NPCs/Enemies/Prototype/No Outlines/players green x1.png" id="2_jwyqi"]
 [ext_resource type="JSON" path="res://Dialogue_Files/Dialogue_test_2.json" id="2_mg3ue"]
 [ext_resource type="PackedScene" uid="uid://cmbpwc3svcncr" path="res://Scenes/NPCs/npcs_state_machine.tscn" id="2_tklva"]
@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://deo4juuw4jita" path="res://Scripts/NPCs/States/die.gd" id="8_16q4q"]
 [ext_resource type="PackedScene" uid="uid://cwormf6p6oqbo" path="res://Scenes/NPCs/npc_bullet.tscn" id="9_v5ibw"]
 [ext_resource type="Script" uid="uid://hct8g0dwy6rm" path="res://Dialogue_Files/dialogue_box.gd" id="14_c55s6"]
-[ext_resource type="LabelSettings" uid="uid://ck3j7eyrm2267" path="res://Resource/Labels/dialogues_label_settings.tres" id="14_ki3bk"]
+[ext_resource type="LabelSettings" uid="uid://ck3j7eyrm2267" path="res://Resources/Labels/dialogues_label_settings.tres" id="14_ki3bk"]
 [ext_resource type="Script" uid="uid://lngqm66mqljp" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="16_lgjjx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6da7p"]
@@ -218,6 +218,13 @@ libraries = {
 &"": SubResource("AnimationLibrary_fbn5t")
 }
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -2.86102e-06)
+scale = Vector2(27.2, 12.8)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibleOnScreenNotifier2D"]
+enable_node_path = NodePath("../..")
+
 [node name="NPCsStateMachine" parent="." node_paths=PackedStringArray("startingState") instance=ExtResource("2_tklva")]
 startingState = NodePath("Idle")
 
@@ -312,13 +319,6 @@ editor_description = "Roaming game states timer"
 
 [node name="ReloadingTimer" type="Timer" parent="Timers"]
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(0, -2.86102e-06)
-scale = Vector2(27.2, 12.8)
-
-[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibleOnScreenNotifier2D"]
-enable_node_path = NodePath("../..")
-
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="DialogueBox" type="Control" parent="UI"]
@@ -331,6 +331,7 @@ offset_top = -120.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("14_c55s6")
+waitingTime = 2
 
 [node name="DialogueText" type="Label" parent="UI/DialogueBox"]
 layout_mode = 1
@@ -345,13 +346,11 @@ offset_right = 30.0
 offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "test test test"
 label_settings = ExtResource("14_ki3bk")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DialogueTimer" type="Timer" parent="UI/DialogueBox"]
-wait_time = 10.479
 autostart = true
 
 [node name="EzDialogue" type="Node" parent="UI/DialogueBox"]
