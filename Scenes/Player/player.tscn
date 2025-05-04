@@ -1,0 +1,556 @@
+[gd_scene load_steps=36 format=3 uid="uid://odlluvrio0fy"]
+
+[ext_resource type="Script" uid="uid://c84khsfjk8jkw" path="res://Scripts/Player/player.gd" id="1_3wwtw"]
+[ext_resource type="Texture2D" uid="uid://df6a0s6s4n8rm" path="res://Assets/Characters/Player/red hood itch free Copy-Sheet.png" id="1_enipy"]
+[ext_resource type="PackedScene" uid="uid://cm04fvl3igrbw" path="res://Scenes/Player/state_machine.tscn" id="3_vytom"]
+[ext_resource type="Script" uid="uid://cybju0gm13lo8" path="res://Scripts/Player/States/idle.gd" id="4_g7jtl"]
+[ext_resource type="Script" uid="uid://coddbe7btvcrq" path="res://Scripts/Player/States/walk.gd" id="5_jpb0k"]
+[ext_resource type="Script" uid="uid://byf7ryu8crct7" path="res://Scripts/Player/States/run.gd" id="6_msey6"]
+[ext_resource type="Script" uid="uid://b7eihklgcn423" path="res://Scripts/Player/States/start_jump.gd" id="7_6kwnr"]
+[ext_resource type="Script" uid="uid://178dipm3233o" path="res://Scripts/Player/States/jump.gd" id="7_ncnvn"]
+[ext_resource type="Script" uid="uid://nm36cwca46sv" path="res://Scripts/Player/States/fall.gd" id="8_aob0q"]
+[ext_resource type="Script" uid="uid://da1r8os1lqcvy" path="res://Scripts/Player/States/attack.gd" id="9_6ut1u"]
+[ext_resource type="Script" uid="uid://dxvf4khhnwias" path="res://Scripts/Player/States/quit_jump.gd" id="9_8wtju"]
+[ext_resource type="Script" uid="uid://dgblu2jsnjcwy" path="res://Scripts/Player/States/shoot.gd" id="10_xqoms"]
+[ext_resource type="Script" uid="uid://cxhhcu4ieh75a" path="res://Scripts/Player/States/die.gd" id="11_wk1dk"]
+[ext_resource type="PackedScene" uid="uid://ctncad00jdckv" path="res://Scenes/Player/arrow.tscn" id="13_88yj3"]
+[ext_resource type="Script" uid="uid://o10qb2iw2jbp" path="res://Scripts/Player/reload.gd" id="14_jlfwl"]
+[ext_resource type="Script" uid="uid://dc2qoct47fdum" path="res://Scripts/Player/States/talk.gd" id="15_aqm4k"]
+[ext_resource type="Script" uid="uid://caq1yqbc8kym7" path="res://Scripts/Player/respawn.gd" id="15_gsya0"]
+[ext_resource type="Script" uid="uid://8gqr7prnhgj" path="res://Scripts/Player/ui.gd" id="17_1w6uu"]
+[ext_resource type="Texture2D" uid="uid://ct1nomm0fe8i1" path="res://Assets/Keyboard_E_Icon.png" id="18_hnuln"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bmxon"]
+size = Vector2(18, 34.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_omcea"]
+size = Vector2(21, 34.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_16yam"]
+size = Vector2(18, 34.5)
+
+[sub_resource type="Animation" id="Animation_yipag"]
+resource_name = "Attack_1"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [57, 58, 59, 60, 61, 62]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerSprite/HitArea/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_0vm1q"]
+resource_name = "Attack_2"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [63, 64, 65, 66, 67]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerSprite/HitArea/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_ua1bk"]
+resource_name = "Attack_3"
+length = 0.6
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerSprite/HitArea/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_4kem3"]
+resource_name = "Death"
+length = 0.56
+step = 0.04
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.16, 0.24, 0.32, 0.4, 0.48),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [120, 121, 122, 123, 124, 125, 126]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.48, 0.56),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.56),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_8eqv0"]
+resource_name = "Falling"
+length = 0.15
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [45, 46, 47]
+}
+
+[sub_resource type="Animation" id="Animation_1cwvy"]
+resource_name = "Idle"
+length = 0.1
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_3glbj"]
+resource_name = "Jumping"
+length = 0.15
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [35, 36, 37]
+}
+
+[sub_resource type="Animation" id="Animation_64eys"]
+resource_name = "Landing"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [48, 49, 50, 51]
+}
+
+[sub_resource type="Animation" id="Animation_y0m0f"]
+resource_name = "Running"
+length = 0.96
+loop_mode = 1
+step = 0.04
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28, 0.32, 0.36, 0.4, 0.44, 0.48, 0.52, 0.56, 0.6, 0.64, 0.68, 0.72, 0.76, 0.8, 0.84, 0.88, 0.92),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+}
+
+[sub_resource type="Animation" id="Animation_4wr1e"]
+resource_name = "Shooting"
+length = 0.45
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [25, 26, 27, 28, 29, 30, 31, 32, 33]
+}
+
+[sub_resource type="Animation" id="Animation_hujm0"]
+resource_name = "StartJumping"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [34]
+}
+
+[sub_resource type="Animation" id="Animation_5e1ev"]
+resource_name = "Walking"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fqlx5"]
+_data = {
+&"Attack_1": SubResource("Animation_yipag"),
+&"Attack_2": SubResource("Animation_0vm1q"),
+&"Attack_3": SubResource("Animation_ua1bk"),
+&"Death": SubResource("Animation_4kem3"),
+&"Falling": SubResource("Animation_8eqv0"),
+&"Idle": SubResource("Animation_1cwvy"),
+&"Jumping": SubResource("Animation_3glbj"),
+&"Landing": SubResource("Animation_64eys"),
+&"Running": SubResource("Animation_y0m0f"),
+&"Shooting": SubResource("Animation_4wr1e"),
+&"StartJumping": SubResource("Animation_hujm0"),
+&"Walking": SubResource("Animation_5e1ev")
+}
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 256
+collision_mask = 393219
+script = ExtResource("1_3wwtw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2.75)
+shape = SubResource("RectangleShape2D_bmxon")
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("1_enipy")
+flip_h = true
+hframes = 12
+vframes = 11
+
+[node name="HitArea" type="Area2D" parent="PlayerSprite"]
+position = Vector2(17, 16)
+collision_layer = 256
+collision_mask = 196609
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprite/HitArea"]
+position = Vector2(1.5, -2.75)
+shape = SubResource("RectangleShape2D_omcea")
+disabled = true
+
+[node name="HurtArea" type="Area2D" parent="PlayerSprite"]
+position = Vector2(0, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprite/HurtArea"]
+position = Vector2(0, -2.75)
+shape = SubResource("RectangleShape2D_16yam")
+
+[node name="GunBarrel" type="Marker2D" parent="PlayerSprite"]
+position = Vector2(9, 14)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fqlx5")
+}
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("startingState") instance=ExtResource("3_vytom")]
+startingState = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "reloadingState", "talkingState", "deathState")]
+script = ExtResource("4_g7jtl")
+walkingState = NodePath("../Walk")
+runningState = NodePath("../Run")
+startJumpingState = NodePath("../StartJump")
+fallingState = NodePath("../Fall")
+attackingState = NodePath("../Attack")
+shootingState = NodePath("../Shoot")
+reloadingState = NodePath("../Reload")
+talkingState = NodePath("../Talk")
+deathState = NodePath("../Die")
+animationName = "Idle"
+
+[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "deathState")]
+script = ExtResource("5_jpb0k")
+idleState = NodePath("../Idle")
+runningState = NodePath("../Run")
+startJumpingState = NodePath("../StartJump")
+fallingState = NodePath("../Fall")
+attackingState = NodePath("../Attack")
+shootingState = NodePath("../Shoot")
+deathState = NodePath("../Die")
+
+[node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "startJumpingState", "fallingState", "attackingState", "shootingState", "reloadingState", "talkingState", "deathState")]
+script = ExtResource("6_msey6")
+idleState = NodePath("../Idle")
+walkingState = NodePath("../Walk")
+startJumpingState = NodePath("../StartJump")
+fallingState = NodePath("../Fall")
+attackingState = NodePath("../Attack")
+shootingState = NodePath("../Shoot")
+reloadingState = NodePath("../Reload")
+talkingState = NodePath("../Talk")
+deathState = NodePath("../Die")
+animationName = "Running"
+
+[node name="StartJump" type="Node" parent="StateMachine" node_paths=PackedStringArray("walkingState", "runningState", "jumpingState", "attackingState", "shootingState", "deathState")]
+script = ExtResource("7_6kwnr")
+walkingState = NodePath("../Walk")
+runningState = NodePath("../Run")
+jumpingState = NodePath("../Jump")
+attackingState = NodePath("../Attack")
+shootingState = NodePath("../Shoot")
+deathState = NodePath("../Die")
+wait_time = 0.05
+animationName = "StartJumping"
+
+[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "fallingState", "landingState", "attackingState", "shootingState", "talkingState", "deathState")]
+script = ExtResource("7_ncnvn")
+idleState = NodePath("../Idle")
+walkingState = NodePath("../Walk")
+runningState = NodePath("../Run")
+fallingState = NodePath("../Fall")
+landingState = NodePath("../Land")
+attackingState = NodePath("../Attack")
+shootingState = NodePath("../Shoot")
+talkingState = NodePath("../Talk")
+deathState = NodePath("../Die")
+animationName = "Jumping"
+
+[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "landingState", "attackingState", "shootingState", "talkingState", "deathState")]
+script = ExtResource("8_aob0q")
+idleState = NodePath("../Idle")
+walkingState = NodePath("../Walk")
+runningState = NodePath("../Run")
+startJumpingState = NodePath("../StartJump")
+landingState = NodePath("../Land")
+attackingState = NodePath("../Attack")
+shootingState = NodePath("../Shoot")
+talkingState = NodePath("../Talk")
+deathState = NodePath("../Die")
+animationName = "Falling"
+
+[node name="Land" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "attackingState", "shootingState", "deathState")]
+script = ExtResource("9_8wtju")
+idleState = NodePath("../Idle")
+walkingState = NodePath("../Walk")
+runningState = NodePath("../Run")
+startJumpingState = NodePath("../StartJump")
+attackingState = NodePath("../Attack")
+shootingState = NodePath("../Shoot")
+deathState = NodePath("../Die")
+wait_time = 0.2
+animationName = "Landing"
+
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "shootingState", "deathState")]
+script = ExtResource("9_6ut1u")
+idleState = NodePath("../Idle")
+walkingState = NodePath("../Walk")
+runningState = NodePath("../Run")
+startJumpingState = NodePath("../StartJump")
+fallingState = NodePath("../Fall")
+shootingState = NodePath("../Shoot")
+deathState = NodePath("../Die")
+comboAttack2 = "Attack_2"
+comboAttack3 = "Attack_3"
+shooting = "Shooting"
+target = "Enemy"
+animationName = "Attack_1"
+
+[node name="Shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "reloadingState", "deathState")]
+script = ExtResource("10_xqoms")
+idleState = NodePath("../Idle")
+walkingState = NodePath("../Walk")
+runningState = NodePath("../Run")
+startJumpingState = NodePath("../StartJump")
+fallingState = NodePath("../Fall")
+attackingState = NodePath("../Attack")
+reloadingState = NodePath("../Reload")
+deathState = NodePath(".")
+arrowScene = ExtResource("13_88yj3")
+animationName = "Shooting"
+
+[node name="Reload" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "deathState")]
+script = ExtResource("14_jlfwl")
+idleState = NodePath("../Idle")
+walkingState = NodePath("../Walk")
+runningState = NodePath("../Run")
+startJumpingState = NodePath("../StartJump")
+fallingState = NodePath("../Fall")
+attackingState = NodePath("../Attack")
+shootingState = NodePath("../Shoot")
+deathState = NodePath("../Die")
+reloadingTime = 0.5
+
+[node name="Talk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "reloadingState", "deathState")]
+script = ExtResource("15_aqm4k")
+idleState = NodePath("../Idle")
+runningState = NodePath("../Run")
+startJumpingState = NodePath("../StartJump")
+fallingState = NodePath("../Fall")
+attackingState = NodePath("../Attack")
+shootingState = NodePath("../Shoot")
+reloadingState = NodePath("../Reload")
+deathState = NodePath("../Die")
+
+[node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "respawningState")]
+script = ExtResource("11_wk1dk")
+idleState = NodePath("../Idle")
+respawningState = NodePath("../Respawn")
+animationName = "Death"
+
+[node name="Respawn" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState")]
+script = ExtResource("15_gsya0")
+idleState = NodePath("../Idle")
+animationName = "Idle"
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="StartJumpTimer" type="Timer" parent="Timers"]
+
+[node name="LandTimer" type="Timer" parent="Timers"]
+
+[node name="MeleeComboTimer" type="Timer" parent="Timers"]
+wait_time = 0.4
+
+[node name="CoyoteTimer" type="Timer" parent="Timers"]
+wait_time = 0.1
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="Timers"]
+wait_time = 0.3
+one_shot = true
+
+[node name="ReloadingTimer" type="Timer" parent="Timers"]
+
+[node name="Health" type="Label" parent="."]
+visible = false
+offset_left = -20.0
+offset_top = -43.0
+offset_right = 20.0
+offset_bottom = -20.0
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("17_1w6uu")
+
+[node name="AmmoLabel" type="Label" parent="UI"]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 200.0
+offset_bottom = 56.0
+text = "Ammo: "
+
+[node name="InteractKey" type="TextureRect" parent="UI"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.607843)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -130.0
+offset_right = 25.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("18_hnuln")
+expand_mode = 5
+stretch_mode = 5
+
+[connection signal="body_entered" from="PlayerSprite/HitArea" to="StateMachine/Attack" method="_on_hit_area_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Shoot" method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="Timers/StartJumpTimer" to="StateMachine/StartJump" method="_on_start_jump_timer_timeout"]
+[connection signal="timeout" from="Timers/LandTimer" to="StateMachine/Land" method="_on_quit_jump_timer_timeout"]
+[connection signal="timeout" from="Timers/MeleeComboTimer" to="StateMachine/Attack" method="_on_melee_combo_timer_timeout"]
+[connection signal="timeout" from="Timers/ReloadingTimer" to="StateMachine/Reload" method="_on_reloading_timer_timeout"]
