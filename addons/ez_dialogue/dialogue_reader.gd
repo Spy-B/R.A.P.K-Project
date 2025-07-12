@@ -128,7 +128,7 @@ func _process_command(command: DialogueCommand, response: DialogueResponse):
 		_pending_choice_actions.push_back(actions)
 	elif command.type == DialogueCommand.CommandType.GOTO:
 		# jump to and run specified node
-		# NOTE: GOTO is a terminating command, meaning any remaining commands
+		# NOTEe: GOTO is a terminating command, meaning any remaining commands
 		# in the execution stack is cleared and replaced by commands in
 		# the destination node.
 		var destination_node = _processing_dialogue.get_node_by_name(

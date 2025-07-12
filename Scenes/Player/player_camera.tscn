@@ -3,16 +3,17 @@
 [ext_resource type="Script" uid="uid://bo132qmtudpws" path="res://Scripts/Player/player_camera.gd" id="1_k3w32"]
 
 [node name="Camera2D" type="Camera2D"]
-offset = Vector2(0, -120)
+offset = Vector2(0, -100)
+zoom = Vector2(2.5, 2.5)
 limit_smoothed = true
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
-drag_vertical_enabled = true
 drag_horizontal_offset = 0.5
-drag_vertical_offset = -0.6
-drag_bottom_margin = 0.3
+drag_vertical_offset = -0.75
+editor_draw_drag_margin = true
 script = ExtResource("1_k3w32")
 
 [node name="Timer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

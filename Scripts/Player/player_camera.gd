@@ -1,31 +1,26 @@
 extends Camera2D
 
-var shake_amount_x: float = 0
-var shake_amount_y: float = 0
+var shake_amount: Vector2 = Vector2.ZERO
+var default_offset: Vector2
 
-var default_offset = offset
+@onready var timer: Timer = $Timer
 
-@onready var timer = $Timer
-
-func _ready():
+func _ready() -> void:
 	set_process(false)
-	Global.camera = self
 	randomize()
 
-# warning-ignore:unused_argument
-@warning_ignore("unused_parameter")
-func _process(delta):
-	offset = Vector2(randf_range(-1 ,1) * shake_amount_x, shake_amount_y)
-	
+func _process(_delta: float) -> void:
+	offset = Vector2(randf_range(-1 ,1) * shake_amount.x, shake_amount.y)
 
-func shake(time, amountX, amountY):
+func shake(time: float, amount: Vector2) -> void:
+	default_offset = offset
+	
 	timer.wait_time = time
-	shake_amount_x = amountX
-	shake_amount_y = amountY
+	shake_amount = Vector2(offset.x + amount.x, offset.y + amount.y)
 	set_process(true)
 	timer.start()
 
-func _on_timer_timeout():
+func _on_timer_timeout() -> void:
 	set_process(false)
-	var tween = create_tween()
+	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(self, "offset", default_offset, 0.1)

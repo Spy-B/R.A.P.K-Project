@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bx4f4ecsy4obc"]
+
+[ext_resource type="Script" uid="uid://bu0ywcxxkuhan" path="res://Scripts/UIs/interact_sign.gd" id="1_0unb5"]
+[ext_resource type="Texture2D" uid="uid://bk3ipmaetj1hl" path="res://Assets/VFX/Particle_Material.png" id="1_orsl8"]
+[ext_resource type="Texture2D" uid="uid://ct1nomm0fe8i1" path="res://Assets/UI/Keyboard_E_Icon.png" id="3_5oeg7"]
+
+[node name="InteractSign" type="Node2D"]
+script = ExtResource("1_0unb5")
+
+[node name="InteractPoint" type="Sprite2D" parent="."]
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("1_orsl8")
+
+[node name="InteractButton" type="Sprite2D" parent="."]
+position = Vector2(0, -28)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_5oeg7")

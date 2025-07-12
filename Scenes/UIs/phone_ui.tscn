@@ -1,0 +1,141 @@
+[gd_scene load_steps=8 format=3 uid="uid://ddttrsm0vcrxa"]
+
+[ext_resource type="Texture2D" uid="uid://by1ctc74oefbn" path="res://Assets/UI/joint_2.png" id="1_7c7mh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k10h6"]
+radius = 45.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kamjg"]
+radius = 45.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kgxuy"]
+radius = 45.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7c7mh"]
+radius = 45.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pddok"]
+radius = 45.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dbuc8"]
+radius = 45.0
+
+[node name="PhoneUI" type="CanvasLayer"]
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="BottomLeft" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="MoveRight" type="TouchScreenButton" parent="Control/BottomLeft"]
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(368, -264)
+scale = Vector2(2, 2)
+texture_normal = ExtResource("1_7c7mh")
+shape = SubResource("CircleShape2D_k10h6")
+passby_press = true
+action = "move_right"
+visibility_mode = 1
+
+[node name="MoveLeft" type="TouchScreenButton" parent="Control/BottomLeft"]
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(96, -264)
+scale = Vector2(2, 2)
+texture_normal = ExtResource("1_7c7mh")
+shape = SubResource("CircleShape2D_k10h6")
+passby_press = true
+action = "move_left"
+visibility_mode = 1
+
+[node name="BottomRight" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="Attack" type="TouchScreenButton" parent="Control/BottomRight"]
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(-472, -456)
+scale = Vector2(1.5, 1.5)
+texture_normal = ExtResource("1_7c7mh")
+shape = SubResource("CircleShape2D_kamjg")
+action = "attack"
+visibility_mode = 1
+
+[node name="Shoot" type="TouchScreenButton" parent="Control/BottomRight"]
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(-232, -232)
+scale = Vector2(1.5, 1.5)
+texture_normal = ExtResource("1_7c7mh")
+shape = SubResource("CircleShape2D_kamjg")
+action = "shoot"
+visibility_mode = 1
+
+[node name="Jump" type="TouchScreenButton" parent="Control/BottomRight"]
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(-280, -440)
+scale = Vector2(1.75, 1.75)
+texture_normal = ExtResource("1_7c7mh")
+shape = SubResource("CircleShape2D_kgxuy")
+action = "jump"
+visibility_mode = 1
+
+[node name="Dash" type="TouchScreenButton" parent="Control/BottomRight"]
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(-440, -264)
+scale = Vector2(1.6, 1.6)
+texture_normal = ExtResource("1_7c7mh")
+shape = SubResource("CircleShape2D_7c7mh")
+action = "dash"
+visibility_mode = 1
+
+[node name="Interact" type="TouchScreenButton" parent="Control/BottomRight"]
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(-232, -640)
+scale = Vector2(1.3, 1.3)
+texture_normal = ExtResource("1_7c7mh")
+shape = SubResource("CircleShape2D_pddok")
+action = "interact"
+visibility_mode = 1
+
+[node name="TopRight" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+mouse_filter = 1
+
+[node name="Pause" type="TouchScreenButton" parent="Control/TopRight"]
+modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(-136, 16)
+scale = Vector2(1.25, 1.24999)
+texture_normal = ExtResource("1_7c7mh")
+shape = SubResource("CircleShape2D_dbuc8")
+passby_press = true
+action = "pause"
+visibility_mode = 1

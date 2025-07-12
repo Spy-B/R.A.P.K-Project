@@ -21,16 +21,16 @@ func change_state(new_state: State) -> void:
 	currentState.enter()
 
 func process_physics(delta: float) -> void:
-	var new_state = currentState.process_physics(delta)
+	var new_state: State = currentState.process_physics(delta)
 	if new_state:
 		change_state(new_state)
 
 func process_input(event: InputEvent) -> void:
-	var new_state = currentState.process_input(event)
+	var new_state: State = currentState.process_input(event)
 	if new_state:
 		change_state(new_state)
 
 func process_frame(delta: float) -> void:
-	var new_state = currentState.process_frame(delta)
+	var new_state: State = currentState.process_frame(delta)
 	if new_state:
 		change_state(new_state)

@@ -1,21 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://4qvtq6epoo3e"]
+[gd_scene load_steps=8 format=3 uid="uid://4qvtq6epoo3e"]
 
 [ext_resource type="Script" uid="uid://c12b2x2ywwk8b" path="res://Scripts/Interactions/letter.gd" id="1_y3g3p"]
 [ext_resource type="Texture2D" uid="uid://c7l67q2ffe28t" path="res://Assets/Objects/Shooter_Game_Assets/Icons/Letter.png" id="2_ka42d"]
 [ext_resource type="Texture2D" uid="uid://beqlxk5kdxuin" path="res://Assets/UI/grunge-paper-background (Pixelized).jpg" id="3_p3v0h"]
-[ext_resource type="FontFile" uid="uid://dcp8gylagvxol" path="res://Assets/Fonts/Transyl-Bold.ttf" id="3_xcvvs"]
+[ext_resource type="FontFile" uid="uid://pijj4ocab1hq" path="res://Assets/Fonts/editundo.ttf" id="4_tov30"]
+[ext_resource type="Theme" uid="uid://c7k57134accys" path="res://Resources/Themes/main_menu_buttons.theme" id="5_bxj2w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0elpo"]
 radius = 20.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_78ts3"]
-line_spacing = 4.0
-font = ExtResource("3_xcvvs")
-font_size = 22
+line_spacing = 5.0
+paragraph_spacing = 5.0
+font = ExtResource("4_tov30")
+font_size = 32
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
-[node name="Letter" type="Node2D"]
+[node name="Letter" type="Node2D" groups=["Interaction"]]
 process_mode = 3
 script = ExtResource("1_y3g3p")
 letter = "The Framework must allow us to make a variety of playable characters, from simple
@@ -29,9 +31,9 @@ with NPCs or environmental elements.
 
 Our goal is to be able to make different playable characters that each one of them has
 his own gameplay hook."
-playerGroup = "Player"
 
 [node name="Area2D" type="Area2D" parent="."]
+disable_mode = 1
 collision_layer = 8
 collision_mask = 257
 
@@ -43,6 +45,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_ka42d")
 
 [node name="UI" type="CanvasLayer" parent="."]
+layer = 3
 visible = false
 
 [node name="Control" type="Control" parent="UI"]
@@ -54,6 +57,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 1
 
 [node name="ColorRect" type="ColorRect" parent="UI/Control"]
 layout_mode = 1
@@ -72,10 +76,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -425.0
-offset_right = 320.0
-offset_bottom = 425.0
+offset_left = -376.0
+offset_top = -476.0
+offset_right = 376.0
+offset_bottom = 484.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_p3v0h")
@@ -88,12 +92,23 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -410.0
-offset_right = 300.0
-offset_bottom = 410.0
+offset_left = -384.0
+offset_top = -412.0
+offset_right = 384.0
+offset_bottom = 388.0
 grow_horizontal = 2
 grow_vertical = 2
+text = "The Framework must allow us to make a variety of playable characters, from simple
+arcade shooters type (Metal Slug) to complex playable characters that can grab items
+and keep them in their inventory, that can switch between ranged and melee combat,
+switch between weapons quickly, that can unlock special skills, or unleash special
+moves after fulfilling specific conditions (EX: The King Of Fighters’ Power Gauge,
+KATANA ZERO’ Slow Motion), entering stealth mode, climbing ladders, hanging on
+edges, jumping up, double jump, jumping down, walk, run/jog, sprint, dodge, interact
+with NPCs or environmental elements.
+
+Our goal is to be able to make different playable characters that each one of them has
+his own gameplay hook."
 label_settings = SubResource("LabelSettings_78ts3")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -101,5 +116,24 @@ autowrap_mode = 3
 clip_text = true
 text_overrun_behavior = 4
 
+[node name="Quit" type="Button" parent="UI/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -136.0
+offset_right = 128.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("5_bxj2w")
+text = "Quit"
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="pressed" from="UI/Control/Quit" to="." method="_on_quit_pressed"]

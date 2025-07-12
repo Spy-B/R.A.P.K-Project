@@ -436,12 +436,12 @@ func Dash(delta: float) -> void:
 		#dashVector += Input.get_action_strength("ui_left") * Vector2.LEFT
 		#dashVector += Input.get_action_strength("ui_down") * Vector2.DOWN
 		#dashVector += Input.get_action_strength("ui_up") * Vector2.UP
-		##$Squish/AnimatedSprite.play("Dash 2")
+		#$Squish/AnimatedSprite.play("Dash 2")
 		#
-##		if Input.is_action_just_pressed("ui_down") && is_on_floor():
-##			get_parent().get_node("TileMapOne-Way/StaticBody2D/CollisionShape2D").disabled = true
-##		else:
-##			get_parent().get_node("TileMapOne-Way/StaticBody2D/CollisionShape2D").disabled = false
+#		if Input.is_action_just_pressed("ui_down") && is_on_floor():
+#			get_parent().get_node("TileMapOne-Way/StaticBody2D/CollisionShape2D").disabled = true
+#		else:
+#			get_parent().get_node("TileMapOne-Way/StaticBody2D/CollisionShape2D").disabled = false
 		#
 		#if dashVector == Vector2.ZERO:
 			#if dir_x == 1:

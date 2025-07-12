@@ -791,7 +791,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Explosion 1",
-"speed": 25.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -856,7 +856,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Explosion 2",
-"speed": 25.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -951,7 +951,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Explosion 3",
-"speed": 25.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1031,7 +1031,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Explosion 4",
-"speed": 25.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1102,7 +1102,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Explosion 5 16",
-"speed": 25.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1173,7 +1173,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Explosion 5 64",
-"speed": 25.0
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1913,7 +1913,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Explosion 6",
-"speed": 25.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -2268,7 +2268,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_upny6")
 }],
-"loop": false,
+"loop": true,
 "name": &"Shooting Effect",
 "speed": 20.0
 }, {
@@ -2676,4 +2676,6 @@ animations = [{
 [node name="VFX" type="AnimatedSprite2D"]
 show_behind_parent = true
 sprite_frames = SubResource("SpriteFrames_0n1qp")
-animation = &"The Flame 3 16"
+animation = &"Flame 1"
+frame = 49
+frame_progress = 0.866108

@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://vuo0krvgb5jn"]
+
+[ext_resource type="Script" uid="uid://bkkdhcp7v06xj" path="res://Scripts/Interactions/portal.gd" id="1_nv454"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nv454"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nv454"]
+
+[node name="Portal" type="Node2D"]
+script = ExtResource("1_nv454")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_nv454")
+
+[node name="SpawnPosition" type="Marker2D" parent="Area2D"]
+position = Vector2(35, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_nv454")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+scale = Vector2(50, 50)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibleOnScreenNotifier2D"]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://dyjqw2vjtpkxw"]
+
+[ext_resource type="Script" uid="uid://bmobruck4uh32" path="res://Scripts/Obstacles/spining_obstacle.gd" id="1_k8816"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k8816"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_88j7o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_88j7o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8vvb7"]
+
+[node name="SpinningObstacle" type="Node2D"]
+script = ExtResource("1_k8816")
+
+[node name="SpiningCenter" type="Marker2D" parent="."]
+rotation = 4045.39
+
+[node name="StickSprite" type="Sprite2D" parent="SpiningCenter"]
+scale = Vector2(0.32, 0.32)
+
+[node name="Sprite2D" type="Sprite2D" parent="SpiningCenter"]
+
+[node name="Pendulum" type="Area2D" parent="SpiningCenter"]
+collision_layer = 16
+collision_mask = 460544
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpiningCenter/Pendulum"]
+shape = SubResource("CircleShape2D_k8816")
+
+[node name="PendulumSprite" type="Sprite2D" parent="SpiningCenter/Pendulum"]
+scale = Vector2(0.195, 0.195)
+
+[node name="AnimatedPendulumSprite" type="AnimatedSprite2D" parent="SpiningCenter/Pendulum"]
+sprite_frames = SubResource("SpriteFrames_88j7o")
+
+[node name="Pendulum2" type="Area2D" parent="SpiningCenter"]
+collision_layer = 16
+collision_mask = 460544
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="SpiningCenter/Pendulum2"]
+shape = SubResource("CircleShape2D_88j7o")
+
+[node name="Pendulum2Sprite" type="Sprite2D" parent="SpiningCenter/Pendulum2"]
+scale = Vector2(0.325, 0.325)
+
+[node name="AnimatedPendulum2Sprite" type="AnimatedSprite2D" parent="SpiningCenter/Pendulum2"]
+sprite_frames = SubResource("SpriteFrames_8vvb7")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(50, 50)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibleOnScreenNotifier2D"]
+
+[connection signal="body_entered" from="SpiningCenter/Pendulum" to="." method="_on_pendulum_body_entered"]
+[connection signal="body_entered" from="SpiningCenter/Pendulum2" to="." method="_on_pendulum_2_body_entered"]

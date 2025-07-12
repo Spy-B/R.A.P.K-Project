@@ -4,39 +4,68 @@ extends State
 @export var runningState: State
 @export var startJumpingState: State
 @export var fallingState: State
+@export var dashingState: State
 @export var attackingState: State
 @export var shootingState: State
 @export var reloadingState: State
+@export var interactState: State
 @export var talkingState: State
+@export var damagingState: State
 @export var deathState: State
 
 func enter() -> void:
 	super()
-	#parent.velocity.x = lerp(parent.velocity.x, 0.0, movementWeight)
+	
+	#parent.global_position = Vector2(Global.save_game_dictionary.last_checkpoint)
 
-func process_input(_event: InputEvent) -> State:
+func process_input(event: InputEvent) -> State:
 	if parent.is_on_floor():
-		if Input.is_action_just_pressed(jumpingInput):
+		if event.is_action_pressed(jumpingInput):
 			return startJumpingState
 		
-		if Input.is_action_just_pressed(attackingInput):
+		if event.is_action_pressed("dash") && parent.dash_points > 0:
+			return dashingState
+		
+		if event.is_action_pressed(attackingInput):
 			return attackingState
 		
-		if Input.is_action_just_pressed(shootingInput):
+		if event.is_action_pressed(shootingInput):
 			return shootingState
 		
-		if Input.is_action_just_pressed("reload"):
+		if event.is_action_pressed("reload"):
 			return reloadingState
 	
 	
-	if Input.is_action_pressed("move_right") || Input.is_action_pressed("move_left"):
+	if event.is_action_pressed("move_right") || event.is_action_pressed("move_left"):
 		return runningState
 	
 	return null
 
-func process_physics(delta: float) -> State:
+func process_frame(_delta: float) -> State:
+	if parent.damaged:
+		parent.damaged = false
+		return damagingState
+	
+	if parent.health <= 0:
+		return deathState
+	
+	if parent.npc_detected:
+		parent.ui.interact_key.visible = true
+		if Input.is_action_just_pressed("interact"):
+			return talkingState
+	
+	elif parent.interaction_detected:
+		parent.ui.interact_key.visible = true
+		if Input.is_action_just_pressed("interact"):
+			return interactState
+	
+	else:
+		parent.ui.interact_key.visible = false
+	
+	return null
+
+func process_physics(_delta: float) -> State:
 	if !parent.is_on_floor():
-		parent.velocity.y += gravity * delta
 		return fallingState
 	
 	parent.velocity.x = lerp(parent.velocity.x, 0.0, parent.movementWeight)
@@ -45,19 +74,5 @@ func process_physics(delta: float) -> State:
 		return startJumpingState
 	
 	parent.move_and_slide()
-	
-	return null
-
-func process_frame(_delta: float) -> State:
-	if parent.health <= 0:
-		return deathState
-	
-	if parent.can_start_dialogue:
-		parent.interact_key.visible = true
-		
-		if Input.is_action_just_pressed("interact"):
-			return talkingState
-	else:
-		parent.interact_key.visible = false
 	
 	return null

@@ -1,7 +1,8 @@
 class_name State
 extends Node
 
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+var falling_gravity: float = 1280.0
 
 @export_group("Movement")
 @export var walkSpeed: int = 120
@@ -23,7 +24,7 @@ var gun_barrel: Marker2D
 var coyote_timer: Timer
 var jump_buffer_timer: Timer
 
-var state_animation
+#var state_animation
 
 func enter() -> void:
 	animation.play(animationName)

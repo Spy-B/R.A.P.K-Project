@@ -1,29 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://dq0u5vt1sa20b"]
+[gd_scene load_steps=5 format=3 uid="uid://dq0u5vt1sa20b"]
 
 [ext_resource type="Script" uid="uid://cvrnumn3bmhny" path="res://Scripts/Interactions/Checkpoint/checkpoint.gd" id="1_ellhh"]
-[ext_resource type="Texture2D" uid="uid://2ulxbpm7qm8i" path="res://Assets/VFX/PNG (Transparent)/light_01.png" id="3_mnydr"]
+[ext_resource type="Texture2D" uid="uid://b06wb530gc78e" path="res://Assets/Envirement/Texture/TX Village Props.png" id="2_kdfua"]
+[ext_resource type="Texture2D" uid="uid://2ulxbpm7qm8i" path="res://Assets/VFX/Transparent/light_01.png" id="3_mnydr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lt20a"]
-size = Vector2(70, 216)
+size = Vector2(70, 96)
 
 [node name="CheckPoint" type="Area2D"]
 collision_layer = 8
 collision_mask = 257
 script = ExtResource("1_ellhh")
-playerGroup = "Player"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_lt20a")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
+position = Vector2(0, 36.5)
+texture = ExtResource("2_kdfua")
 region_enabled = true
-region_rect = Rect2(223, 49, 35, 108)
+region_rect = Rect2(354, 265, 61, 23)
 
 [node name="RespawnPoint" type="Marker2D" parent="."]
+position = Vector2(0, 16)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(-1, -90)
+enabled = false
 energy = 3.0
 shadow_enabled = true
 texture = ExtResource("3_mnydr")

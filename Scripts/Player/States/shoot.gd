@@ -7,9 +7,10 @@ extends State
 @export var fallingState: State
 @export var attackingState: State
 @export var reloadingState: State
+@export var damagingState: State
 @export var deathState: State
 
-@export var arrowScene = PackedScene.new()
+@export var arrowScene: PackedScene = PackedScene.new()
 
 var finished_animations: Array = []
 
@@ -21,10 +22,10 @@ func enter() -> void:
 	parent.a_n_s_p = false
 	reload = false
 	
-	var dir = Input.get_axis("move_left", "move_right")
+	var dir: float = Input.get_axis("move_left", "move_right")
 	
 	if parent.ammoInMag > 0:
-		var arrow = arrowScene.instantiate()
+		var arrow: Area2D = arrowScene.instantiate()
 		arrow.dir = dir
 		arrow.global_position = gun_barrel.global_position
 		arrow.global_rotation = gun_barrel.global_rotation
@@ -32,16 +33,29 @@ func enter() -> void:
 		parent.ammoInMag -= 1
 		parent.get_parent().add_child(arrow)
 
-func process_input(_event: InputEvent) -> State:
-	if Input.is_action_just_pressed(shootingInput) && parent.is_on_floor():
+func process_input(event: InputEvent) -> State:
+	if event.is_action_pressed(shootingInput) && parent.is_on_floor():
 		parent.a_n_s_p = true
+	
+	return null
+
+func process_frame(_delta: float) -> State:
+	if parent.damaged:
+		parent.damaged = false
+		return damagingState
+	
+	if parent.health <= 0:
+		return deathState
+	
+	if !parent.ammoInMag:
+		return reloadingState
 	
 	return null
 
 func process_physics(delta: float) -> State:
 	parent.velocity.y += gravity * delta
 	
-	var movement = Input.get_axis("move_left", "move_right") * 20
+	var movement: float = Input.get_axis("move_left", "move_right") * 20
 	
 	#if movement:
 		#if movement > 0:
@@ -59,15 +73,6 @@ func process_physics(delta: float) -> State:
 		if !movement && parent.is_on_floor():
 			return idleState
 		return runningState
-	
-	return null
-
-func process_frame(_delta: float) -> State:
-	if parent.health <= 0:
-		return deathState
-	
-	if !parent.ammoInMag:
-		return reloadingState
 	
 	return null
 

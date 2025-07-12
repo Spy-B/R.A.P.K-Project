@@ -6,6 +6,7 @@ extends State
 @export var fallingState: State
 @export var attackingState: State
 @export var shootingState: State
+@export var damagingState: State
 @export var deathState: State
 
 func process_input(_event: InputEvent) -> State:
@@ -20,20 +21,20 @@ func process_input(_event: InputEvent) -> State:
 func process_physics(delta: float) -> State:
 	parent.velocity.y += gravity * delta
 	
-	var movement = Input.get_axis("move_left", "move_right") * walkSpeed
+	parent.movement *= walkSpeed
 	
-	if !movement:
+	if !parent.movement:
 		return idleState
 	
-	if movement > 0:
+	if parent.movement > 0:
 		parent.player_sprite.scale.x = 1
 	else:
 		parent.player_sprite.scale.x = -1
 	
-	parent.velocity.x = movement
+	parent.velocity.x = parent.movement
 	parent.move_and_slide()
 	
-	if !parent.is_on_floor() && movement != 0:
+	if !parent.is_on_floor() && parent.movement != 0:
 		return fallingState
 	
 	return null

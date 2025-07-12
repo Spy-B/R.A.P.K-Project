@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cxrtguea5i00"]
 
-[ext_resource type="Script" uid="uid://ysdx7iqbppxm" path="res://Scripts/UIs/root.gd" id="1_7i40u"]
+[ext_resource type="Script" uid="uid://ysdx7iqbppxm" path="res://Scripts/UIs/splash_screen.gd" id="1_7i40u"]
 [ext_resource type="Texture2D" uid="uid://d3oov2wka8dt2" path="res://Assets/0000.jpg" id="2_howh3"]
 [ext_resource type="Texture2D" uid="uid://dy2poqolk38ii" path="res://Default/RAFIA_LOGO.svg" id="3_47mih"]
 [ext_resource type="FontFile" uid="uid://pijj4ocab1hq" path="res://Assets/Fonts/editundo.ttf" id="4_q0drn"]
@@ -17,8 +17,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7i40u")
-nextScene = "uid://dqcfgrrxg0lip"
-nextScene2 = "uid://cvplrh5krh46n"
 
 [node name="GameArt" type="Sprite2D" parent="."]
 texture = ExtResource("2_howh3")
@@ -29,7 +27,7 @@ position = Vector2(1744, 992)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("3_47mih")
 
-[node name="Label" type="Label" parent="."]
+[node name="MadeWithLabel" type="Label" parent="."]
 layout_mode = 0
 offset_left = 64.0
 offset_top = 64.0

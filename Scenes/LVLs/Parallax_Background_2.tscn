@@ -1,0 +1,152 @@
+[gd_scene load_steps=3 format=3 uid="uid://clppwcfehohc5"]
+
+[ext_resource type="Texture2D" uid="uid://bl0scgi63vt2f" path="res://Assets/Envirement/City-BG/city 1/1.png" id="1_5ewaa"]
+[ext_resource type="Texture2D" uid="uid://b2cw7dwfgy6b" path="res://Assets/Envirement/Legacy-Fantasy_-_High_Forest/Trees/Background.png" id="2_jl67t"]
+
+[node name="ParallaxBackground" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.005, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Sky"]
+scale = Vector2(3.33333, 3.33333)
+texture = ExtResource("1_5ewaa")
+centered = false
+
+[node name="Mountains" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(0, 160)
+motion_scale = Vector2(0.02, 0.02)
+motion_mirroring = Vector2(384, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Mountains"]
+scale = Vector2(4, 4)
+texture = ExtResource("2_jl67t")
+centered = false
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/Mountains"]
+scale = Vector2(4, 4)
+texture = ExtResource("2_jl67t")
+centered = false
+offset = Vector2(192, 0)
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/Mountains"]
+scale = Vector2(4, 4)
+texture = ExtResource("2_jl67t")
+centered = false
+offset = Vector2(384, 0)
+region_enabled = true
+region_rect = Rect2(704, 0, 96, 256)
+
+[node name="Trees" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(0, 300)
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Tree" type="Node2D" parent="ParallaxBackground/Trees"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Trees/Tree"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_jl67t")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 256)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/Trees/Tree"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_jl67t")
+centered = false
+offset = Vector2(96, 0)
+region_enabled = true
+region_rect = Rect2(112, 0, 96, 256)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/Trees/Tree"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_jl67t")
+centered = false
+offset = Vector2(192, 0)
+region_enabled = true
+region_rect = Rect2(224, 0, 128, 256)
+
+[node name="Tree2" type="Node2D" parent="ParallaxBackground/Trees"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Trees/Tree2"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_jl67t")
+centered = false
+offset = Vector2(192, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 256)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/Trees/Tree2"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_jl67t")
+centered = false
+offset = Vector2(288, 0)
+region_enabled = true
+region_rect = Rect2(112, 0, 96, 256)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/Trees/Tree2"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_jl67t")
+centered = false
+offset = Vector2(384, 0)
+region_enabled = true
+region_rect = Rect2(224, 0, 128, 256)
+
+[node name="Tree3" type="Node2D" parent="ParallaxBackground/Trees"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Trees/Tree3"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_jl67t")
+centered = false
+offset = Vector2(384, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 256)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/Trees/Tree3"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_jl67t")
+centered = false
+offset = Vector2(480, 0)
+region_enabled = true
+region_rect = Rect2(112, 0, 96, 256)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/Trees/Tree3"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_jl67t")
+centered = false
+offset = Vector2(576, 0)
+region_enabled = true
+region_rect = Rect2(224, 0, 128, 256)
+
+[node name="Tree4" type="Node2D" parent="ParallaxBackground/Trees"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Trees/Tree4"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_jl67t")
+centered = false
+offset = Vector2(576, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 256)
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/Trees/Tree4"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_jl67t")
+centered = false
+offset = Vector2(672, 0)
+region_enabled = true
+region_rect = Rect2(112, 0, 96, 256)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/Trees/Tree4"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_jl67t")
+centered = false
+offset = Vector2(768, 0)
+region_enabled = true
+region_rect = Rect2(224, 0, 128, 256)

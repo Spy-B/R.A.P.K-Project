@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwormf6p6oqbo"]
+
+[ext_resource type="Script" uid="uid://brssc6rlr8ekf" path="res://Scripts/NPCs/NPC_1/npc_1_bullet.gd" id="1_lv1qe"]
+[ext_resource type="Texture2D" uid="uid://c6q3i6ubwq3e0" path="res://Assets/VFX/LaserSprites/06.png" id="2_kgjow"]
+[ext_resource type="Texture2D" uid="uid://q2c87pw12ryu" path="res://Assets/VFX/Transparent/circle_05.png" id="3_1fi33"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rgju8"]
+radius = 1.0
+
+[node name="NPCBullet" type="Area2D"]
+collision_layer = 131072
+collision_mask = 65793
+script = ExtResource("1_lv1qe")
+bulletLifeTime = 4.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rgju8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_kgjow")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+enabled = false
+energy = 1.5
+texture = ExtResource("3_1fi33")
+texture_scale = 0.02
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]

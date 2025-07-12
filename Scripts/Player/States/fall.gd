@@ -5,9 +5,12 @@ extends State
 @export var runningState: State
 @export var startJumpingState: State
 @export var landingState: State
+@export var dashingState: State
 @export var attackingState: State
 @export var shootingState: State
+@export var interactState: State
 @export var talkingState: State
+@export var damagingState: State
 @export var deathState: State
 
 var attack_type: Array = []
@@ -18,8 +21,8 @@ func enter() -> void:
 	attack_type.clear()
 	parent.a_n_s_p = false
 
-func process_input(_event: InputEvent) -> State:
-	if Input.is_action_just_pressed(jumpingInput):
+func process_input(event: InputEvent) -> State:
+	if event.is_action_pressed(jumpingInput):
 		if jump_buffer_timer.is_stopped():
 			jump_buffer_timer.start()
 		
@@ -27,26 +30,54 @@ func process_input(_event: InputEvent) -> State:
 			parent.have_coyote = false
 			return startJumpingState
 	
-	if Input.is_action_just_pressed(attackingInput):
+	
+	if event.is_action_pressed("dash") && parent.dash_points > 0:
+		return dashingState
+	
+	
+	if event.is_action_pressed(attackingInput):
 		parent.a_n_s_p = true
 		attack_type.append(1)
-	elif Input.is_action_just_pressed(shootingInput):
+	
+	elif event.is_action_pressed(shootingInput):
 		parent.a_n_s_p = true
 		attack_type.append(2)
 	
 	return null
 
-func process_physics(delta: float) -> State:
-	parent.velocity.y += gravity * delta
+func process_frame(_delta: float) -> State:
+	if parent.damaged:
+		parent.damaged = false
+		return damagingState
 	
-	var movement = Input.get_axis("move_left", "move_right") * runSpeed
+	if parent.npc_detected:
+		parent.ui.interact_key.visible = true
+		if Input.is_action_just_pressed("interact"):
+			return talkingState
+	
+	elif parent.interaction_detected:
+		parent.ui.interact_key.visible = true
+		if Input.is_action_just_pressed("interact"):
+			return interactState
+	
+	else:
+		parent.ui.interact_key.visible = false
+	
+	return null
+
+func process_physics(delta: float) -> State:
+	parent.velocity.y += falling_gravity * delta
+	
+	var movement: float = Input.get_axis("move_left", "move_right") * runSpeed
 	
 	if movement != 0  && !parent.is_on_floor():
 		if movement > 0:
 			parent.player_sprite.scale.x = 1
+			parent.dash_dir = Vector2.RIGHT
 		else:
 			parent.player_sprite.scale.x = -1
-			
+			parent.dash_dir = Vector2.LEFT
+	
 	parent.velocity.x = lerp(parent.velocity.x, movement, parent.movementWeight)
 	parent.move_and_slide()
 	
@@ -57,16 +88,5 @@ func process_physics(delta: float) -> State:
 			return shootingState
 		
 		return landingState
-	
-	return null
-
-func process_frame(_delta: float) -> State:
-	if parent.can_start_dialogue:
-		parent.interact_key.visible = true
-		
-		if Input.is_action_just_pressed("interact"):
-			return talkingState
-	else:
-		parent.interact_key.visible = false
 	
 	return null

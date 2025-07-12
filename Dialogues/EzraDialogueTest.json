@@ -1,0 +1,42 @@
+[
+	{
+		"commands_raw": "Hello sir, how are you doing?\n\n?> next -> node2",
+		"gnode_name": "start",
+		"id": 0.0,
+		"name": "Start",
+		"position": [
+			0.0,
+			-20.0
+		]
+	},
+	{
+		"commands_raw": "I'm Good son Thank you, as I see you're going to the city, Right?\n\n?> next -> node3",
+		"gnode_name": "node2",
+		"id": 1.0,
+		"name": "node2",
+		"position": [
+			200.0,
+			-80.0
+		]
+	},
+	{
+		"commands_raw": "Yes Mr.John, I need to buy some stuff\n\n?> next -> node4",
+		"gnode_name": "node3",
+		"id": 2.0,
+		"name": "node3",
+		"position": [
+			360.0,
+			-20.0
+		]
+	},
+	{
+		"commands_raw": "Ok see you",
+		"gnode_name": "node4",
+		"id": 3.0,
+		"name": "node4",
+		"position": [
+			520.0,
+			-100.0
+		]
+	}
+]

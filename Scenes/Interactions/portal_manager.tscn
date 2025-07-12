@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsgdynbveb0o5"]
+
+[ext_resource type="Script" uid="uid://bqj4bphu3yno6" path="res://Scripts/Interactions/portal_manager.gd" id="1_22cwu"]
+
+[node name="PortalManager" type="Node"]
+script = ExtResource("1_22cwu")

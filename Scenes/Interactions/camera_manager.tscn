@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dby608arrc55k"]
+
+[ext_resource type="Script" uid="uid://obuihigsfb8r" path="res://Scripts/Interactions/camera_manager.gd" id="1_eciwk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fl75q"]
+size = Vector2(64, 288)
+
+[node name="CameraManager" type="Area2D"]
+collision_layer = 8
+collision_mask = 256
+script = ExtResource("1_eciwk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -144)
+shape = SubResource("RectangleShape2D_fl75q")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

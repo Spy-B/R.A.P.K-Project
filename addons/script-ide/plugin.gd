@@ -677,7 +677,7 @@ func update_outline_cache():
 	for_each_script_member(script, func(array: Array[String], item: String): array.append(item))
 
 	# Remove script members that only exist in the base script (which includes the base of the base etc.).
-	# Note: The method that only collects script members without including the base script(s)
+	# Notee: The method that only collects script members without including the base script(s)
 	# is not exposed to GDScript.
 	var base_script: Script = script.get_base_script()
 	if (base_script != null):

@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjbehwbflx4ex"]
+
+[ext_resource type="Script" uid="uid://dgtbek1dsfcsm" path="res://Scripts/Obstacles/swinging_pendulum.gd" id="1_eli4o"]
+[ext_resource type="Texture2D" uid="uid://dghi4mffem8ol" path="res://Assets/Objects/Shooter_Game_Assets/UI/Cursor_crosshair01.png" id="2_6vvkv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eli4o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eli4o"]
+
+[node name="SwingingPendulum" type="Node2D"]
+script = ExtResource("1_eli4o")
+animeName = &""
+
+[node name="SwingingCeneter" type="Marker2D" parent="."]
+
+[node name="StickSprite" type="Sprite2D" parent="SwingingCeneter"]
+scale = Vector2(0.3, 0.3)
+region_rect = Rect2(375, 244, 2, 56)
+
+[node name="Sprite2D" type="Sprite2D" parent="SwingingCeneter"]
+texture = ExtResource("2_6vvkv")
+
+[node name="Pendulum" type="Area2D" parent="SwingingCeneter"]
+collision_layer = 16
+collision_mask = 460544
+
+[node name="PendulumSprite" type="Sprite2D" parent="SwingingCeneter/Pendulum"]
+scale = Vector2(0.15, 0.15)
+
+[node name="AnimatedPendulumSprite" type="AnimatedSprite2D" parent="SwingingCeneter/Pendulum"]
+sprite_frames = SubResource("SpriteFrames_eli4o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwingingCeneter/Pendulum"]
+shape = SubResource("CircleShape2D_eli4o")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(50, 50)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibleOnScreenNotifier2D"]
+
+[connection signal="body_entered" from="SwingingCeneter/Pendulum" to="." method="_on_pendulum_body_entered"]

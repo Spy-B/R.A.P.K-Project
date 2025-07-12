@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvplrh5krh46n"]
+[gd_scene load_steps=9 format=3 uid="uid://cvplrh5krh46n"]
 
 [ext_resource type="Script" uid="uid://cleogt786p7en" path="res://Scripts/UIs/main_menu.gd" id="1_bsjfe"]
 [ext_resource type="FontFile" uid="uid://dcp8gylagvxol" path="res://Assets/Fonts/Transyl-Bold.ttf" id="2_1tfvi"]
 [ext_resource type="Theme" uid="uid://c7k57134accys" path="res://Resources/Themes/main_menu_buttons.theme" id="3_am3qo"]
+[ext_resource type="PackedScene" uid="uid://562d6x481l84" path="res://Scenes/UIs/Transation/feed_effect.tscn" id="4_1tfvi"]
+[ext_resource type="PackedScene" uid="uid://4mwvhvifpjlc" path="res://Scenes/UIs/new_game.tscn" id="5_2bskk"]
+[ext_resource type="PackedScene" uid="uid://chwbpf00sk5mc" path="res://Scenes/UIs/load_game.tscn" id="6_neua7"]
+[ext_resource type="PackedScene" uid="uid://oxbvn8ongbbb" path="res://Scenes/UIs/settings.tscn" id="7_h23im"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_u7lva"]
 font = ExtResource("2_1tfvi")
@@ -18,17 +22,16 @@ offset_right = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bsjfe")
-newGame_scene = "uid://brwddqb7thkn8"
-options_scene = "uid://oxbvn8ongbbb"
 
 [node name="BG" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 2.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.588235)
+color = Color(0.0115524, 0.428849, 0.558751, 0.588235)
 
 [node name="GameName" type="Label" parent="."]
 layout_mode = 1
@@ -45,50 +48,73 @@ label_settings = SubResource("LabelSettings_u7lva")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NewGame" type="Button" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -190.0
-offset_top = -156.0
-offset_right = 194.0
-offset_bottom = -91.0
+anchor_bottom = 1.0
+offset_left = -302.0
+offset_top = -632.0
+offset_right = 306.0
+offset_bottom = -157.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
+theme_override_constants/separation = 35
+
+[node name="Continue" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("3_am3qo")
+text = "Continue"
+
+[node name="NewGame" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+mouse_default_cursor_shape = 2
 theme = ExtResource("3_am3qo")
 text = "New Game"
 
-[node name="LoadGame" type="Button" parent="."]
-layout_mode = 0
-offset_left = 770.0
-offset_top = 512.0
-offset_right = 1154.0
-offset_bottom = 584.0
+[node name="LoadGame" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+mouse_default_cursor_shape = 2
 theme = ExtResource("3_am3qo")
 text = "Load Game"
 
-[node name="Options" type="Button" parent="."]
-layout_mode = 0
-offset_left = 770.0
-offset_top = 640.0
-offset_right = 1154.0
-offset_bottom = 704.0
+[node name="Options" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+mouse_default_cursor_shape = 2
 theme = ExtResource("3_am3qo")
 text = "Options"
 
-[node name="Quit" type="Button" parent="."]
-layout_mode = 0
-offset_left = 770.0
-offset_top = 768.0
-offset_right = 1154.0
-offset_bottom = 832.0
+[node name="Quit" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+mouse_default_cursor_shape = 2
 theme = ExtResource("3_am3qo")
 text = "Quit"
 
-[connection signal="pressed" from="NewGame" to="." method="_on_new_game_pressed"]
-[connection signal="pressed" from="LoadGame" to="." method="_on_load_game_pressed"]
-[connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[node name="NewGame" parent="." instance=ExtResource("5_2bskk")]
+visible = false
+layout_mode = 1
+
+[node name="LoadGame" parent="." instance=ExtResource("6_neua7")]
+visible = false
+layout_mode = 1
+
+[node name="Options" parent="." instance=ExtResource("7_h23im")]
+visible = false
+layout_mode = 1
+
+[node name="FeedEffect" parent="." instance=ExtResource("4_1tfvi")]
+visible = false
+
+[connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/LoadGame" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

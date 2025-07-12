@@ -4,26 +4,32 @@ extends State
 @export var walkingState: State
 @export var startJumpingState: State
 @export var fallingState: State
+@export var dashingState: State
 @export var attackingState: State
 @export var shootingState: State
 @export var reloadingState: State
+@export var interactState: State
 @export var talkingState: State
+@export var damagingState: State
 @export var deathState: State
 
 @export var acceleration: int = 20
 
-func process_input(_event: InputEvent) -> State:
+func process_input(event: InputEvent) -> State:
 	if parent.is_on_floor():
-		if Input.is_action_just_pressed(jumpingInput):
+		if event.is_action_pressed(jumpingInput):
 			return startJumpingState
 		
-		if Input.is_action_just_pressed(attackingInput):
+		if event.is_action_pressed("dash") && parent.dash_points > 0:
+			return dashingState
+		
+		if event.is_action_pressed(attackingInput):
 			return attackingState
 		
-		if Input.is_action_just_pressed(shootingInput):
+		if event.is_action_pressed(shootingInput):
 			return shootingState
 		
-		if Input.is_action_just_pressed("reload"):
+		if event.is_action_pressed("reload"):
 			return reloadingState
 	
 	return null
@@ -31,7 +37,7 @@ func process_input(_event: InputEvent) -> State:
 func process_physics(delta: float) -> State:
 	parent.velocity.y += gravity * delta
 	
-	var movement = Input.get_axis("move_left", "move_right") * runSpeed
+	var movement: float = Input.get_axis("move_left", "move_right") * runSpeed
 	
 	if !movement:
 		return idleState
@@ -40,8 +46,10 @@ func process_physics(delta: float) -> State:
 	
 	if movement > 0:
 		parent.player_sprite.scale.x = 1
+		parent.dash_dir = Vector2.RIGHT
 	else:
 		parent.player_sprite.scale.x = -1
+		parent.dash_dir = Vector2.LEFT
 	
 	if movement >= runSpeed:
 		parent.velocity.x = min(parent.velocity.x + acceleration, movement)
@@ -57,15 +65,24 @@ func process_physics(delta: float) -> State:
 	return null
 
 func process_frame(_delta: float) -> State:
+	if parent.damaged:
+		parent.damaged = false
+		return damagingState
+	
 	if parent.health <= 0:
 		return deathState
 	
-	if parent.can_start_dialogue:
-		parent.interact_key.visible = true
-		
+	if parent.npc_detected:
+		parent.ui.interact_key.visible = true
 		if Input.is_action_just_pressed("interact"):
 			return talkingState
+	
+	elif parent.interaction_detected:
+		parent.ui.interact_key.visible = true
+		if Input.is_action_just_pressed("interact"):
+			return interactState
+	
 	else:
-		parent.interact_key.visible = false
+		parent.ui.interact_key.visible = false
 	
 	return null

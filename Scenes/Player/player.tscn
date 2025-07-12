@@ -1,7 +1,8 @@
-[gd_scene load_steps=36 format=3 uid="uid://odlluvrio0fy"]
+[gd_scene load_steps=52 format=3 uid="uid://odlluvrio0fy"]
 
 [ext_resource type="Script" uid="uid://c84khsfjk8jkw" path="res://Scripts/Player/player.gd" id="1_3wwtw"]
-[ext_resource type="Texture2D" uid="uid://df6a0s6s4n8rm" path="res://Assets/Characters/Player/red hood itch free Copy-Sheet.png" id="1_enipy"]
+[ext_resource type="Texture2D" uid="uid://df6a0s6s4n8rm" path="res://Assets/Characters/Player/red_hood.png" id="1_enipy"]
+[ext_resource type="Shader" uid="uid://dmn0dmxfshr1d" path="res://Resources/Shaders/hit_flash.gdshader" id="2_qr1w5"]
 [ext_resource type="PackedScene" uid="uid://cm04fvl3igrbw" path="res://Scenes/Player/state_machine.tscn" id="3_vytom"]
 [ext_resource type="Script" uid="uid://cybju0gm13lo8" path="res://Scripts/Player/States/idle.gd" id="4_g7jtl"]
 [ext_resource type="Script" uid="uid://coddbe7btvcrq" path="res://Scripts/Player/States/walk.gd" id="5_jpb0k"]
@@ -13,21 +14,41 @@
 [ext_resource type="Script" uid="uid://dxvf4khhnwias" path="res://Scripts/Player/States/quit_jump.gd" id="9_8wtju"]
 [ext_resource type="Script" uid="uid://dgblu2jsnjcwy" path="res://Scripts/Player/States/shoot.gd" id="10_xqoms"]
 [ext_resource type="Script" uid="uid://cxhhcu4ieh75a" path="res://Scripts/Player/States/die.gd" id="11_wk1dk"]
+[ext_resource type="Script" uid="uid://bk7yn64jahon1" path="res://Scripts/Player/States/dash.gd" id="12_fcwna"]
 [ext_resource type="PackedScene" uid="uid://ctncad00jdckv" path="res://Scenes/Player/arrow.tscn" id="13_88yj3"]
 [ext_resource type="Script" uid="uid://o10qb2iw2jbp" path="res://Scripts/Player/reload.gd" id="14_jlfwl"]
 [ext_resource type="Script" uid="uid://dc2qoct47fdum" path="res://Scripts/Player/States/talk.gd" id="15_aqm4k"]
 [ext_resource type="Script" uid="uid://caq1yqbc8kym7" path="res://Scripts/Player/respawn.gd" id="15_gsya0"]
+[ext_resource type="Script" uid="uid://brqsr0b2h4c1l" path="res://Scripts/Player/States/interact.gd" id="16_4no11"]
+[ext_resource type="Script" uid="uid://qjnw7dalx0dg" path="res://Scripts/Player/States/damage.gd" id="16_rqdc0"]
 [ext_resource type="Script" uid="uid://8gqr7prnhgj" path="res://Scripts/Player/ui.gd" id="17_1w6uu"]
-[ext_resource type="Texture2D" uid="uid://ct1nomm0fe8i1" path="res://Assets/Keyboard_E_Icon.png" id="18_hnuln"]
+[ext_resource type="Texture2D" uid="uid://ct1nomm0fe8i1" path="res://Assets/UI/Keyboard_E_Icon.png" id="18_hnuln"]
+[ext_resource type="LabelSettings" uid="uid://cppao4gwki6g6" path="res://Resources/Labels/ui_label_settings.tres" id="19_rcvs5"]
+[ext_resource type="Texture2D" uid="uid://b8fehev3f8hhn" path="res://Assets/UI/Health_Bar_(Under).png" id="21_jincj"]
+[ext_resource type="LabelSettings" uid="uid://ck3j7eyrm2267" path="res://Resources/Labels/dialogues_label_settings.tres" id="21_ur3l4"]
+[ext_resource type="Texture2D" uid="uid://dhc3fr0uxguvh" path="res://Assets/UI/Health_Bar_(Over).png" id="22_rqdc0"]
+[ext_resource type="Texture2D" uid="uid://b26eqjgoo246y" path="res://Assets/UI/Health_Bar_(Progress).png" id="23_qr1w5"]
+[ext_resource type="SpriteFrames" uid="uid://8j0a8xad6srp" path="res://Resources/loading_anime.tres" id="26_bmb2s"]
+[ext_resource type="PackedScene" uid="uid://ddttrsm0vcrxa" path="res://Scenes/UIs/phone_ui.tscn" id="26_ythyg"]
+[ext_resource type="PackedScene" uid="uid://dcqdlc1umudh4" path="res://Scenes/UIs/pause_menu.tscn" id="28_2ahak"]
+[ext_resource type="PackedScene" uid="uid://562d6x481l84" path="res://Scenes/UIs/Transation/feed_effect.tscn" id="29_rukb4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bmxon"]
 size = Vector2(18, 34.5)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ythyg"]
+shader = ExtResource("2_qr1w5")
+shader_parameter/flashColor = Color(1, 1, 1, 1)
+shader_parameter/flashValue = 0.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omcea"]
 size = Vector2(21, 34.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_16yam"]
-size = Vector2(18, 34.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ahak"]
+size = Vector2(8, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4no11"]
+size = Vector2(40, 4)
 
 [sub_resource type="Animation" id="Animation_yipag"]
 resource_name = "Attack_1"
@@ -228,6 +249,24 @@ tracks/0/keys = {
 "values": [48, 49, 50, 51]
 }
 
+[sub_resource type="Animation" id="Animation_ythyg"]
+resource_name = "Respawning"
+length = 0.2
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:material:shader_parameter/flashValue")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.5, 0.0]
+}
+
 [sub_resource type="Animation" id="Animation_y0m0f"]
 resource_name = "Running"
 length = 0.96
@@ -293,6 +332,7 @@ _data = {
 &"Idle": SubResource("Animation_1cwvy"),
 &"Jumping": SubResource("Animation_3glbj"),
 &"Landing": SubResource("Animation_64eys"),
+&"Respawning": SubResource("Animation_ythyg"),
 &"Running": SubResource("Animation_y0m0f"),
 &"Shooting": SubResource("Animation_4wr1e"),
 &"StartJumping": SubResource("Animation_hujm0"),
@@ -301,7 +341,7 @@ _data = {
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 256
-collision_mask = 393219
+collision_mask = 458771
 script = ExtResource("1_3wwtw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -309,6 +349,7 @@ position = Vector2(0, -2.75)
 shape = SubResource("RectangleShape2D_bmxon")
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ythyg")
 position = Vector2(0, -16)
 texture = ExtResource("1_enipy")
 flip_h = true
@@ -325,12 +366,20 @@ position = Vector2(1.5, -2.75)
 shape = SubResource("RectangleShape2D_omcea")
 disabled = true
 
-[node name="HurtArea" type="Area2D" parent="PlayerSprite"]
-position = Vector2(0, 16)
+[node name="NPCDetector" type="Area2D" parent="PlayerSprite"]
+collision_layer = 2048
+collision_mask = 16777216
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprite/HurtArea"]
-position = Vector2(0, -2.75)
-shape = SubResource("RectangleShape2D_16yam")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprite/NPCDetector"]
+position = Vector2(0, 16)
+rotation = -1.5708
+shape = SubResource("RectangleShape2D_2ahak")
+
+[node name="InteractionDetector" type="Area2D" parent="PlayerSprite"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSprite/InteractionDetector"]
+position = Vector2(12, 16)
+shape = SubResource("RectangleShape2D_4no11")
 
 [node name="GunBarrel" type="Marker2D" parent="PlayerSprite"]
 position = Vector2(9, 14)
@@ -343,20 +392,23 @@ libraries = {
 [node name="StateMachine" parent="." node_paths=PackedStringArray("startingState") instance=ExtResource("3_vytom")]
 startingState = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "reloadingState", "talkingState", "deathState")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walkingState", "runningState", "startJumpingState", "fallingState", "dashingState", "attackingState", "shootingState", "reloadingState", "interactState", "talkingState", "damagingState", "deathState")]
 script = ExtResource("4_g7jtl")
 walkingState = NodePath("../Walk")
 runningState = NodePath("../Run")
 startJumpingState = NodePath("../StartJump")
 fallingState = NodePath("../Fall")
+dashingState = NodePath("../Dash")
 attackingState = NodePath("../Attack")
 shootingState = NodePath("../Shoot")
 reloadingState = NodePath("../Reload")
+interactState = NodePath("../Interact")
 talkingState = NodePath("../Talk")
+damagingState = NodePath("../Damage")
 deathState = NodePath("../Die")
 animationName = "Idle"
 
-[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "deathState")]
+[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "damagingState", "deathState")]
 script = ExtResource("5_jpb0k")
 idleState = NodePath("../Idle")
 runningState = NodePath("../Run")
@@ -364,59 +416,69 @@ startJumpingState = NodePath("../StartJump")
 fallingState = NodePath("../Fall")
 attackingState = NodePath("../Attack")
 shootingState = NodePath("../Shoot")
+damagingState = NodePath("../Damage")
 deathState = NodePath("../Die")
 
-[node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "startJumpingState", "fallingState", "attackingState", "shootingState", "reloadingState", "talkingState", "deathState")]
+[node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "startJumpingState", "fallingState", "dashingState", "attackingState", "shootingState", "reloadingState", "interactState", "talkingState", "damagingState", "deathState")]
 script = ExtResource("6_msey6")
 idleState = NodePath("../Idle")
 walkingState = NodePath("../Walk")
 startJumpingState = NodePath("../StartJump")
 fallingState = NodePath("../Fall")
+dashingState = NodePath("../Dash")
 attackingState = NodePath("../Attack")
 shootingState = NodePath("../Shoot")
 reloadingState = NodePath("../Reload")
+interactState = NodePath("../Interact")
 talkingState = NodePath("../Talk")
+damagingState = NodePath("../Damage")
 deathState = NodePath("../Die")
 animationName = "Running"
 
-[node name="StartJump" type="Node" parent="StateMachine" node_paths=PackedStringArray("walkingState", "runningState", "jumpingState", "attackingState", "shootingState", "deathState")]
+[node name="StartJump" type="Node" parent="StateMachine" node_paths=PackedStringArray("walkingState", "runningState", "jumpingState", "attackingState", "shootingState", "damagingState", "deathState")]
 script = ExtResource("7_6kwnr")
 walkingState = NodePath("../Walk")
 runningState = NodePath("../Run")
 jumpingState = NodePath("../Jump")
 attackingState = NodePath("../Attack")
 shootingState = NodePath("../Shoot")
+damagingState = NodePath("../Damage")
 deathState = NodePath("../Die")
 wait_time = 0.05
 animationName = "StartJumping"
 
-[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "fallingState", "landingState", "attackingState", "shootingState", "talkingState", "deathState")]
+[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "fallingState", "landingState", "dashingState", "attackingState", "shootingState", "talkingState", "damagingState", "deathState")]
 script = ExtResource("7_ncnvn")
 idleState = NodePath("../Idle")
 walkingState = NodePath("../Walk")
 runningState = NodePath("../Run")
 fallingState = NodePath("../Fall")
 landingState = NodePath("../Land")
+dashingState = NodePath("../Dash")
 attackingState = NodePath("../Attack")
 shootingState = NodePath("../Shoot")
 talkingState = NodePath("../Talk")
+damagingState = NodePath("../Damage")
 deathState = NodePath("../Die")
 animationName = "Jumping"
 
-[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "landingState", "attackingState", "shootingState", "talkingState", "deathState")]
+[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "landingState", "dashingState", "attackingState", "shootingState", "interactState", "talkingState", "damagingState", "deathState")]
 script = ExtResource("8_aob0q")
 idleState = NodePath("../Idle")
 walkingState = NodePath("../Walk")
 runningState = NodePath("../Run")
 startJumpingState = NodePath("../StartJump")
 landingState = NodePath("../Land")
+dashingState = NodePath("../Dash")
 attackingState = NodePath("../Attack")
 shootingState = NodePath("../Shoot")
+interactState = NodePath("../Interact")
 talkingState = NodePath("../Talk")
+damagingState = NodePath("../Damage")
 deathState = NodePath("../Die")
 animationName = "Falling"
 
-[node name="Land" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "attackingState", "shootingState", "deathState")]
+[node name="Land" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "attackingState", "shootingState", "damagingState", "deathState")]
 script = ExtResource("9_8wtju")
 idleState = NodePath("../Idle")
 walkingState = NodePath("../Walk")
@@ -424,11 +486,19 @@ runningState = NodePath("../Run")
 startJumpingState = NodePath("../StartJump")
 attackingState = NodePath("../Attack")
 shootingState = NodePath("../Shoot")
+damagingState = NodePath("../Damage")
 deathState = NodePath("../Die")
 wait_time = 0.2
 animationName = "Landing"
 
-[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "shootingState", "deathState")]
+[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "runningState", "fallingState", "damagingState")]
+script = ExtResource("12_fcwna")
+idleState = NodePath("../Idle")
+runningState = NodePath("../Run")
+fallingState = NodePath("../Fall")
+damagingState = NodePath("../Damage")
+
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "shootingState", "damagingState", "deathState")]
 script = ExtResource("9_6ut1u")
 idleState = NodePath("../Idle")
 walkingState = NodePath("../Walk")
@@ -436,6 +506,7 @@ runningState = NodePath("../Run")
 startJumpingState = NodePath("../StartJump")
 fallingState = NodePath("../Fall")
 shootingState = NodePath("../Shoot")
+damagingState = NodePath("../Damage")
 deathState = NodePath("../Die")
 comboAttack2 = "Attack_2"
 comboAttack3 = "Attack_3"
@@ -443,7 +514,7 @@ shooting = "Shooting"
 target = "Enemy"
 animationName = "Attack_1"
 
-[node name="Shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "reloadingState", "deathState")]
+[node name="Shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "reloadingState", "damagingState", "deathState")]
 script = ExtResource("10_xqoms")
 idleState = NodePath("../Idle")
 walkingState = NodePath("../Walk")
@@ -452,11 +523,12 @@ startJumpingState = NodePath("../StartJump")
 fallingState = NodePath("../Fall")
 attackingState = NodePath("../Attack")
 reloadingState = NodePath("../Reload")
+damagingState = NodePath("../Damage")
 deathState = NodePath(".")
 arrowScene = ExtResource("13_88yj3")
 animationName = "Shooting"
 
-[node name="Reload" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "deathState")]
+[node name="Reload" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "damagingState", "deathState")]
 script = ExtResource("14_jlfwl")
 idleState = NodePath("../Idle")
 walkingState = NodePath("../Walk")
@@ -465,8 +537,13 @@ startJumpingState = NodePath("../StartJump")
 fallingState = NodePath("../Fall")
 attackingState = NodePath("../Attack")
 shootingState = NodePath("../Shoot")
+damagingState = NodePath("../Damage")
 deathState = NodePath("../Die")
 reloadingTime = 0.5
+
+[node name="Interact" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState")]
+script = ExtResource("16_4no11")
+idleState = NodePath("../Idle")
 
 [node name="Talk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "reloadingState", "deathState")]
 script = ExtResource("15_aqm4k")
@@ -478,6 +555,14 @@ attackingState = NodePath("../Attack")
 shootingState = NodePath("../Shoot")
 reloadingState = NodePath("../Reload")
 deathState = NodePath("../Die")
+animationName = "Idle"
+
+[node name="Damage" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "runningState", "fallingState", "deathState")]
+script = ExtResource("16_rqdc0")
+idleState = NodePath("../Idle")
+runningState = NodePath("../Run")
+fallingState = NodePath("../Fall")
+deathState = NodePath("../Die")
 
 [node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "respawningState")]
 script = ExtResource("11_wk1dk")
@@ -488,7 +573,6 @@ animationName = "Death"
 [node name="Respawn" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState")]
 script = ExtResource("15_gsya0")
 idleState = NodePath("../Idle")
-animationName = "Idle"
 
 [node name="Timers" type="Node" parent="."]
 
@@ -507,50 +591,143 @@ one_shot = true
 wait_time = 0.3
 one_shot = true
 
-[node name="ReloadingTimer" type="Timer" parent="Timers"]
+[node name="DashCooldown" type="Timer" parent="Timers"]
 
-[node name="Health" type="Label" parent="."]
+[node name="ReloadingTime" type="Timer" parent="Timers"]
+
+[node name="RespawnTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+ignore_time_scale = true
+
+[node name="RespawnCooldown" type="Timer" parent="Timers"]
+wait_time = 2.0
+ignore_time_scale = true
+
+[node name="PhoneUI" parent="." instance=ExtResource("26_ythyg")]
 visible = false
-offset_left = -20.0
-offset_top = -43.0
-offset_right = 20.0
-offset_bottom = -20.0
-text = "100"
+
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("phone_ui")]
+script = ExtResource("17_1w6uu")
+phone_ui = NodePath("../PhoneUI")
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FPS" type="Label" parent="UI/Control"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 1008.0
+offset_right = 72.0
+offset_bottom = 1048.0
+text = "60"
+label_settings = ExtResource("19_rcvs5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="UI" type="CanvasLayer" parent="."]
-script = ExtResource("17_1w6uu")
-
-[node name="AmmoLabel" type="Label" parent="UI"]
-offset_left = 24.0
-offset_top = 24.0
-offset_right = 200.0
-offset_bottom = 56.0
+[node name="AmmoLabel" type="Label" parent="UI/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.142
+anchor_right = 0.142
+offset_left = 7.35999
+offset_top = 8.0
+offset_right = 183.36
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Ammo: "
+label_settings = ExtResource("21_ur3l4")
+vertical_alignment = 1
 
-[node name="InteractKey" type="TextureRect" parent="UI"]
+[node name="ComboCounter" type="Label" parent="UI/Control"]
+visible = false
+layout_mode = 0
+offset_left = -60.0
+offset_top = 416.0
+offset_right = -20.0
+offset_bottom = 452.0
+text = "99"
+label_settings = ExtResource("19_rcvs5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InteractKey" type="TextureRect" parent="UI/Control"]
 visible = false
 self_modulate = Color(1, 1, 1, 0.607843)
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -25.0
-offset_top = -130.0
-offset_right = 25.0
-offset_bottom = -80.0
+offset_left = -28.0
+offset_top = -136.0
+offset_right = 28.0
+offset_bottom = -78.0
 grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("18_hnuln")
 expand_mode = 5
 stretch_mode = 5
 
+[node name="HealthBar" type="TextureProgressBar" parent="UI/Control"]
+layout_mode = 1
+offset_left = 48.0
+offset_top = -24.0
+offset_right = 480.0
+offset_bottom = 120.0
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("21_jincj")
+texture_over = ExtResource("22_rqdc0")
+texture_progress = ExtResource("23_qr1w5")
+
+[node name="LoadingIconControl" type="Control" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="LoadingIcon" type="AnimatedSprite2D" parent="UI/Control/LoadingIconControl"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(20, -44)
+scale = Vector2(0.24, 0.24)
+sprite_frames = ExtResource("26_bmb2s")
+animation = &"Loading"
+autoplay = "Loading"
+
+[node name="Pause" parent="UI" node_paths=PackedStringArray("phoneUI") instance=ExtResource("28_2ahak")]
+visible = false
+mouse_filter = 1
+phoneUI = NodePath("../../PhoneUI")
+
+[node name="FeedEffect" parent="UI" instance=ExtResource("29_rukb4")]
+visible = false
+
 [connection signal="body_entered" from="PlayerSprite/HitArea" to="StateMachine/Attack" method="_on_hit_area_body_entered"]
+[connection signal="body_entered" from="PlayerSprite/NPCDetector" to="." method="_on_npc_detector_body_entered"]
+[connection signal="body_exited" from="PlayerSprite/NPCDetector" to="." method="_on_npc_detector_body_exited"]
+[connection signal="body_entered" from="PlayerSprite/InteractionDetector" to="." method="_on_interaction_detector_body_entered"]
+[connection signal="body_exited" from="PlayerSprite/InteractionDetector" to="." method="_on_interaction_detector_body_exited"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Shoot" method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Timers/StartJumpTimer" to="StateMachine/StartJump" method="_on_start_jump_timer_timeout"]
 [connection signal="timeout" from="Timers/LandTimer" to="StateMachine/Land" method="_on_quit_jump_timer_timeout"]
 [connection signal="timeout" from="Timers/MeleeComboTimer" to="StateMachine/Attack" method="_on_melee_combo_timer_timeout"]
-[connection signal="timeout" from="Timers/ReloadingTimer" to="StateMachine/Reload" method="_on_reloading_timer_timeout"]
+[connection signal="timeout" from="Timers/DashCooldown" to="." method="_on_dash_cooldown_timeout"]
+[connection signal="timeout" from="Timers/ReloadingTime" to="StateMachine/Reload" method="_on_reloading_timer_timeout"]
+[connection signal="timeout" from="Timers/RespawnTimer" to="StateMachine/Die" method="_on_respawn_timer_timeout"]
+[connection signal="timeout" from="Timers/RespawnCooldown" to="." method="_on_respawn_cooldown_timeout"]

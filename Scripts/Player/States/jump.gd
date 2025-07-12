@@ -5,20 +5,46 @@ extends State
 @export var runningState: State
 @export var fallingState: State
 @export var landingState: State
+@export var dashingState: State
 @export var attackingState: State
 @export var shootingState: State
 @export var talkingState: State
+@export var damagingState: State
 @export var deathState: State
 
 @export var jumpPower: int = 300
-@export var jumpingWeight: float = 0.1
-
-
+@export var jumpingWeight: float = 0.05
 
 func enter() -> void:
 	super()
 	
 	parent.velocity.y = -jumpPower
+
+func process_input(event: InputEvent) -> State:
+	if event.is_action_pressed("dash") && parent.dash_points > 0:
+		return dashingState
+	
+	return null
+
+func process_frame(_delta: float) -> State:
+	if !Input.is_action_pressed("jump") && parent.velocity.y < 0:
+		parent.velocity.y = lerp(parent.velocity.y, 0.0, jumpingWeight)
+	
+	if parent.damaged:
+		parent.damaged = false
+		return damagingState
+	
+	if parent.health <= 0:
+		return deathState
+	
+	if parent.interaction_detected:
+		parent.ui.interact_key.visible = true
+		if Input.is_action_just_pressed("interact"):
+			return talkingState
+	else:
+		parent.ui.interact_key.visible = false
+	
+	return null
 
 func process_physics(delta: float) -> State:
 	parent.velocity.y += gravity * delta
@@ -26,29 +52,17 @@ func process_physics(delta: float) -> State:
 	if parent.velocity.y > 0:
 		return fallingState
 	
-	var movement = Input.get_axis("move_left", "move_right") * runSpeed
+	var movement: float = Input.get_axis("move_left", "move_right") * runSpeed
 	
 	if movement != 0:
 		if movement > 0:
 			parent.player_sprite.scale.x = 1
+			parent.dash_dir = Vector2.RIGHT
 		else:
 			parent.player_sprite.scale.x = -1
+			parent.dash_dir = Vector2.LEFT
 	
 	parent.velocity.x = movement
 	parent.move_and_slide()
-	
-	return null
-
-func process_frame(_delta: float) -> State:
-	if parent.health <= 0:
-		return deathState
-	
-	if parent.can_start_dialogue:
-		parent.interact_key.visible = true
-		
-		if Input.is_action_just_pressed("interact"):
-			return talkingState
-	else:
-		parent.interact_key.visible = false
 	
 	return null

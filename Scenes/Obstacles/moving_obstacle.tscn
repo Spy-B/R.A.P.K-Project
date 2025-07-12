@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://dls1ol8ea37ht"]
+
+[ext_resource type="Script" uid="uid://b52vrowlm16tv" path="res://Scripts/Obstacles/moving_obstacle.gd" id="1_8jbfx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fij0r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fij0r"]
+
+[sub_resource type="Animation" id="Animation_xcw76"]
+resource_name = "Moving"
+length = 2.0
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dq84m"]
+_data = {
+&"Moving": SubResource("Animation_xcw76")
+}
+
+[node name="MovingObstacle" type="Path2D"]
+script = ExtResource("1_8jbfx")
+damage = null
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+progress = 12436.0
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]
+remote_path = NodePath("../../Area2D")
+update_rotation = false
+update_scale = false
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 460544
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+region_rect = Rect2(288, 0, 62, 32)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+position = Vector2(0, -28)
+sprite_frames = SubResource("SpriteFrames_fij0r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_fij0r")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Area2D"]
+scale = Vector2(50, 50)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="Area2D/VisibleOnScreenNotifier2D"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dq84m")
+}
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dcqdlc1umudh4"]
+[gd_scene load_steps=5 format=3 uid="uid://dcqdlc1umudh4"]
 
-[ext_resource type="Script" uid="uid://barqhq4f21wby" path="res://Scripts/UIs/pause.gd" id="1_38i67"]
+[ext_resource type="Script" uid="uid://barqhq4f21wby" path="res://Scripts/UIs/pause_menu.gd" id="1_38i67"]
 [ext_resource type="Theme" uid="uid://c7k57134accys" path="res://Resources/Themes/main_menu_buttons.theme" id="2_7vloh"]
+[ext_resource type="PackedScene" uid="uid://chwbpf00sk5mc" path="res://Scenes/UIs/load_game.tscn" id="3_ci5v8"]
+[ext_resource type="PackedScene" uid="uid://oxbvn8ongbbb" path="res://Scenes/UIs/settings.tscn" id="4_u4bee"]
 
 [node name="Pause" type="Control"]
 process_mode = 3
@@ -12,7 +14,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_38i67")
-restart_scene = "res://Scenes/LVLs/LVL-Alpha.tscn"
+main_menu = "uid://cvplrh5krh46n"
+load_menu = "uid://chwbpf00sk5mc"
+options_menu = "uid://oxbvn8ongbbb"
 
 [node name="BG" type="ColorRect" parent="."]
 layout_mode = 1
@@ -25,34 +29,65 @@ color = Color(0, 0, 0, 0.588235)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = 456.0
-offset_top = -148.0
-offset_right = -456.0
-offset_bottom = 156.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -744.0
+offset_right = 400.0
+offset_bottom = -149.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 theme_override_constants/separation = 65
 alignment = 1
 
 [node name="Resume" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme = ExtResource("2_7vloh")
 text = "Resume"
 
 [node name="Restart" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme = ExtResource("2_7vloh")
 text = "Restart"
 
-[node name="Quit" type="Button" parent="VBoxContainer"]
+[node name="LoadGame" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+mouse_default_cursor_shape = 2
 theme = ExtResource("2_7vloh")
-text = "Quit"
+text = "Load Game"
 
-[connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/Restart" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_button_3_pressed"]
+[node name="Options" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_7vloh")
+text = "Options"
+
+[node name="MainMenu" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_7vloh")
+text = "Main Menu"
+
+[node name="LoadGame" parent="." instance=ExtResource("3_ci5v8")]
+visible = false
+layout_mode = 1
+
+[node name="Settings" parent="." instance=ExtResource("4_u4bee")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="VBoxContainer/LoadGame" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

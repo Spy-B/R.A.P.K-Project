@@ -3,8 +3,9 @@ extends Area2D
 var motion: Vector2 = Vector2.ZERO
 var dir: int = 1
 var shooter: CharacterBody2D = null
-@export var target: String
 
+@export var damage_value: int = 15
+@export var target: String
 @export var speed: int = 1000
 
 @onready var arrow_sprite: Sprite2D = $Sprite2D
@@ -24,8 +25,11 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	
 	if body.is_in_group(target):
-		body.health -= 20
-		print("[Enemy] -> [Health]: -20")
+		#body.health -= damage_value
+		body.damaged = true
+		body.damage_value = damage_value
+		print("[Enemy] -> [Health]: -15")
+		shooter.combo_fight_points += 1
 		
 		
 		if !body.player_detected:
