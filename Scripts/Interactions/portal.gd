@@ -1,5 +1,4 @@
 extends Node2D
-class_name portal
 
 #@export_group("")
 @export var texture: Texture
@@ -25,8 +24,6 @@ func _process(_delta: float) -> void:
 		area_2d.scale = -abs(area_2d.scale)
 	elif direction:
 		area_2d.scale = abs(area_2d.scale)
-	
-	pass
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

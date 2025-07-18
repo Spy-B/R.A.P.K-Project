@@ -114,6 +114,7 @@ vertical_alignment = 1
 uppercase = true
 
 [node name="FeedEffect" parent="." instance=ExtResource("4_glhyf")]
+visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

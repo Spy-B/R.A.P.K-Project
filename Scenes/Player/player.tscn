@@ -708,6 +708,7 @@ scale = Vector2(0.24, 0.24)
 sprite_frames = ExtResource("26_bmb2s")
 animation = &"Loading"
 autoplay = "Loading"
+frame_progress = 0.00733908
 
 [node name="Pause" parent="UI" node_paths=PackedStringArray("phoneUI") instance=ExtResource("28_2ahak")]
 visible = false

@@ -65,7 +65,7 @@ func _ready() -> void:
 	if Global.started_new_game:
 		return
 	else:
-		global_position = Global.current_slat.checkpoint
+		global_position = Global.current_slot.checkpoint
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)

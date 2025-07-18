@@ -14,7 +14,7 @@
 script = ExtResource("1_k8816")
 
 [node name="SpiningCenter" type="Marker2D" parent="."]
-rotation = 4045.39
+rotation = 4051.75
 
 [node name="StickSprite" type="Sprite2D" parent="SpiningCenter"]
 scale = Vector2(0.32, 0.32)
@@ -48,6 +48,7 @@ scale = Vector2(0.325, 0.325)
 sprite_frames = SubResource("SpriteFrames_8vvb7")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
 scale = Vector2(50, 50)
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibleOnScreenNotifier2D"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://phsxnlyl6nk1"]
+[gd_scene load_steps=43 format=4 uid="uid://phsxnlyl6nk1"]
 
 [ext_resource type="Script" uid="uid://cnf78ko7r6hcr" path="res://Scripts/LVLs/lvl.gd" id="1_rbo7i"]
 [ext_resource type="PackedScene" uid="uid://clppwcfehohc5" path="res://Scenes/LVLs/Parallax_Background_2.tscn" id="2_isc4c"]
@@ -21,6 +21,8 @@
 [ext_resource type="PackedScene" uid="uid://dsbijqdyjddj5" path="res://Scenes/Obstacles/moving_platform.tscn" id="17_7yri8"]
 [ext_resource type="Texture2D" uid="uid://bcgg47piyu1ix" path="res://Assets/VFX/Transparent/spark_07.png" id="17_ee1ov"]
 [ext_resource type="Texture2D" uid="uid://bm1b02r7k7rvt" path="res://Assets/VFX/Transparent/circle_03.png" id="18_popyq"]
+[ext_resource type="Texture2D" uid="uid://br801iypq85i1" path="res://Assets/VFX/Transparent/star_09.png" id="19_hhrw2"]
+[ext_resource type="Texture2D" uid="uid://4g72v45r56iv" path="res://Assets/VFX/Transparent/star_07.png" id="20_1dltn"]
 [ext_resource type="PackedScene" uid="uid://dyjqw2vjtpkxw" path="res://Scenes/Obstacles/spinning_obstacle.tscn" id="20_6ii1r"]
 
 [sub_resource type="Curve2D" id="Curve2D_rbo7i"]
@@ -79,11 +81,40 @@ radius = 33.95
 [sub_resource type="CircleShape2D" id="CircleShape2D_msls5"]
 radius = 30.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7leh"]
+atlas = ExtResource("12_iui5o")
+region = Rect2(0, 0, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jrcsv"]
+atlas = ExtResource("12_iui5o")
+region = Rect2(62, 0, 62, 62)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3ecj"]
+atlas = ExtResource("12_iui5o")
+region = Rect2(0, 62, 62, 62)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j4gxf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7leh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jrcsv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b3ecj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 60.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_popyq"]
 radius = 28.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_adhwj"]
-radius = 28.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_ondqr"]
+radius = 31.2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fm782"]
 size = Vector2(20, 978)
@@ -119,7 +150,7 @@ checkpoint_manager = NodePath("../CheckpointManager")
 player = NodePath("../../../Player")
 
 [node name="CheckPoint2" parent="Interactions/Checkpoints" node_paths=PackedStringArray("checkpoint_manager", "player") instance=ExtResource("9_p7leh")]
-position = Vector2(2724, 908)
+position = Vector2(2767, 908)
 checkpoint_manager = NodePath("../CheckpointManager")
 player = NodePath("../../../Player")
 
@@ -175,12 +206,13 @@ portal_2 = NodePath("../Portal2")
 player = NodePath("../../../Player")
 
 [node name="Portal" parent="Interactions/Portal" node_paths=PackedStringArray("parent", "player") instance=ExtResource("10_adhwj")]
-position = Vector2(840, 938)
+position = Vector2(848, 928)
+direction = 1
 parent = NodePath("../PortalManager")
 player = NodePath("../../../Player")
 
 [node name="Portal2" parent="Interactions/Portal" node_paths=PackedStringArray("parent", "player") instance=ExtResource("10_adhwj")]
-position = Vector2(2723, 928)
+position = Vector2(2536, 892)
 parent = NodePath("../PortalManager")
 player = NodePath("../../../Player")
 
@@ -234,17 +266,18 @@ collisionShape = SubResource("CircleShape2D_msls5")
 player = NodePath("../../Player")
 
 [node name="SpinningObstacle" parent="Obstacles" node_paths=PackedStringArray("player") instance=ExtResource("20_6ii1r")]
-position = Vector2(2537, 851)
+position = Vector2(1575, 808)
 stickTexture = ExtResource("17_ee1ov")
-stickTextureScale = 0.3
+stickTextureScale = 0.26
 rotated = true
-rotatingSpeed = 200.0
-pendulumTexture = ExtResource("18_popyq")
-pendulumScale = 0.12
+rotatingSpeed = 107.5
+pendulumTexture = ExtResource("19_hhrw2")
+animatedPendulumSprite = SubResource("SpriteFrames_j4gxf")
+pendulumScale = 0.805
 collisionShape = SubResource("CircleShape2D_popyq")
-pendulum2Texture = ExtResource("18_popyq")
-pendulum2Scale = 0.12
-collisionShape2 = SubResource("CircleShape2D_adhwj")
+pendulum2Texture = ExtResource("20_1dltn")
+pendulum2Scale = 0.3
+collisionShape2 = SubResource("CircleShape2D_ondqr")
 player = NodePath("../../Player")
 
 [node name="NPCs" type="Node2D" parent="."]
@@ -252,7 +285,7 @@ player = NodePath("../../Player")
 [node name="Enemies" type="Node2D" parent="NPCs"]
 
 [node name="NPC" parent="NPCs/Enemies" node_paths=PackedStringArray("player") instance=ExtResource("13_ondqr")]
-position = Vector2(2643, 919)
+position = Vector2(4652, 831)
 NpcType = 1
 player = NodePath("../../../Player")
 dialogueJson = ExtResource("10_iui5o")
@@ -267,7 +300,7 @@ dialogueJson = ExtResource("10_iui5o")
 
 [node name="Player" parent="." node_paths=PackedStringArray("checkpointManager") instance=ExtResource("14_qekjm")]
 unique_name_in_owner = true
-position = Vector2(342, 923)
+position = Vector2(260, 912)
 collision_mask = 393361
 checkpointManager = NodePath("../Interactions/Checkpoints/CheckpointManager")
 

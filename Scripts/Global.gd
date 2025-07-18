@@ -31,11 +31,11 @@ var android_settings: Dictionary = {
 	"health_bar_position": Vector2(48.0, -48.0)
 }
 
-var selected_slat: int
+var selected_slot: int
 var started_new_game: bool = false
 var played_time: String
 
-var current_slat: Dictionary = {
+var current_slot: Dictionary = {
 	"lvl": "",
 	"enemies_killed": [],
 	"xp": 0,
@@ -44,8 +44,8 @@ var current_slat: Dictionary = {
 	"checkpoints_taken": [],
 }
 
-var saving_slats: Dictionary = {
-	"slat1": {
+var saving_slots: Dictionary = {
+	"slot1": {
 		"lvl": "",
 		"enemies_killed": [],
 		"xp": 0,
@@ -53,7 +53,7 @@ var saving_slats: Dictionary = {
 		"checkpoint": Vector2.ZERO,
 		"checkpoints_taken": [],
 	},
-	"slat2": {
+	"slot2": {
 		"lvl": "",
 		"enemies_killed": [],
 		"xp": 0,
@@ -61,7 +61,7 @@ var saving_slats: Dictionary = {
 		"checkpoint": Vector2.ZERO,
 		"checkpoints_taken": [],
 	},
-	"slat3": {
+	"slot3": {
 		"lvl": "",
 		"enemies_killed": [],
 		"xp": 0,
@@ -71,7 +71,7 @@ var saving_slats: Dictionary = {
 	}
 }
 
-var save_game_path: String = "user://save_slat.rf"
+var save_game_path: String = "user://save_slot.rf"
 var save_game_pass: String = "s9k@02KDsa>#d9"
 
 func _ready() -> void:
@@ -87,20 +87,20 @@ func _ready() -> void:
 
 
 func save_game(_kay: Variant = null, _value: Variant = null) -> void:
-	match selected_slat:
+	match selected_slot:
 		1:
-			saving_slats.slat1 = current_slat
+			saving_slots.slot1 = current_slot
 		2:
-			saving_slats.slat2 = current_slat
+			saving_slots.slot2 = current_slot
 		3:
-			saving_slats.slat3 = current_slat
+			saving_slots.slot3 = current_slot
 	
 	if _kay != null && _value != null:
-		current_slat[_kay] = _value
+		current_slot[_kay] = _value
 	
 	var save_file: FileAccess = FileAccess.open_encrypted_with_pass(save_game_path, FileAccess.WRITE, save_game_pass)
 	
-	save_file.store_var(saving_slats)
+	save_file.store_var(saving_slots)
 	save_file.close()
 
 func load_game() -> void:
@@ -109,22 +109,22 @@ func load_game() -> void:
 		save_game()
 	
 	var load_file: FileAccess = FileAccess.open_encrypted_with_pass(save_game_path, FileAccess.READ, save_game_pass)
-	saving_slats = load_file.get_var()
+	saving_slots = load_file.get_var()
 	
-	match selected_slat:
+	match selected_slot:
 		1:
-			current_slat = saving_slats.slat1
+			current_slot = saving_slots.slot1
 		2:
-			current_slat = saving_slats.slat2
+			current_slot = saving_slots.slot2
 		3:
-			current_slat = saving_slats.slat3
+			current_slot = saving_slots.slot3
 	
 	started_new_game = false
 	
 	load_file.close()
 
 func default_values() -> Dictionary:
-	var slat: Dictionary = {
+	var slot: Dictionary = {
 		"lvl": "",
 		"enemies_killed": [],
 		"xp": 0,
@@ -135,4 +135,4 @@ func default_values() -> Dictionary:
 		"last_one": true,
 	}
 	
-	return slat
+	return slot

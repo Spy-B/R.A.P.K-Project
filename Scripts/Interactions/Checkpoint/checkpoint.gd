@@ -15,7 +15,7 @@ func _ready() -> void:
 	#Generate a checkpoint unique id depending on the position
 	checkpoint_id = (global_position.x + global_position.y) * 100.0
 	
-	if Global.current_slat.checkpoints_taken.has(checkpoint_id):
+	if Global.current_slot.checkpoints_taken.has(checkpoint_id):
 		monitoring = false
 	
 	if lightOn:
@@ -27,8 +27,8 @@ func _on_body_entered(body: Node) -> void:
 	if body == player:
 		checkpoint_manager.last_position = respawn_point.global_position
 		
-		#Global.current_slat.lvl_number.append(lvl_number)
-		Global.current_slat.checkpoints_taken.append(checkpoint_id)
+		#Global.current_slot.lvl_number.append(lvl_number)
+		Global.current_slot.checkpoints_taken.append(checkpoint_id)
 		Global.save_game("checkpoint", checkpoint_manager.last_position)
 		
 		body.ui.saving_loading()

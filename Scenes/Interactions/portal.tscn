@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bkkdhcp7v06xj" path="res://Scripts/Interactions/portal.gd" id="1_nv454"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nv454"]
+height = 64.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nv454"]
 
