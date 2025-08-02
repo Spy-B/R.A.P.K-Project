@@ -12,7 +12,7 @@ script = ExtResource("1_eli4o")
 animeName = &""
 
 [node name="SwingingCeneter" type="Marker2D" parent="."]
-rotation = -1.3053
+rotation = 1.07726
 
 [node name="StickSprite" type="Sprite2D" parent="SwingingCeneter"]
 scale = Vector2(0.3, 0.3)
@@ -35,7 +35,6 @@ sprite_frames = SubResource("SpriteFrames_eli4o")
 shape = SubResource("CircleShape2D_eli4o")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-visible = false
 scale = Vector2(50, 50)
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibleOnScreenNotifier2D"]

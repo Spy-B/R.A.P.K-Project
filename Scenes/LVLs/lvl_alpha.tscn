@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://phsxnlyl6nk1"]
+[gd_scene load_steps=46 format=4 uid="uid://phsxnlyl6nk1"]
 
 [ext_resource type="Script" uid="uid://cnf78ko7r6hcr" path="res://Scripts/LVLs/lvl.gd" id="1_rbo7i"]
 [ext_resource type="PackedScene" uid="uid://clppwcfehohc5" path="res://Scenes/LVLs/Parallax_Background_2.tscn" id="2_isc4c"]
@@ -24,6 +24,8 @@
 [ext_resource type="Texture2D" uid="uid://br801iypq85i1" path="res://Assets/VFX/Transparent/star_09.png" id="19_hhrw2"]
 [ext_resource type="Texture2D" uid="uid://4g72v45r56iv" path="res://Assets/VFX/Transparent/star_07.png" id="20_1dltn"]
 [ext_resource type="PackedScene" uid="uid://dyjqw2vjtpkxw" path="res://Scenes/Obstacles/spinning_obstacle.tscn" id="20_6ii1r"]
+[ext_resource type="Script" uid="uid://df45pmkyxtg2m" path="res://addons/rapk_test/swinging_pendulum_plugin.gd" id="25_1dltn"]
+[ext_resource type="Texture2D" uid="uid://cdjisxsv505md" path="res://Assets/VFX/Transparent/magic_03.png" id="26_p7leh"]
 
 [sub_resource type="Curve2D" id="Curve2D_rbo7i"]
 _data = {
@@ -120,6 +122,9 @@ radius = 31.2
 size = Vector2(20, 978)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wpkgx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p7leh"]
+radius = 33.25
 
 [node name="LVLAlpha" type="Node2D"]
 script = ExtResource("1_rbo7i")
@@ -340,5 +345,19 @@ shape = SubResource("RectangleShape2D_wpkgx")
 color = Color(0.705882, 0.705882, 0.705882, 1)
 
 [node name="TimeScaleTimer" type="Timer" parent="."]
+
+[node name="SwingingPendulum" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+position = Vector2(288, 724)
+script = ExtResource("25_1dltn")
+swingingCenterTexture = ExtResource("26_p7leh")
+swingingCenterTextureSize = 0.035
+stickTexture = ExtResource("17_ee1ov")
+stickTextureScale = 0.31
+rotated = true
+pendulumTexture = ExtResource("18_popyq")
+pendulumScale = 0.165
+collisionShape = SubResource("CircleShape2D_p7leh")
+player = NodePath("../Player")
+metadata/_custom_type_script = "uid://df45pmkyxtg2m"
 
 [connection signal="timeout" from="TimeScaleTimer" to="." method="_on_time_scale_timer_timeout"]
