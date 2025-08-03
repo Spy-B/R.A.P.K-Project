@@ -20,9 +20,9 @@ var speed: float = 1.0
 
 
 @onready var path_follower: PathFollow2D = $PathFollow2D
-@onready var collision_shape: CollisionShape2D = $Area2D/CollisionShape2D
-@onready var animated_sprite: AnimatedSprite2D = $Area2D/AnimatedSprite2D
-@onready var sprite: Sprite2D = $Area2D/Sprite2D
+@onready var collision_shape: CollisionShape2D = $Obstacle/CollisionShape2D
+@onready var animated_sprite: AnimatedSprite2D = $Obstacle/AnimatedSprite2D
+@onready var sprite: Sprite2D = $Obstacle/ObstacleSprite
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
@@ -47,12 +47,12 @@ func apply_preperties() -> void:
 		if !animated_sprite.is_playing():
 			animated_sprite.play(animeName)
 	
-	else:
+	elif sprite:
 		sprite.texture = texture
 	
 	
-	sprite.scale = textureScale
-	animated_sprite.scale = textureScale
+		sprite.scale = textureScale
+		animated_sprite.scale = textureScale
 	
 	if collisionShape:
 		collision_shape.shape = collisionShape

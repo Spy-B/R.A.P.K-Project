@@ -24,8 +24,6 @@ var tween: Tween
 @export var damage: int = 25
 @export var swingTime: float = 1.0
 
-
-
 @onready var swinging_center: Marker2D = Marker2D.new()
 @onready var swinging_center_sprite: Sprite2D = Sprite2D.new()
 @onready var stick_sprite: Sprite2D = Sprite2D.new()
