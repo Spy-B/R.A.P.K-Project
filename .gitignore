@@ -1,5 +1,6 @@
 # Godot 4+ specific ignores
 .godot/
+.idea/
 
 # Godot-specific ignores
 .import/
@@ -14,3 +15,5 @@ android
 .mono/
 data_*/
 mono_crash.*.json
+
+.vscode/
