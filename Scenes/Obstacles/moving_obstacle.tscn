@@ -1,12 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dls1ol8ea37ht"]
+[gd_scene load_steps=6 format=3 uid="uid://dls1ol8ea37ht"]
 
 [ext_resource type="Script" uid="uid://b52vrowlm16tv" path="res://Scripts/Obstacles/moving_obstacle.gd" id="1_8jbfx"]
-
-[sub_resource type="Curve2D" id="Curve2D_fij0r"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 172, -340, 0, 0, 0, 0, 652, 288)
-}
-point_count = 2
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fij0r"]
 
@@ -36,14 +30,10 @@ _data = {
 }
 
 [node name="MovingObstacle" type="Path2D"]
-curve = SubResource("Curve2D_fij0r")
 script = ExtResource("1_8jbfx")
-speedScale = 8.265
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-position = Vector2(465.339, 43.7852)
-rotation = 0.918186
-progress = 483.051
+progress = 58048.0
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]
 remote_path = NodePath("../../Obstacle")
@@ -51,7 +41,6 @@ update_rotation = false
 update_scale = false
 
 [node name="Obstacle" type="Area2D" parent="."]
-position = Vector2(465.339, 43.7852)
 collision_layer = 16
 collision_mask = 460544
 
@@ -59,7 +48,6 @@ collision_mask = 460544
 region_rect = Rect2(288, 0, 62, 32)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Obstacle"]
-position = Vector2(0, -28)
 sprite_frames = SubResource("SpriteFrames_fij0r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle"]
@@ -74,6 +62,5 @@ scale = Vector2(50, 50)
 libraries = {
 &"": SubResource("AnimationLibrary_dq84m")
 }
-speed_scale = 8.265
 
 [connection signal="body_entered" from="Obstacle" to="." method="_on_area_2d_body_entered"]

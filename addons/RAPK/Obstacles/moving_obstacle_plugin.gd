@@ -1,6 +1,8 @@
 @tool
 extends Path2D
 
+var tween: Tween
+
 @export var loop: bool = true
 var speed: float = 1.0
 @export var speedScale: float = 1.0
@@ -46,6 +48,7 @@ func _ready() -> void:
 	remote_transform.remote_path = obstacle.scene_file_path
 	remote_transform.update_rotation = false
 	remote_transform.update_scale = false
+	#remote_transform.force_update_cache()
 	
 	obstacle.set_collision_layer_value(1, false)
 	obstacle.set_collision_layer_value(5, true)
@@ -55,30 +58,39 @@ func _ready() -> void:
 	visible_on_screen_notifier.scale = Vector2(50.0, 50.0)
 	visible_on_screen_enabler.enable_node_path = visible_on_screen_notifier.scene_file_path
 	
+	self.curve = null
+	
 	
 	if loop && curve != null:
 		#animation_player.play()
-		#set_physics_process(false)
+		set_physics_process(false)
 		
 		pass
 	
-	var tween: Tween = get_tree().create_tween().set_loops()
-	tween.tween_property(path_follower, "progress_ratio", 1.0, 1.0).from(0.0)
-	tween.tween_interval(0.5)
-	tween.tween_property(path_follower, "progress_ratio", 0.0, 1.0).from(1.0)
+
 	
 	apply_preperties()
 
 func _process(_delta: float) -> void:
+
+	
+	
+	
 	if Engine.is_editor_hint():
 		apply_preperties()
 
 func _physics_process(_delta: float) -> void:
-	#path_follower.progress += speed
 	pass
 
 
 func apply_preperties() -> void:
+	if loop && curve != null && curve.get_baked_length() != null:
+		tween = get_tree().create_tween().set_loops()
+		tween.tween_property(path_follower, "progress_ratio", 1.0, 1.0).from(0.0)
+		tween.tween_interval(0.5)
+		tween.tween_property(path_follower, "progress_ratio", 0.0, 1.0).from(1.0)
+	
+	
 	if animatedTexture:
 		animated_sprite.sprite_frames = animatedTexture
 	

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cjbehwbflx4ex"]
 
 [ext_resource type="Script" uid="uid://dgtbek1dsfcsm" path="res://Scripts/Obstacles/swinging_pendulum.gd" id="1_eli4o"]
-[ext_resource type="Texture2D" uid="uid://dghi4mffem8ol" path="res://Assets/Objects/Shooter_Game_Assets/UI/Cursor_crosshair01.png" id="2_6vvkv"]
+[ext_resource type="Texture2D" uid="uid://cdjisxsv505md" path="res://Assets/VFX/ParticlePack/magic_03.png" id="2_eli4o"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eli4o"]
 
@@ -12,14 +12,15 @@ script = ExtResource("1_eli4o")
 animeName = &""
 
 [node name="SwingingCeneter" type="Marker2D" parent="."]
-rotation = -1.09011
+rotation = -0.720364
 
 [node name="StickSprite" type="Sprite2D" parent="SwingingCeneter"]
 scale = Vector2(0.3, 0.3)
 region_rect = Rect2(375, 244, 2, 56)
 
 [node name="Sprite2D" type="Sprite2D" parent="SwingingCeneter"]
-texture = ExtResource("2_6vvkv")
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_eli4o")
 
 [node name="Pendulum" type="Area2D" parent="SwingingCeneter"]
 collision_layer = 16

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://phsxnlyl6nk1"]
+[gd_scene load_steps=23 format=4 uid="uid://phsxnlyl6nk1"]
 
 [ext_resource type="Script" uid="uid://cnf78ko7r6hcr" path="res://Scripts/LVLs/lvl.gd" id="1_rbo7i"]
 [ext_resource type="PackedScene" uid="uid://clppwcfehohc5" path="res://Scenes/LVLs/Parallax_Background_2.tscn" id="2_isc4c"]
@@ -10,16 +10,14 @@
 [ext_resource type="PackedScene" uid="uid://vuo0krvgb5jn" path="res://Scenes/Interactions/portal.tscn" id="10_adhwj"]
 [ext_resource type="JSON" path="res://Dialogues/EzraDialogueTest.json" id="10_iui5o"]
 [ext_resource type="PackedScene" uid="uid://td8b3vyvnsod" path="res://Scenes/Interactions/Checkpoint/checkpoint_manager.tscn" id="10_jrcsv"]
+[ext_resource type="PackedScene" uid="uid://dyjqw2vjtpkxw" path="res://Scenes/Obstacles/spinning_obstacle.tscn" id="12_rbo7i"]
 [ext_resource type="PackedScene" uid="uid://dby608arrc55k" path="res://Scenes/Interactions/camera_manager.tscn" id="13_f2wfy"]
+[ext_resource type="PackedScene" uid="uid://cjbehwbflx4ex" path="res://Scenes/Obstacles/swinging_pendulum.tscn" id="13_msls5"]
 [ext_resource type="PackedScene" uid="uid://cmdo4y67uis4f" path="res://Scenes/NPCs/NPC_1/npc_1.tscn" id="13_ondqr"]
+[ext_resource type="PackedScene" uid="uid://dls1ol8ea37ht" path="res://Scenes/Obstacles/moving_obstacle.tscn" id="14_6ii1r"]
 [ext_resource type="PackedScene" uid="uid://odlluvrio0fy" path="res://Scenes/Player/player.tscn" id="14_qekjm"]
 [ext_resource type="PackedScene" uid="uid://bg3nobdym6tb" path="res://Scenes/Player/player_camera.tscn" id="15_nq3fu"]
 [ext_resource type="PackedScene" uid="uid://dsbijqdyjddj5" path="res://Scenes/Obstacles/moving_platform.tscn" id="17_7yri8"]
-[ext_resource type="Texture2D" uid="uid://bcgg47piyu1ix" path="res://Assets/VFX/Transparent/spark_07.png" id="17_ee1ov"]
-[ext_resource type="Texture2D" uid="uid://bm1b02r7k7rvt" path="res://Assets/VFX/Transparent/circle_03.png" id="18_popyq"]
-[ext_resource type="Script" uid="uid://df45pmkyxtg2m" path="res://addons/RAPK/Obstacles/swinging_pendulum_plugin.gd" id="25_1dltn"]
-[ext_resource type="Texture2D" uid="uid://cdjisxsv505md" path="res://Assets/VFX/Transparent/magic_03.png" id="26_p7leh"]
-[ext_resource type="Script" uid="uid://bo4x77oki7y3v" path="res://addons/RAPK/Obstacles/spining_obstacle_plugin.gd" id="27_jrcsv"]
 
 [sub_resource type="Curve2D" id="Curve2D_rbo7i"]
 _data = {
@@ -27,14 +25,11 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_p7leh"]
-radius = 33.25
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_b3ecj"]
-radius = 36.3
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_j4gxf"]
-radius = 36.25
+[sub_resource type="Curve2D" id="Curve2D_ee1ov"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1352, 248, 0, 0, 0, 0, 1548, 888)
+}
+point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fm782"]
 size = Vector2(20, 978)
@@ -156,37 +151,13 @@ position = Vector2(3139, 1117)
 shakeAmount = Vector2(2, 2)
 player = NodePath("../../../Player")
 
-[node name="SwingingPendulum" type="Node2D" parent="Obstacles" node_paths=PackedStringArray("player")]
-position = Vector2(288, 724)
-script = ExtResource("25_1dltn")
-swingingCenterTexture = ExtResource("26_p7leh")
-swingingCenterTextureSize = 0.035
-stickTexture = ExtResource("17_ee1ov")
-stickTextureScale = 0.31
-rotated = true
-pendulumTexture = ExtResource("18_popyq")
-pendulumScale = 0.165
-collisionShape = SubResource("CircleShape2D_p7leh")
-player = NodePath("../../Player")
-metadata/_custom_type_script = "uid://df45pmkyxtg2m"
+[node name="SpinningObstacle" parent="Obstacles" instance=ExtResource("12_rbo7i")]
 
-[node name="SpiningObstacle" type="Node2D" parent="Obstacles" node_paths=PackedStringArray("player")]
-position = Vector2(680, 772)
-script = ExtResource("27_jrcsv")
-spiningCenterTexture = ExtResource("26_p7leh")
-spiningCenterTextureSize = 0.06
-stickTexture = ExtResource("17_ee1ov")
-stickTextureScale = 0.395
-rotated = true
-rotatingSpeed = 200.0
-pendulumTexture = ExtResource("18_popyq")
-pendulumScale = 0.17
-collisionShape = SubResource("CircleShape2D_b3ecj")
-pendulum2Texture = ExtResource("18_popyq")
-pendulum2Scale = 0.175
-collisionShape2 = SubResource("CircleShape2D_j4gxf")
-player = NodePath("../../Player")
-metadata/_custom_type_script = "uid://bo4x77oki7y3v"
+[node name="SwingingPendulum" parent="Obstacles" instance=ExtResource("13_msls5")]
+position = Vector2(2524, 760)
+
+[node name="MovingObstacle" parent="Obstacles" instance=ExtResource("14_6ii1r")]
+curve = SubResource("Curve2D_ee1ov")
 
 [node name="NPCs" type="Node2D" parent="."]
 

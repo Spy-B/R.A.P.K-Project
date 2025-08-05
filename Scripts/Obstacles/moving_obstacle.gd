@@ -5,6 +5,8 @@ extends Path2D
 var speed: float = 1.0
 @export var speedScale: float = 1.0
 
+@export var animation: AnimationMixer
+
 @export_group("Preperties")
 @export var texture: Texture
 @export var animatedTexture: SpriteFrames

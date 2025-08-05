@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://4qvtq6epoo3e"]
+[gd_scene load_steps=7 format=3 uid="uid://4qvtq6epoo3e"]
 
 [ext_resource type="Script" uid="uid://c12b2x2ywwk8b" path="res://Scripts/Interactions/letter.gd" id="1_y3g3p"]
-[ext_resource type="Texture2D" uid="uid://c7l67q2ffe28t" path="res://Assets/Objects/Shooter_Game_Assets/Icons/Letter.png" id="2_ka42d"]
 [ext_resource type="Texture2D" uid="uid://beqlxk5kdxuin" path="res://Assets/UI/grunge-paper-background (Pixelized).jpg" id="3_p3v0h"]
 [ext_resource type="FontFile" uid="uid://pijj4ocab1hq" path="res://Assets/Fonts/editundo.ttf" id="4_tov30"]
 [ext_resource type="Theme" uid="uid://c7k57134accys" path="res://Resources/Themes/main_menu_buttons.theme" id="5_bxj2w"]
@@ -42,7 +41,6 @@ shape = SubResource("CircleShape2D_0elpo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("2_ka42d")
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 3

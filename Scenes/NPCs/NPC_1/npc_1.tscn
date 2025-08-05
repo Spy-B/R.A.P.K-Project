@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cmdo4y67uis4f"]
+[gd_scene load_steps=29 format=3 uid="uid://cmdo4y67uis4f"]
 
 [ext_resource type="Script" uid="uid://bj3uho672bvem" path="res://Scripts/NPCs/NPC_1/npc_1.gd" id="1_e8lvv"]
 [ext_resource type="Shader" uid="uid://dmn0dmxfshr1d" path="res://Resources/Shaders/hit_flash.gdshader" id="2_5dkjo"]
@@ -16,10 +16,8 @@
 [ext_resource type="Script" uid="uid://dbn4q5cdrk3xh" path="res://Scripts/NPCs/NPC_1/States/damage.gd" id="13_n864f"]
 [ext_resource type="Script" uid="uid://hct8g0dwy6rm" path="res://Dialogues/dialogue_box.gd" id="14_c55s6"]
 [ext_resource type="LabelSettings" uid="uid://ck3j7eyrm2267" path="res://Resources/Labels/dialogues_label_settings.tres" id="14_ki3bk"]
-[ext_resource type="Texture2D" uid="uid://xbmswhtui6wn" path="res://Assets/Objects/Shooter_Game_Assets/UI/HUD_fillbar01.png" id="16_acuhb"]
 [ext_resource type="Script" uid="uid://lngqm66mqljp" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="16_lgjjx"]
 [ext_resource type="Texture2D" uid="uid://bk3ipmaetj1hl" path="res://Assets/VFX/Particle_Material.png" id="16_qta83"]
-[ext_resource type="Texture2D" uid="uid://c3lt4nnlj5j53" path="res://Assets/UI/ProgressBar_2.png" id="19_oours"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6da7p"]
 size = Vector2(30, 35)
@@ -346,8 +344,6 @@ offset_right = 40.0
 offset_bottom = -27.0
 value = 100.0
 nine_patch_stretch = true
-texture_under = ExtResource("19_oours")
-texture_progress = ExtResource("16_acuhb")
 tint_progress = Color(0.907709, 0.0900278, 5.77569e-07, 1)
 
 [node name="UI" type="CanvasLayer" parent="."]

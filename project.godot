@@ -81,7 +81,7 @@ movie_writer/physics_ticks_per_second=60
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/RAPK/plugin.cfg", "res://addons/ToastPlugin/plugin.cfg", "res://addons/Todo_Manager/plugin.cfg", "res://addons/ez_dialogue/plugin.cfg", "res://addons/fullscreen_control/plugin.cfg", "res://addons/kenyoni/plugin_reloader/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/ToastPlugin/plugin.cfg", "res://addons/Todo_Manager/plugin.cfg", "res://addons/ez_dialogue/plugin.cfg", "res://addons/fullscreen_control/plugin.cfg", "res://addons/script-ide/plugin.cfg")
 
 [file_customization]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dc7p7yi6s3k22"]
 
 [ext_resource type="Material" uid="uid://cbmg8uyrxn87h" path="res://Resources/Particles/bullet_wall_impact.tres" id="1_qtbdl"]
-[ext_resource type="Texture2D" uid="uid://cjk48kgpnvvq5" path="res://Assets/VFX/Transparent/dirt_01.png" id="2_to810"]
+[ext_resource type="Texture2D" uid="uid://cjk48kgpnvvq5" path="res://Assets/VFX/ParticlePack/dirt_01.png" id="2_to810"]
 
 [node name="WallImpact" type="GPUParticles2D"]
 emitting = false

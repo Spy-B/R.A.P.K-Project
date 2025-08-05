@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cvrnumn3bmhny" path="res://Scripts/Interactions/Checkpoint/checkpoint.gd" id="1_ellhh"]
 [ext_resource type="Texture2D" uid="uid://b06wb530gc78e" path="res://Assets/Envirement/Texture/TX Village Props.png" id="2_kdfua"]
-[ext_resource type="Texture2D" uid="uid://2ulxbpm7qm8i" path="res://Assets/VFX/Transparent/light_01.png" id="3_mnydr"]
+[ext_resource type="Texture2D" uid="uid://2ulxbpm7qm8i" path="res://Assets/VFX/ParticlePack/light_01.png" id="3_mnydr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lt20a"]
 size = Vector2(70, 96)
