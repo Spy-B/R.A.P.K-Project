@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://phsxnlyl6nk1"]
+[gd_scene load_steps=29 format=4 uid="uid://phsxnlyl6nk1"]
 
 [ext_resource type="Script" uid="uid://cnf78ko7r6hcr" path="res://Scripts/LVLs/lvl.gd" id="1_rbo7i"]
 [ext_resource type="PackedScene" uid="uid://clppwcfehohc5" path="res://Scenes/LVLs/Parallax_Background_2.tscn" id="2_isc4c"]
@@ -11,13 +11,16 @@
 [ext_resource type="JSON" path="res://Dialogues/EzraDialogueTest.json" id="10_iui5o"]
 [ext_resource type="PackedScene" uid="uid://td8b3vyvnsod" path="res://Scenes/Interactions/Checkpoint/checkpoint_manager.tscn" id="10_jrcsv"]
 [ext_resource type="PackedScene" uid="uid://dyjqw2vjtpkxw" path="res://Scenes/Obstacles/spinning_obstacle.tscn" id="12_rbo7i"]
+[ext_resource type="Texture2D" uid="uid://bcgg47piyu1ix" path="res://Assets/VFX/ParticlePack/spark_07.png" id="13_6ii1r"]
+[ext_resource type="Texture2D" uid="uid://cdjisxsv505md" path="res://Assets/VFX/ParticlePack/magic_03.png" id="13_ee1ov"]
 [ext_resource type="PackedScene" uid="uid://dby608arrc55k" path="res://Scenes/Interactions/camera_manager.tscn" id="13_f2wfy"]
-[ext_resource type="PackedScene" uid="uid://cjbehwbflx4ex" path="res://Scenes/Obstacles/swinging_pendulum.tscn" id="13_msls5"]
 [ext_resource type="PackedScene" uid="uid://cmdo4y67uis4f" path="res://Scenes/NPCs/NPC_1/npc_1.tscn" id="13_ondqr"]
 [ext_resource type="PackedScene" uid="uid://dls1ol8ea37ht" path="res://Scenes/Obstacles/moving_obstacle.tscn" id="14_6ii1r"]
+[ext_resource type="Texture2D" uid="uid://bm1b02r7k7rvt" path="res://Assets/VFX/ParticlePack/circle_03.png" id="14_ee1ov"]
 [ext_resource type="PackedScene" uid="uid://odlluvrio0fy" path="res://Scenes/Player/player.tscn" id="14_qekjm"]
 [ext_resource type="PackedScene" uid="uid://bg3nobdym6tb" path="res://Scenes/Player/player_camera.tscn" id="15_nq3fu"]
 [ext_resource type="PackedScene" uid="uid://dsbijqdyjddj5" path="res://Scenes/Obstacles/moving_platform.tscn" id="17_7yri8"]
+[ext_resource type="PackedScene" uid="uid://capx801wrk1vo" path="res://Scenes/Obstacles/swinging_pendulum.tscn" id="17_ee1ov"]
 
 [sub_resource type="Curve2D" id="Curve2D_rbo7i"]
 _data = {
@@ -25,11 +28,20 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_popyq"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_adhwj"]
+radius = 32.0
+
 [sub_resource type="Curve2D" id="Curve2D_ee1ov"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 1352, 248, 0, 0, 0, 0, 1548, 888)
 }
 point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ee1ov"]
+radius = 40.6
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fm782"]
 size = Vector2(20, 978)
@@ -151,13 +163,34 @@ position = Vector2(3139, 1117)
 shakeAmount = Vector2(2, 2)
 player = NodePath("../../../Player")
 
-[node name="SpinningObstacle" parent="Obstacles" instance=ExtResource("12_rbo7i")]
-
-[node name="SwingingPendulum" parent="Obstacles" instance=ExtResource("13_msls5")]
-position = Vector2(2524, 760)
+[node name="SpinningObstacle" parent="Obstacles" node_paths=PackedStringArray("player") instance=ExtResource("12_rbo7i")]
+position = Vector2(2192, 768)
+spiningCenterTexture = ExtResource("13_ee1ov")
+spiningCenterTextureScale = 0.05
+stickTexture = ExtResource("13_6ii1r")
+stickTextureScale = 0.4
+rotated = true
+rotatingSpeed = 200.0
+pendulumTexture = ExtResource("14_ee1ov")
+pendulumScale = 0.15
+collisionShape = SubResource("CircleShape2D_popyq")
+pendulum2Texture = ExtResource("14_ee1ov")
+pendulum2Scale = 0.15
+collisionShape2 = SubResource("CircleShape2D_adhwj")
+player = NodePath("../../Player")
 
 [node name="MovingObstacle" parent="Obstacles" instance=ExtResource("14_6ii1r")]
 curve = SubResource("Curve2D_ee1ov")
+
+[node name="SwingingPendulum" parent="Obstacles" instance=ExtResource("17_ee1ov")]
+position = Vector2(496, 688)
+swingingCenterTexture = ExtResource("13_ee1ov")
+stickTexture = ExtResource("13_6ii1r")
+stickTextureScale = 0.4
+rotated = true
+pendulumTexture = ExtResource("14_ee1ov")
+pendulumScale = 0.2
+collisionShape = SubResource("CircleShape2D_ee1ov")
 
 [node name="NPCs" type="Node2D" parent="."]
 

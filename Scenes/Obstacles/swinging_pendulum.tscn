@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjbehwbflx4ex"]
+[gd_scene load_steps=4 format=3 uid="uid://capx801wrk1vo"]
 
 [ext_resource type="Script" uid="uid://dgtbek1dsfcsm" path="res://Scripts/Obstacles/swinging_pendulum.gd" id="1_eli4o"]
-[ext_resource type="Texture2D" uid="uid://cdjisxsv505md" path="res://Assets/VFX/ParticlePack/magic_03.png" id="2_eli4o"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eli4o"]
 
@@ -9,30 +8,26 @@
 
 [node name="SwingingPendulum" type="Node2D"]
 script = ExtResource("1_eli4o")
-animeName = &""
 
-[node name="SwingingCeneter" type="Marker2D" parent="."]
-rotation = -1.26971
+[node name="SwingingCenter" type="Marker2D" parent="."]
 
-[node name="StickSprite" type="Sprite2D" parent="SwingingCeneter"]
+[node name="StickSprite" type="Sprite2D" parent="SwingingCenter"]
 scale = Vector2(0.3, 0.3)
 region_rect = Rect2(375, 244, 2, 56)
 
-[node name="Sprite2D" type="Sprite2D" parent="SwingingCeneter"]
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("2_eli4o")
+[node name="SwiningCenterSprite" type="Sprite2D" parent="SwingingCenter"]
 
-[node name="Pendulum" type="Area2D" parent="SwingingCeneter"]
+[node name="Pendulum" type="Area2D" parent="SwingingCenter"]
 collision_layer = 16
 collision_mask = 460544
 
-[node name="PendulumSprite" type="Sprite2D" parent="SwingingCeneter/Pendulum"]
+[node name="PendulumSprite" type="Sprite2D" parent="SwingingCenter/Pendulum"]
 scale = Vector2(0.15, 0.15)
 
-[node name="AnimatedPendulumSprite" type="AnimatedSprite2D" parent="SwingingCeneter/Pendulum"]
+[node name="AnimatedPendulumSprite" type="AnimatedSprite2D" parent="SwingingCenter/Pendulum"]
 sprite_frames = SubResource("SpriteFrames_eli4o")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SwingingCeneter/Pendulum"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwingingCenter/Pendulum"]
 shape = SubResource("CircleShape2D_eli4o")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
@@ -40,4 +35,4 @@ scale = Vector2(50, 50)
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="VisibleOnScreenNotifier2D"]
 
-[connection signal="body_entered" from="SwingingCeneter/Pendulum" to="." method="_on_pendulum_body_entered"]
+[connection signal="body_entered" from="SwingingCenter/Pendulum" to="." method="_on_pendulum_body_entered"]

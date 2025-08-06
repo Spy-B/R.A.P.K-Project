@@ -4,34 +4,41 @@ extends Node2D
 
 var tween: Tween
 
+@export var swingingCenterTexture: Texture
+@export_range(0.05, 0.5, 0.05) var swingingCenterTextureScale: float = 0.1
+
 @export_group("Stick Preperties")
 @export var stickTexture: Texture
-@export var stickTextureScale: float = 1.0
+@export_range(0.1, 1.0, 0.05) var stickTextureScale: float = 1.0
 @export var rotated: bool = false
 
 @export_group("Pendulum Preperties")
 @export var pendulumTexture: Texture
 @export var animatedPendulumSprite: SpriteFrames
 @export var animeName: StringName = "default"
-@export var pendulumScale: float = 1.0
+@export_range(0.1, 1.0, 0.05) var pendulumScale: float = 1.0
 @export var collisionShape: Shape2D
 
 @export_group("Others")
 @export var player: CharacterBody2D
-@export var damage: int = 25
-@export var swingTime: float = 1.0
+@export_range(0, 100, 5, "or_greater") var damage: int = 25
+@export_range(0.1, 1.0, 0.05) var swingTime: float = 1.0
 
-@onready var swinging_ceneter: Marker2D = $SwingingCeneter
-@onready var stick_sprite: Sprite2D = $SwingingCeneter/StickSprite
-@onready var pendulum: Area2D = $SwingingCeneter/Pendulum
-@onready var pendulum_sprite: Sprite2D = $SwingingCeneter/Pendulum/PendulumSprite
-@onready var animated_pendulum_sprite: AnimatedSprite2D = $SwingingCeneter/Pendulum/AnimatedPendulumSprite
-@onready var collision_shape: CollisionShape2D = $SwingingCeneter/Pendulum/CollisionShape2D
+
+@onready var swinging_center: Marker2D = $SwingingCenter
+@onready var stick_sprite: Sprite2D = $SwingingCenter/StickSprite
+@onready var swining_center_sprite: Sprite2D = $SwingingCenter/SwiningCenterSprite
+
+@onready var pendulum: Area2D = $SwingingCenter/Pendulum
+@onready var pendulum_sprite: Sprite2D = $SwingingCenter/Pendulum/PendulumSprite
+@onready var animated_pendulum_sprite: AnimatedSprite2D = $SwingingCenter/Pendulum/AnimatedPendulumSprite
+@onready var collision_shape: CollisionShape2D = $SwingingCenter/Pendulum/CollisionShape2D
+
 
 func _ready() -> void:
 	tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD).set_loops()
-	tween.tween_property(swinging_ceneter, "rotation_degrees", -75.0, swingTime).from(75.0)
-	tween.tween_property(swinging_ceneter, "rotation_degrees", 75.0, swingTime).from(-75.0)
+	tween.tween_property(swinging_center, "rotation_degrees", -75.0, swingTime).from(75.0)
+	tween.tween_property(swinging_center, "rotation_degrees", 75.0, swingTime).from(-75.0)
 	
 	apply_preperties()
 
@@ -45,6 +52,11 @@ func _physics_process(_delta: float) -> void:
 
 
 func apply_preperties() -> void:
+	if swingingCenterTexture:
+		swining_center_sprite.texture = swingingCenterTexture
+		swining_center_sprite.scale.x = swingingCenterTextureScale
+		swining_center_sprite.scale.y = swingingCenterTextureScale
+	
 	if stickTexture:
 		stick_sprite.texture = stickTexture
 		stick_sprite.scale.x = stickTextureScale

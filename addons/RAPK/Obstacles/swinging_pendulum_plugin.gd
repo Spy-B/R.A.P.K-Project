@@ -5,7 +5,7 @@ extends Node2D
 var tween: Tween
 
 @export var swingingCenterTexture: Texture
-@export var swingingCenterTextureSize: float
+@export var swingingCenterTextureScale: float
 
 @export_group("Stick Preperties")
 @export var stickTexture: Texture
@@ -72,8 +72,8 @@ func _physics_process(_delta: float) -> void:
 func apply_preperties() -> void:
 	if swingingCenterTexture:
 		swinging_center_sprite.texture = swingingCenterTexture
-		swinging_center_sprite.scale.x = swingingCenterTextureSize
-		swinging_center_sprite.scale.y = swingingCenterTextureSize
+		swinging_center_sprite.scale.x = swingingCenterTextureScale
+		swinging_center_sprite.scale.y = swingingCenterTextureScale
 	
 	if stickTexture:
 		stick_sprite.texture = stickTexture

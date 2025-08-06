@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dyjqw2vjtpkxw"]
 
-[ext_resource type="Script" uid="uid://bmobruck4uh32" path="res://Scripts/Obstacles/spining_obstacle.gd" id="1_k8816"]
+[ext_resource type="Script" uid="uid://bmobruck4uh32" path="res://Scripts/Obstacles/spinning_obstacle.gd" id="1_k8816"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k8816"]
 
@@ -14,12 +14,12 @@
 script = ExtResource("1_k8816")
 
 [node name="SpiningCenter" type="Marker2D" parent="."]
-rotation = 7259.0
+rotation = 7760.51
 
 [node name="StickSprite" type="Sprite2D" parent="SpiningCenter"]
 scale = Vector2(0.32, 0.32)
 
-[node name="Sprite2D" type="Sprite2D" parent="SpiningCenter"]
+[node name="SpiningCenterSprite" type="Sprite2D" parent="SpiningCenter"]
 
 [node name="Pendulum" type="Area2D" parent="SpiningCenter"]
 collision_layer = 16

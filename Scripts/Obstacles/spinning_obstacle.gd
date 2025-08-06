@@ -2,35 +2,37 @@
 extends Node2D
 #class_name SpinningObstacle
 
-#var tween: Tween
+@export var spiningCenterTexture: Texture
+@export_range(0.01, 0.5, 0.05) var spiningCenterTextureScale: float = 0.1
 
 @export_group("Stick Preperties")
 @export var stickTexture: Texture
-@export var stickTextureScale: float = 1.0
+@export_range(0.1, 1.0, 0.05) var stickTextureScale: float = 1.0
 @export var rotated: bool = false
-@export_range(-1000.0, 1000.0, 0.5, "or_less", "or_greater") var rotatingSpeed: float = 100.0
+@export_range(-1000, 1000, 50, "or_less", "or_greater") var rotatingSpeed: float = 100.0
 
 @export_group("Pendulum Preperties")
 @export var pendulumTexture: Texture
 @export var animatedPendulumSprite: SpriteFrames
 @export var animeName: StringName = "default"
-@export var pendulumScale: float = 1.0
+@export_range(0.1, 1.0, 0.05) var pendulumScale: float = 1.0
 @export var collisionShape: Shape2D
 
 @export_group("Pendulum 2 Preperties")
 @export var pendulum2Texture: Texture
 @export var animatedPendulum2Sprite: SpriteFrames
 @export var anime2Name: StringName = "default"
-@export var pendulum2Scale: float = 1.0
+@export_range(0.1, 1.0, 0.05) var pendulum2Scale: float = 1.0
 @export var collisionShape2: Shape2D
 
 @export_group("Others")
 @export var player: CharacterBody2D
-@export var damage: int = 25
+@export_range(0, 100, 5, "or_greater") var damage: int = 25
 
 
 @onready var spining_center: Marker2D = $SpiningCenter
 @onready var stick_sprite: Sprite2D = $SpiningCenter/StickSprite
+@onready var spining_center_sprite: Sprite2D = $SpiningCenter/SpiningCenterSprite
 
 @onready var pendulum: Area2D = $SpiningCenter/Pendulum
 @onready var collision_shape: CollisionShape2D = $SpiningCenter/Pendulum/CollisionShape2D
@@ -54,6 +56,11 @@ func _physics_process(delta: float) -> void:
 
 
 func apply_preperties() -> void:
+	if spiningCenterTexture:
+		spining_center_sprite.texture = spiningCenterTexture
+		spining_center_sprite.scale.x = spiningCenterTextureScale
+		spining_center_sprite.scale.y = spiningCenterTextureScale
+	
 	if stickTexture:
 		stick_sprite.texture = stickTexture
 		stick_sprite.scale.x = stickTextureScale
