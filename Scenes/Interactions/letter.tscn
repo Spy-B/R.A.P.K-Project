@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c12b2x2ywwk8b" path="res://Scripts/Interactions/letter.gd" id="1_y3g3p"]
 [ext_resource type="Texture2D" uid="uid://beqlxk5kdxuin" path="res://Assets/UI/grunge-paper-background (Pixelized).jpg" id="3_p3v0h"]
-[ext_resource type="FontFile" uid="uid://pijj4ocab1hq" path="res://Assets/Fonts/editundo.ttf" id="4_tov30"]
+[ext_resource type="FontFile" uid="uid://c6ru82xe18d6j" path="res://Assets/Fonts/BoldPixels1.4.ttf" id="3_tov30"]
 [ext_resource type="Theme" uid="uid://c7k57134accys" path="res://Resources/Themes/main_menu_buttons.theme" id="5_bxj2w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0elpo"]
@@ -11,7 +11,7 @@ radius = 20.0
 [sub_resource type="LabelSettings" id="LabelSettings_78ts3"]
 line_spacing = 5.0
 paragraph_spacing = 5.0
-font = ExtResource("4_tov30")
+font = ExtResource("3_tov30")
 font_size = 32
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)

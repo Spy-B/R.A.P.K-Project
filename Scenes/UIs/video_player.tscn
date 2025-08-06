@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://vw1jmywku8xl"]
 
-[ext_resource type="FontFile" uid="uid://pijj4ocab1hq" path="res://Assets/Fonts/editundo.ttf" id="1_1bfgf"]
+[ext_resource type="FontFile" uid="uid://c6ru82xe18d6j" path="res://Assets/Fonts/BoldPixels1.4.ttf" id="1_1bfgf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h78jq"]
 line_spacing = 4.0
@@ -44,7 +44,7 @@ anchor_bottom = 1.0
 offset_top = -120.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Hello Sir how are you doing?"
+text = "Text"
 label_settings = SubResource("LabelSettings_h78jq")
 horizontal_alignment = 1
 vertical_alignment = 1

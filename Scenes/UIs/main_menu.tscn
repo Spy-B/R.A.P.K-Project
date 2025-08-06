@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cvplrh5krh46n"]
 
 [ext_resource type="Script" uid="uid://cleogt786p7en" path="res://Scripts/UIs/main_menu.gd" id="1_bsjfe"]
-[ext_resource type="FontFile" uid="uid://dcp8gylagvxol" path="res://Assets/Fonts/Transyl-Bold.ttf" id="2_1tfvi"]
+[ext_resource type="FontFile" uid="uid://c6ru82xe18d6j" path="res://Assets/Fonts/BoldPixels1.4.ttf" id="2_2bskk"]
 [ext_resource type="Theme" uid="uid://c7k57134accys" path="res://Resources/Themes/main_menu_buttons.theme" id="3_am3qo"]
 [ext_resource type="PackedScene" uid="uid://562d6x481l84" path="res://Scenes/UIs/Transation/feed_effect.tscn" id="4_1tfvi"]
 [ext_resource type="PackedScene" uid="uid://4mwvhvifpjlc" path="res://Scenes/UIs/new_game.tscn" id="5_2bskk"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://oxbvn8ongbbb" path="res://Scenes/UIs/settings.tscn" id="7_h23im"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_u7lva"]
-font = ExtResource("2_1tfvi")
+font = ExtResource("2_2bskk")
 font_size = 80
 
 [node name="MainMenu" type="Control"]

@@ -12,7 +12,7 @@ script = ExtResource("1_eli4o")
 animeName = &""
 
 [node name="SwingingCeneter" type="Marker2D" parent="."]
-rotation = -0.720364
+rotation = -1.26971
 
 [node name="StickSprite" type="Sprite2D" parent="SwingingCeneter"]
 scale = Vector2(0.3, 0.3)

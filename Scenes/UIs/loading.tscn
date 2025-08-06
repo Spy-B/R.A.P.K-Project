@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://b5b5dfh0nfqbt"]
 
 [ext_resource type="Script" uid="uid://y3mjps20to58" path="res://Scripts/UIs/loading.gd" id="1_r46dh"]
-[ext_resource type="FontFile" uid="uid://pijj4ocab1hq" path="res://Assets/Fonts/editundo.ttf" id="2_2ff7t"]
 [ext_resource type="SpriteFrames" uid="uid://8j0a8xad6srp" path="res://Resources/loading_anime.tres" id="2_glhyf"]
+[ext_resource type="FontFile" uid="uid://c6ru82xe18d6j" path="res://Assets/Fonts/BoldPixels1.4.ttf" id="3_glhyf"]
 [ext_resource type="PackedScene" uid="uid://562d6x481l84" path="res://Scenes/UIs/Transation/feed_effect.tscn" id="4_glhyf"]
 
 [sub_resource type="Animation" id="Animation_fmaqw"]
@@ -106,7 +106,7 @@ offset_right = 176.0
 offset_bottom = -110.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_2ff7t")
+theme_override_fonts/font = ExtResource("3_glhyf")
 theme_override_font_sizes/font_size = 25
 text = "Press any Key to Continue"
 horizontal_alignment = 1

@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://oxbvn8ongbbb"]
 
 [ext_resource type="Script" uid="uid://dpxksyi58sknq" path="res://Scripts/UIs/settings.gd" id="1_cephn"]
-[ext_resource type="FontFile" uid="uid://pijj4ocab1hq" path="res://Assets/Fonts/editundo.ttf" id="2_v5pqv"]
+[ext_resource type="FontFile" uid="uid://c6ru82xe18d6j" path="res://Assets/Fonts/BoldPixels1.4.ttf" id="2_cephn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tjlft"]
-font = ExtResource("2_v5pqv")
+font = ExtResource("2_cephn")
 font_size = 60
 
 [node name="Settings" type="Control"]

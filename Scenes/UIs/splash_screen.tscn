@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ysdx7iqbppxm" path="res://Scripts/UIs/splash_screen.gd" id="1_7i40u"]
 [ext_resource type="Texture2D" uid="uid://d3oov2wka8dt2" path="res://Assets/0000.jpg" id="2_howh3"]
 [ext_resource type="Texture2D" uid="uid://dy2poqolk38ii" path="res://Default/RAFIA_LOGO.svg" id="3_47mih"]
-[ext_resource type="FontFile" uid="uid://pijj4ocab1hq" path="res://Assets/Fonts/editundo.ttf" id="4_q0drn"]
+[ext_resource type="FontFile" uid="uid://c6ru82xe18d6j" path="res://Assets/Fonts/BoldPixels1.4.ttf" id="4_q0drn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_f6uch"]
 font = ExtResource("4_q0drn")
