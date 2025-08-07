@@ -1,13 +1,11 @@
-This is a GODOT Engine Framework, it must be fully customizable so that the games that will be made using this framework will look totally different from each other.
-
-***
 <div align="center">
   
-## The only 2D PLatformer Framework you'll ever need
+
 <img width="50%" height="auto" alt="RAFIA_LOGO - Cuted" src="https://github.com/user-attachments/assets/b766daaf-df52-4e54-ac4e-761956b46917" />
 
+## Rafia Advanced Platformer Kit
 
-
+This is a **Godot Engine** Framework, it's fully customizable so that the games that will be made using this framework will look totally different from each other.
 </div>
 
 ***
@@ -15,7 +13,7 @@ This is a GODOT Engine Framework, it must be fully customizable so that the game
 **Warning**: this framework is not ready to use yet
 
 # Installation
-* Download the framework from the [Releases](https://github.com/Spy-B/R.A.P.K-Project/releases)
+* Download the framework from the [Releases](https://github.com/Spy-B/R.A.P.K-Project/releases) (for now you should download the entire source code but we will release it soon)
 * Create a new **clean** Project
 <p align="center"><img width="85%" height="auto" alt="Screenshot From 2025-08-07 20-48-46" src="https://github.com/user-attachments/assets/565dc024-9a6a-4449-a243-823918362865" /></p>
 
@@ -24,6 +22,10 @@ This is a GODOT Engine Framework, it must be fully customizable so that the game
 
 * find the zip file and then open it
 <p align="center"><img width="85%" height="auto" alt="Screenshot From 2025-08-07 21-02-29" src="https://github.com/user-attachments/assets/7a4abc89-5488-4da5-ab54-ed01824729f6" /></p>
+
+Make sure to check the Ignore button!
+
+<p align="center"><img width="80%" height="auto" alt="Screenshot From 2025-08-07 22-21-28" src="https://github.com/user-attachments/assets/bb6fc1c9-2c5d-49d4-b409-e39aff66cc1b" /></p>
 
 ***
 more info soon...
