@@ -1,6 +1,6 @@
 This will be a GODOT Engine Framework, it must be fully customizable so that the games that will be made using this framework will look totally different from each other.
 ********
-## How you can install this framework
+# Installation
 * Download the framework source and then put the main folder wherever you want
 
 <img width="664" height="253" alt="Screenshot From 2025-08-06 23-26-09" src="https://github.com/user-attachments/assets/ec83714d-bcd3-4f62-af06-57a0528b9d01" />
