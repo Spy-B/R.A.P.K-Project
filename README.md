@@ -23,9 +23,17 @@ This is a **Godot Engine** Framework, it's fully customizable so that the games 
 * find the zip file and then open it
 <p align="center"><img width="85%" height="auto" alt="Screenshot From 2025-08-07 21-02-29" src="https://github.com/user-attachments/assets/7a4abc89-5488-4da5-ab54-ed01824729f6" /></p>
 
-Make sure to check the Ignore button!
+* Make sure to check the [Ignore asset root] button and then [Install]
 
-<p align="center"><img width="80%" height="auto" alt="Screenshot From 2025-08-07 22-21-28" src="https://github.com/user-attachments/assets/bb6fc1c9-2c5d-49d4-b409-e39aff66cc1b" /></p>
+<p align="center"><img width="80%" height="auto" alt="Screenshot From 2025-08-07 22-21-28" src="https://github.com/user-attachments/assets/c98459d1-a851-43c0-93f0-eea112c41030" /></p>
+
+***
+
+# Special Thanks
+#### Ezra: [Youtube](https://www.youtube.com/@ezthedev) -> [EzDialogue Plugin](https://github.com/real-ezTheDev/GodotEzDialoguePlugin)
+#### Marius Hanl: [Website](https://marangames.com) -> [Script IDE](https://github.com/Maran23/script-ide)
+#### Leparlon : [Github Profile](https://github.com/leparlon) -> [Toast Plugin](https://github.com/leparlon/ToastPlugin)
+#### Peter DV: [Github Profile](https://github.com/OrigamiDev-Pete) -> [TODO Manager](https://github.com/OrigamiDev-Pete/TODO_Manager)
 
 ***
 more info soon...
