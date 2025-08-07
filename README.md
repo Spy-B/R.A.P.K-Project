@@ -14,7 +14,7 @@ for you it's better to put the project in a specific place where you put all you
 
 <img width="1153" height="835" alt="Screenshot From 2025-08-06 23-39-54" src="https://github.com/user-attachments/assets/dbeeb1bc-5fe2-418e-9777-0da9dff750bb" />
 
-you should explore your files from the engine the find the "project.godot" file and then open it
+you should explore your files from the engine, find the "project.godot" file inside the main folder and then open it
 <img width="1042" height="733" alt="Screenshot From 2025-08-06 23-42-19" src="https://github.com/user-attachments/assets/db744e95-4551-4fa1-bc9e-1fa44a8e1c1a" />
 
 ******
