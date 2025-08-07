@@ -1,10 +1,13 @@
 This is a GODOT Engine Framework, it must be fully customizable so that the games that will be made using this framework will look totally different from each other.
 ***
-# Warning
+#### Warning
 this framework is not to use
 ***
+# The only 2D Graphics Editor you'll ever need
+***
 # Installation
-* Download the framework source and then put the main folder wherever you want
+* Download the framework from the [![Releases](https://github.com/Spy-B/R.A.P.K-Project/releases)]
+* Create a new Project
 
 <img width="664" height="253" alt="Screenshot From 2025-08-06 23-26-09" src="https://github.com/user-attachments/assets/ec83714d-bcd3-4f62-af06-57a0528b9d01" />
 <img width="664" height="349" alt="Screenshot From 2025-08-06 23-28-38" src="https://github.com/user-attachments/assets/e2582415-8b26-47b2-a675-8acfc7275bea" />
