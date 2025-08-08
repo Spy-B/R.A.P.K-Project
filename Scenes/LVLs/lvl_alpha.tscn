@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://phsxnlyl6nk1"]
+[gd_scene load_steps=30 format=4 uid="uid://phsxnlyl6nk1"]
 
 [ext_resource type="Script" uid="uid://cnf78ko7r6hcr" path="res://Scripts/LVLs/lvl.gd" id="1_rbo7i"]
 [ext_resource type="PackedScene" uid="uid://clppwcfehohc5" path="res://Scenes/LVLs/Parallax_Background_2.tscn" id="2_isc4c"]
@@ -28,17 +28,20 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="Curve2D" id="Curve2D_ee1ov"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 784, 960, 0, 0, 0, 0, 1552, 960)
+}
+point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hhrw2"]
+radius = 38.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_popyq"]
 radius = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_adhwj"]
 radius = 32.0
-
-[sub_resource type="Curve2D" id="Curve2D_ee1ov"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1352, 248, 0, 0, 0, 0, 1548, 888)
-}
-point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ee1ov"]
 radius = 40.6
@@ -126,6 +129,7 @@ position = Vector2(790, 943)
 player = NodePath("../../Player")
 
 [node name="Portal" type="Node2D" parent="Interactions"]
+process_mode = 4
 
 [node name="PortalManager" parent="Interactions/Portal" node_paths=PackedStringArray("portal_1", "portal_2", "player") instance=ExtResource("9_popyq")]
 portal_1 = NodePath("../Portal")
@@ -163,6 +167,13 @@ position = Vector2(3139, 1117)
 shakeAmount = Vector2(2, 2)
 player = NodePath("../../../Player")
 
+[node name="MovingObstacle" parent="Obstacles" node_paths=PackedStringArray("player") instance=ExtResource("14_6ii1r")]
+curve = SubResource("Curve2D_ee1ov")
+texture = ExtResource("14_ee1ov")
+textureScale = 0.2
+collisionShape = SubResource("CircleShape2D_hhrw2")
+player = NodePath("../../Player")
+
 [node name="SpinningObstacle" parent="Obstacles" node_paths=PackedStringArray("player") instance=ExtResource("12_rbo7i")]
 position = Vector2(2192, 768)
 spiningCenterTexture = ExtResource("13_ee1ov")
@@ -179,10 +190,7 @@ pendulum2Scale = 0.15
 collisionShape2 = SubResource("CircleShape2D_adhwj")
 player = NodePath("../../Player")
 
-[node name="MovingObstacle" parent="Obstacles" instance=ExtResource("14_6ii1r")]
-curve = SubResource("Curve2D_ee1ov")
-
-[node name="SwingingPendulum" parent="Obstacles" instance=ExtResource("17_ee1ov")]
+[node name="SwingingPendulum" parent="Obstacles" node_paths=PackedStringArray("player") instance=ExtResource("17_ee1ov")]
 position = Vector2(496, 688)
 swingingCenterTexture = ExtResource("13_ee1ov")
 stickTexture = ExtResource("13_6ii1r")
@@ -191,6 +199,8 @@ rotated = true
 pendulumTexture = ExtResource("14_ee1ov")
 pendulumScale = 0.2
 collisionShape = SubResource("CircleShape2D_ee1ov")
+player = NodePath("../../Player")
+swingTime = 1.0
 
 [node name="NPCs" type="Node2D" parent="."]
 

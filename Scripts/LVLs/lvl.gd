@@ -21,14 +21,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	time_scale_timer.wait_time = waitTime
 	
-	if Input.is_action_just_pressed("slow_motion") && !timeIsSlow:
-		Global.timeScale = slowTime
-		timeIsSlow = true
-		time_scale_timer.start()
+	#if Input.is
 	
-	elif Input.is_action_just_pressed("slow_motion") && timeIsSlow:
-		Global.timeScale = default_time_scale
-		timeIsSlow = false
 	
 	if Input.is_action_just_pressed("restart"):
 		Global.next_scene = self.scene_file_path

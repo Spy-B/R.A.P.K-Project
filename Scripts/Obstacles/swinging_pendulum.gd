@@ -22,7 +22,7 @@ var tween: Tween
 @export_group("Others")
 @export var player: CharacterBody2D
 @export_range(0, 100, 5, "or_greater") var damage: int = 25
-@export_range(0.1, 1.0, 0.05) var swingTime: float = 1.0
+@export_range(0.1, 1.0, 0.05) var swingTime: float = 2.0
 
 
 @onready var swinging_center: Marker2D = $SwingingCenter
@@ -37,8 +37,10 @@ var tween: Tween
 
 func _ready() -> void:
 	tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD).set_loops()
+	tween.bind_node(self)
 	tween.tween_property(swinging_center, "rotation_degrees", -75.0, swingTime).from(75.0)
 	tween.tween_property(swinging_center, "rotation_degrees", 75.0, swingTime).from(-75.0)
+	
 	
 	apply_preperties()
 

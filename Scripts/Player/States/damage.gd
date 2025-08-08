@@ -11,8 +11,8 @@ func enter() -> void:
 
 func process_frame(_delta: float) -> State:
 	if !parent.just_respawn:
-		var health_bar_tween: Tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-		health_bar_tween.tween_property(parent.ui.health_bar, "value", parent.health, 0.05)
+		parent.health_bar_tween = get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+		parent.health_bar_tween.tween_property(parent.ui.health_bar, "value", parent.health, 0.05)
 	
 	var movement: float = Input.get_axis("move_left", "move_right") * runSpeed
 	

@@ -1,0 +1,16 @@
+run
+jump
+reload
+shoot
+attack
+pause
+restart
+open_inventory
+interact
+continue
+dash
+super
+move_right
+move_left
+move_up
+move_down

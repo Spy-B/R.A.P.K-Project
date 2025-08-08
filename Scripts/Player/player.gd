@@ -4,6 +4,7 @@ var movement: float
 var movementWeight: float = 0.2
 
 var health: int = 100
+var health_bar_tween: Tween
 var damaged: bool = false
 var just_respawn: bool = false
 

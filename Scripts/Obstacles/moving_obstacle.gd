@@ -5,14 +5,12 @@ extends Path2D
 var speed: float = 1.0
 @export var speedScale: float = 1.0
 
-@export var animation: AnimationMixer
-
 @export_group("Preperties")
 @export var texture: Texture
 @export var animatedTexture: SpriteFrames
 @export var animeName: StringName = "default"
 
-@export var textureScale: Vector2 = Vector2(1.0, 1.0)
+@export var textureScale: float = 1.0
 
 @export var collisionShape: Shape2D
 
@@ -26,6 +24,7 @@ var speed: float = 1.0
 @onready var animated_sprite: AnimatedSprite2D = $Obstacle/AnimatedSprite2D
 @onready var sprite: Sprite2D = $Obstacle/ObstacleSprite
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 
 func _ready() -> void:
 	if loop && curve != null:
@@ -53,8 +52,10 @@ func apply_preperties() -> void:
 		sprite.texture = texture
 	
 	
-		sprite.scale = textureScale
-		animated_sprite.scale = textureScale
+		sprite.scale.x = textureScale
+		sprite.scale.y = textureScale
+		animated_sprite.scale.x = textureScale
+		animated_sprite.scale.y = textureScale
 	
 	if collisionShape:
 		collision_shape.shape = collisionShape

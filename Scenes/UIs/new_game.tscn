@@ -51,26 +51,26 @@ grow_vertical = 0
 theme_override_constants/separation = 65
 alignment = 1
 
-[node name="Slat1" type="Button" parent="VBoxContainer"]
+[node name="Slot1" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_u7ae1")
-text = "Slat 1"
+text = "Slot 1"
 
-[node name="Slat2" type="Button" parent="VBoxContainer"]
+[node name="Slot2" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_u7ae1")
-text = "Slat 2"
+text = "Slot 2"
 
-[node name="Slat3" type="Button" parent="VBoxContainer"]
+[node name="Slot3" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_u7ae1")
-text = "Slat 3"
+text = "Slot 3"
 
 [node name="FeedEffect" parent="." instance=ExtResource("4_5ieex")]
 visible = false
@@ -78,7 +78,7 @@ visible = false
 [node name="Timer" type="Timer" parent="."]
 
 [connection signal="pressed" from="GoBack" to="." method="_on_go_back_pressed"]
-[connection signal="pressed" from="VBoxContainer/Slat1" to="." method="_on_slat_1_pressed"]
-[connection signal="pressed" from="VBoxContainer/Slat2" to="." method="_on_slat_2_pressed"]
-[connection signal="pressed" from="VBoxContainer/Slat3" to="." method="_on_slat_3_pressed"]
+[connection signal="pressed" from="VBoxContainer/Slot1" to="." method="_on_slot_1_pressed"]
+[connection signal="pressed" from="VBoxContainer/Slot2" to="." method="_on_slot_2_pressed"]
+[connection signal="pressed" from="VBoxContainer/Slot3" to="." method="_on_slot_3_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
