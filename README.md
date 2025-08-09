@@ -1,7 +1,9 @@
 <div align="center">
   
 
-<img width="50%" height="auto" alt="RAFIA_LOGO - Cuted" src="https://github.com/user-attachments/assets/b766daaf-df52-4e54-ac4e-761956b46917" />
+<img width="45%" height="auto" alt="RAPK-Project-Logo" src="https://github.com/user-attachments/assets/abda372d-46df-4187-ab39-d37e48607e67" />
+
+
 
 ## Rafia Advanced Platformer Kit
 
