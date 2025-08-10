@@ -22,7 +22,7 @@ func enter() -> void:
 	parent.a_n_s_p = false
 
 func process_input(event: InputEvent) -> State:
-	if event.is_action_pressed(jumpingInput):
+	if event.is_action_pressed("jump") && parent.jumpingAbility:
 		if jump_buffer_timer.is_stopped():
 			jump_buffer_timer.start()
 		
@@ -35,11 +35,11 @@ func process_input(event: InputEvent) -> State:
 		return dashingState
 	
 	
-	if event.is_action_pressed(attackingInput):
+	if event.is_action_pressed("attack"):
 		parent.a_n_s_p = true
 		attack_type.append(1)
 	
-	elif event.is_action_pressed(shootingInput):
+	elif event.is_action_pressed("shoot"):
 		parent.a_n_s_p = true
 		attack_type.append(2)
 	
@@ -66,9 +66,9 @@ func process_frame(_delta: float) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
-	parent.velocity.y += falling_gravity * delta
+	parent.velocity.y += parent.falling_gravity * delta
 	
-	var movement: float = Input.get_axis("move_left", "move_right") * runSpeed
+	var movement: float = Input.get_axis("move_left", "move_right") * parent.runSpeed
 	
 	if movement != 0  && !parent.is_on_floor():
 		if movement > 0:

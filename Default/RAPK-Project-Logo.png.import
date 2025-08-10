@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3oov2wka8dt2"
-path="res://.godot/imported/0000.jpg-6f587f784fc5441d926c263490e7b633.ctex"
+uid="uid://bxr07mkwh3sgr"
+path="res://.godot/imported/RAPK-Project-Logo.png-e4316d4c7fdd5c70aebd5103ee40e2f7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/0000.jpg"
-dest_files=["res://.godot/imported/0000.jpg-6f587f784fc5441d926c263490e7b633.ctex"]
+source_file="res://Default/RAPK-Project-Logo.png"
+dest_files=["res://.godot/imported/RAPK-Project-Logo.png-e4316d4c7fdd5c70aebd5103ee40e2f7.ctex"]
 
 [params]
 

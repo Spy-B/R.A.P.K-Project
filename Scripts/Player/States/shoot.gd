@@ -10,8 +10,6 @@ extends State
 @export var damagingState: State
 @export var deathState: State
 
-@export var arrowScene: PackedScene = PackedScene.new()
-
 var finished_animations: Array = []
 
 var reload: bool = false
@@ -25,16 +23,16 @@ func enter() -> void:
 	var dir: float = Input.get_axis("move_left", "move_right")
 	
 	if parent.ammoInMag > 0:
-		var arrow: Area2D = arrowScene.instantiate()
-		arrow.dir = dir
-		arrow.global_position = gun_barrel.global_position
-		arrow.global_rotation = gun_barrel.global_rotation
-		arrow.shooter = parent
+		var bullet: Area2D = parent.bulletScene.instantiate()
+		bullet.dir = dir
+		bullet.global_position = gun_barrel.global_position
+		bullet.global_rotation = gun_barrel.global_rotation
+		bullet.shooter = parent
 		parent.ammoInMag -= 1
-		parent.get_parent().add_child(arrow)
+		parent.get_parent().add_child(bullet)
 
 func process_input(event: InputEvent) -> State:
-	if event.is_action_pressed(shootingInput) && parent.is_on_floor():
+	if event.is_action_pressed("shoot") && parent.is_on_floor():
 		parent.a_n_s_p = true
 	
 	return null
@@ -53,7 +51,7 @@ func process_frame(_delta: float) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
-	parent.velocity.y += gravity * delta
+	parent.velocity.y += parent.gravity * delta
 	
 	var movement: float = Input.get_axis("move_left", "move_right") * 20
 	

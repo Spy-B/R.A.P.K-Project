@@ -35,7 +35,7 @@ func enter() -> void:
 	quit_state_timer.start()
 
 func process_input(event: InputEvent) -> State:
-	if event.is_action_pressed(attackingInput) && !timeout:
+	if event.is_action_pressed("attack") && !timeout:
 		parent.a_n_s_p = true
 		quit_state_timer.start()
 	
@@ -55,7 +55,7 @@ func process_frame(_delta: float) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
-	parent.velocity.y += gravity * delta
+	parent.velocity.y += parent.gravity * delta
 	
 	var movement: float = Input.get_axis("move_left", "move_right") * 20
 	

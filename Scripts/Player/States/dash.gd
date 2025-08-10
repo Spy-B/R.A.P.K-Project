@@ -39,7 +39,7 @@ func process_frame(_delta: float) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
-	parent.velocity.y += gravity * delta
+	parent.velocity.y += parent.gravity * delta
 	
 	z += parent.velocity * delta
 	
@@ -57,7 +57,7 @@ func process_physics(delta: float) -> State:
 		if !parent.is_on_floor():
 			return fallingState
 		
-		var movement: float = Input.get_axis("move_left", "move_right") * runSpeed
+		var movement: float = Input.get_axis("move_left", "move_right") * parent.runSpeed
 		if movement:
 			return runningState
 		

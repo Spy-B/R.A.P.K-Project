@@ -12,23 +12,21 @@ extends State
 @export var damagingState: State
 @export var deathState: State
 
-@export var jumpPower: int = 300
-@export var jumpingWeight: float = 0.05
 
 func enter() -> void:
 	super()
 	
-	parent.velocity.y = -jumpPower
+	parent.velocity.y = -parent.jumpPower
 
 func process_input(event: InputEvent) -> State:
-	if event.is_action_pressed("dash") && parent.dash_points > 0:
+	if event.is_action_pressed("dash") && parent.dash_points > 0 && parent.dashingAbility:
 		return dashingState
 	
 	return null
 
 func process_frame(_delta: float) -> State:
 	if !Input.is_action_pressed("jump") && parent.velocity.y < 0:
-		parent.velocity.y = lerp(parent.velocity.y, 0.0, jumpingWeight)
+		parent.velocity.y = lerp(parent.velocity.y, 0.0, parent.jumpWeight)
 	
 	if parent.damaged:
 		parent.damaged = false
@@ -47,12 +45,12 @@ func process_frame(_delta: float) -> State:
 	return null
 
 func process_physics(delta: float) -> State:
-	parent.velocity.y += gravity * delta
+	parent.velocity.y += parent.gravity * delta
 	
 	if parent.velocity.y > 0:
 		return fallingState
 	
-	var movement: float = Input.get_axis("move_left", "move_right") * runSpeed
+	var movement: float = Input.get_axis("move_left", "move_right") * parent.runSpeed
 	
 	if movement != 0:
 		if movement > 0:

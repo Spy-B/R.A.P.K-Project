@@ -20,24 +20,27 @@ func enter() -> void:
 
 func process_input(event: InputEvent) -> State:
 	if parent.is_on_floor():
-		if event.is_action_pressed(jumpingInput):
+		if event.is_action_pressed("jump") && parent.jumpingAbility:
 			return startJumpingState
 		
 		if event.is_action_pressed("dash") && parent.dash_points > 0:
 			return dashingState
 		
-		if event.is_action_pressed(attackingInput):
+		if event.is_action_pressed("attack"):
 			return attackingState
 		
-		if event.is_action_pressed(shootingInput):
+		if event.is_action_pressed("shoot") && parent.shootingAbility:
 			return shootingState
 		
 		if event.is_action_pressed("reload"):
 			return reloadingState
-	
-	
-	if event.is_action_pressed("move_right") || event.is_action_pressed("move_left"):
-		return runningState
+		
+		if event.is_action_pressed("move_right") || event.is_action_pressed("move_left"):
+			if parent.walkingAbility:
+				return walkingState
+			
+			elif parent.runningAbility && !parent.walkingAbility:
+				return runningState
 	
 	return null
 

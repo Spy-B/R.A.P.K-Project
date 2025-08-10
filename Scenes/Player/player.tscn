@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://dgblu2jsnjcwy" path="res://Scripts/Player/States/shoot.gd" id="10_xqoms"]
 [ext_resource type="Script" uid="uid://cxhhcu4ieh75a" path="res://Scripts/Player/States/die.gd" id="11_wk1dk"]
 [ext_resource type="Script" uid="uid://bk7yn64jahon1" path="res://Scripts/Player/States/dash.gd" id="12_fcwna"]
-[ext_resource type="PackedScene" uid="uid://ctncad00jdckv" path="res://Scenes/Player/arrow.tscn" id="13_88yj3"]
+[ext_resource type="PackedScene" uid="uid://ctncad00jdckv" path="res://Scenes/Player/bullet.tscn" id="13_88yj3"]
 [ext_resource type="Script" uid="uid://o10qb2iw2jbp" path="res://Scripts/Player/reload.gd" id="14_jlfwl"]
 [ext_resource type="Script" uid="uid://dc2qoct47fdum" path="res://Scripts/Player/States/talk.gd" id="15_aqm4k"]
 [ext_resource type="Script" uid="uid://caq1yqbc8kym7" path="res://Scripts/Player/respawn.gd" id="15_gsya0"]
@@ -343,6 +343,7 @@ _data = {
 collision_layer = 256
 collision_mask = 458771
 script = ExtResource("1_3wwtw")
+bulletScene = ExtResource("13_88yj3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2.75)
@@ -418,6 +419,7 @@ attackingState = NodePath("../Attack")
 shootingState = NodePath("../Shoot")
 damagingState = NodePath("../Damage")
 deathState = NodePath("../Die")
+animationName = "Running"
 
 [node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "startJumpingState", "fallingState", "dashingState", "attackingState", "shootingState", "reloadingState", "interactState", "talkingState", "damagingState", "deathState")]
 script = ExtResource("6_msey6")
@@ -525,7 +527,6 @@ attackingState = NodePath("../Attack")
 reloadingState = NodePath("../Reload")
 damagingState = NodePath("../Damage")
 deathState = NodePath(".")
-arrowScene = ExtResource("13_88yj3")
 animationName = "Shooting"
 
 [node name="Reload" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "damagingState", "deathState")]
@@ -539,7 +540,6 @@ attackingState = NodePath("../Attack")
 shootingState = NodePath("../Shoot")
 damagingState = NodePath("../Damage")
 deathState = NodePath("../Die")
-reloadingTime = 0.5
 
 [node name="Interact" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState")]
 script = ExtResource("16_4no11")
@@ -593,7 +593,7 @@ one_shot = true
 
 [node name="DashCooldown" type="Timer" parent="Timers"]
 
-[node name="ReloadingTime" type="Timer" parent="Timers"]
+[node name="ReloadingTimer" type="Timer" parent="Timers"]
 
 [node name="RespawnTimer" type="Timer" parent="Timers"]
 wait_time = 2.0
@@ -733,6 +733,6 @@ visible = false
 [connection signal="timeout" from="Timers/LandTimer" to="StateMachine/Land" method="_on_quit_jump_timer_timeout"]
 [connection signal="timeout" from="Timers/MeleeComboTimer" to="StateMachine/Attack" method="_on_melee_combo_timer_timeout"]
 [connection signal="timeout" from="Timers/DashCooldown" to="." method="_on_dash_cooldown_timeout"]
-[connection signal="timeout" from="Timers/ReloadingTime" to="StateMachine/Reload" method="_on_reloading_timer_timeout"]
+[connection signal="timeout" from="Timers/ReloadingTimer" to="StateMachine/Reload" method="_on_reloading_timer_timeout"]
 [connection signal="timeout" from="Timers/RespawnTimer" to="StateMachine/Die" method="_on_respawn_timer_timeout"]
 [connection signal="timeout" from="Timers/RespawnCooldown" to="." method="_on_respawn_cooldown_timeout"]

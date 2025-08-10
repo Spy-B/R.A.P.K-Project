@@ -29,7 +29,7 @@ func process_frame(_delta: float) -> State:
 	return null
 
 func process_physics(_delta: float) -> State:
-	var movement: float = Input.get_axis("move_left", "move_right") * walkSpeed
+	var movement: float = Input.get_axis("move_left", "move_right") * parent.walkSpeed
 	
 	if movement != 0:
 		if movement > 0:

@@ -10,16 +10,16 @@ extends State
 @export var damagingState: State
 @export var deathState: State
 
-@export_range(0, 1, 0.02) var reloadingTime: float = 1.0
 
-@onready var reloading_time: Timer = $"../../Timers/ReloadingTime"
+@onready var reloading_timer: Timer = $"../../Timers/ReloadingTimer"
 var reaload_done: bool = true
+
 
 func enter() -> void:
 	reaload_done = false
 	
-	reloading_time.wait_time = reloadingTime
-	reloading_time.start()
+	reloading_timer.wait_time = parent.reloadingTime
+	reloading_timer.start()
 
 func process_frame(_delta: float) -> State:
 	if parent.damaged:
@@ -46,4 +46,4 @@ func _on_reloading_timer_timeout() -> void:
 		parent.extraAmmo = 0
 	
 	reaload_done = true
-	reloading_time.stop()
+	reloading_timer.stop()

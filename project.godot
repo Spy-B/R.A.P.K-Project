@@ -12,7 +12,7 @@ config_version=5
 
 config/name="R.A.P.K Project"
 config/description="This will be a GODOT Engine Framework, it must be fully customizable so that the games that will be made using this framework will look totally different from each other."
-config/version="Alpha - 0.8"
+config/version="Beta 0.1"
 run/main_scene="uid://phsxnlyl6nk1"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="RAFIA/R.A.P.K"

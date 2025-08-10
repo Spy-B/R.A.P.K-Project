@@ -67,25 +67,25 @@ click on **Add New Action**, then write its name and click on Add, and reapet it
 
 * Now you should see new settings appear, just copy the following settings to your project and of course you can customize them the way you want.
   #### Size:
-    ```Viewport Width: 1920```
-    
-    ```Viewport Height: 1080```
-    
-    ```Mode: Exclusive Fullscreen``` **(It's a must if you gonna export your game for Phones or Tablets)**
-    
-    ```Resizable: false``` (Optional)
-    
-    ```Window Width Override: 960``` (This Settings will not effect the final game)
-    
-    ```Window Height Override: 540``` (This Settings will not effect the final game)
-    
+	```Viewport Width: 1920```
+	
+	```Viewport Height: 1080```
+	
+	```Mode: Exclusive Fullscreen``` **(It's a must if you gonna export your game for Phones or Tablets)**
+	
+	```Resizable: false``` (Optional)
+	
+	```Window Width Override: 960``` (This Setting will not effect the final game)
+	
+	```Window Height Override: 540``` (This Setting will not effect the final game)
+	
   #### Stretch:
-    ```Mode: viewport``` (this is the best option for **2D Games**)
-    
-    ```Aspect: expand``` (this option will expand your window to fit your screen, **It's a must if you gonna export your game for Phones or Tablets**)
-    
+	```Mode: viewport``` (this is the best option for **2D Games**)
+	
+	```Aspect: expand``` (this option will expand your window to fit your screen, **It's a must if you gonna export your game for Phones or Tablets**)
+	
   #### Handheld:
-    ```Orientation: Sensore Landscape``` (for Phones)
+	```Orientation: Sensore Landscape``` (for Phones)
 ***
 
 # Usage

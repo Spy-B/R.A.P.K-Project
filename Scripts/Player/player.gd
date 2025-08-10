@@ -1,24 +1,22 @@
 extends CharacterBody2D
 
-var movement: float
+# runtime variables
 var movementWeight: float = 0.2
 
-var health: int = 100
-var health_bar_tween: Tween
 var damaged: bool = false
 var just_respawn: bool = false
 
 var isGrounded: bool = true
 var have_coyote: bool = true
 
-var dash_dir: Vector2 = Vector2.RIGHT
-var dash_points: int = 1
+var dash_points: int
 
-var combo_points: int = 2
+#var combo_points: int = 2
 var a_n_s_p: bool = false
 
-var in_combo_fight: bool = false
-var combo_fight_points: int = 0
+# TODO this functionality is not done yet
+#var in_combo_fight: bool = false
+#var combo_fight_points: int = 0
 
 var interaction_detected: bool = false
 var obj_you_interact_with: Node = null
@@ -32,16 +30,49 @@ var start_dialogue: bool = false
 var is_in_dialogue: bool = false
 
 
-@export var checkpointManager: Node
+@export_group("Walking Ability")
+@export var walkingAbility: bool = true
+@export var walkSpeed: int = 120
+
+@export_group("Running Ability")
+@export var runningAbility: bool = true
+@export var runSpeed: int = 200
+
+@export_group("Jumping Ability")
+@export var jumpingAbility: bool = true
+@export var jumpPower: int = 300
+@export var jumpWeight: float = 0.05
+@export var jumpPoints: int = 1
+
+@export_group("Dashing Ability")
+@export var dashingAbility: bool = true
+var dash_dir: Vector2 = Vector2.RIGHT
+@export_range(1, 10, 1, "or_greater") var dashPoints: int = 1
+
+@export_group("Shooting Ability")
+@export var shootingAbility: bool = true
+@export var bulletScene: PackedScene = PackedScene.new()
 
 @export var ammoInMag: int = 9
 @export var maxAmmo: int = 9
 @export var extraAmmo: int = 999
 
+@export_range(0, 1, 0.02) var reloadingTime: float = 1.0
+
+@export_group("Physics")
+var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
+@export var falling_gravity: float = 1280.0
+
 @export_group("Groups")
 @export var enemyGroup: String = "Enemy"
 @export var friendlyGroup: String = "Friendly"
 @export var interactionGroup: String = "Interaction"
+
+@export_group("Others")
+@export_range(10, 100, 5, "or_greater") var health: int = 100
+var health_bar_tween: Tween
+
+@export var checkpointManager: Node
 
 
 @onready var player_sprite: Sprite2D = $PlayerSprite
@@ -67,6 +98,8 @@ func _ready() -> void:
 		return
 	else:
 		global_position = Global.current_slot.checkpoint
+	
+	dash_points = dashPoints
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)
@@ -77,6 +110,7 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
 	
+	# TODO this functionality is not done yet
 	#if combo_fight_points:
 		#in_combo_fight = true
 		#ui.combo_counter.text = str(combo_fight_points)
@@ -124,4 +158,4 @@ func _on_interaction_detector_body_exited(body: Node2D) -> void:
 
 
 func _on_dash_cooldown_timeout() -> void:
-	dash_points = 1
+	dash_points = dashPoints

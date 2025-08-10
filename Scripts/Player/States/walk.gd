@@ -9,32 +9,35 @@ extends State
 @export var damagingState: State
 @export var deathState: State
 
-func process_input(_event: InputEvent) -> State:
-	#if Input.is_action_pressed(runningInput):
-		#return runningState
-	
-	if Input.is_action_just_pressed(jumpingInput):
+func process_input(event: InputEvent) -> State:
+	if event.is_action_pressed("jump") && parent.jumpingAbility:
 		return startJumpingState
 	
 	return null
 
+func process_frame(_delta: float) -> State:
+	if Input.is_action_pressed("run") && parent.runningAbility:
+		return runningState
+	
+	return null
+
 func process_physics(delta: float) -> State:
-	parent.velocity.y += gravity * delta
+	parent.velocity.y += parent.gravity * delta
 	
-	parent.movement *= walkSpeed
+	var movement: float = Input.get_axis("move_left", "move_right") * parent.walkSpeed
 	
-	if !parent.movement:
+	if !movement:
 		return idleState
 	
-	if parent.movement > 0:
+	if movement > 0:
 		parent.player_sprite.scale.x = 1
 	else:
 		parent.player_sprite.scale.x = -1
 	
-	parent.velocity.x = parent.movement
+	parent.velocity.x = movement
 	parent.move_and_slide()
 	
-	if !parent.is_on_floor() && parent.movement != 0:
+	if !parent.is_on_floor() && movement != 0:
 		return fallingState
 	
 	return null

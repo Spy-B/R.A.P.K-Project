@@ -1,21 +1,8 @@
 class_name State
 extends Node
 
-var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
-var falling_gravity: float = 1280.0
-
-@export_group("Movement")
-@export var walkSpeed: int = 120
-@export var runSpeed: int = 200
-
 @export_group("Animation")
 @export_placeholder("Animation") var animationName: String
-
-@export_group("Input Keys")
-@export var runningInput: String = "run"
-@export var jumpingInput: String = "jump"
-@export var attackingInput: String = "attack"
-@export var shootingInput: String = "shoot"
 
 var parent: CharacterBody2D
 var animation: AnimationPlayer

@@ -26,7 +26,7 @@ func enter() -> void:
 	timer.start()
 
 func process_input(event: InputEvent) -> State:
-	if event.is_action_pressed(jumpingInput):
+	if event.is_action_pressed("jump"):
 		return startJumpingState
 	
 	return null
@@ -39,7 +39,7 @@ func process_frame(_delta: float) -> State:
 	return null
 
 func process_physics(_delta: float) -> State:
-	var movement: float = Input.get_axis("move_left", "move_right") * walkSpeed
+	var movement: float = Input.get_axis("move_left", "move_right") * parent.walkSpeed
 	
 	if movement != 0:
 		if movement > 0:
