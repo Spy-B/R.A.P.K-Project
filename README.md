@@ -1,9 +1,6 @@
 <div align="center">
   
-
-<img width="45%" height="auto" alt="RAPK-Project-Logo" src="https://github.com/user-attachments/assets/abda372d-46df-4187-ab39-d37e48607e67" />
-
-
+<img width="45%" height="auto" alt="RAPK-Project-Logo" src="https://github.com/user-attachments/assets/3ac4e34c-1bad-416c-ae57-d9ac5c1376d7" />
 
 ## Rafia Advanced Platformer Kit
 
@@ -12,23 +9,60 @@ This is a **Godot Engine** Framework, it's fully customizable so that the games 
 
 ***
 
-**Warning**: this framework is not ready to use yet
+> [!Warning]
+> this framework is not ready to use yet
 
 # Installation
 * Download the framework from the [Releases](https://github.com/Spy-B/R.A.P.K-Project/releases) (for now you should download the entire source code but we will release it soon)
 * Create a new **clean** Project
-<p align="center"><img width="85%" height="auto" alt="Screenshot From 2025-08-07 20-48-46" src="https://github.com/user-attachments/assets/565dc024-9a6a-4449-a243-823918362865" /></p>
+<p align="center"><img width="85%" height="auto" alt="Screenshot From 2025-08-07 20-48-46" src="https://github.com/user-attachments/assets/7f46ff8c-f04c-46df-ae05-8c92f84ad126" /></p>
 
 * go to **AssetLib** and then click on the top right button **[Import...]**
 <p align="center"><img width="85%" height="auto" alt="Screenshot From 2025-08-07 20-55-21" src="https://github.com/user-attachments/assets/451c752e-ef69-4729-9a36-73f7004ea683" /></p>
 
-* find the zip file and then open it
+* find the Zip file and then open it
 <p align="center"><img width="85%" height="auto" alt="Screenshot From 2025-08-07 21-02-29" src="https://github.com/user-attachments/assets/7a4abc89-5488-4da5-ab54-ed01824729f6" /></p>
 
-* Make sure to check the [Ignore asset root] button and then [Install]
+* Make sure to check the **[Ignore asset root]** button and then **[Install]**
 
-<p align="center"><img width="80%" height="auto" alt="Screenshot From 2025-08-07 22-21-28" src="https://github.com/user-attachments/assets/c98459d1-a851-43c0-93f0-eea112c41030" /></p>
+<p align="center"><img width="75%" height="auto" alt="Screenshot From 2025-08-07 22-21-28" src="https://github.com/user-attachments/assets/c98459d1-a851-43c0-93f0-eea112c41030" /></p>
 
+## Errors after installing
+after installing the framework there will be some issues you need to fix in the **Project Settings** (Autoload, Input Map...)
+
+### Fixing the Globals(Autoload)
+first of all you should add the **Global** Script to the autoload go to ```Project > Project Settings > Globals```
+
+* press on the folder icon to choose the file path
+
+<p align="center"><img width="85%" height="auto" alt="Screenshot From 2025-08-10 00-14-24" src="https://github.com/user-attachments/assets/c7047bd4-c51e-4d3c-abe3-2c070a25e809" /></p>
+
+* find the **Global** Script, it should be in ```res://Scripts/Global.gd```, and then double click on it
+
+<p align="center"><img width="85%" height="auto" alt="Screenshot From 2025-08-10 00-18-03" src="https://github.com/user-attachments/assets/6f7ce137-3a99-4d61-8b3c-0a8aeb10d5bb" /></p>
+
+* after that you should click on **[Add]**
+
+> [!Warning]
+> don't ever change the **Node Name**
+
+<p align="center"><img width="85%" height="auto" alt="Screenshot From 2025-08-10 00-58-03" src="https://github.com/user-attachments/assets/5b97c238-3e8d-4b3d-a451-93b7532974d7" /></p>
+
+and that's it, now it should be right here
+<p align="center"><img width="85%" height="auto" alt="Screenshot From 2025-08-10 00-21-16" src="https://github.com/user-attachments/assets/911f2449-94be-43b4-b11e-c38859588aa2" /></p>
+
+
+### Fixing the Inputs
+go to ```Project > Input Map``` and then add the following actions and assign them to the keys you want
+
+```move_right, move_left, move_up, move_down, run, jump, reload, shoot, attack, pause, restart, interact, continue, dash, super```
+
+click on **Add New Action**, then write its name and click on Add, and reapet it with every other action
+
+<p align="center"><img width="85%" height="auto" alt="Screenshot From 2025-08-10 00-54-56" src="https://github.com/user-attachments/assets/0aaacdbf-d0a6-46cc-b551-af7268d5fc71" /></p>
+
+### Fixing the window Settings
+more info soon...
 ***
 
 # Special Thanks
