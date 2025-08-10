@@ -44,7 +44,7 @@ first of all you should add the **Global** Script to the autoload go to ```Proje
 * after that you should click on **[Add]**
 
 > [!Warning]
-> don't ever change the **Node Name**
+> don't change the **Node Name**
 
 <p align="center"><img width="85%" height="auto" alt="Screenshot From 2025-08-10 00-58-03" src="https://github.com/user-attachments/assets/5b97c238-3e8d-4b3d-a451-93b7532974d7" /></p>
 
@@ -62,7 +62,38 @@ click on **Add New Action**, then write its name and click on Add, and reapet it
 <p align="center"><img width="85%" height="auto" alt="Screenshot From 2025-08-10 00-54-56" src="https://github.com/user-attachments/assets/0aaacdbf-d0a6-46cc-b551-af7268d5fc71" /></p>
 
 ### Fixing the window Settings
-more info soon...
+* first thing you have to go to this Window Settings under Display, and don't forget to check this button **[Advanced Settings]**
+<p align="center"><img width="85%" height="auto" alt="Screenshot From 2025-08-10 16-42-44" src="https://github.com/user-attachments/assets/c8d26799-9ade-4c27-8965-59d3944951bc" /></p>
+
+* Now you should see new settings appear, just copy the following settings to your project and of course you can customize them the way you want.
+  #### Size:
+    ```Viewport Width: 1920```
+    
+    ```Viewport Height: 1080```
+    
+    ```Mode: Exclusive Fullscreen``` **(It's a must if you gonna export your game for Phones or Tablets)**
+    
+    ```Resizable: false``` (Optional)
+    
+    ```Window Width Override: 960``` (This Settings will not effect the final game)
+    
+    ```Window Height Override: 540``` (This Settings will not effect the final game)
+    
+  #### Stretch:
+    ```Mode: viewport``` (this is the best option for **2D Games**)
+    
+    ```Aspect: expand``` (this option will expand your window to fit your screen, **It's a must if you gonna export your game for Phones or Tablets**)
+    
+  #### Handheld:
+    ```Orientation: Sensore Landscape``` (for Phones)
+***
+
+# Usage
+> [!Warning]
+> There's no Documentation Available at the moment!
+
+> [!Tip]
+> as I said before this framework is not ready to use yet, so if you wanna use you should discover it yourself for now, until I fix the issues and write the Documentation
 ***
 
 # Special Thanks
