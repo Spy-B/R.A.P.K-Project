@@ -1,7 +1,6 @@
 class_name State
 extends Node
 
-@export_group("Animation")
 @export_placeholder("Animation") var animationName: String
 
 var parent: CharacterBody2D

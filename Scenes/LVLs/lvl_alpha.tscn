@@ -224,6 +224,7 @@ dialogueJson = ExtResource("10_iui5o")
 unique_name_in_owner = true
 position = Vector2(260, 912)
 collision_mask = 393361
+shootingTime = 0.5
 checkpointManager = NodePath("../Interactions/Checkpoints/CheckpointManager")
 
 [node name="Camera2D" parent="Player" instance=ExtResource("15_nq3fu")]

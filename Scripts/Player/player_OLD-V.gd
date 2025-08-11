@@ -151,7 +151,6 @@ var inConversation := false
 #export(int, FLAGS, "Fire", "Water", "Earth", "Wind") var spell_elements = 0
 
 
-# Start function: Everything here starts at the first FRAME
 func _ready() -> void:
 	$PlayerSprites.scale.x = spriteScaleX
 	$PlayerSprites.scale.y = spriteScaleY
@@ -175,9 +174,7 @@ func _ready() -> void:
 	
 	collision_shape_2d_MA.disabled = true
 
-# Update function: Everything here is updated 60 times per second
-@warning_ignore("unused_parameter")
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if followLvlScaneTime:
 		timeScale = Global.timeScale
 	

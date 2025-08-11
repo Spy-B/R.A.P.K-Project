@@ -17,6 +17,7 @@ var reaload_done: bool = true
 
 func enter() -> void:
 	reaload_done = false
+	parent.can_fire = false
 	
 	reloading_timer.wait_time = parent.reloadingTime
 	reloading_timer.start()
@@ -46,4 +47,5 @@ func _on_reloading_timer_timeout() -> void:
 		parent.extraAmmo = 0
 	
 	reaload_done = true
+	parent.can_fire = true
 	reloading_timer.stop()

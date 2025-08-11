@@ -8,11 +8,14 @@ var just_respawn: bool = false
 
 var isGrounded: bool = true
 var have_coyote: bool = true
+var jump_ponts: int
 
 var dash_points: int
 
-#var combo_points: int = 2
+var combo_points: int = 2
 var a_n_s_p: bool = false
+
+var can_fire: bool = true
 
 # TODO this functionality is not done yet
 #var in_combo_fight: bool = false
@@ -57,7 +60,12 @@ var dash_dir: Vector2 = Vector2.RIGHT
 @export var maxAmmo: int = 9
 @export var extraAmmo: int = 999
 
+@export var autoShoot: bool = false
+@export_range(0, 0.5, 0.02) var shootingTime: float = 0.2
 @export_range(0, 1, 0.02) var reloadingTime: float = 1.0
+
+@export_group("Attacking Ability")
+@export var attackingAbility: bool = true
 
 @export_group("Physics")
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")

@@ -12,28 +12,22 @@ extends State
 
 var finished_animations: Array = []
 
-var reload: bool = false
 
 func enter() -> void:
-	super()
-	
 	parent.a_n_s_p = false
-	reload = false
+	finished_animations.clear()
 	
-	var dir: float = Input.get_axis("move_left", "move_right")
-	
-	if parent.ammoInMag > 0:
-		var bullet: Area2D = parent.bulletScene.instantiate()
-		bullet.dir = dir
-		bullet.global_position = gun_barrel.global_position
-		bullet.global_rotation = gun_barrel.global_rotation
-		bullet.shooter = parent
-		parent.ammoInMag -= 1
-		parent.get_parent().add_child(bullet)
+	if parent.ammoInMag > 0 && parent.shootingAbility:
+		shooting()
+
 
 func process_input(event: InputEvent) -> State:
-	if event.is_action_pressed("shoot") && parent.is_on_floor():
-		parent.a_n_s_p = true
+	if parent.is_on_floor():
+		#if event.is_action_pressed("attack") && parent.attackingAbility:
+			#parent.a_n_s_p = true
+		
+		if event.is_action_pressed("shoot"): # && !parent.autoShoot:
+			parent.a_n_s_p = true
 	
 	return null
 
@@ -45,7 +39,18 @@ func process_frame(_delta: float) -> State:
 	if parent.health <= 0:
 		return deathState
 	
-	if !parent.ammoInMag:
+	
+	#if parent.a_n_s_p && finished_animations.has(1):
+		#return attackingState
+	
+	#if Input.is_action_pressed("shoot") && parent.autoShoot:
+		#parent.a_n_s_p = true
+	
+	# FIX the Animation freezes sometimes
+	if parent.a_n_s_p && finished_animations.has(1) && parent.can_fire:
+		enter()
+	
+	if parent.ammoInMag <= 0:
 		return reloadingState
 	
 	return null
@@ -64,9 +69,6 @@ func process_physics(delta: float) -> State:
 	parent.velocity.x = movement
 	parent.move_and_slide()
 	
-	if parent.a_n_s_p && finished_animations.has(1):
-		animation.play(animationName)
-	
 	if !animation.is_playing() && !parent.a_n_s_p:
 		if !movement && parent.is_on_floor():
 			return idleState
@@ -74,7 +76,26 @@ func process_physics(delta: float) -> State:
 	
 	return null
 
+func shooting() -> void:
+	if parent.can_fire:
+		animation.play(animationName)
+		
+		var dir: float = Input.get_axis("move_left", "move_right")
+		var bullet: Area2D = parent.bulletScene.instantiate()
+		
+		bullet.dir = dir
+		bullet.global_position = gun_barrel.global_position
+		bullet.global_rotation = gun_barrel.global_rotation
+		bullet.shooter = parent
+		parent.ammoInMag -= 1
+		parent.get_parent().add_child(bullet)
+		
+		# fire rate functionality
+		parent.can_fire = false
+		await get_tree().create_timer(parent.shootingTime, true, true).timeout
+		parent.can_fire = true
+
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == animationName:
 		finished_animations.append(1)
-		parent.a_n_s_p = false
+		#parent.a_n_s_p = false
