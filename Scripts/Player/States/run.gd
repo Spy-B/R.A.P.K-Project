@@ -1,59 +1,50 @@
 extends State
 
-@export var idleState: State
-@export var walkingState: State
-@export var startJumpingState: State
-@export var fallingState: State
-@export var dashingState: State
-@export var attackingState: State
-@export var shootingState: State
-@export var reloadingState: State
-@export var interactState: State
-@export var talkingState: State
-@export var damagingState: State
-@export var deathState: State
-
 @export var acceleration: int = 20
+
+func enter() -> void:
+	print("[State] -> Running")
+	super()
 
 func process_input(event: InputEvent) -> State:
 	if parent.is_on_floor():
 		if event.is_action_pressed("jump") && parent.jumpingAbility:
-			return startJumpingState
+			return parent.startJumpingState
 		
 		if event.is_action_pressed("dash") && parent.dash_points > 0:
-			return dashingState
+			return parent.dashingState
 		
 		if event.is_action_pressed("attack"):
-			return attackingState
+			return parent.attackingState
 		
-		if event.is_action_pressed("shoot"):
-			return shootingState
+		if event.is_action_pressed("shoot") && parent.shootingAbility:
+			return parent.shootingState
 		
 		if event.is_action_pressed("reload"):
-			return reloadingState
+			return parent.reloadingState
 	
 	return null
 
 func process_frame(_delta: float) -> State:
 	if Input.is_action_just_released("run"):
-		return walkingState
+		return parent.walkingState
 	
 	if parent.damaged:
 		parent.damaged = false
-		return damagingState
+		return parent.damagingState
 	
 	if parent.health <= 0:
-		return deathState
+		return parent.deathState
 	
 	if parent.npc_detected:
 		parent.ui.interact_key.visible = true
 		if Input.is_action_just_pressed("interact"):
-			return talkingState
+			return parent.talkingState
 	
 	elif parent.interaction_detected:
 		parent.ui.interact_key.visible = true
 		if Input.is_action_just_pressed("interact"):
-			return interactState
+			return parent.interactState
 	
 	else:
 		parent.ui.interact_key.visible = false
@@ -66,7 +57,7 @@ func process_physics(delta: float) -> State:
 	var movement: float = Input.get_axis("move_left", "move_right") * parent.runSpeed
 	
 	if !movement:
-		return idleState
+		return parent.idleState
 	
 	#parent.player_sprite.flip_h = movement > 0
 	
@@ -86,6 +77,6 @@ func process_physics(delta: float) -> State:
 	
 	if !parent.is_on_floor():
 		coyote_timer.start()
-		return fallingState
+		return parent.fallingState
 	
 	return null

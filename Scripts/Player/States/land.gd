@@ -1,14 +1,5 @@
 extends State
 
-@export var idleState: State
-@export var walkingState: State
-@export var runningState: State
-@export var startJumpingState: State
-@export var attackingState: State
-@export var shootingState: State
-@export var damagingState: State
-@export var deathState: State
-
 @export_group("Timer")
 @onready var timer: Timer = $"../../Timers/LandTimer"
 @export var wait_time: float = 1
@@ -16,6 +7,7 @@ extends State
 var timeout: bool = false
 
 func enter() -> void:
+	print("[State] -> Landing")
 	super()
 	
 	parent.have_coyote = true
@@ -27,14 +19,14 @@ func enter() -> void:
 
 func process_input(event: InputEvent) -> State:
 	if event.is_action_pressed("jump"):
-		return startJumpingState
+		return parent.startJumpingState
 	
 	return null
 
 func process_frame(_delta: float) -> State:
 	if parent.damaged:
 		parent.damaged = false
-		return damagingState
+		return parent.damagingState
 	
 	return null
 
@@ -53,12 +45,12 @@ func process_physics(_delta: float) -> State:
 	parent.move_and_slide()
 	
 	if !jump_buffer_timer.is_stopped():
-		return startJumpingState
+		return parent.startJumpingState
 	
 	if timeout:
 		if !movement && parent.is_on_floor():
-			return idleState
-		return runningState
+			return parent.idleState
+		return parent.runningState
 	
 	return null
 

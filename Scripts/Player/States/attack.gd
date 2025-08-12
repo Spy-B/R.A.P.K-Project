@@ -1,14 +1,5 @@
 extends State
 
-@export var idleState: State
-@export var walkingState: State
-@export var runningState: State
-@export var startJumpingState: State
-@export var fallingState: State
-@export var shootingState: State
-@export var damagingState: State
-@export var deathState: State
-
 @export_group("Animations")
 @export_placeholder("Animation") var comboAttack2: String
 @export_placeholder("Animation") var comboAttack3: String
@@ -21,10 +12,9 @@ var finished_animations: Array = []
 @onready var quit_state_timer: Timer = $"../../Timers/MeleeComboTimer"
 var timeout: bool = false
 
-@export var target: String
-
 
 func enter() -> void:
+	print("[State] -> Attacking")
 	super()
 	
 	parent.combo_points = 2
@@ -47,10 +37,10 @@ func process_input(event: InputEvent) -> State:
 func process_frame(_delta: float) -> State:
 	if parent.damaged:
 		parent.damaged = false
-		return damagingState
+		return parent.damagingState
 	
 	if parent.health <= 0:
-		return deathState
+		return parent.deathState
 	
 	return null
 
@@ -87,8 +77,8 @@ func process_physics(delta: float) -> State:
 	else:
 		if timeout:
 			if !movement && parent.is_on_floor():
-				return idleState
-			return runningState
+				return parent.idleState
+			return parent.runningState
 	
 	return null
 
@@ -110,7 +100,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 
 func _on_hit_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group(target):
+	if body.is_in_group(parent.enemyGroup):
 		body.health -= attackDamage
 		body.damaged = true
 		body.damage_value = attackDamage

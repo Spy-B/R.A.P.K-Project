@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://178dipm3233o" path="res://Scripts/Player/States/jump.gd" id="7_ncnvn"]
 [ext_resource type="Script" uid="uid://nm36cwca46sv" path="res://Scripts/Player/States/fall.gd" id="8_aob0q"]
 [ext_resource type="Script" uid="uid://da1r8os1lqcvy" path="res://Scripts/Player/States/attack.gd" id="9_6ut1u"]
-[ext_resource type="Script" uid="uid://dxvf4khhnwias" path="res://Scripts/Player/States/quit_jump.gd" id="9_8wtju"]
+[ext_resource type="Script" uid="uid://dxvf4khhnwias" path="res://Scripts/Player/States/land.gd" id="9_8wtju"]
 [ext_resource type="Script" uid="uid://dgblu2jsnjcwy" path="res://Scripts/Player/States/shoot.gd" id="10_xqoms"]
 [ext_resource type="Script" uid="uid://cxhhcu4ieh75a" path="res://Scripts/Player/States/die.gd" id="11_wk1dk"]
 [ext_resource type="Script" uid="uid://bk7yn64jahon1" path="res://Scripts/Player/States/dash.gd" id="12_fcwna"]
@@ -293,7 +293,7 @@ tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("PlayerSprite:frame")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4),
@@ -339,10 +339,26 @@ _data = {
 &"Walking": SubResource("Animation_5e1ev")
 }
 
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "jumpingState", "fallingState", "landingState", "dashingState", "attackingState", "shootingState", "reloadingState", "interactState", "talkingState", "damagingState", "deathState", "respawningState") groups=["Player"]]
 collision_layer = 256
 collision_mask = 458771
 script = ExtResource("1_3wwtw")
+idleState = NodePath("StateMachine/Idle")
+walkingState = NodePath("StateMachine/Walk")
+runningState = NodePath("StateMachine/Run")
+startJumpingState = NodePath("StateMachine/StartJump")
+jumpingState = NodePath("StateMachine/Jump")
+fallingState = NodePath("StateMachine/Fall")
+landingState = NodePath("StateMachine/Land")
+dashingState = NodePath("StateMachine/Dash")
+attackingState = NodePath("StateMachine/Attack")
+shootingState = NodePath("StateMachine/Shoot")
+reloadingState = NodePath("StateMachine/Reload")
+interactState = NodePath("StateMachine/Interact")
+talkingState = NodePath("StateMachine/Talk")
+damagingState = NodePath("StateMachine/Damage")
+deathState = NodePath("StateMachine/Die")
+respawningState = NodePath("StateMachine/Respawn")
 bulletScene = ExtResource("13_88yj3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -356,6 +372,7 @@ texture = ExtResource("1_enipy")
 flip_h = true
 hframes = 12
 vframes = 11
+frame = 33
 
 [node name="HitArea" type="Area2D" parent="PlayerSprite"]
 position = Vector2(17, 16)
@@ -393,186 +410,71 @@ libraries = {
 [node name="StateMachine" parent="." node_paths=PackedStringArray("startingState") instance=ExtResource("3_vytom")]
 startingState = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walkingState", "runningState", "startJumpingState", "fallingState", "dashingState", "attackingState", "shootingState", "reloadingState", "interactState", "talkingState", "damagingState", "deathState")]
+[node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("4_g7jtl")
-walkingState = NodePath("../Walk")
-runningState = NodePath("../Run")
-startJumpingState = NodePath("../StartJump")
-fallingState = NodePath("../Fall")
-dashingState = NodePath("../Dash")
-attackingState = NodePath("../Attack")
-shootingState = NodePath("../Shoot")
-reloadingState = NodePath("../Reload")
-interactState = NodePath("../Interact")
-talkingState = NodePath("../Talk")
-damagingState = NodePath("../Damage")
-deathState = NodePath("../Die")
 animationName = "Idle"
 
-[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "damagingState", "deathState")]
+[node name="Walk" type="Node" parent="StateMachine"]
 script = ExtResource("5_jpb0k")
-idleState = NodePath("../Idle")
-runningState = NodePath("../Run")
-startJumpingState = NodePath("../StartJump")
-fallingState = NodePath("../Fall")
-attackingState = NodePath("../Attack")
-shootingState = NodePath("../Shoot")
-damagingState = NodePath("../Damage")
-deathState = NodePath("../Die")
 animationName = "Running"
 
-[node name="Run" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "startJumpingState", "fallingState", "dashingState", "attackingState", "shootingState", "reloadingState", "interactState", "talkingState", "damagingState", "deathState")]
+[node name="Run" type="Node" parent="StateMachine"]
 script = ExtResource("6_msey6")
-idleState = NodePath("../Idle")
-walkingState = NodePath("../Walk")
-startJumpingState = NodePath("../StartJump")
-fallingState = NodePath("../Fall")
-dashingState = NodePath("../Dash")
-attackingState = NodePath("../Attack")
-shootingState = NodePath("../Shoot")
-reloadingState = NodePath("../Reload")
-interactState = NodePath("../Interact")
-talkingState = NodePath("../Talk")
-damagingState = NodePath("../Damage")
-deathState = NodePath("../Die")
 animationName = "Running"
 
-[node name="StartJump" type="Node" parent="StateMachine" node_paths=PackedStringArray("walkingState", "runningState", "jumpingState", "attackingState", "shootingState", "damagingState", "deathState")]
+[node name="StartJump" type="Node" parent="StateMachine"]
 script = ExtResource("7_6kwnr")
-walkingState = NodePath("../Walk")
-runningState = NodePath("../Run")
-jumpingState = NodePath("../Jump")
-attackingState = NodePath("../Attack")
-shootingState = NodePath("../Shoot")
-damagingState = NodePath("../Damage")
-deathState = NodePath("../Die")
 wait_time = 0.05
 animationName = "StartJumping"
 
-[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "fallingState", "landingState", "dashingState", "attackingState", "shootingState", "talkingState", "damagingState", "deathState")]
+[node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource("7_ncnvn")
-idleState = NodePath("../Idle")
-walkingState = NodePath("../Walk")
-runningState = NodePath("../Run")
-fallingState = NodePath("../Fall")
-landingState = NodePath("../Land")
-dashingState = NodePath("../Dash")
-attackingState = NodePath("../Attack")
-shootingState = NodePath("../Shoot")
-talkingState = NodePath("../Talk")
-damagingState = NodePath("../Damage")
-deathState = NodePath("../Die")
 animationName = "Jumping"
 
-[node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "landingState", "dashingState", "attackingState", "shootingState", "interactState", "talkingState", "damagingState", "deathState")]
+[node name="Fall" type="Node" parent="StateMachine"]
 script = ExtResource("8_aob0q")
-idleState = NodePath("../Idle")
-walkingState = NodePath("../Walk")
-runningState = NodePath("../Run")
-startJumpingState = NodePath("../StartJump")
-landingState = NodePath("../Land")
-dashingState = NodePath("../Dash")
-attackingState = NodePath("../Attack")
-shootingState = NodePath("../Shoot")
-interactState = NodePath("../Interact")
-talkingState = NodePath("../Talk")
-damagingState = NodePath("../Damage")
-deathState = NodePath("../Die")
 animationName = "Falling"
 
-[node name="Land" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "attackingState", "shootingState", "damagingState", "deathState")]
+[node name="Land" type="Node" parent="StateMachine"]
 script = ExtResource("9_8wtju")
-idleState = NodePath("../Idle")
-walkingState = NodePath("../Walk")
-runningState = NodePath("../Run")
-startJumpingState = NodePath("../StartJump")
-attackingState = NodePath("../Attack")
-shootingState = NodePath("../Shoot")
-damagingState = NodePath("../Damage")
-deathState = NodePath("../Die")
 wait_time = 0.2
 animationName = "Landing"
 
-[node name="Dash" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "runningState", "fallingState", "damagingState")]
+[node name="Dash" type="Node" parent="StateMachine"]
 script = ExtResource("12_fcwna")
-idleState = NodePath("../Idle")
-runningState = NodePath("../Run")
-fallingState = NodePath("../Fall")
-damagingState = NodePath("../Damage")
 
-[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "shootingState", "damagingState", "deathState")]
+[node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("9_6ut1u")
-idleState = NodePath("../Idle")
-walkingState = NodePath("../Walk")
-runningState = NodePath("../Run")
-startJumpingState = NodePath("../StartJump")
-fallingState = NodePath("../Fall")
-shootingState = NodePath("../Shoot")
-damagingState = NodePath("../Damage")
-deathState = NodePath("../Die")
 comboAttack2 = "Attack_2"
 comboAttack3 = "Attack_3"
 shooting = "Shooting"
-target = "Enemy"
 animationName = "Attack_1"
 
-[node name="Shoot" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "reloadingState", "damagingState", "deathState")]
+[node name="Shoot" type="Node" parent="StateMachine"]
 script = ExtResource("10_xqoms")
-idleState = NodePath("../Idle")
-walkingState = NodePath("../Walk")
-runningState = NodePath("../Run")
-startJumpingState = NodePath("../StartJump")
-fallingState = NodePath("../Fall")
-attackingState = NodePath("../Attack")
-reloadingState = NodePath("../Reload")
-damagingState = NodePath("../Damage")
-deathState = NodePath(".")
 animationName = "Shooting"
 
-[node name="Reload" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "walkingState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "damagingState", "deathState")]
+[node name="Reload" type="Node" parent="StateMachine"]
 script = ExtResource("14_jlfwl")
-idleState = NodePath("../Idle")
-walkingState = NodePath("../Walk")
-runningState = NodePath("../Run")
-startJumpingState = NodePath("../StartJump")
-fallingState = NodePath("../Fall")
-attackingState = NodePath("../Attack")
-shootingState = NodePath("../Shoot")
-damagingState = NodePath("../Damage")
-deathState = NodePath("../Die")
-
-[node name="Interact" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState")]
-script = ExtResource("16_4no11")
-idleState = NodePath("../Idle")
-
-[node name="Talk" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "runningState", "startJumpingState", "fallingState", "attackingState", "shootingState", "reloadingState", "deathState")]
-script = ExtResource("15_aqm4k")
-idleState = NodePath("../Idle")
-runningState = NodePath("../Run")
-startJumpingState = NodePath("../StartJump")
-fallingState = NodePath("../Fall")
-attackingState = NodePath("../Attack")
-shootingState = NodePath("../Shoot")
-reloadingState = NodePath("../Reload")
-deathState = NodePath("../Die")
 animationName = "Idle"
 
-[node name="Damage" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "runningState", "fallingState", "deathState")]
-script = ExtResource("16_rqdc0")
-idleState = NodePath("../Idle")
-runningState = NodePath("../Run")
-fallingState = NodePath("../Fall")
-deathState = NodePath("../Die")
+[node name="Interact" type="Node" parent="StateMachine"]
+script = ExtResource("16_4no11")
+animationName = "Idle"
 
-[node name="Die" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState", "respawningState")]
+[node name="Talk" type="Node" parent="StateMachine"]
+script = ExtResource("15_aqm4k")
+animationName = "Idle"
+
+[node name="Damage" type="Node" parent="StateMachine"]
+script = ExtResource("16_rqdc0")
+
+[node name="Die" type="Node" parent="StateMachine"]
 script = ExtResource("11_wk1dk")
-idleState = NodePath("../Idle")
-respawningState = NodePath("../Respawn")
 animationName = "Death"
 
-[node name="Respawn" type="Node" parent="StateMachine" node_paths=PackedStringArray("idleState")]
+[node name="Respawn" type="Node" parent="StateMachine"]
 script = ExtResource("15_gsya0")
-idleState = NodePath("../Idle")
 
 [node name="Timers" type="Node" parent="."]
 
@@ -632,7 +534,6 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="AmmoLabel" type="Label" parent="UI/Control"]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.142

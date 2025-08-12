@@ -1,26 +1,14 @@
 extends State
 
-@export var idleState: State
-@export var walkingState: State
-@export var runningState: State
-@export var fallingState: State
-@export var landingState: State
-@export var dashingState: State
-@export var attackingState: State
-@export var shootingState: State
-@export var talkingState: State
-@export var damagingState: State
-@export var deathState: State
-
-
 func enter() -> void:
+	print("[State] -> Jumping")
 	super()
 	
 	parent.velocity.y = -parent.jumpPower
 
 func process_input(event: InputEvent) -> State:
 	if event.is_action_pressed("dash") && parent.dash_points > 0 && parent.dashingAbility:
-		return dashingState
+		return parent.dashingState
 	
 	return null
 
@@ -30,15 +18,15 @@ func process_frame(_delta: float) -> State:
 	
 	if parent.damaged:
 		parent.damaged = false
-		return damagingState
+		return parent.damagingState
 	
 	if parent.health <= 0:
-		return deathState
+		return parent.deathState
 	
 	if parent.interaction_detected:
 		parent.ui.interact_key.visible = true
 		if Input.is_action_just_pressed("interact"):
-			return talkingState
+			return parent.talkingState
 	else:
 		parent.ui.interact_key.visible = false
 	
@@ -48,7 +36,7 @@ func process_physics(delta: float) -> State:
 	parent.velocity.y += parent.gravity * delta
 	
 	if parent.velocity.y > 0:
-		return fallingState
+		return parent.fallingState
 	
 	var movement: float = Input.get_axis("move_left", "move_right") * parent.runSpeed
 	

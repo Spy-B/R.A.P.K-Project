@@ -1,21 +1,13 @@
 extends State
 
-@export var idleState: State
-@export var walkingState: State
-@export var runningState: State
-@export var startJumpingState: State
-@export var fallingState: State
-@export var attackingState: State
-@export var shootingState: State
-@export var damagingState: State
-@export var deathState: State
-
-
 @onready var reloading_timer: Timer = $"../../Timers/ReloadingTimer"
 var reaload_done: bool = true
 
 
 func enter() -> void:
+	print("[State] -> Reloading")
+	super()
+	
 	reaload_done = false
 	parent.can_fire = false
 	
@@ -25,13 +17,13 @@ func enter() -> void:
 func process_frame(_delta: float) -> State:
 	if parent.damaged:
 		parent.damaged = false
-		return damagingState
+		return parent.damagingState
 	
 	if parent.health <= 0:
-		return deathState
+		return parent.deathState
 	
 	if reaload_done:
-		return idleState
+		return parent.idleState
 	
 	return null
 

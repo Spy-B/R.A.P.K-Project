@@ -1,13 +1,11 @@
 extends State
 
-@export var idleState: State
-@export var respawningState: State
-
 @onready var respawn_timer: Timer = $"../../Timers/RespawnTimer"
 
 var respawn_timeout: bool = false
 
 func enter() -> void:
+	print("[State] -> Death")
 	super()
 	
 	respawn_timer.start()
@@ -18,7 +16,7 @@ func process_frame(_delta: float) -> State:
 	if respawn_timeout:
 		respawn_timeout = false
 		Engine.time_scale = 1.0
-		return respawningState
+		return parent.respawningState
 	
 	return null
 

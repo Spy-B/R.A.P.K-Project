@@ -1,21 +1,9 @@
 extends State
 
-@export var idleState: State
-@export var walkingState: State
-@export var runningState: State
-@export var startJumpingState: State
-@export var landingState: State
-@export var dashingState: State
-@export var attackingState: State
-@export var shootingState: State
-@export var interactState: State
-@export var talkingState: State
-@export var damagingState: State
-@export var deathState: State
-
 var attack_type: Array = []
 
 func enter() -> void:
+	print("[State] -> Falling")
 	super()
 	
 	attack_type.clear()
@@ -28,11 +16,11 @@ func process_input(event: InputEvent) -> State:
 		
 		if !coyote_timer.is_stopped() && parent.have_coyote:
 			parent.have_coyote = false
-			return startJumpingState
+			return parent.startJumpingState
 	
 	
 	if event.is_action_pressed("dash") && parent.dash_points > 0:
-		return dashingState
+		return parent.dashingState
 	
 	
 	if event.is_action_pressed("attack"):
@@ -48,17 +36,17 @@ func process_input(event: InputEvent) -> State:
 func process_frame(_delta: float) -> State:
 	if parent.damaged:
 		parent.damaged = false
-		return damagingState
+		return parent.damagingState
 	
 	if parent.npc_detected:
 		parent.ui.interact_key.visible = true
 		if Input.is_action_just_pressed("interact"):
-			return talkingState
+			return parent.talkingState
 	
 	elif parent.interaction_detected:
 		parent.ui.interact_key.visible = true
 		if Input.is_action_just_pressed("interact"):
-			return interactState
+			return parent.interactState
 	
 	else:
 		parent.ui.interact_key.visible = false
@@ -83,10 +71,10 @@ func process_physics(delta: float) -> State:
 	
 	if parent.is_on_floor():
 		if parent.a_n_s_p && attack_type.has(1):
-			return attackingState
+			return parent.attackingState
 		if parent.a_n_s_p && attack_type.has(2):
-			return shootingState
+			return parent.shootingState
 		
-		return landingState
+		return parent.landingState
 	
 	return null

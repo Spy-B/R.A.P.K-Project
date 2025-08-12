@@ -1,13 +1,5 @@
 extends State
 
-@export var walkingState: State
-@export var runningState: State
-@export var jumpingState: State
-@export var attackingState: State
-@export var shootingState: State
-@export var damagingState: State
-@export var deathState: State
-
 @export_group("Timer")
 @onready var timer: Timer = $"../../Timers/StartJumpTimer"
 @export var wait_time: float = 1
@@ -15,6 +7,7 @@ extends State
 var timeout: bool = false
 
 func enter() -> void:
+	print("[State] -> Start Jumping")
 	super()
 	
 	timeout = false
@@ -24,7 +17,7 @@ func enter() -> void:
 func process_frame(_delta: float) -> State:
 	if parent.damaged:
 		parent.damaged = false
-		return damagingState
+		return parent.damagingState
 	
 	return null
 
@@ -43,7 +36,7 @@ func process_physics(_delta: float) -> State:
 	parent.move_and_slide()
 	
 	if timeout:
-		return jumpingState
+		return parent.jumpingState
 	
 	return null
 

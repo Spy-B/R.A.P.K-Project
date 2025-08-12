@@ -32,5 +32,6 @@ func _on_body_entered(body: Node) -> void:
 		Global.save_game("checkpoint", checkpoint_manager.last_position)
 		
 		body.ui.saving_loading()
+		print("Game Saved!")
 		
 		set_deferred("monitoring", false)

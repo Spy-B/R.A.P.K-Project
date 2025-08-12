@@ -1,17 +1,13 @@
 extends State
 
-@export var idleState: State
-@export var runningState: State
-@export var fallingState: State
-@export var damagingState: State
-
-@export_range(500, 5000, 100) var dashPower: float = 2500
-@export_range(100, 1000, 50) var dashLength: float = 250
 var z: Vector2
 
 @onready var dash_cooldown: Timer = $"../../Timers/DashCooldown"
 
 func enter() -> void:
+	print("[State] -> Dashing")
+	super()
+	
 	parent.velocity = Vector2.ZERO
 	
 	if parent.dash_points > 0:
@@ -34,7 +30,7 @@ func process_input(_event: InputEvent) -> State:
 func process_frame(_delta: float) -> State:
 	if parent.damaged:
 		parent.damaged = false
-		return damagingState
+		return parent.damagingState
 	
 	return null
 
@@ -43,11 +39,11 @@ func process_physics(delta: float) -> State:
 	
 	z += parent.velocity * delta
 	
-	if z.x <= dashLength && parent.dash_dir == Vector2.RIGHT:
-		parent.velocity = parent.dash_dir * dashPower
+	if z.x <= parent.dashLength && parent.dash_dir == Vector2.RIGHT:
+		parent.velocity = parent.dash_dir * parent.dashPower
 	
-	elif z.x >= -dashLength && parent.dash_dir == Vector2.LEFT:
-		parent.velocity = parent.dash_dir * dashPower
+	elif z.x >= -parent.dashLength && parent.dash_dir == Vector2.LEFT:
+		parent.velocity = parent.dash_dir * parent.dashPower
 	
 	else:
 		z = Vector2.ZERO
@@ -55,16 +51,16 @@ func process_physics(delta: float) -> State:
 		#parent.dash_dir = Vector2.ZERO
 		
 		if !parent.is_on_floor():
-			return fallingState
+			return parent.fallingState
 		
 		var movement: float = Input.get_axis("move_left", "move_right") * parent.runSpeed
 		if movement:
-			return runningState
+			return parent.runningState
 		
-		return idleState
+		return parent.idleState
 	
 	if parent.is_on_wall():
-		return fallingState
+		return parent.fallingState
 	
 	parent.move_and_slide()
 	

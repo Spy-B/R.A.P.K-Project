@@ -33,6 +33,25 @@ var start_dialogue: bool = false
 var is_in_dialogue: bool = false
 
 
+@export_group("Player States")
+@export var idleState: State
+@export var walkingState: State
+@export var runningState: State
+@export var startJumpingState: State
+@export var jumpingState: State
+@export var fallingState: State
+@export var landingState: State
+@export var dashingState: State
+@export var attackingState: State
+@export var shootingState: State
+@export var reloadingState: State
+@export var interactState: State
+@export var talkingState: State
+@export var damagingState: State
+@export var deathState: State
+@export var respawningState: State
+
+
 @export_group("Walking Ability")
 @export var walkingAbility: bool = true
 @export var walkSpeed: int = 120
@@ -50,7 +69,12 @@ var is_in_dialogue: bool = false
 @export_group("Dashing Ability")
 @export var dashingAbility: bool = true
 var dash_dir: Vector2 = Vector2.RIGHT
+@export_range(500, 5000, 100) var dashPower: float = 2500
+@export_range(100, 1000, 50) var dashLength: float = 250
 @export_range(1, 10, 1, "or_greater") var dashPoints: int = 1
+
+@export_group("Attacking Ability")
+@export var attackingAbility: bool = true
 
 @export_group("Shooting Ability")
 @export var shootingAbility: bool = true
@@ -61,11 +85,9 @@ var dash_dir: Vector2 = Vector2.RIGHT
 @export var extraAmmo: int = 999
 
 @export var autoShoot: bool = false
-@export_range(0, 0.5, 0.02) var shootingTime: float = 0.2
+@export_range(0, 0.5, 0.02) var shootingTime: float = 0.5
 @export_range(0, 1, 0.02) var reloadingTime: float = 1.0
 
-@export_group("Attacking Ability")
-@export var attackingAbility: bool = true
 
 @export_group("Physics")
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")

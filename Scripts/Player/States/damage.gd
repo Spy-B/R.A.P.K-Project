@@ -1,13 +1,8 @@
 extends State
 
-@export var idleState: State
-@export var runningState: State
-@export var fallingState: State
-@export var deathState: State
-
 func enter() -> void:
-	#parent.player_sprite.material.shader_parameter("flashValue", 1.0)
-	pass
+	print("[State] -> Damaging")
+	super()
 
 func process_frame(_delta: float) -> State:
 	if !parent.just_respawn:
@@ -18,10 +13,10 @@ func process_frame(_delta: float) -> State:
 	
 	if parent.is_on_floor():
 		if movement:
-			return runningState
+			return parent.runningState
 		else:
-			return idleState
+			return parent.idleState
 	else:
-		return fallingState
+		return parent.fallingState
 	
 	#return null
