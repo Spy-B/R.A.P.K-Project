@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 ## runtime variables
-@export var runtime_vars: Dictionary = {
+var runtime_vars: Dictionary = {
 	"movement_weight": 0.2,
 	"damaged": false,
 	"just_respawn": false,
@@ -9,7 +9,8 @@ extends CharacterBody2D
 	"jump_points": 0,
 	"dash_points": 0,
 	"combo_points": 2,
-	"p_n_a_p": false,
+	## Play Next as soon as possible
+	"p_n_s_p": false,
 	"can_fire": true,
 	# TODO this functionality is not done yet
 	#"in_combo_fight": false,
@@ -50,6 +51,7 @@ extends CharacterBody2D
 @export_group("Running Ability")
 @export var runningAbility: bool = true
 @export var runSpeed: int = 200
+@export var acceleration: int = 20
 
 @export_group("Jumping Ability")
 @export var jumpingAbility: bool = true

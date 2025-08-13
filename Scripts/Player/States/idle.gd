@@ -17,7 +17,7 @@ func process_input(event: InputEvent) -> State:
 		if event.is_action_pressed("jump") && parent.jumpingAbility:
 			return parent.startJumpingState
 		
-		if event.is_action_pressed("dash") && parent.dashingAbility && parent.dash_points > 0:
+		if event.is_action_pressed("dash") && parent.dashingAbility && parent.runtime_vars.dash_points > 0:
 			return parent.dashingState
 		
 		if event.is_action_pressed("attack") && parent.attackingAbility:

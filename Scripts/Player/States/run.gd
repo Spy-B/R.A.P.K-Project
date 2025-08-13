@@ -1,6 +1,6 @@
 extends State
 
-@export var acceleration: int = 20
+
 
 func enter() -> void:
 	print("[State] -> Running")
@@ -11,7 +11,7 @@ func process_input(event: InputEvent) -> State:
 		if event.is_action_pressed("jump") && parent.jumpingAbility:
 			return parent.startJumpingState
 		
-		if event.is_action_pressed("dash") && parent.dash_points > 0:
+		if event.is_action_pressed("dash") && parent.runtime_vars.dash_points > 0:
 			return parent.dashingState
 		
 		if event.is_action_pressed("attack"):
@@ -69,9 +69,9 @@ func process_physics(delta: float) -> State:
 		parent.dash_dir = Vector2.LEFT
 	
 	if movement >= parent.runSpeed:
-		parent.velocity.x = min(parent.velocity.x + acceleration, movement)
+		parent.velocity.x = min(parent.velocity.x + parent.acceleration, movement)
 	else:
-		parent.velocity.x = max(parent.velocity.x - acceleration, movement)
+		parent.velocity.x = max(parent.velocity.x - parent.acceleration, movement)
 	
 	parent.move_and_slide()
 	

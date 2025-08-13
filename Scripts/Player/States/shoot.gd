@@ -27,12 +27,13 @@ func process_frame(_delta: float) -> State:
 	#if parent.a_n_s_p && finished_animations.has(1):
 		#return attackingState
 	
-	if Input.is_action_pressed("shoot") && parent.autoShoot:
-		parent.runtime_vars.p_n_s_p = true
-	
-	if parent.runtime_vars.p_n_s_p && finished_animations.has(1) && parent.runtime_vars.can_fire:
+	if parent.runtime_vars.p_n_s_p && parent.runtime_vars.can_fire && finished_animations.has(1):
 		enter()
 	
+	# FIX 
+	if Input.is_action_pressed("shoot") && parent.autoShoote:
+		parent.runtime_vars.p_n_s_p = true
+		#shooting()
 	
 	if parent.runtime_vars.damaged:
 		return parent.damagingState
@@ -77,7 +78,7 @@ func shooting() -> void:
 	
 	# fire rate functionality
 	parent.runtime_vars.can_fire = false
-	await get_tree().create_timer(parent.shootingTime, true, true).timeout
+	await get_tree().create_timer(parent.shootingTime).timeout
 	parent.runtime_vars.can_fire = true
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:

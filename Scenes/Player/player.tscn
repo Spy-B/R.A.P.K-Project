@@ -361,6 +361,7 @@ deathState = NodePath("StateMachine/Die")
 respawningState = NodePath("StateMachine/Respawn")
 bulletScene = ExtResource("13_88yj3")
 infiniteAmmo = true
+autoShoot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2.75)
@@ -442,6 +443,7 @@ animationName = "Landing"
 
 [node name="Dash" type="Node" parent="StateMachine"]
 script = ExtResource("12_fcwna")
+animationName = "Idle"
 
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("9_6ut1u")

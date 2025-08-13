@@ -30,8 +30,16 @@ func process_physics(delta: float) -> State:
 	
 	if movement > 0:
 		parent.player_sprite.scale.x = 1
+		parent.dash_dir = Vector2.RIGHT
 	else:
 		parent.player_sprite.scale.x = -1
+		parent.dash_dir = Vector2.LEFT
+	
+	if movement >= parent.runSpeed:
+		parent.velocity.x = min(parent.velocity.x + parent.acceleration, movement)
+	else:
+		parent.velocity.x = max(parent.velocity.x - parent.acceleration, movement)
+	
 	
 	parent.velocity.x = movement
 	parent.move_and_slide()

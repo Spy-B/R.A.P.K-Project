@@ -67,7 +67,7 @@ func process_physics(delta: float) -> State:
 		elif finished_animations.has(2) && parent.runtime_vars.combo_points == 1:
 			animation.play(comboAttack3)
 			parent.runtime_vars.combo_points -= 1
-			#NOTE You should add "a_n_s_p = false" here 👇.
+			#NOTE You should add "parent.runtime_vars.p_n_s_p = false" here 👇.
 			#NOTE Don't forget to add one more point to the "parent.combo_points" (you must update it in the enter() function 👆 also)
 		
 		#else:

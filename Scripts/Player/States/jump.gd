@@ -7,7 +7,7 @@ func enter() -> void:
 	parent.velocity.y = -parent.jumpPower
 
 func process_input(event: InputEvent) -> State:
-	if event.is_action_pressed("dash") && parent.dash_points > 0 && parent.dashingAbility:
+	if event.is_action_pressed("dash") && parent.runtime_vars.dash_points > 0 && parent.dashingAbility:
 		return parent.dashingState
 	
 	return null
