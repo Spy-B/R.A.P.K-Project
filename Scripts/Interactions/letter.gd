@@ -25,12 +25,12 @@ func _input(event: InputEvent) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body == player:
 		player_in_range = true
-		body.interaction_detected = true
+		body.runtime_vars.interaction_detected = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body == player:
 		player_in_range = false
-		body.interaction_detected = false
+		body.runtime_vars.interaction_detected = false
 
 
 func _on_quit_pressed() -> void:

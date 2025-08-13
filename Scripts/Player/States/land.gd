@@ -10,8 +10,8 @@ func enter() -> void:
 	print("[State] -> Landing")
 	super()
 	
-	parent.have_coyote = true
-	parent.dash_points = 1
+	parent.runtime_vars.have_coyote = true
+	parent.runtime_vars.dash_points = 1
 	
 	timeout = false
 	timer.wait_time = wait_time
@@ -24,8 +24,8 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_frame(_delta: float) -> State:
-	if parent.damaged:
-		parent.damaged = false
+	if parent.runtime_vars.damaged:
+		parent.runtime_vars.damaged = false
 		return parent.damagingState
 	
 	return null

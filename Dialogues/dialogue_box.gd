@@ -23,7 +23,7 @@ func add_text(text: String) -> void:
 	dialogue_text.text = text
 	dialogue_timeout_anime()
 	
-	if parent.player.is_in_dialogue:
+	if parent.player.runtime_vars.is_in_dialogue:
 		dialogue_timer.start()
 	
 	if text == "":

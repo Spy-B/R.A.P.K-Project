@@ -7,10 +7,10 @@ func enter() -> void:
 	print("[State] -> Shooting")
 	super()
 	
-	parent.a_n_s_p = false
+	parent.runtime_vars.p_n_s_p = false
 	finished_animations.clear()
 	
-	if parent.ammoInMag > 0 && parent.can_fire:
+	if parent.ammoInMag > 0 && parent.runtime_vars.can_fire:
 		shooting()
 
 func process_input(event: InputEvent) -> State:
@@ -18,8 +18,8 @@ func process_input(event: InputEvent) -> State:
 		#if event.is_action_pressed("attack") && parent.attackingAbility:
 			#parent.a_n_s_p = true
 		
-		if event.is_action_pressed("shoot"): # && !parent.autoShoot:
-			parent.a_n_s_p = true
+		if event.is_action_pressed("shoot") && !parent.autoShoot:
+			parent.runtime_vars.p_n_s_p = true
 	
 	return null
 
@@ -27,16 +27,14 @@ func process_frame(_delta: float) -> State:
 	#if parent.a_n_s_p && finished_animations.has(1):
 		#return attackingState
 	
-	#if Input.is_action_pressed("shoot") && parent.autoShoot:
-		#parent.a_n_s_p = true
+	if Input.is_action_pressed("shoot") && parent.autoShoot:
+		parent.runtime_vars.p_n_s_p = true
 	
-	if finished_animations.has(1):
-		if parent.a_n_s_p && parent.can_fire:
-			enter()
+	if parent.runtime_vars.p_n_s_p && finished_animations.has(1) && parent.runtime_vars.can_fire:
+		enter()
 	
 	
-	if parent.damaged:
-		parent.damaged = false
+	if parent.runtime_vars.damaged:
 		return parent.damagingState
 	
 	if parent.health <= 0:
@@ -51,7 +49,7 @@ func process_physics(delta: float) -> State:
 	if !parent.is_on_floor():
 		parent.velocity.y += parent.gravity * delta
 	else:
-		if !parent.can_fire && !parent.a_n_s_p && finished_animations.has(1):
+		if !parent.runtime_vars.can_fire && !parent.runtime_vars.p_n_s_p && finished_animations.has(1):
 			if parent.ammoInMag <= 0:
 				return parent.reloadingState
 			
@@ -72,13 +70,15 @@ func shooting() -> void:
 	bullet.global_position = gun_barrel.global_position
 	bullet.global_rotation = gun_barrel.global_rotation
 	bullet.shooter = parent
-	parent.ammoInMag -= 1
 	parent.get_parent().add_child(bullet)
 	
+	if !parent.infiniteAmmo:
+		parent.ammoInMag -= 1
+	
 	# fire rate functionality
-	parent.can_fire = false
+	parent.runtime_vars.can_fire = false
 	await get_tree().create_timer(parent.shootingTime, true, true).timeout
-	parent.can_fire = true
+	parent.runtime_vars.can_fire = true
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == animationName:

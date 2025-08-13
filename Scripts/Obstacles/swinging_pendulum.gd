@@ -94,5 +94,5 @@ func apply_preperties() -> void:
 func _on_pendulum_body_entered(body: Node2D) -> void:
 	if body == player:
 		body.health -= damage
-		body.damaged = true
+		body.runtime_vars.damaged = true
 		body.camera.shake(0.2, Vector2(2.0, 2.0))

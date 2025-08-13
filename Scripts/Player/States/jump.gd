@@ -16,14 +16,13 @@ func process_frame(_delta: float) -> State:
 	if !Input.is_action_pressed("jump") && parent.velocity.y < 0:
 		parent.velocity.y = lerp(parent.velocity.y, 0.0, parent.jumpWeight)
 	
-	if parent.damaged:
-		parent.damaged = false
+	if parent.runtime_vars.damaged:
 		return parent.damagingState
 	
 	if parent.health <= 0:
 		return parent.deathState
 	
-	if parent.interaction_detected:
+	if parent.runtime_vars.interaction_detected:
 		parent.ui.interact_key.visible = true
 		if Input.is_action_just_pressed("interact"):
 			return parent.talkingState

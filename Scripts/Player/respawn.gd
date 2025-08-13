@@ -7,7 +7,7 @@ func enter() -> void:
 	print("[State] -> Respawning")
 	super()
 	
-	parent.just_respawn = true
+	parent.runtime_vars.just_respawn = true
 	parent.respawning_effect()
 	respawn_cooldown.start()
 	

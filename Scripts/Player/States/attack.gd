@@ -17,16 +17,16 @@ func enter() -> void:
 	print("[State] -> Attacking")
 	super()
 	
-	parent.combo_points = 2
+	parent.runtime_vars.combo_points = 2
 	finished_animations.clear()
 	
-	parent.a_n_s_p = false
+	parent.runtime_vars.p_n_s_p = false
 	timeout = false
 	quit_state_timer.start()
 
 func process_input(event: InputEvent) -> State:
 	if event.is_action_pressed("attack") && !timeout:
-		parent.a_n_s_p = true
+		parent.runtime_vars.p_n_s_p = true
 		quit_state_timer.start()
 	
 	#if Input.is_action_just_pressed(shootingInput) && !timeout:
@@ -35,8 +35,7 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_frame(_delta: float) -> State:
-	if parent.damaged:
-		parent.damaged = false
+	if parent.runtime_vars.damaged:
 		return parent.damagingState
 	
 	if parent.health <= 0:
@@ -58,16 +57,16 @@ func process_physics(delta: float) -> State:
 	parent.velocity.x = movement
 	parent.move_and_slide()
 	
-	if parent.a_n_s_p:
-		if finished_animations.has(1) && parent.combo_points == 2:
+	if parent.runtime_vars.p_n_s_p:
+		if finished_animations.has(1) && parent.runtime_vars.combo_points == 2:
 			animation.play(comboAttack2)
-			parent.combo_points -= 1
+			parent.runtime_vars.combo_points -= 1
 			#NOTE Remove the "a_n_s_p = false" if you gonna add a new Combo Attack 👇
-			parent.a_n_s_p = false
+			parent.runtime_vars.p_n_s_p = false
 		
-		elif finished_animations.has(2) && parent.combo_points == 1:
+		elif finished_animations.has(2) && parent.runtime_vars.combo_points == 1:
 			animation.play(comboAttack3)
-			parent.combo_points -= 1
+			parent.runtime_vars.combo_points -= 1
 			#NOTE You should add "a_n_s_p = false" here 👇.
 			#NOTE Don't forget to add one more point to the "parent.combo_points" (you must update it in the enter() function 👆 also)
 		
@@ -95,7 +94,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	elif anim_name == comboAttack3:
 		#Nt Use if you wanna add a New Combo Attack!
 			#finished_animations.append(3)
-		parent.a_n_s_p = false
+		parent.runtime_vars.p_n_s_p = false
 		timeout = true
 
 

@@ -50,7 +50,7 @@ func process_frame(_delta: float) -> NPCsState:
 			elif parent.player_pos < Vector2(0, 0):
 				dir = -1
 			
-			if parent.player.start_dialogue:
+			if parent.player.runtime_vars.start_dialogue:
 				return talkingState
 	
 	return null

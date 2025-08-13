@@ -4,13 +4,13 @@ func enter() -> void:
 	print("[State] -> Talking")
 	super()
 	
-	parent.start_dialogue = true
+	parent.runtime_vars.start_dialogue = true
 	parent.ui.interact_key.visible = false
 	
 	await get_tree().create_timer(0.1).timeout
 	
-	if parent.npc_you_talk_to != null:
-		var npc_pos: Vector2 = (parent.npc_you_talk_to.global_position - parent.global_position).normalized()
+	if parent.runtime_vars.npc_you_talk_to != null:
+		var npc_pos: Vector2 = (parent.runtime_vars.npc_you_talk_to.global_position - parent.global_position).normalized()
 		checking_direction(npc_pos)
 	#else:
 		#return
@@ -19,7 +19,7 @@ func process_input(_input: InputEvent) -> State:
 	return null
 
 func process_frame(_delta: float) -> State:
-	if !parent.is_in_dialogue:
+	if !parent.runtime_vars.is_in_dialogue:
 		return parent.idleState
 	
 	return null

@@ -15,8 +15,7 @@ func enter() -> void:
 	timer.start()
 
 func process_frame(_delta: float) -> State:
-	if parent.damaged:
-		parent.damaged = false
+	if parent.runtime_vars.damaged:
 		return parent.damagingState
 	
 	return null

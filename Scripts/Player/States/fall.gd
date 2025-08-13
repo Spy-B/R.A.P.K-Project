@@ -7,15 +7,15 @@ func enter() -> void:
 	super()
 	
 	attack_type.clear()
-	parent.a_n_s_p = false
+	parent.runtime_vars.p_n_s_p = false
 
 func process_input(event: InputEvent) -> State:
 	if event.is_action_pressed("jump") && parent.jumpingAbility:
 		if jump_buffer_timer.is_stopped():
 			jump_buffer_timer.start()
 		
-		if !coyote_timer.is_stopped() && parent.have_coyote:
-			parent.have_coyote = false
+		if !coyote_timer.is_stopped() && parent.runtime_vars.have_coyote:
+			parent.runtime_vars.have_coyote = false
 			return parent.startJumpingState
 	
 	
@@ -24,26 +24,25 @@ func process_input(event: InputEvent) -> State:
 	
 	
 	if event.is_action_pressed("attack"):
-		parent.a_n_s_p = true
+		parent.runtime_vars.p_n_s_p = true
 		attack_type.append(1)
 	
 	elif event.is_action_pressed("shoot"):
-		parent.a_n_s_p = true
+		parent.runtime_vars.p_n_s_p = true
 		attack_type.append(2)
 	
 	return null
 
 func process_frame(_delta: float) -> State:
-	if parent.damaged:
-		parent.damaged = false
+	if parent.runtime_vars.damaged:
 		return parent.damagingState
 	
-	if parent.npc_detected:
+	if parent.runtime_vars.npc_detected:
 		parent.ui.interact_key.visible = true
 		if Input.is_action_just_pressed("interact"):
 			return parent.talkingState
 	
-	elif parent.interaction_detected:
+	elif parent.runtime_vars.interaction_detected:
 		parent.ui.interact_key.visible = true
 		if Input.is_action_just_pressed("interact"):
 			return parent.interactState
@@ -66,13 +65,13 @@ func process_physics(delta: float) -> State:
 			parent.player_sprite.scale.x = -1
 			parent.dash_dir = Vector2.LEFT
 	
-	parent.velocity.x = lerp(parent.velocity.x, movement, parent.movementWeight)
+	parent.velocity.x = lerp(parent.velocity.x, movement, parent.runtime_vars.movement_weight)
 	parent.move_and_slide()
 	
 	if parent.is_on_floor():
-		if parent.a_n_s_p && attack_type.has(1):
+		if parent.runtime_vars.p_n_s_p && attack_type.has(1):
 			return parent.attackingState
-		if parent.a_n_s_p && attack_type.has(2):
+		if parent.runtime_vars.p_n_s_p && attack_type.has(2):
 			return parent.shootingState
 		
 		return parent.landingState

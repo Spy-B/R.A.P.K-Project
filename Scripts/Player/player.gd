@@ -1,36 +1,27 @@
 extends CharacterBody2D
 
-# runtime variables
-var movementWeight: float = 0.2
-
-var damaged: bool = false
-var just_respawn: bool = false
-
-var isGrounded: bool = true
-var have_coyote: bool = true
-var jump_ponts: int
-
-var dash_points: int
-
-var combo_points: int = 2
-var a_n_s_p: bool = false
-
-var can_fire: bool = true
-
-# TODO this functionality is not done yet
-#var in_combo_fight: bool = false
-#var combo_fight_points: int = 0
-
-var interaction_detected: bool = false
-var obj_you_interact_with: Node = null
-
-var start_interact: bool = false
-
-var npc_detected: bool = false
-var npc_you_talk_to: Node = null
-
-var start_dialogue: bool = false
-var is_in_dialogue: bool = false
+## runtime variables
+@export var runtime_vars: Dictionary = {
+	"movement_weight": 0.2,
+	"damaged": false,
+	"just_respawn": false,
+	"have_coyote": true,
+	"jump_points": 0,
+	"dash_points": 0,
+	"combo_points": 2,
+	"p_n_a_p": false,
+	"can_fire": true,
+	# TODO this functionality is not done yet
+	#"in_combo_fight": false,
+	#"combo_fight_points": 0,
+	"interaction_detected": false,
+	"obj_you_interact_with": null,
+	"start_interact": false,
+	"npc_detected": false,
+	"npc_you_talk_to": null,
+	"start_dialogue": false,
+	"is_in_dialogue": false,
+}
 
 
 @export_group("Player States")
@@ -80,6 +71,7 @@ var dash_dir: Vector2 = Vector2.RIGHT
 @export var shootingAbility: bool = true
 @export var bulletScene: PackedScene = PackedScene.new()
 
+@export var infiniteAmmo: bool = false
 @export var ammoInMag: int = 9
 @export var maxAmmo: int = 9
 @export var extraAmmo: int = 999
@@ -129,7 +121,7 @@ func _ready() -> void:
 	else:
 		global_position = Global.current_slot.checkpoint
 	
-	dash_points = dashPoints
+	runtime_vars.dash_points = dashPoints
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)
@@ -166,26 +158,26 @@ func respawning_effect() -> void:
 	respawn_tween.tween_property(player_sprite.material, "shader_parameter/flashValue", 0.0, 0.1)
 
 func _on_respawn_cooldown_timeout() -> void:
-	just_respawn = false
+	runtime_vars.just_respawn = false
 
 
 func _on_npc_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group(friendlyGroup):
-		npc_detected = true
+		runtime_vars.npc_detected = true
 
 func _on_npc_detector_body_exited(body: Node2D) -> void:
 	if body.is_in_group(friendlyGroup):
-		npc_detected = false
+		runtime_vars.npc_detected = false
 
 
 func _on_interaction_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group(interactionGroup):
-		interaction_detected = true
+		runtime_vars.interaction_detected = true
 
 func _on_interaction_detector_body_exited(body: Node2D) -> void:
 	if body.is_in_group(interactionGroup):
-		interaction_detected = false
+		runtime_vars.interaction_detected = false
 
 
 func _on_dash_cooldown_timeout() -> void:
-	dash_points = dashPoints
+	runtime_vars.dash_points = dashPoints

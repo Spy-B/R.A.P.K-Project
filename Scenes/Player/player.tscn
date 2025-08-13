@@ -360,6 +360,7 @@ damagingState = NodePath("StateMachine/Damage")
 deathState = NodePath("StateMachine/Die")
 respawningState = NodePath("StateMachine/Respawn")
 bulletScene = ExtResource("13_88yj3")
+infiniteAmmo = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2.75)
@@ -372,7 +373,6 @@ texture = ExtResource("1_enipy")
 flip_h = true
 hframes = 12
 vframes = 11
-frame = 33
 
 [node name="HitArea" type="Area2D" parent="PlayerSprite"]
 position = Vector2(17, 16)

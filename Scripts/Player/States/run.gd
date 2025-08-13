@@ -29,19 +29,19 @@ func process_frame(_delta: float) -> State:
 	if Input.is_action_just_released("run"):
 		return parent.walkingState
 	
-	if parent.damaged:
-		parent.damaged = false
+	if parent.runtime_vars.damaged:
+		parent.runtime_vars.damaged = false
 		return parent.damagingState
 	
 	if parent.health <= 0:
 		return parent.deathState
 	
-	if parent.npc_detected:
+	if parent.runtime_vars.npc_detected:
 		parent.ui.interact_key.visible = true
 		if Input.is_action_just_pressed("interact"):
 			return parent.talkingState
 	
-	elif parent.interaction_detected:
+	elif parent.runtime_vars.interaction_detected:
 		parent.ui.interact_key.visible = true
 		if Input.is_action_just_pressed("interact"):
 			return parent.interactState
