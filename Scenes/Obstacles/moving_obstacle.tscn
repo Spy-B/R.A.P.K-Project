@@ -33,7 +33,7 @@ _data = {
 script = ExtResource("1_8jbfx")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-progress = 58048.0
+progress = 61442.0
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]
 remote_path = NodePath("../../Obstacle")

@@ -16,9 +16,9 @@
 [ext_resource type="Script" uid="uid://cxhhcu4ieh75a" path="res://Scripts/Player/States/die.gd" id="11_wk1dk"]
 [ext_resource type="Script" uid="uid://bk7yn64jahon1" path="res://Scripts/Player/States/dash.gd" id="12_fcwna"]
 [ext_resource type="PackedScene" uid="uid://ctncad00jdckv" path="res://Scenes/Player/bullet.tscn" id="13_88yj3"]
-[ext_resource type="Script" uid="uid://o10qb2iw2jbp" path="res://Scripts/Player/reload.gd" id="14_jlfwl"]
+[ext_resource type="Script" uid="uid://o10qb2iw2jbp" path="res://Scripts/Player/States/reload.gd" id="14_jlfwl"]
 [ext_resource type="Script" uid="uid://dc2qoct47fdum" path="res://Scripts/Player/States/talk.gd" id="15_aqm4k"]
-[ext_resource type="Script" uid="uid://caq1yqbc8kym7" path="res://Scripts/Player/respawn.gd" id="15_gsya0"]
+[ext_resource type="Script" uid="uid://caq1yqbc8kym7" path="res://Scripts/Player/States/respawn.gd" id="15_gsya0"]
 [ext_resource type="Script" uid="uid://brqsr0b2h4c1l" path="res://Scripts/Player/States/interact.gd" id="16_4no11"]
 [ext_resource type="Script" uid="uid://qjnw7dalx0dg" path="res://Scripts/Player/States/damage.gd" id="16_rqdc0"]
 [ext_resource type="Script" uid="uid://8gqr7prnhgj" path="res://Scripts/Player/ui.gd" id="17_1w6uu"]
@@ -374,6 +374,7 @@ texture = ExtResource("1_enipy")
 flip_h = true
 hframes = 12
 vframes = 11
+frame = 57
 
 [node name="HitArea" type="Area2D" parent="PlayerSprite"]
 position = Vector2(17, 16)
@@ -413,70 +414,72 @@ startingState = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("4_g7jtl")
-animationName = "Idle"
+animationName = &"Idle"
 
 [node name="Walk" type="Node" parent="StateMachine"]
 script = ExtResource("5_jpb0k")
-animationName = "Running"
+animationName = &"Running"
 
 [node name="Run" type="Node" parent="StateMachine"]
 script = ExtResource("6_msey6")
-animationName = "Running"
+animationName = &"Running"
 
 [node name="StartJump" type="Node" parent="StateMachine"]
 script = ExtResource("7_6kwnr")
 wait_time = 0.05
-animationName = "StartJumping"
+animationName = &"StartJumping"
 
 [node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource("7_ncnvn")
-animationName = "Jumping"
+animationName = &"Jumping"
 
 [node name="Fall" type="Node" parent="StateMachine"]
 script = ExtResource("8_aob0q")
-animationName = "Falling"
+animationName = &"Falling"
 
 [node name="Land" type="Node" parent="StateMachine"]
 script = ExtResource("9_8wtju")
 wait_time = 0.2
-animationName = "Landing"
+animationName = &"Landing"
 
 [node name="Dash" type="Node" parent="StateMachine"]
 script = ExtResource("12_fcwna")
-animationName = "Idle"
+animationName = &"Idle"
 
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource("9_6ut1u")
 comboAttack2 = "Attack_2"
 comboAttack3 = "Attack_3"
 shooting = "Shooting"
-animationName = "Attack_1"
+animationName = &"Attack_1"
 
 [node name="Shoot" type="Node" parent="StateMachine"]
 script = ExtResource("10_xqoms")
-animationName = "Shooting"
+animationName = &"Shooting"
 
 [node name="Reload" type="Node" parent="StateMachine"]
 script = ExtResource("14_jlfwl")
-animationName = "Idle"
+animationName = &"Idle"
 
 [node name="Interact" type="Node" parent="StateMachine"]
 script = ExtResource("16_4no11")
-animationName = "Idle"
+animationName = &"Idle"
 
 [node name="Talk" type="Node" parent="StateMachine"]
 script = ExtResource("15_aqm4k")
-animationName = "Idle"
+animationName = &"Idle"
 
 [node name="Damage" type="Node" parent="StateMachine"]
 script = ExtResource("16_rqdc0")
+animationName = &"Death"
 
 [node name="Die" type="Node" parent="StateMachine"]
 script = ExtResource("11_wk1dk")
-animationName = "Death"
+animationName = &"Death"
 
 [node name="Respawn" type="Node" parent="StateMachine"]
 script = ExtResource("15_gsya0")
+animationName = &"Idle"
 
 [node name="Timers" type="Node" parent="."]
 

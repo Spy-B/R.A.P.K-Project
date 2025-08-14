@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://4qvtq6epoo3e"]
+[gd_scene load_steps=8 format=3 uid="uid://4qvtq6epoo3e"]
 
 [ext_resource type="Script" uid="uid://c12b2x2ywwk8b" path="res://Scripts/Interactions/letter.gd" id="1_y3g3p"]
 [ext_resource type="Texture2D" uid="uid://beqlxk5kdxuin" path="res://Assets/UI/grunge-paper-background (Pixelized).jpg" id="3_p3v0h"]
@@ -7,6 +7,8 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0elpo"]
 radius = 20.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bxj2w"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_78ts3"]
 line_spacing = 5.0
@@ -19,17 +21,6 @@ outline_color = Color(0, 0, 0, 1)
 [node name="Letter" type="Node2D" groups=["Interaction"]]
 process_mode = 3
 script = ExtResource("1_y3g3p")
-letter = "The Framework must allow us to make a variety of playable characters, from simple
-arcade shooters type (Metal Slug) to complex playable characters that can grab items
-and keep them in their inventory, that can switch between ranged and melee combat,
-switch between weapons quickly, that can unlock special skills, or unleash special
-moves after fulfilling specific conditions (EX: The King Of Fighters’ Power Gauge,
-KATANA ZERO’ Slow Motion), entering stealth mode, climbing ladders, hanging on
-edges, jumping up, double jump, jumping down, walk, run/jog, sprint, dodge, interact
-with NPCs or environmental elements.
-
-Our goal is to be able to make different playable characters that each one of them has
-his own gameplay hook."
 
 [node name="Area2D" type="Area2D" parent="."]
 disable_mode = 1
@@ -40,7 +31,9 @@ collision_mask = 257
 shape = SubResource("CircleShape2D_0elpo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(1.5, 1.5)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bxj2w")
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 3
@@ -96,17 +89,7 @@ offset_right = 384.0
 offset_bottom = 388.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "The Framework must allow us to make a variety of playable characters, from simple
-arcade shooters type (Metal Slug) to complex playable characters that can grab items
-and keep them in their inventory, that can switch between ranged and melee combat,
-switch between weapons quickly, that can unlock special skills, or unleash special
-moves after fulfilling specific conditions (EX: The King Of Fighters’ Power Gauge,
-KATANA ZERO’ Slow Motion), entering stealth mode, climbing ladders, hanging on
-edges, jumping up, double jump, jumping down, walk, run/jog, sprint, dodge, interact
-with NPCs or environmental elements.
-
-Our goal is to be able to make different playable characters that each one of them has
-his own gameplay hook."
+text = "sdfsfddsfsdf"
 label_settings = SubResource("LabelSettings_78ts3")
 horizontal_alignment = 1
 vertical_alignment = 1

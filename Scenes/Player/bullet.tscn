@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ctncad00jdckv"]
 
-[ext_resource type="Script" uid="uid://cs0gh1mc8xqjy" path="res://Scripts/Player/arrow.gd" id="1_ddwgg"]
+[ext_resource type="Script" uid="uid://cs0gh1mc8xqjy" path="res://Scripts/Player/bullet.gd" id="1_ddwgg"]
 [ext_resource type="Texture2D" uid="uid://1vw8bkn6dcew" path="res://Assets/Characters/Player/arrow/iron_arrow.png" id="1_omxgh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5feqt"]

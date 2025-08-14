@@ -7,12 +7,12 @@ var tween: Tween
 @export var swingingCenterTexture: Texture
 @export_range(0.05, 0.5, 0.05) var swingingCenterTextureScale: float = 0.1
 
-@export_group("Stick Preperties")
+@export_group("Stick Properties")
 @export var stickTexture: Texture
 @export_range(0.1, 1.0, 0.05) var stickTextureScale: float = 1.0
 @export var rotated: bool = false
 
-@export_group("Pendulum Preperties")
+@export_group("Pendulum Properties")
 @export var pendulumTexture: Texture
 @export var animatedPendulumSprite: SpriteFrames
 @export var animeName: StringName = "default"
@@ -42,18 +42,18 @@ func _ready() -> void:
 	tween.tween_property(swinging_center, "rotation_degrees", 75.0, swingTime).from(-75.0)
 	
 	
-	apply_preperties()
+	apply_properties()
 
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
-		apply_preperties()
+		apply_properties()
 
 func _physics_process(_delta: float) -> void:
 	pass
 
 
-func apply_preperties() -> void:
+func apply_properties() -> void:
 	if swingingCenterTexture:
 		swining_center_sprite.texture = swingingCenterTexture
 		swining_center_sprite.scale.x = swingingCenterTextureScale

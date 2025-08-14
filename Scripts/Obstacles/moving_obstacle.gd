@@ -5,7 +5,7 @@ extends Path2D
 var speed: float = 1.0
 @export var speedScale: float = 1.0
 
-@export_group("Preperties")
+@export_group("Properties")
 @export var texture: Texture
 @export var animatedTexture: SpriteFrames
 @export var animeName: StringName = "default"
@@ -31,17 +31,17 @@ func _ready() -> void:
 		animation_player.play("Moving")
 		set_physics_process(false)
 	
-	apply_preperties()
+	apply_properties()
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
-		apply_preperties()
+		apply_properties()
 
 func _physics_process(_delta: float) -> void:
 	path_follower.progress += speed
 
 
-func apply_preperties() -> void:
+func apply_properties() -> void:
 	if animatedTexture:
 		animated_sprite.sprite_frames = animatedTexture
 	

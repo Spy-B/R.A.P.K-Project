@@ -14,7 +14,7 @@
 script = ExtResource("1_k8816")
 
 [node name="SpiningCenter" type="Marker2D" parent="."]
-rotation = 7787.14
+rotation = 7878.61
 
 [node name="StickSprite" type="Sprite2D" parent="SpiningCenter"]
 scale = Vector2(0.32, 0.32)

@@ -5,20 +5,20 @@ extends Node2D
 @export var spiningCenterTexture: Texture
 @export_range(0.01, 0.5, 0.05) var spiningCenterTextureScale: float = 0.1
 
-@export_group("Stick Preperties")
+@export_group("Stick Properties")
 @export var stickTexture: Texture
 @export_range(0.1, 1.0, 0.05) var stickTextureScale: float = 1.0
 @export var rotated: bool = false
 @export_range(-1000, 1000, 50, "or_less", "or_greater") var rotatingSpeed: float = 100.0
 
-@export_group("Pendulum Preperties")
+@export_group("Pendulum Properties")
 @export var pendulumTexture: Texture
 @export var animatedPendulumSprite: SpriteFrames
 @export var animeName: StringName = "default"
 @export_range(0.1, 1.0, 0.05) var pendulumScale: float = 1.0
 @export var collisionShape: Shape2D
 
-@export_group("Pendulum 2 Preperties")
+@export_group("Pendulum 2 Properties")
 @export var pendulum2Texture: Texture
 @export var animatedPendulum2Sprite: SpriteFrames
 @export var anime2Name: StringName = "default"
@@ -45,17 +45,17 @@ extends Node2D
 @onready var animated_pendulum_2_sprite: AnimatedSprite2D = $SpiningCenter/Pendulum2/AnimatedPendulum2Sprite
 
 func _ready() -> void:
-	apply_preperties()
+	apply_properties()
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
-		apply_preperties()
+		apply_properties()
 
 func _physics_process(delta: float) -> void:
 	spining_center.rotation_degrees += rotatingSpeed * delta
 
 
-func apply_preperties() -> void:
+func apply_properties() -> void:
 	if spiningCenterTexture:
 		spining_center_sprite.texture = spiningCenterTexture
 		spining_center_sprite.scale.x = spiningCenterTextureScale

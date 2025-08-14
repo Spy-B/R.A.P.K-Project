@@ -1,7 +1,7 @@
 class_name State
 extends Node
 
-@export_placeholder("Animation") var animationName: String
+@export var animationName: StringName
 
 var parent: CharacterBody2D
 var animation: AnimationPlayer
@@ -14,9 +14,6 @@ var jump_buffer_timer: Timer
 
 func enter() -> void:
 	animation.play(animationName)
-	
-	#state_animation = animation_tree["parameters/playback"]
-	#state_animation.travel(animationName)
 
 func exit() -> void:
 	pass
