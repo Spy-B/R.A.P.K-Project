@@ -70,9 +70,6 @@ func process_physics(delta: float) -> State:
 			#NOTE You should add "parent.runtime_vars.p_n_s_p = false" here 👇.
 			#NOTE Don't forget to add one more point to the "parent.combo_points" (you must update it in the enter() function 👆 also)
 		
-		#else:
-			#return shootingState
-		
 	else:
 		if timeout:
 			if !movement && parent.is_on_floor():
@@ -92,7 +89,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		finished_animations.append(2)
 	
 	elif anim_name == comboAttack3:
-		#Nt Use if you wanna add a New Combo Attack!
+		# NOTE unComment it if you wanna add a New Combo Attack!
 			#finished_animations.append(3)
 		parent.runtime_vars.p_n_s_p = false
 		timeout = true

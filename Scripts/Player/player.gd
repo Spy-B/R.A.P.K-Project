@@ -11,7 +11,9 @@ var runtime_vars: Dictionary = {
 	"combo_points": 2,
 	## Play Next as soon as possible
 	"p_n_s_p": false,
+	"p_n_t_s_p": false,
 	"can_fire": true,
+	"auto_shoot": false,
 	# TODO this functionality is not done yet
 	#"in_combo_fight": false,
 	#"combo_fight_points": 0,

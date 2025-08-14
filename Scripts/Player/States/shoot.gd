@@ -1,22 +1,26 @@
 extends State
 
 var finished_animations: Array = []
-
+var input_cooldown: bool = false
 
 func enter() -> void:
 	print("[State] -> Shooting")
-	super()
-	
-	parent.runtime_vars.p_n_s_p = false
-	finished_animations.clear()
 	
 	if parent.ammoInMag > 0 && parent.runtime_vars.can_fire:
+		parent.runtime_vars.p_n_s_p = false
+		parent.runtime_vars.p_n_t_s_p = false
+		finished_animations.clear()
+		super()
 		shooting()
+		
+		input_cooldown = true
+		get_tree().create_timer(0.1).timeout.connect(func() -> void: input_cooldown = false)
 
 func process_input(event: InputEvent) -> State:
 	if parent.is_on_floor():
+		# FIX the attack ability right after shooting
 		#if event.is_action_pressed("attack") && parent.attackingAbility:
-			#parent.a_n_s_p = true
+			#parent.runtime_vars.p_n_t_s_p = true
 		
 		if event.is_action_pressed("shoot") && !parent.autoShoot:
 			parent.runtime_vars.p_n_s_p = true
@@ -24,22 +28,21 @@ func process_input(event: InputEvent) -> State:
 	return null
 
 func process_frame(_delta: float) -> State:
-	#if parent.a_n_s_p && finished_animations.has(1):
-		#return attackingState
-	
-	if parent.runtime_vars.p_n_s_p && parent.runtime_vars.can_fire && finished_animations.has(1):
-		enter()
-	
-	# FIX 
-	if Input.is_action_pressed("shoot") && parent.autoShoote:
-		parent.runtime_vars.p_n_s_p = true
-		#shooting()
-	
 	if parent.runtime_vars.damaged:
 		return parent.damagingState
 	
 	if parent.health <= 0:
 		return parent.deathState
+	
+	# FIX the attack ability right after shooting
+	#if parent.runtime_vars.p_n_t_s_p && parent.runtime_vars.can_fire && finished_animations.has(1):
+		#return parent.attackingState
+	
+	if Input.is_action_pressed("shoot") && parent.autoShoot && !input_cooldown:
+		parent.runtime_vars.p_n_s_p = true
+	
+	if parent.runtime_vars.p_n_s_p && finished_animations.has(1):
+		enter()
 	
 	return null
 
