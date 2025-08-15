@@ -70,6 +70,7 @@ var dash_dir: Vector2 = Vector2.RIGHT
 
 @export_group("Attacking Ability")
 @export var attackingAbility: bool = true
+@export var comboPoints: int = 3
 
 @export_group("Shooting Ability")
 @export var shootingAbility: bool = true

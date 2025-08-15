@@ -18,12 +18,11 @@ func enter() -> void:
 
 func process_input(event: InputEvent) -> State:
 	if parent.is_on_floor():
-		# FIX the attack ability right after shooting
-		#if event.is_action_pressed("attack") && parent.attackingAbility:
-			#parent.runtime_vars.p_n_t_s_p = true
-		
 		if event.is_action_pressed("shoot") && !parent.autoShoot:
 			parent.runtime_vars.p_n_s_p = true
+		
+		if event.is_action_pressed("attack") && parent.attackingAbility:
+			parent.runtime_vars.p_n_t_s_p = true
 	
 	return null
 
@@ -34,15 +33,15 @@ func process_frame(_delta: float) -> State:
 	if parent.health <= 0:
 		return parent.deathState
 	
-	# FIX the attack ability right after shooting
-	#if parent.runtime_vars.p_n_t_s_p && parent.runtime_vars.can_fire && finished_animations.has(1):
-		#return parent.attackingState
 	
 	if Input.is_action_pressed("shoot") && parent.autoShoot && !input_cooldown:
 		parent.runtime_vars.p_n_s_p = true
 	
 	if parent.runtime_vars.p_n_s_p && finished_animations.has(1):
 		enter()
+	
+	if parent.runtime_vars.p_n_t_s_p && finished_animations.has(1):
+		return parent.attackingState
 	
 	return null
 
@@ -53,7 +52,7 @@ func process_physics(delta: float) -> State:
 	if !parent.is_on_floor():
 		parent.velocity.y += parent.gravity * delta
 	else:
-		if !parent.runtime_vars.can_fire && !parent.runtime_vars.p_n_s_p && finished_animations.has(1):
+		if !parent.runtime_vars.can_fire && !parent.runtime_vars.p_n_s_p && !parent.runtime_vars.p_n_t_s_p && finished_animations.has(1):
 			if parent.ammoInMag <= 0:
 				return parent.reloadingState
 			
