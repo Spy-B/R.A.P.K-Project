@@ -8,10 +8,9 @@ var runtime_vars: Dictionary = {
 	"have_coyote": true,
 	"jump_points": 0,
 	"dash_points": 0,
-	"combo_points": 2,
 	## Play Next as soon as possible
-	"p_n_s_p": false,
-	"p_n_t_s_p": false,
+	"attack_queued": false,
+	"shoot_queued": false,
 	"can_fire": true,
 	"auto_shoot": false,
 	# TODO this functionality is not done yet

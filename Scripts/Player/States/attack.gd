@@ -1,122 +1,75 @@
 extends State
 
-@export_group("Animations")
-@export var comboAttack1: StringName
-@export var comboAttack2: StringName
-@export var comboAttack3: StringName
-
+@export var comboAttacks: Array[String] = []
 @export var attackDamage: int = 25
 
-var finished_animations: Array = []
-var passedAnimation: int = 0
-
-#@onready var quit_state_timer: Timer = $"../../Timers/MeleeComboTimer"
+@onready var quit_state_timer: Timer = $"../../Timers/QuitStateTimer"
 var timeout: bool = false
+var current_attack_index: int = 0
 
 
 func enter() -> void:
 	print("[State] -> Attacking")
 	
-	passedAnimation += 1
-	animationName = "Attack" + str(passedAnimation)
-	super()
-	
-	parent.runtime_vars.combo_points -= 1
-	parent.runtime_vars.p_n_s_p = false
-	parent.runtime_vars.p_n_t_s_p = false
+	current_attack_index = 0
+	parent.runtime_vars.attack_queued = false
 	timeout = false
 	
-	#quit_state_timer.start()
-	get_tree().create_timer(0.4).timeout.connect(func() -> void: timeout = true)
-
-func exit() -> void:
-	parent.runtime_vars.combo_points = parent.comboPoints
-	finished_animations.clear()
-	passedAnimation = 0
-
+	if comboAttacks.size() > 0:
+		animation.play(comboAttacks[0])
+	else:
+		super()
+	
+	quit_state_timer.start()
 
 func process_input(event: InputEvent) -> State:
 	if event.is_action_pressed("attack") && !timeout:
-		parent.runtime_vars.p_n_s_p = true
-		#quit_state_timer.start()
-		get_tree().create_timer(0.4).timeout.connect(func() -> void: timeout = true)
+		parent.runtime_vars.attack_queued = true
+		quit_state_timer.start()
 	
-	# FIX
-	#if event.is_action_pressed(shootingInput) && !timeout:
-		#parent.runtime_vars.p_n_t_s_p = true
+	if event.is_action_pressed("shoot") && parent.shootingAbility && !timeout:
+		parent.runtime_vars.shoot_queued = true
+		quit_state_timer.start()
 	
 	return null
 
 func process_frame(_delta: float) -> State:
 	if parent.runtime_vars.damaged:
 		return parent.damagingState
-	
 	if parent.health <= 0:
 		return parent.deathState
-	
 	return null
 
 func process_physics(delta: float) -> State:
 	parent.velocity.y += parent.gravity * delta
-	
 	var movement: float = Input.get_axis("move_left", "move_right") * 20
 	
-	if movement:
-		if movement > 0:
-			parent.player_sprite.scale.x = 1
-		else:
-			parent.player_sprite.scale.x = -1
+	if movement != 0:
+		parent.player_sprite.scale.x = 1 if movement > 0 else -1
 	
 	parent.velocity.x = movement
 	parent.move_and_slide()
 	
 	
-	if parent.runtime_vars.p_n_s_p:
-		if finished_animations.has(1) && parent.runtime_vars.combo_points >= 1:
-			enter()
-	
-	
-	
-	
-	
-	#if parent.runtime_vars.p_n_s_p:
-		#if finished_animations.has(1) && parent.runtime_vars.combo_points == 2:
-			#animation.play(comboAttack2)
-			#parent.runtime_vars.combo_points -= 1
-			# NOTE Remove the "parent.runtime_vars.p_n_s_p = false" if you gonna add a new Combo Attack 👇
-			#parent.runtime_vars.p_n_s_p = false
-		
-		#elif finished_animations.has(2) && parent.runtime_vars.combo_points == 1:
-			#animation.play(comboAttack3)
-			#parent.runtime_vars.combo_points -= 1
-			# NOTE You should add "parent.runtime_vars.p_n_s_p = false" here 👇.
-			# NOTE Don't forget to add one more point to the "parent.combo_points" (you must update it in the enter() function 👆 also)
-	
-	
-	if !parent.runtime_vars.p_n_s_p:
-		if timeout:
-			if !movement && parent.is_on_floor():
-				return parent.idleState
-			return parent.runningState
+	if timeout:
+		if !movement && parent.is_on_floor():
+			return parent.idleState
+		return parent.runningState
 	
 	return null
+
 
 func _on_melee_combo_timer_timeout() -> void:
 	timeout = true
 
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if anim_name == comboAttack1:
-		finished_animations.append(1)
-	
-	elif anim_name == comboAttack2:
-		finished_animations.append(2)
-	
-	elif anim_name == comboAttack3:
-		# NOTE unComment it if you wanna add a New Combo Attack!
-			#finished_animations.append(3)
-		parent.runtime_vars.p_n_s_p = false
+func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
+	if parent.runtime_vars.attack_queued && current_attack_index < comboAttacks.size() - 1:
+		current_attack_index += 1
+		animation.play(comboAttacks[current_attack_index])
+		parent.runtime_vars.attack_queued = false
+		quit_state_timer.start()
+	else:
 		timeout = true
-
 
 func _on_hit_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group(parent.enemyGroup):

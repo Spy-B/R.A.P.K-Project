@@ -7,8 +7,8 @@ func enter() -> void:
 	print("[State] -> Shooting")
 	
 	if parent.ammoInMag > 0 && parent.runtime_vars.can_fire:
-		parent.runtime_vars.p_n_s_p = false
-		parent.runtime_vars.p_n_t_s_p = false
+		parent.runtime_vars.shoot_queued = false
+		parent.runtime_vars.attack_queued = false
 		finished_animations.clear()
 		super()
 		shooting()
@@ -19,10 +19,10 @@ func enter() -> void:
 func process_input(event: InputEvent) -> State:
 	if parent.is_on_floor():
 		if event.is_action_pressed("shoot") && !parent.autoShoot:
-			parent.runtime_vars.p_n_s_p = true
+			parent.runtime_vars.shoot_queued = true
 		
 		if event.is_action_pressed("attack") && parent.attackingAbility:
-			parent.runtime_vars.p_n_t_s_p = true
+			parent.runtime_vars.attack_queued = true
 	
 	return null
 
@@ -35,12 +35,12 @@ func process_frame(_delta: float) -> State:
 	
 	
 	if Input.is_action_pressed("shoot") && parent.autoShoot && !input_cooldown:
-		parent.runtime_vars.p_n_s_p = true
+		parent.runtime_vars.shoot_queued = true
 	
-	if parent.runtime_vars.p_n_s_p && finished_animations.has(1):
+	if parent.runtime_vars.shoot_queued && finished_animations.has(1):
 		enter()
 	
-	if parent.runtime_vars.p_n_t_s_p && finished_animations.has(1):
+	if parent.runtime_vars.attack_queued && finished_animations.has(1):
 		return parent.attackingState
 	
 	return null
@@ -49,21 +49,22 @@ func process_physics(delta: float) -> State:
 	var movement: float = Input.get_axis("move_left", "move_right") * 20
 	parent.velocity.x = movement
 	
-	if !parent.is_on_floor():
-		parent.velocity.y += parent.gravity * delta
-	else:
-		if !parent.runtime_vars.can_fire && !parent.runtime_vars.p_n_s_p && !parent.runtime_vars.p_n_t_s_p && finished_animations.has(1):
-			if parent.ammoInMag <= 0:
-				return parent.reloadingState
-			
-			if !movement:
-				return parent.idleState
-			elif movement:
-				return parent.walkingState
+	
+	parent.velocity.y += parent.gravity * delta
+	
+	if !parent.runtime_vars.can_fire && !parent.runtime_vars.shoot_queued && !parent.runtime_vars.attack_queued && finished_animations.has(1):
+		if parent.ammoInMag <= 0:
+			return parent.reloadingState
+		
+		if !movement:
+			return parent.idleState
+		elif movement:
+			return parent.walkingState
 	
 	parent.move_and_slide()
 	
 	return null
+
 
 func shooting() -> void:
 	var dir: float = Input.get_axis("move_left", "move_right")
@@ -80,8 +81,7 @@ func shooting() -> void:
 	
 	# fire rate functionality
 	parent.runtime_vars.can_fire = false
-	await get_tree().create_timer(parent.shootingTime).timeout
-	parent.runtime_vars.can_fire = true
+	get_tree().create_timer(parent.shootingTime).timeout.connect(func() -> void: parent.runtime_vars.can_fire = true)
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == animationName:
