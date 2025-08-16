@@ -9,14 +9,13 @@ func enter() -> void:
 	super()
 	
 	reaload_done = false
-	parent.can_fire = false
+	parent.runtime_vars.can_fire = false
 	
 	reloading_timer.wait_time = parent.reloadingTime
 	reloading_timer.start()
 
 func process_frame(_delta: float) -> State:
-	if parent.damaged:
-		parent.damaged = false
+	if parent.runtime_vars.damaged:
 		return parent.damagingState
 	
 	if parent.health <= 0:
@@ -39,5 +38,5 @@ func _on_reloading_timer_timeout() -> void:
 		parent.extraAmmo = 0
 	
 	reaload_done = true
-	parent.can_fire = true
+	parent.runtime_vars.can_fire = true
 	reloading_timer.stop()

@@ -3,12 +3,13 @@ extends State
 var finished_animations: Array = []
 var input_cooldown: bool = false
 
+
 func enter() -> void:
 	print("[State] -> Shooting")
 	
 	if parent.ammoInMag > 0 && parent.runtime_vars.can_fire:
 		parent.runtime_vars.shoot_queued = false
-		parent.runtime_vars.attack_queued = false
+		parent.runtime_vars.p_n_t_s_p = false
 		finished_animations.clear()
 		super()
 		shooting()
@@ -22,7 +23,7 @@ func process_input(event: InputEvent) -> State:
 			parent.runtime_vars.shoot_queued = true
 		
 		if event.is_action_pressed("attack") && parent.attackingAbility:
-			parent.runtime_vars.attack_queued = true
+			parent.runtime_vars.p_n_t_s_p = true
 	
 	return null
 
@@ -34,13 +35,16 @@ func process_frame(_delta: float) -> State:
 		return parent.deathState
 	
 	
+	if parent.ammoInMag <= 0 && finished_animations.has(1):
+		return parent.reloadingState
+	
 	if Input.is_action_pressed("shoot") && parent.autoShoot && !input_cooldown:
 		parent.runtime_vars.shoot_queued = true
 	
 	if parent.runtime_vars.shoot_queued && finished_animations.has(1):
 		enter()
 	
-	if parent.runtime_vars.attack_queued && finished_animations.has(1):
+	if parent.runtime_vars.p_n_t_s_p && finished_animations.has(1):
 		return parent.attackingState
 	
 	return null
@@ -49,13 +53,15 @@ func process_physics(delta: float) -> State:
 	var movement: float = Input.get_axis("move_left", "move_right") * 20
 	parent.velocity.x = movement
 	
+	if !parent.is_on_floor():
+		parent.velocity.y += parent.gravity * delta
+	else:
+		if !parent.runtime_vars.can_fire && !parent.runtime_vars.shoot_queued && !parent.runtime_vars.p_n_t_s_p && finished_animations.has(1):
+			if parent.ammoInMag <= 0:
+				return parent.reloadingState
 	
-	parent.velocity.y += parent.gravity * delta
 	
-	if !parent.runtime_vars.can_fire && !parent.runtime_vars.shoot_queued && !parent.runtime_vars.attack_queued && finished_animations.has(1):
-		if parent.ammoInMag <= 0:
-			return parent.reloadingState
-		
+	if !parent.runtime_vars.shoot_queued && parent.ammoInMag > 0 && finished_animations.has(1):
 		if !movement:
 			return parent.idleState
 		elif movement:
