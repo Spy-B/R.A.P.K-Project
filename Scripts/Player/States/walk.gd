@@ -9,6 +9,10 @@ func process_input(event: InputEvent) -> State:
 		if event.is_action_pressed("jump") && parent.jumpingAbility:
 			return parent.startJumpingState
 	
+		if event.is_action_pressed("dash") && parent.dashingAbility:
+			if parent.runtime_vars.dash_points > 0:
+				return parent.dashingState
+	
 		if event.is_action_pressed("shoot") && parent.shootingAbility:
 			return parent.shootingState
 	
@@ -31,7 +35,7 @@ func process_physics(delta: float) -> State:
 	if movement > 0:
 		parent.player_sprite.scale.x = 1
 		parent.dash_dir = Vector2.RIGHT
-	else:
+	elif movement < 0:
 		parent.player_sprite.scale.x = -1
 		parent.dash_dir = Vector2.LEFT
 	

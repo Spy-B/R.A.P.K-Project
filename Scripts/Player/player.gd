@@ -66,10 +66,11 @@ var dash_dir: Vector2 = Vector2.RIGHT
 @export_range(500, 5000, 100) var dashPower: float = 2500
 @export_range(100, 1000, 50) var dashLength: float = 250
 @export_range(1, 10, 1, "or_greater") var dashPoints: int = 1
+@export_range(0.1, 5.0, 0.2, "or_greater") var dashCooldown: float = 1.0
 
 @export_group("Attacking Ability")
 @export var attackingAbility: bool = true
-@export var comboPoints: int = 3
+#@export var comboPoints: int = 3
 
 @export_group("Shooting Ability")
 @export var shootingAbility: bool = true
@@ -125,6 +126,7 @@ func _ready() -> void:
 	else:
 		global_position = Global.current_slot.checkpoint
 	
+	runtime_vars.jump_points = jumpPoints
 	runtime_vars.dash_points = dashPoints
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -181,7 +183,3 @@ func _on_interaction_detector_body_entered(body: Node2D) -> void:
 func _on_interaction_detector_body_exited(body: Node2D) -> void:
 	if body.is_in_group(interactionGroup):
 		runtime_vars.interaction_detected = false
-
-
-func _on_dash_cooldown_timeout() -> void:
-	runtime_vars.dash_points = dashPoints

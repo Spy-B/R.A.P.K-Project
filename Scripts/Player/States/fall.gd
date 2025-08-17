@@ -10,7 +10,11 @@ func enter() -> void:
 	parent.runtime_vars.p_n_s_p = false
 
 func process_input(event: InputEvent) -> State:
-	if event.is_action_pressed("jump") && parent.jumpingAbility:
+	if event.is_action_pressed("jump") && parent.jumpingAbility && parent.runtime_vars.jump_points > 0:
+		return parent.jumpingState
+	
+	
+	if event.is_action_pressed("jump") && parent.jumpingAbility && parent.runtime_vars.jump_points <= 0:
 		if jump_buffer_timer.is_stopped():
 			jump_buffer_timer.start()
 		
@@ -19,8 +23,9 @@ func process_input(event: InputEvent) -> State:
 			return parent.startJumpingState
 	
 	
-	if event.is_action_pressed("dash") && parent.runtime_vars.dash_points > 0:
-		return parent.dashingState
+	if event.is_action_pressed("dash") && parent.dashingAbility:
+		if parent.runtime_vars.dash_points > 0:
+			return parent.dashingState
 	
 	
 	if event.is_action_pressed("attack"):

@@ -1,31 +1,28 @@
 extends State
 
-@export_group("Timer")
-@onready var timer: Timer = $"../../Timers/LandTimer"
-@export var wait_time: float = 1
+#@export var quit_landing_after: float = 0.2
+var landing_done: bool = false
 
-var timeout: bool = false
 
 func enter() -> void:
 	print("[State] -> Landing")
 	super()
 	
 	parent.runtime_vars.have_coyote = true
-	parent.runtime_vars.dash_points = 1
+	parent.runtime_vars.jump_points = parent.jumpPoints
+	parent.runtime_vars.dash_points = parent.dashPoints
 	
-	timeout = false
-	timer.wait_time = wait_time
-	timer.start()
+	landing_done = false
+	#get_tree().create_timer(quit_landing_after).timeout.connect(func() -> void: landing_done = true)
 
 func process_input(event: InputEvent) -> State:
-	if event.is_action_pressed("jump"):
+	if event.is_action_pressed("jump") && parent.jumpingAbility && parent.runtime_vars.jump_points > 0:
 		return parent.startJumpingState
 	
 	return null
 
 func process_frame(_delta: float) -> State:
 	if parent.runtime_vars.damaged:
-		parent.runtime_vars.damaged = false
 		return parent.damagingState
 	
 	return null
@@ -47,12 +44,13 @@ func process_physics(_delta: float) -> State:
 	if !jump_buffer_timer.is_stopped():
 		return parent.startJumpingState
 	
-	if timeout:
+	if landing_done:
 		if !movement && parent.is_on_floor():
 			return parent.idleState
 		return parent.runningState
 	
 	return null
 
-func _on_quit_jump_timer_timeout() -> void:
-	timeout = true
+
+func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
+	landing_done = true

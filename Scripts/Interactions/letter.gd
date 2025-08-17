@@ -40,6 +40,7 @@ func apply_properties() -> void:
 		label.text = letterText
 	
 	if animatedLetterSprite:
+		sprite.texture = null
 		animated_sprite.sprite_frames = animatedLetterSprite
 		animated_sprite.scale.x = letterTextureScale
 		animated_sprite.scale.y = letterTextureScale

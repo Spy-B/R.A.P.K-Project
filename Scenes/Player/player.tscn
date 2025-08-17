@@ -360,7 +360,9 @@ damagingState = NodePath("StateMachine/Damage")
 deathState = NodePath("StateMachine/Die")
 respawningState = NodePath("StateMachine/Respawn")
 bulletScene = ExtResource("13_88yj3")
-shootingTime = 0.26
+infiniteAmmo = true
+autoShoot = true
+shootingTime = 0.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2.75)
@@ -373,6 +375,7 @@ texture = ExtResource("1_enipy")
 flip_h = true
 hframes = 12
 vframes = 11
+frame = 57
 
 [node name="HitArea" type="Area2D" parent="PlayerSprite"]
 position = Vector2(17, 16)
@@ -437,7 +440,6 @@ animationName = &"Falling"
 
 [node name="Land" type="Node" parent="StateMachine"]
 script = ExtResource("9_8wtju")
-wait_time = 0.2
 animationName = &"Landing"
 
 [node name="Dash" type="Node" parent="StateMachine"]
@@ -481,8 +483,6 @@ animationName = &"Idle"
 
 [node name="StartJumpTimer" type="Timer" parent="Timers"]
 
-[node name="LandTimer" type="Timer" parent="Timers"]
-
 [node name="QuitStateTimer" type="Timer" parent="Timers"]
 
 [node name="CoyoteTimer" type="Timer" parent="Timers"]
@@ -492,8 +492,6 @@ one_shot = true
 [node name="JumpBufferTimer" type="Timer" parent="Timers"]
 wait_time = 0.3
 one_shot = true
-
-[node name="DashCooldown" type="Timer" parent="Timers"]
 
 [node name="ReloadingTimer" type="Timer" parent="Timers"]
 
@@ -628,12 +626,11 @@ visible = false
 [connection signal="body_exited" from="PlayerSprite/NPCDetector" to="." method="_on_npc_detector_body_exited"]
 [connection signal="body_entered" from="PlayerSprite/InteractionDetector" to="." method="_on_interaction_detector_body_entered"]
 [connection signal="body_exited" from="PlayerSprite/InteractionDetector" to="." method="_on_interaction_detector_body_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Land" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Attack" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/Shoot" method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Timers/StartJumpTimer" to="StateMachine/StartJump" method="_on_start_jump_timer_timeout"]
-[connection signal="timeout" from="Timers/LandTimer" to="StateMachine/Land" method="_on_quit_jump_timer_timeout"]
 [connection signal="timeout" from="Timers/QuitStateTimer" to="StateMachine/Attack" method="_on_melee_combo_timer_timeout"]
-[connection signal="timeout" from="Timers/DashCooldown" to="." method="_on_dash_cooldown_timeout"]
 [connection signal="timeout" from="Timers/ReloadingTimer" to="StateMachine/Reload" method="_on_reloading_timer_timeout"]
 [connection signal="timeout" from="Timers/RespawnTimer" to="StateMachine/Die" method="_on_respawn_timer_timeout"]
 [connection signal="timeout" from="Timers/RespawnCooldown" to="." method="_on_respawn_cooldown_timeout"]

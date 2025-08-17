@@ -2,26 +2,23 @@ extends State
 
 var z: Vector2
 
-@onready var dash_cooldown: Timer = $"../../Timers/DashCooldown"
 
 func enter() -> void:
 	print("[State] -> Dashing")
 	
 	parent.velocity = Vector2.ZERO
 	
-	if parent.runtime_vars.dash_points > 0:
-		super()
-		
-		if !parent.dash_dir:
-			parent.dash_dir = Input.get_action_strength("move_right") * Vector2.RIGHT
-			parent.dash_dir += Input.get_action_strength("move_left") * Vector2.LEFT
-			#parent.dash_dir += Input.get_action_strength("move_up") * Vector2.UP
-			#parent.dash_dir += Input.get_action_strength("move_down") * Vector2.DOWN
-		
-		parent.runtime_vars.dash_points -= 1
-		
-		dash_cooldown.wait_time = 1.0
-		dash_cooldown.start()
+	super()
+	
+	if !parent.dash_dir:
+		parent.dash_dir = Input.get_action_strength("move_right") * Vector2.RIGHT
+		parent.dash_dir += Input.get_action_strength("move_left") * Vector2.LEFT
+		#parent.dash_dir += Input.get_action_strength("move_up") * Vector2.UP
+		#parent.dash_dir += Input.get_action_strength("move_down") * Vector2.DOWN
+	
+	parent.runtime_vars.dash_points -= 1
+	
+	get_tree().create_timer(parent.dashCooldown).timeout.connect(func() -> void: parent.runtime_vars.dash_points = parent.dashPoints)
 
 func process_input(_event: InputEvent) -> State:
 	return null
